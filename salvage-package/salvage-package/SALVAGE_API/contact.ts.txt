@@ -1,0 +1,168 @@
+import { NextResponse } from 'next/server'
+
+interface ContactData {
+  name: string
+  email: string
+  role: string
+  subject: string
+  message: string
+  honeypot?: string
+}
+
+// Simple server-side validation
+function validateContactData(data: ContactData) {
+  const errors = []
+  
+  if (!data.name?.trim()) {
+    errors.push('Name is required')
+  }
+  
+  if (!data.email?.trim()) {
+    errors.push('Email is required')
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.push('Valid email is required')
+  }
+  
+  if (!data.role) {
+    errors.push('Role is required')
+  }
+  
+  if (!data.subject?.trim()) {
+    errors.push('Subject is required')
+  }
+  
+  if (!data.message?.trim()) {
+    errors.push('Message is required')
+  }
+  
+  return errors
+}
+
+async function sendBrevoEmail(contactData: ContactData) {
+  const brevoApiKey = process.env.BREVO_API_KEY
+  
+  if (!brevoApiKey) {
+    console.log('No Brevo API key found, skipping email send')
+    return { success: false, reason: 'no_api_key' }
+  }
+  
+  try {
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': brevoApiKey
+      },
+      body: JSON.stringify({
+        sender: {
+          name: 'Promptly Contact Form',
+          email: 'noreply@zazapromptly.com'
+        },
+        to: [
+          {
+            email: 'hello@zazapromptly.com',
+            name: 'Promptly Team'
+          }
+        ],
+        subject: `Contact Form: ${contactData.subject}`,
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="color: #333; border-bottom: 2px solid #7c3aed; padding-bottom: 10px;">New Contact Form Submission</h2>
+            
+            <div style="margin: 20px 0;">
+              <p style="margin: 10px 0;"><strong>Name:</strong> ${contactData.name}</p>
+              <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${contactData.email}">${contactData.email}</a></p>
+              <p style="margin: 10px 0;"><strong>Role:</strong> ${contactData.role}</p>
+              <p style="margin: 10px 0;"><strong>Subject:</strong> ${contactData.subject}</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+              <h3 style="color: #333; margin-bottom: 10px;">Message:</h3>
+              <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #7c3aed; white-space: pre-wrap; font-family: 'Courier New', monospace;">${contactData.message}</div>
+            </div>
+            
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #666;">
+              <p>Submitted: ${new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })} GMT</p>
+              <p>From: Promptly V2 Contact Form</p>
+            </div>
+          </div>
+        `,
+        textContent: `
+New Contact Form Submission
+
+Name: ${contactData.name}
+Email: ${contactData.email}
+Role: ${contactData.role}
+Subject: ${contactData.subject}
+
+Message:
+${contactData.message}
+
+Submitted: ${new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })} GMT
+From: Promptly V2 Contact Form
+        `
+      })
+    })
+    
+    if (response.ok) {
+      return { success: true }
+    } else {
+      const errorData = await response.json().catch(() => ({}))
+      console.error('Brevo API error:', errorData)
+      return { success: false, reason: 'api_error', error: errorData }
+    }
+  } catch (error) {
+    console.error('Brevo email send error:', error)
+    return { success: false, reason: 'network_error', error }
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json().catch(() => ({}))
+    
+    // Server-side validation
+    const validationErrors = validateContactData(body)
+    if (validationErrors.length > 0) {
+      return NextResponse.json(
+        { ok: false, errors: validationErrors },
+        { status: 400 }
+      )
+    }
+    
+    const contactData = {
+      name: body.name.trim(),
+      email: body.email.trim().toLowerCase(),
+      role: body.role,
+      subject: body.subject.trim(),
+      message: body.message.trim(),
+      timestamp: new Date().toISOString()
+    }
+    
+    console.log('Contact submission received', {
+      ...contactData,
+      message: contactData.message.substring(0, 100) + '...' // Truncate for logs
+    })
+    
+    // Send email via Brevo
+    const emailResult = await sendBrevoEmail(contactData)
+    
+    if (emailResult.success) {
+      console.log('Contact email sent successfully')
+    } else {
+      console.log('Contact email not sent:', emailResult.reason)
+      // Still return success to user - we got their message
+    }
+    
+    // Simulate a brief delay for realistic UX
+    await new Promise(resolve => setTimeout(resolve, 300))
+    
+    return NextResponse.json({ ok: true })
+  } catch (error) {
+    console.error('Contact form error:', error)
+    return NextResponse.json(
+      { ok: false, error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
