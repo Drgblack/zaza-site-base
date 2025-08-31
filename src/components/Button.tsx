@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { clsx } from 'clsx';
+﻿import * as React from 'react';
+import clsx from 'clsx';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   asChild?: boolean;
