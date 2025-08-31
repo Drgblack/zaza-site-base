@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { CheckCircle, Mail, Sparkles, Loader2, AlertCircle, Gift } from "lucide-react";
@@ -77,7 +77,7 @@ export function EmailCaptureForm({
 
       if (res.ok && data?.ok) {
         setStatus("success");
-        setMessage("🎉 Success! Check your email for your free resources.");
+        setMessage("?? Success! Check your email for your free resources.");
         setEmail("");
         setFirstName("");
         setLastName("");
@@ -123,7 +123,7 @@ export function EmailCaptureForm({
             <CheckCircle className="w-6 h-6 text-white" />
           </div>
         </div>
-        <h3 className="text-xl font-bold text-gray-800 mb-2">Welcome to the AI Teaching Revolution! 🚀</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">Welcome to the AI Teaching Revolution! ??</h3>
         <p className="text-gray-600 mb-4">{message}</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
@@ -252,11 +252,11 @@ export function EmailCaptureForm({
           <p className="text-sm text-gray-600 mb-3">Trusted by teachers at leading schools:</p>
           <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-gray-500">
             <span>Stanford Elementary</span>
-            <span>•</span>
+            <span>�</span>
             <span>NYC Public Schools</span>
-            <span>•</span>
+            <span>�</span>
             <span>London International</span>
-            <span>•</span>
+            <span>�</span>
             <span>Sydney Grammar</span>
           </div>
         </div>

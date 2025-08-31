@@ -45,7 +45,7 @@ export default function Header() {
             <div className="relative">
               <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 flex items-center justify-center">
                 <img 
-                  src="/images/zaza-logo.png" 
+                  src="/images/images/zaza-logo.png" 
                   alt="Zaza Technologies Logo" 
                   className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg"
                   width={40}

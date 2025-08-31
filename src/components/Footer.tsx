@@ -62,7 +62,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <Link href="/" aria-label="Zaza Technologies home" className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-900 rounded-lg p-1">
               <Image
-                src="/images/zaza-logo.png"
+                src="/images/images/zaza-logo.png"
                 alt="Zaza Technologies logo"
                 width={28}
                 height={28}
