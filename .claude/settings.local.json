@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(md salvage-package:*)",
+      "Bash(md:*)",
+      "Bash(md tests)",
+      "Bash(md examples)",
+      "Bash(md docs)"
+    ],
+    "deny": []
+  }
+}

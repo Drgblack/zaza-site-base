@@ -38,69 +38,67 @@ export function EmailCaptureForm({
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email) {
-      setStatus('error');
-      setMessage('Please enter your email address');
-      return;
-    }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (!validateEmail(email)) {
-      setStatus('error');
-      setMessage('Please enter a valid email address');
-      return;
-    }
+  // basic client validation
+  if (!email) {
+    setStatus('error');
+    setMessage('Please enter your email address');
+    return;
+  }
+  if (!validateEmail(email)) {
+    setStatus('error');
+    setMessage('Please enter a valid email address');
+    return;
+  }
 
-    setIsSubmitting(true);
-    setStatus('idle');
-    setMessage('');
+  setIsSubmitting(true);
+  setStatus('idle');
+  setMessage('');
 
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          firstName,
-          lastName,
-          name: firstName + (lastName ? ` ${lastName}` : '') || undefined,
-          source,
-          tags: [...tags, 'email_capture_form'],
-        }),
-      });
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        firstName,
+        lastName,
+        name: firstName + (lastName ? ` ${lastName}` : '') || undefined,
+        source,
+        tags: [...tags, 'email_capture_form'],
+      }),
+    });
 
-      const data = await response.json();
+    const data = await res.json();
 
-      if (response.ok && data.success) {
-        setStatus('success');
-        setMessage('🎉 Success! Check your email for your free resources.');
-        setEmail('');
-        setFirstName('');
-        setLastName('');
-        
-        // Track successful subscription
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'email_capture', {
-            event_category: 'engagement',
-            event_label: source,
-            value: 1,
-          });
-        }
-      } else {
-        setStatus('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
+    if (res.ok && data?.ok) {
+      setStatus('success');
+      setMessage('🎉 Success! Check your email for your free resources.');
+      setEmail('');
+      setFirstName('');
+      setLastName('');
+
+      // Optional analytics hook
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'email_capture', {
+          event_category: 'engagement',
+          event_label: source,
+          value: 1,
+        });
       }
-    } catch (error) {
+    } else {
       setStatus('error');
-      setMessage('Network error. Please check your connection and try again.');
-    } finally {
-      setIsSubmitting(false);
+      setMessage(data?.error || 'Something went wrong. Please try again.');
     }
-  };
+  } catch {
+    setStatus('error');
+    setMessage('Network error. Please check your connection and try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const sizeClasses = {
     sm: 'text-sm space-y-3',
