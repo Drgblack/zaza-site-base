@@ -1,0 +1,8 @@
+export async function GET() {
+  return Response.json({
+    ok: true,
+    marker: "live-test-1",                // 👈 easy-to-spot change
+    sha: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? null,
+    ts: Date.now(),
+  });
+}

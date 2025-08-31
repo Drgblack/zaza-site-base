@@ -1,0 +1,57 @@
+{
+  "name": "salvage",
+  "version": "1.0.0",
+  "description": "A comprehensive data recovery and analysis toolkit for file system forensics",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "salvage": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "prepublishOnly": "npm run build",
+    "cli": "node dist/cli/index.js"
+  },
+  "keywords": [
+    "data-recovery",
+    "forensics",
+    "file-system",
+    "analysis",
+    "security",
+    "cli"
+  ],
+  "author": "Claude AI",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
+    "progress": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/jest": "^29.5.8",
+    "@types/inquirer": "^8.2.10",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ]
+}
