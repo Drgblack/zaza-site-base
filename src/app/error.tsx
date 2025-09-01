@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Error({
   error,
@@ -23,7 +24,7 @@ export default function Error({
             Something went wrong
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            We're sorry, but something unexpected happened. Please try again or contact support if the problem persists.
+            We&apos;re sorry, but something unexpected happened. Please try again or contact support if the problem persists.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -31,7 +32,7 @@ export default function Error({
             Try Again
           </Button>
           <Button variant="outline" asChild>
-            <a href="/">Go Home</a>
+            <Link href="/">Go Home</Link>
           </Button>
         </div>
       </div>

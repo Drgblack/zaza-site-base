@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { BookOpen, Download, Video, FileText, Lightbulb, Users } from 'lucide-react';
 
 type Props = {
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 };
 
 const resourceCategories = [
@@ -67,7 +67,8 @@ const resourceCategories = [
   }
 ];
 
-export default function ResourcesPage({params: {locale}}: Props) {
+export default async function ResourcesPage({params}: Props) {
+  const {locale} = await params;
   setRequestLocale(locale);
 
   return (

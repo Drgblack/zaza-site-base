@@ -9,10 +9,11 @@ import { BlogPreview } from "@/components/site/blog-preview";
 import { ResourcesPreview } from "@/components/site/resources-preview";
 
 type Props = {
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 };
 
-export default function HomePage({params: {locale}}: Props) {
+export default async function HomePage({params}: Props) {
+  const {locale} = await params;
   setRequestLocale(locale);
 
   return (

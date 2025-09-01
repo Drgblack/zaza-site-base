@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Check } from 'lucide-react';
 
 export function PricingCTA() {
-  const handleStripeCheckout = (planType: string) => {
+  const handleStripeCheckout = (_planType: string) => {
     // Environment variables will be used for Stripe URLs
     const checkoutUrl = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_MONTHLY || 'https://buy.stripe.com/placeholder';
     window.open(checkoutUrl, '_blank');
@@ -19,7 +19,7 @@ export function PricingCTA() {
             Simple, Transparent Pricing
           </h2>
           <p className="mt-4 text-gray-500 md:text-xl dark:text-gray-400">
-            Start free, upgrade when you're ready
+            Start free, upgrade when you&apos;re ready
           </p>
         </div>
         

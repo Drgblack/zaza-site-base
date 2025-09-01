@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 
 type Props = {
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 };
 
 const posts = [
@@ -34,7 +34,8 @@ const posts = [
   }
 ];
 
-export default function BlogPage({params: {locale}}: Props) {
+export default async function BlogPage({params}: Props) {
+  const {locale} = await params;
   setRequestLocale(locale);
 
   return (

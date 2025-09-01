@@ -1,32 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)",
-      "Bash(md salvage-package:*)",
-      "Bash(md:*)",
-      "Bash(md tests)",
-      "Bash(md examples)",
-      "Bash(md docs)",
-      "Bash(git checkout:*)",
-      "Bash(npm install:*)",
+      "Bash(find:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(rm:*)",
       "Bash(npm run build:*)",
       "Bash(npx next:*)",
-      "Bash(rm:*)",
       "Bash(TSC_COMPILE_ON_ERROR=true npx next build)",
-      "Bash(cp:*)",
-      "Bash(powershell:*)",
-      "Bash(node_modules\\.bin\\next build:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(curl:*)",
-      "WebFetch(domain:zaza-site-base.vercel.app)",
-      "Bash(gh pr create:*)",
-      "Bash(gh pr merge:*)",
-      "Bash(node:*)",
-      "Bash(npm:*)",
-      "Bash(npx shadcn@latest init:*)",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(timeout 10s npm run dev)",
+      "Bash(timeout 15s npm run dev)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
