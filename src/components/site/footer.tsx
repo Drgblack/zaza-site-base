@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+﻿import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 
@@ -64,7 +64,7 @@ export function Footer() {
               <span className="text-xl font-bold text-gray-900 dark:text-white">
                 Zaza Technologies
               </span>
-            </Link>
+            </a>
             <p className="text-gray-600 dark:text-gray-300 mb-4 max-w-sm">
               AI-powered tools that help teachers save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.
             </p>
@@ -92,12 +92,12 @@ export function Footer() {
                         {link.name}
                       </a>
                     ) : (
-                      <Link
+                      <a
                         href={link.href}
                         className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                       >
                         {link.name}
-                      </Link>
+                      </a>
                     )}
                   </li>
                 ))}
@@ -156,3 +156,5 @@ export function Footer() {
     </footer>
   );
 }
+
+
