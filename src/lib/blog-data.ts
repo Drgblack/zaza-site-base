@@ -10,33 +10,59 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-  // Featured Post
+  // Featured Post - Teacher Tips
   {
-    title: "10 Time-Saving AI Tools for Teachers",
-    description: "Discover the latest AI tools that can help you save hours every week in lesson planning, grading, and parent communication. From Zaza Promptly to classroom management assistants.",
+    title: "5 Phrases That Turn Parent Emails From Stressful to Supportive",
+    description: "Transform difficult parent conversations with these proven communication strategies that build trust and collaboration. Real examples included.",
     date: "2024-01-15",
-    slug: "ai-tools-for-teachers",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+    slug: "parent-emails-stressful-to-supportive",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&h=600&fit=crop",
     category: "Teacher Tips",
-    author: "Zaza Team",
-    readTime: "8 min read"
+    author: "Sarah Mitchell",
+    readTime: "4 min read"
   },
 
-  // Teacher Tips Category
+  // Productivity Category
   {
-    title: "Effective Feedback Strategies with AI",
-    description: "Learn how to combine AI assistance with personal touch to provide meaningful student feedback that drives learning outcomes.",
+    title: "How I Won Back My Sunday Afternoons",
+    description: "A teacher's honest story about reclaiming weekend time by automating reports and administrative tasks. Plus the tools that made it possible.",
+    date: "2024-01-12",
+    slug: "won-back-sunday-afternoons",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    category: "Productivity",
+    author: "Jessica Chen",
+    readTime: "5 min read"
+  },
+
+  // Parent Communication Category  
+  {
+    title: "The Secret to Confident Parent Reports",
+    description: "Step-by-step approach to writing parent reports that communicate effectively while maintaining professional confidence. Discover how AI assistants can help.",
     date: "2024-01-10",
-    slug: "effective-feedback-ai",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop",
-    category: "Teacher Tips",
-    author: "Sarah Johnson",
+    slug: "secret-confident-parent-reports",
+    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop",
+    category: "Parent Communication",
+    author: "Michael Rodriguez",
     readTime: "6 min read"
   },
+
+  // Wellbeing Category
+  {
+    title: "Less Time Writing, More Time Living",
+    description: "Discover the emotional freedom that comes from streamlining your administrative tasks. A motivational piece about reclaiming your evenings and weekends.",
+    date: "2024-01-08",
+    slug: "less-time-writing-more-living",
+    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&h=600&fit=crop",
+    category: "Wellbeing",
+    author: "Emma Thompson",
+    readTime: "3 min read"
+  },
+
+  // Additional Teacher Tips
   {
     title: "AI-Powered Lesson Planning: A Step-by-Step Guide",
     description: "Transform your lesson planning process with AI tools that align with curriculum standards and student needs.",
-    date: "2024-01-08",
+    date: "2024-01-05",
     slug: "ai-lesson-planning-guide",
     image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=800&h=600&fit=crop",
     category: "Teacher Tips",
@@ -46,29 +72,19 @@ export const blogPosts: BlogPost[] = [
   {
     title: "Classroom Management with AI Assistants",
     description: "Discover how AI can help you maintain positive classroom environments and track student behavior patterns.",
-    date: "2024-01-05",
+    date: "2024-01-03",
     slug: "classroom-management-ai-assistant",
     image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=600&fit=crop",
     category: "Teacher Tips",
     author: "Emily Rodriguez",
     readTime: "7 min read"
   },
-  {
-    title: "Creating Personalized Learning Paths with AI",
-    description: "Use AI to identify learning gaps and create customized educational experiences for each student.",
-    date: "2024-01-03",
-    slug: "personalized-learning-ai",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop",
-    category: "Teacher Tips",
-    author: "David Park",
-    readTime: "9 min read"
-  },
 
-  // Productivity Category
+  // Additional Productivity
   {
     title: "Automate Your Grading Workflow",
     description: "Cut your grading time in half with smart AI tools that provide consistent, meaningful feedback on student work.",
-    date: "2024-01-12",
+    date: "2024-01-07",
     slug: "automate-grading-workflow",
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop",
     category: "Productivity",
@@ -78,45 +94,15 @@ export const blogPosts: BlogPost[] = [
   {
     title: "Time Management Strategies for Modern Teachers",
     description: "Practical techniques to reclaim your evenings and weekends while maintaining teaching excellence.",
-    date: "2024-01-07",
+    date: "2024-01-02",
     slug: "teacher-time-management",
     image: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=600&fit=crop",
     category: "Productivity",
     author: "Jennifer Wu",
     readTime: "8 min read"
   },
-  {
-    title: "Streamline Administrative Tasks with AI",
-    description: "From attendance tracking to progress reports, discover how AI can handle routine administrative work.",
-    date: "2024-01-02",
-    slug: "streamline-admin-tasks-ai",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    category: "Productivity",
-    author: "Robert Kim",
-    readTime: "6 min read"
-  },
-  {
-    title: "Digital Organization for Teachers",
-    description: "Create a digital workspace that keeps your lessons, resources, and communications perfectly organized.",
-    date: "2023-12-28",
-    slug: "digital-organization-teachers",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&h=600&fit=crop",
-    category: "Productivity",
-    author: "Amanda Foster",
-    readTime: "7 min read"
-  },
 
-  // Parent Communication Category
-  {
-    title: "AI-Generated Parent Messages That Work",
-    description: "Master the art of parent communication with AI tools that help you craft professional, empathetic messages.",
-    date: "2024-01-11",
-    slug: "ai-parent-messages",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
-    category: "Parent Communication",
-    author: "Maria Garcia",
-    readTime: "6 min read"
-  },
+  // Additional Parent Communication
   {
     title: "Difficult Conversations Made Easier",
     description: "Navigate challenging parent conversations with confidence using AI-powered communication strategies.",
@@ -136,16 +122,6 @@ export const blogPosts: BlogPost[] = [
     category: "Parent Communication",
     author: "Rachel Green",
     readTime: "8 min read"
-  },
-  {
-    title: "Multilingual Communication with AI",
-    description: "Break down language barriers and communicate effectively with diverse parent communities.",
-    date: "2023-12-30",
-    slug: "multilingual-communication-ai",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=600&fit=crop",
-    category: "Parent Communication",
-    author: "Carlos Martinez",
-    readTime: "5 min read"
   }
 ];
 

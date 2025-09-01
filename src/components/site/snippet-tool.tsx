@@ -16,7 +16,6 @@ import {
   Star,
   StarOff,
   History,
-  Settings,
   Trash2,
   Clock
 } from 'lucide-react';
@@ -297,7 +296,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
                     </Select>
                     {selectedTonePreset && (
                       <p className="text-xs text-gray-500 dark:text-gray-400 italic">
-                        Example: "{selectedTonePreset.example}"
+                        Example: &ldquo;{selectedTonePreset.example}&rdquo;
                       </p>
                     )}
                   </div>

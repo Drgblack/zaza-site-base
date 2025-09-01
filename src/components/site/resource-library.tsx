@@ -32,57 +32,84 @@ interface Resource {
 }
 
 const resources: Resource[] = [
+  // Featured Resources - The 4 main ones from your spec
   {
     id: '1',
-    title: 'AI Grading & Feedback Prompts',
-    description: 'Complete collection of prompts for generating personalized student feedback using AI tools.',
-    category: 'Teaching Tools',
+    title: '50 Ready-to-Use Parent Comments',
+    description: 'A free PDF with polished, professional comment starters for any situation.',
+    category: 'Parent Communication',
     type: 'PDF',
-    thumbnail: '/resources/ai-grading-prompts.pdf',
-    downloadUrl: '/resources/ai-grading-prompts.pdf',
-    size: '2.4 MB',
-    downloads: 1247,
+    thumbnail: '/resources/parent-comment-bank.html',
+    downloadUrl: '/resources/parent-comment-bank.html',
+    size: '1.2 MB',
+    downloads: 2847,
     featured: true
   },
   {
     id: '2',
-    title: 'Parent Communication Templates',
-    description: 'Professional email templates for every parent communication scenario.',
-    category: 'Communication',
+    title: 'The Stress-Free Report Card Template',
+    description: 'Structured PDF teachers can adapt and fill out.',
+    category: 'Report Writing',
     type: 'Template',
-    thumbnail: '/resources/ai-parent-comms.pdf',
-    downloadUrl: '/resources/ai-parent-comms.pdf',
-    size: '1.8 MB',
-    downloads: 892
+    thumbnail: '/resources/report-writing-framework.html',
+    downloadUrl: '/resources/report-writing-framework.html',
+    size: '890 KB',
+    downloads: 1934,
+    featured: true
   },
   {
     id: '3',
-    title: 'AI Quiz Generator Guide',
-    description: 'Step-by-step guide to creating engaging quizzes and assessments with AI.',
-    category: 'Assessment',
+    title: 'Teacher Wellbeing in 10 Minutes a Day',
+    description: 'Quick, practical tips to reduce burnout, supported by research.',
+    category: 'Wellbeing',
     type: 'Guide',
-    thumbnail: '/resources/ai-quiz-generator-guide.pdf',
-    downloadUrl: '/resources/ai-quiz-generator-guide.pdf',
-    size: '3.2 MB',
-    downloads: 673,
+    thumbnail: '/resources/classroom-wellbeing-guide.html',
+    downloadUrl: '/resources/classroom-wellbeing-guide.html',
+    size: '2.1 MB',
+    downloads: 1567,
     featured: true
   },
   {
     id: '4',
-    title: 'Student Support Strategies',
-    description: 'AI-powered approaches to identify and support struggling students.',
-    category: 'Student Support',
-    type: 'Guide',
-    thumbnail: '/resources/ai-student-support.pdf',
-    downloadUrl: '/resources/ai-student-support.pdf',
-    size: '2.9 MB',
-    downloads: 445
+    title: 'Never Send a Stressful Parent Email Again',
+    description: 'Checklist PDF for tone, clarity, and professionalism.',
+    category: 'Parent Communication',
+    type: 'Checklist',
+    thumbnail: '/resources/parent-email-checklist.html',
+    downloadUrl: '/resources/parent-email-checklist.html',
+    size: '745 KB',
+    downloads: 3021,
+    featured: true
   },
+
+  // Additional Resources
   {
     id: '5',
+    title: 'AI Grading & Feedback Prompts',
+    description: 'Complete collection of prompts for generating personalized student feedback using AI tools.',
+    category: 'Lesson Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-grading-prompts.pdf',
+    downloadUrl: '/resources/ai-grading-prompts.pdf',
+    size: '2.4 MB',
+    downloads: 1247
+  },
+  {
+    id: '6',
+    title: 'AI Quiz Generator Guide',
+    description: 'Step-by-step guide to creating engaging quizzes and assessments with AI.',
+    category: 'Lesson Tools',
+    type: 'Guide',
+    thumbnail: '/resources/ai-quiz-generator-guide.pdf',
+    downloadUrl: '/resources/ai-quiz-generator-guide.pdf',
+    size: '3.2 MB',
+    downloads: 673
+  },
+  {
+    id: '7',
     title: 'Teacher Time-Saving Checklist',
     description: 'Daily and weekly checklist to maximize your efficiency with AI tools.',
-    category: 'Productivity',
+    category: 'Wellbeing',
     type: 'Checklist',
     thumbnail: '/resources/ai-time-saving-guide.pdf',
     downloadUrl: '/resources/ai-time-saving-guide.pdf',
@@ -90,10 +117,10 @@ const resources: Resource[] = [
     downloads: 1089
   },
   {
-    id: '6',
+    id: '8',
     title: 'Assessment Rubric Builder',
     description: 'Customizable templates for creating comprehensive assessment rubrics.',
-    category: 'Assessment',
+    category: 'Lesson Tools',
     type: 'Template',
     thumbnail: '/resources/assessment-rubric-template.pdf',
     downloadUrl: '/resources/assessment-rubric-template.pdf',
@@ -101,41 +128,19 @@ const resources: Resource[] = [
     downloads: 756
   },
   {
-    id: '7',
+    id: '9',
     title: 'Classroom Behavior Management',
     description: 'Proven strategies for managing classroom behavior with positive reinforcement.',
-    category: 'Classroom Management',
+    category: 'Lesson Tools',
     type: 'Guide',
     thumbnail: '/resources/behavior-strategies.pdf',
     downloadUrl: '/resources/behavior-strategies.pdf',
     size: '2.8 MB',
     downloads: 534
-  },
-  {
-    id: '8',
-    title: 'AI Teaching Best Practices',
-    description: 'Research-backed guidelines for ethical and effective AI use in education.',
-    category: 'Best Practices',
-    type: 'Guide',
-    thumbnail: '/resources/best-practices-guide.pdf',
-    downloadUrl: '/resources/best-practices-guide.pdf',
-    size: '3.5 MB',
-    downloads: 387
-  },
-  {
-    id: '9',
-    title: 'Teacher Success Case Studies',
-    description: 'Real stories from educators who transformed their practice with AI.',
-    category: 'Case Studies',
-    type: 'PDF',
-    thumbnail: '/resources/case-studies.pdf',
-    downloadUrl: '/resources/case-studies.pdf',
-    size: '4.1 MB',
-    downloads: 298
   }
 ];
 
-const categories = ['All', 'Teaching Tools', 'Communication', 'Assessment', 'Student Support', 'Productivity', 'Classroom Management', 'Best Practices', 'Case Studies'];
+const categories = ['All', 'Lesson Tools', 'Report Writing', 'Parent Communication', 'Wellbeing'];
 
 const typeIcons = {
   PDF: FileText,
@@ -158,8 +163,8 @@ export function ResourceLibrary() {
   });
 
   const handleDownload = (resource: Resource) => {
-    // In a real app, this would trigger the actual download
-    console.log(`Downloading: ${resource.title}`);
+    // Open the resource in a new tab
+    window.open(resource.downloadUrl, '_blank');
   };
 
   return (

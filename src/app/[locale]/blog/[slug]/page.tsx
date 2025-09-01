@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getAllPosts, getPostBySlug, getAllPostSlugs } from '@/lib/mdx';
+import { getAllPosts, getPostBySlug, getAllPostSlugs } from '@/lib/blog-content';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, User, Clock, Share2, BookOpen } from 'lucide-react';
