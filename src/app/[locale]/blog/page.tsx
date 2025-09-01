@@ -3,6 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import NextLink from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog - AI in Education Insights',
+  description: 'Discover the latest insights, tips, and strategies for using AI in education. Learn from educators who are transforming their classrooms with artificial intelligence.',
+  keywords: ['AI education blog', 'teaching with AI', 'education technology', 'AI tools for teachers', 'classroom innovation'],
+};
 
 type Props = {
   params: Promise<{locale: string}>;

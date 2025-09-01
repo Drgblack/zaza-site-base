@@ -133,18 +133,41 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg prose-purple max-w-none">
-              {/* Simple MDX content rendering - fallback to preformatted until MDX bundling is added */}
-              <div className="whitespace-pre-wrap leading-relaxed text-gray-700">
-                {post.content.replace(/^#+\s*/gm, '').trim()}
-              </div>
-              
-              {/* TODO: Replace with proper MDX rendering once bundling is configured */}
-              {/* For now, we'll render the raw content with basic formatting */}
-              <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <p className="text-sm text-yellow-800">
-                  <strong>Note:</strong> Full MDX rendering is pending. Currently showing raw content.
-                </p>
-              </div>
+              {/* Basic markdown-style rendering until full MDX bundling is added */}
+              <div 
+                className="leading-relaxed text-gray-700 space-y-6"
+                dangerouslySetInnerHTML={{
+                  __html: post.content
+                    .split('\n\n')
+                    .map(paragraph => {
+                      // Handle headings
+                      if (paragraph.startsWith('# ')) {
+                        return `<h1 class="text-3xl font-bold text-gray-900 mt-8 mb-4">${paragraph.slice(2)}</h1>`;
+                      }
+                      if (paragraph.startsWith('## ')) {
+                        return `<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">${paragraph.slice(3)}</h2>`;
+                      }
+                      if (paragraph.startsWith('### ')) {
+                        return `<h3 class="text-xl font-bold text-gray-900 mt-6 mb-3">${paragraph.slice(4)}</h3>`;
+                      }
+                      // Handle bullet points
+                      if (paragraph.includes('- ')) {
+                        const items = paragraph.split('\n').map(line => {
+                          if (line.startsWith('- ')) {
+                            return `<li class="mb-2">${line.slice(2)}</li>`;
+                          }
+                          return line;
+                        }).join('\n');
+                        return `<ul class="list-disc list-inside space-y-2 my-4">${items}</ul>`;
+                      }
+                      // Handle bold text
+                      const withBold = paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                      // Regular paragraphs
+                      return `<p class="mb-4">${withBold}</p>`;
+                    })
+                    .join('')
+                }}
+              />
             </div>
           </div>
         </div>
