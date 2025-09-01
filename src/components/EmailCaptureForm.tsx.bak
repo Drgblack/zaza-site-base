@@ -3,20 +3,6 @@
 import { useState } from 'react';
 import { CheckCircle, Mail, Sparkles, Loader2, AlertCircle, Gift } from 'lucide-react';
 
-declare global {
-  interface Window {
-    gtag?: (
-      command: 'event',
-      eventName: string,
-      parameters: {
-        event_category: string;
-        event_label: string;
-        value: number;
-      }
-    ) => void;
-  }
-}
-
 interface EmailCaptureFormProps {
   title?: string;
   subtitle?: string;
@@ -90,8 +76,8 @@ export function EmailCaptureForm({
         setFirstName('');
         setLastName('');
 
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'email_capture', {
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'email_capture', {
             event_category: 'engagement',
             event_label: source,
             value: 1,
