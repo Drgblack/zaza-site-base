@@ -3,8 +3,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zazapromptly.com"),
-  title: { default: "Zaza Promptly - AI Tools for Educators", template: "%s | Zaza Promptly" },
-  description: "AI-powered tools that help teachers save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
+  title: { default: "Zaza Promptly", template: "%s | Zaza Promptly" },
+  description: "AI-powered parent communication for teachers",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/images/zaza-logo.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

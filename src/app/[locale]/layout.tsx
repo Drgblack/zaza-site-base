@@ -14,12 +14,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'),
   title: {
     template: '%s | Zaza Promptly',
-    default: 'Zaza Promptly - AI Tools for Educators',
+    default: 'Zaza Promptly',
   },
-  description: 'AI-powered tools that help teachers save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.',
-  keywords: ['education', 'AI', 'teachers', 'lesson planning', 'grading', 'classroom management'],
+  description: 'AI-powered parent communication for teachers',
+  keywords: ['education', 'AI', 'teachers', 'parent communication', 'teaching assistant'],
   authors: [{ name: 'Zaza Technologies' }],
   creator: 'Zaza Technologies',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/images/zaza-logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -72,6 +77,11 @@ export default async function LocaleLayout({
  
   return (
     <html lang={locale}>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/images/zaza-logo.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Header />
