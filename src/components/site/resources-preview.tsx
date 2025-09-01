@@ -9,30 +9,30 @@ const resources = [
   {
     title: "Teacher's AI Toolkit",
     description: "Essential templates and prompts for getting started with AI in education",
-    type: "Download",
+    type: "PDF Download",
     icon: Download,
-    href: "/resources/ai-toolkit"
+    href: "/resources/teacher-ai-toolkit.pdf"
   },
   {
     title: "Video Guide Series",
     description: "Step-by-step tutorials on using AI tools effectively in your classroom",
-    type: "Video",
+    type: "Video Series",
     icon: Video,
-    href: "/resources/video-guides"
+    href: "/resources/video-guide-series.html"
   },
   {
     title: "Best Practices Guide",
     description: "Research-backed strategies for implementing AI in educational settings",
-    type: "Guide",
+    type: "PDF Guide",
     icon: BookOpen,
-    href: "/resources/best-practices"
+    href: "/resources/best-practices-guide.pdf"
   },
   {
     title: "Case Studies",
     description: "Real examples of how teachers are using AI to transform their practice",
-    type: "Article",
+    type: "PDF Collection",
     icon: FileText,
-    href: "/resources/case-studies"
+    href: "/resources/case-studies.pdf"
   }
 ];
 
@@ -71,7 +71,14 @@ export function ResourcesPreview() {
                   {resource.description}
                 </p>
                 <Button asChild variant="outline" size="sm" className="w-full">
-                  <a href={resource.href}>Access Resource</a>
+                  <a 
+                    href={resource.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download={resource.type.includes('PDF') ? true : undefined}
+                  >
+                    {resource.type.includes('PDF') ? 'Download PDF' : 'Access Resource'}
+                  </a>
                 </Button>
               </CardContent>
             </Card>
