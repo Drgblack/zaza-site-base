@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
+import { AnimatedGrid, AnimatedCard } from '@/components/site/animated-section';
 
 const testimonials = [
   {
@@ -37,32 +38,34 @@ export function Testimonials() {
           </p>
         </div>
         
-        <div className="grid gap-6 md:grid-cols-3">
+        <AnimatedGrid className="grid gap-6 md:grid-cols-3" staggerDelay={0.2}>
           {testimonials.map((testimonial, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex items-center space-x-4">
-                  <Image
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                    width={48}
-                    height={48}
-                  />
-                  <div>
-                    <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                    <CardDescription>{testimonial.role}</CardDescription>
+            <AnimatedCard key={index}>
+              <Card className="h-full transition-shadow hover:shadow-lg">
+                <CardHeader>
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
+                      width={48}
+                      height={48}
+                    />
+                    <div>
+                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                      <CardDescription>{testimonial.role}</CardDescription>
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
-                  "{testimonial.content}"
-                </p>
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    "{testimonial.content}"
+                  </p>
+                </CardContent>
+              </Card>
+            </AnimatedCard>
           ))}
-        </div>
+        </AnimatedGrid>
       </div>
     </section>
   );

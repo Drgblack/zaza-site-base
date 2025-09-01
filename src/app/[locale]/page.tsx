@@ -21,6 +21,7 @@ export default async function HomePage({params}: Props) {
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.1),transparent_50%)] animate-pulse" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(236,72,153,0.1),transparent_50%)] animate-pulse" style={{animationDelay: '2s'}} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,69,193,0.05),transparent_70%)] animate-pulse" style={{animationDelay: '4s'}} />
         
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
