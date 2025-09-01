@@ -2,6 +2,7 @@ import {setRequestLocale} from 'next-intl/server';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -52,10 +53,12 @@ export default async function BlogPage({params}: Props) {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <Card key={post.slug} className="overflow-hidden">
-            <img
+            <Image
               src={post.image}
               alt={post.title}
               className="w-full h-48 object-cover"
+              width={400}
+              height={192}
             />
             <CardHeader>
               <div className="flex items-center justify-between mb-2">
