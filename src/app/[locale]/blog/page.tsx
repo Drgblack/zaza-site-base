@@ -1,8 +1,7 @@
-import {setRequestLocale} from 'next-intl/server';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import NextLink from 'next/link';
-import Image from 'next/image';
+import { setRequestLocale } from 'next-intl/server';
+import { FeaturedBlogCard } from '@/components/site/featured-blog-card';
+import { BlogCarousel } from '@/components/site/blog-carousel';
+import { getFeaturedPost, getPostsByCategory, getAllCategories } from '@/lib/blog-data';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -15,80 +14,99 @@ type Props = {
   params: Promise<{locale: string}>;
 };
 
-const posts = [
-  {
-    title: "10 Time-Saving AI Tools for Teachers",
-    description: "Discover the latest AI tools that can help you save hours every week in lesson planning and grading.",
-    date: "2024-01-15",
-    slug: "ai-tools-for-teachers",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop",
-    category: "Tools"
-  },
-  {
-    title: "Effective Feedback Strategies with AI",
-    description: "Learn how to combine AI assistance with personal touch to provide meaningful student feedback.",
-    date: "2024-01-10", 
-    slug: "effective-feedback-ai",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=300&fit=crop",
-    category: "Teaching"
-  },
-  {
-    title: "The Future of Education Technology",
-    description: "Exploring how AI and technology will reshape the classroom experience in the coming years.",
-    date: "2024-01-05",
-    slug: "future-education-technology", 
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=300&fit=crop",
-    category: "Future"
-  }
-];
-
 export default async function BlogPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
+  
+  const featuredPost = getFeaturedPost();
+  const categories = getAllCategories();
 
   return (
-    <div className="container py-24">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-          AI in Education Blog
-        </h1>
-        <p className="mt-4 text-gray-500 md:text-xl dark:text-gray-400 max-w-2xl mx-auto">
-          Insights, tips, and updates from the world of AI-powered education
-        </p>
-      </div>
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Hero Section */}
+      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              AI in Education Blog
+            </h1>
+            <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Insights, strategies, and real-world examples from educators transforming their classrooms with AI
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <Card key={post.slug} className="overflow-hidden">
-            <Image
-              src={post.image}
-              alt={post.title}
-              className="w-full h-48 object-cover"
-              width={400}
-              height={192}
+      {/* Featured Article */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <FeaturedBlogCard post={featuredPost} locale={locale} />
+        </div>
+      </section>
+
+      {/* Categorized Carousels */}
+      <section className="py-8 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4">
+          {categories.map((category) => {
+            const categoryPosts = getPostsByCategory(category);
+            if (categoryPosts.length === 0) return null;
+            
+            return (
+              <BlogCarousel
+                key={category}
+                title={category}
+                posts={categoryPosts}
+                locale={locale}
+              />
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Never Miss an Update
+          </h2>
+          <p className="text-xl mb-8 opacity-90">
+            Get the latest AI in education insights delivered to your inbox weekly.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 rounded-lg text-gray-900 border-0 focus:ring-2 focus:ring-purple-300"
             />
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">
-                  {post.category}
-                </span>
-                <span className="text-sm text-gray-500">
-                  {new Date(post.date).toLocaleDateString()}
-                </span>
-              </div>
-              <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="line-clamp-3 mb-4">
-                {post.description}
-              </CardDescription>
-              <Button asChild variant="outline" size="sm">
-                <NextLink href={`/blog/${post.slug}`}>Read Article</NextLink>
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              Subscribe
+            </button>
+          </div>
+          <p className="text-sm opacity-75 mt-4">
+            Join 10,000+ educators already subscribed. Unsubscribe anytime.
+          </p>
+        </div>
+      </section>
+
+      {/* Browse All Articles */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Looking for Something Specific?</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">
+            Browse our complete archive of articles, tutorials, and insights.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className="bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-300 px-4 py-2 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-700 transition-colors"
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

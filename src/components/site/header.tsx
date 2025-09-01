@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
@@ -39,8 +39,14 @@ export function Header() {
     { name: t('home'), href: '/' },
     { name: t('blog'), href: '/blog' },
     { name: t('resources'), href: '/resources' },
-    { name: t('about'), href: '/about' },
     { name: t('pricing'), href: '/pricing' },
+  ];
+
+  const companyLinks = [
+    { name: 'About', href: '/about' },
+    { name: 'Meet Your Fellow Educator', href: '/meet-your-fellow-educator' },
+    { name: 'Press', href: '/press' },
+    { name: 'Careers', href: '/careers' },
   ];
 
   return (
@@ -109,6 +115,26 @@ export function Header() {
                 </a>
               );
             })}
+            
+            {/* Our Company Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center space-x-1 text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 text-gray-700 dark:text-gray-300">
+                <span>Our Company</span>
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {companyLinks.map((link) => (
+                  <DropdownMenuItem key={link.href} asChild>
+                    <a
+                      href={link.href}
+                      className="w-full cursor-pointer"
+                    >
+                      {link.name}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           {/* Desktop Actions */}
