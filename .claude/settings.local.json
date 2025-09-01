@@ -21,7 +21,8 @@
       "Bash(gh repo view:*)",
       "Bash(gh workflow:*)",
       "Bash(gh run list:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(true)"
     ],
     "deny": []
   }

@@ -6,33 +6,154 @@ import { Link } from '@/i18n/routing';
 import { BookOpen, Download, Video, FileText } from 'lucide-react';
 
 const resources = [
+  // AI Prompt Toolkits
   {
-    title: "Teacher's AI Toolkit",
-    description: "Essential templates and prompts for getting started with AI in education",
+    title: "Essential AI Prompt Toolkit for Teachers",
+    description: "Complete collection of AI prompts for lesson planning, grading, and classroom management",
     type: "PDF Download",
     icon: Download,
     href: "/resources/teacher-ai-toolkit.pdf"
   },
   {
-    title: "Video Guide Series",
-    description: "Step-by-step tutorials on using AI tools effectively in your classroom",
-    type: "Video Series",
-    icon: Video,
-    href: "/resources/video-guide-series.html"
+    title: "10 AI Prompts for Parent Communication",
+    description: "Ready-to-use prompts for professional, empathetic parent communication",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/ai-parent-comms.pdf"
   },
   {
-    title: "Best Practices Guide",
-    description: "Research-backed strategies for implementing AI in educational settings",
-    type: "PDF Guide",
-    icon: BookOpen,
-    href: "/resources/best-practices-guide.pdf"
+    title: "AI Prompts to Speed Up Grading & Feedback",
+    description: "Time-saving prompts for efficient grading and meaningful student feedback",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/ai-grading-prompts.pdf"
   },
   {
-    title: "Case Studies",
-    description: "Real examples of how teachers are using AI to transform their practice",
-    type: "PDF Collection",
-    icon: FileText,
-    href: "/resources/case-studies.pdf"
+    title: "AI for Differentiated Student Support",
+    description: "Strategies and prompts for using AI to support diverse learning needs",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/ai-student-support.pdf"
+  },
+  
+  // Lesson Planning & Templates
+  {
+    title: "Primary School Lesson Plan Template",
+    description: "Customizable lesson plan template designed for elementary educators",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/lesson-plan-template-primary.pdf"
+  },
+  {
+    title: "Secondary Lesson Plan Template",
+    description: "Professional lesson planning template for middle and high school teachers",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/lesson-plan-template-secondary.pdf"
+  },
+  {
+    title: "Weekly Lesson Planner Template",
+    description: "Organize your week with this comprehensive planning template",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/weekly-lesson-planner.pdf"
+  },
+  {
+    title: "Project-Based Learning Planning Toolkit",
+    description: "Complete toolkit for designing and managing PBL experiences",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/project-based-learning-planner.pdf"
+  },
+  
+  // Assessment & Feedback
+  {
+    title: "Customizable Assessment Rubric Template",
+    description: "Flexible rubric templates for various subjects and assignment types",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/assessment-rubric-template.pdf"
+  },
+  {
+    title: "Formative Assessment Strategies Checklist",
+    description: "Practical checklist of formative assessment techniques for daily use",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/formative-assessment-checklist.pdf"
+  },
+  {
+    title: "100 Feedback Comments for Student Work",
+    description: "Bank of constructive feedback comments to save time and improve quality",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/student-feedback-bank.pdf"
+  },
+  {
+    title: "Quick Guide to Using AI for Quiz Creation",
+    description: "Step-by-step guide for creating effective quizzes with AI tools",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/ai-quiz-generator-guide.pdf"
+  },
+  
+  // Classroom Management
+  {
+    title: "10 Classroom Routines That Save Time",
+    description: "Proven routines to streamline your classroom management",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/classroom-routines.pdf"
+  },
+  {
+    title: "Positive Behavior Strategies Guide",
+    description: "Evidence-based strategies for building positive classroom culture",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/behavior-strategies.pdf"
+  },
+  {
+    title: "Templates for Group Work & Collaboration",
+    description: "Ready-to-use templates for managing effective group activities",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/group-work-tools.pdf"
+  },
+  {
+    title: "Checklist for Productive Parent Meetings",
+    description: "Comprehensive checklist to ensure effective parent conferences",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/parent-meeting-checklist.pdf"
+  },
+  
+  // Teacher Wellbeing & Growth
+  {
+    title: "Teacher Self-Care Guide: Quick Wins",
+    description: "Practical self-care strategies that fit into a teacher's busy schedule",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/teacher-self-care-guide.pdf"
+  },
+  {
+    title: "How AI Saves Teachers 5+ Hours per Week",
+    description: "Specific strategies for using AI to reclaim your time",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/ai-time-saving-guide.pdf"
+  },
+  {
+    title: "The Future of Teaching in an AI World",
+    description: "Insights and predictions for how AI will transform education",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/future-of-teaching.pdf"
+  },
+  {
+    title: "Professional Growth & Reflection Planner",
+    description: "Tools for planning and tracking your professional development journey",
+    type: "PDF Download",
+    icon: Download,
+    href: "/resources/teacher-growth-planner.pdf"
   }
 ];
 
