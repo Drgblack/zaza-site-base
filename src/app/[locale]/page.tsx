@@ -1,7 +1,3 @@
-import { Hero } from '@/components/site/hero';
-import { Features } from '@/components/site/features';
-import { EmailCaptureForm } from '@/components/EmailCaptureForm';
-
 type Props = {
   params: Promise<{locale: string}>;
 };
@@ -12,18 +8,23 @@ export default async function HomePage({params}: Props) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Hero />
-      <Features />
-      <section id="waitlist" className="py-24 bg-gray-50 dark:bg-gray-800">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-md mx-auto text-center">
-            <h2 className="text-3xl font-bold tracking-tighter mb-4">
-              Join the Waitlist
-            </h2>
-            <p className="text-gray-500 mb-8 dark:text-gray-400">
-              Be the first to experience AI-powered teaching tools.
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-pink-50">
+        <div className="container px-4 md:px-6 pt-16">
+          <div className="text-center space-y-8">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Zaza Promptly
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              AI-powered tools that help teachers save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.
             </p>
-            <EmailCaptureForm />
+            <div className="space-y-4">
+              <a 
+                href="https://teach.zazatechnologies.com"
+                className="inline-block px-8 py-4 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                Get Started
+              </a>
+            </div>
           </div>
         </div>
       </section>

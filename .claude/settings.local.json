@@ -17,7 +17,11 @@
       "Bash(git commit:*)",
       "Bash(xxd:*)",
       "Bash(pnpm build:*)",
-      "Bash(set TSC_COMPILE_ON_ERROR=true)"
+      "Bash(set TSC_COMPILE_ON_ERROR=true)",
+      "Bash(gh repo view:*)",
+      "Bash(gh workflow:*)",
+      "Bash(gh run list:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
