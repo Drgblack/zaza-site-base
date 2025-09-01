@@ -57,7 +57,7 @@ export default async function HomePage({params}: Props) {
               Why writing parent messages feels overwhelming
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Teachers already spend evenings lesson planning and grading — and then there's the endless stream of parent messages.
+              Teachers already spend evenings lesson planning and grading — and then there&rsquo;s the endless stream of parent messages.
             </p>
             <div className="grid gap-8 md:grid-cols-3 mt-12">
               <div className="text-center space-y-4">
@@ -135,7 +135,7 @@ export default async function HomePage({params}: Props) {
               <Card>
                 <CardContent className="p-6">
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    "Promptly cut my Sunday admin in half."
+                    &ldquo;Promptly cut my Sunday admin in half.&rdquo;
                   </p>
                   <p className="font-semibold">— Sarah, Year 6 Teacher</p>
                 </CardContent>
@@ -143,7 +143,7 @@ export default async function HomePage({params}: Props) {
               <Card>
                 <CardContent className="p-6">
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    "I used to agonize over parent emails. Now I feel confident in minutes."
+                    &ldquo;I used to agonize over parent emails. Now I feel confident in minutes.&rdquo;
                   </p>
                   <p className="font-semibold">— Jamal, High School Teacher</p>
                 </CardContent>
@@ -151,7 +151,7 @@ export default async function HomePage({params}: Props) {
               <Card>
                 <CardContent className="p-6">
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    "Finally, an AI tool that understands teachers."
+                    &ldquo;Finally, an AI tool that understands teachers.&rdquo;
                   </p>
                   <p className="font-semibold">— Emily, Primary Teacher</p>
                 </CardContent>
