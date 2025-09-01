@@ -1,6 +1,4 @@
 import {setRequestLocale} from 'next-intl/server';
-import { Hero } from "@/components/site/hero";
-import { Features } from "@/components/site/features";
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -11,9 +9,8 @@ export default async function HomePage({params}: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="flex flex-col">
-      <Hero />
-      <Features />
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-4xl font-bold">Hello World - {locale}</h1>
     </div>
   );
 }
