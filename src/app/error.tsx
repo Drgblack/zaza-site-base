@@ -1,3 +1,4 @@
+﻿import Link from 'next/link';
 'use client'
 
 import { Button } from '@/components/ui/button'
@@ -22,19 +23,22 @@ export default function Error({
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Something went wrong
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">{`
             We're sorry, but something unexpected happened. Please try again or contact support if the problem persists.
-          </p>
+          `}</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button onClick={reset}>
             Try Again
           </Button>
           <Button variant="outline" asChild>
-            <a href="/">Go Home</a>
+            <Link href="/">Go Home</Link>
           </Button>
         </div>
       </div>
     </div>
   )
 }
+
+
+

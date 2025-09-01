@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -19,7 +19,7 @@ export function SnippetTool() {
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
-      setOutput(`Great work on "${input}"! Here are some personalized comments:\n\n• Excellent understanding of the key concepts\n• Clear presentation of ideas\n• Areas for improvement: Consider adding more examples\n• Keep up the outstanding work!`);
+      setOutput(`Great work on "${input}"! Here are some personalized comments:\n\nâ€¢ Excellent understanding of the key concepts\nâ€¢ Clear presentation of ideas\nâ€¢ Areas for improvement: Consider adding more examples\nâ€¢ Keep up the outstanding work!`);
       setIsLoading(false);
     }, 2000);
   };

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import Image from 'next/image'
 
 interface FooterSection {
@@ -108,10 +108,10 @@ export default function Footer() {
             {/* Left side - Copyright and address */}
             <div className="text-sm text-gray-500 dark:text-gray-400 space-y-2">
               <div>
-                © 2024 Zaza Technologies. All rights reserved.
+                Â© 2024 Zaza Technologies. All rights reserved.
               </div>
               <address className="not-italic">
-                Königsallee 92a, 40212 Düsseldorf, Germany
+                KÃ¶nigsallee 92a, 40212 DÃ¼sseldorf, Germany
               </address>
               <div className="italic">
                 Built by educators for educators

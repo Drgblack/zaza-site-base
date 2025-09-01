@@ -1,4 +1,4 @@
-{
+﻿{
     "compilerOptions":  {
                             "target":  "ES2017",
                             "lib":  [
@@ -38,6 +38,7 @@
     "exclude":  [
                     "node_modules",
                     "salvage-package",
-                    "salvage-package/**/*"
+                    "salvage-package/**/*",
+                    "src/_backup_routes/**"
                 ]
 }

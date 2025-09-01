@@ -1,9 +1,8 @@
-import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+﻿import { EmailCaptureForm } from "@/components/EmailCaptureForm";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-pink-50 py-20 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -14,8 +13,6 @@ export default function Home() {
               AI-powered tools that save educators 5+ hours per week, so you can focus on what matters most - your students.
             </p>
           </div>
-          
-          {/* Email Capture Form */}
           <div className="max-w-2xl mx-auto">
             <EmailCaptureForm
               variant="hero"
@@ -24,7 +21,7 @@ export default function Home() {
               subtitle="Join 12,000+ teachers saving 5+ hours per week with AI-powered tools."
               buttonText="Get Free Resources"
               source="homepage_hero"
-              tags={['homepage', 'hero', 'lead_magnet']}
+              tags={["homepage","hero","lead_magnet"]}
             />
           </div>
         </div>

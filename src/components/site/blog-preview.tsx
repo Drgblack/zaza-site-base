@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+﻿import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 
@@ -40,7 +40,7 @@ export function BlogPreview() {
             </p>
           </div>
           <Button asChild variant="outline">
-            <Link href="/blog">View All Posts</Link>
+            <a href="/blog">View All Posts</a>
           </Button>
         </div>
         
@@ -63,7 +63,7 @@ export function BlogPreview() {
                   {post.description}
                 </p>
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/blog/${post.slug}`}>Read More</Link>
+                  <a href={`/blog/${post.slug}`}>Read More</a>
                 </Button>
               </CardContent>
             </Card>
@@ -73,3 +73,7 @@ export function BlogPreview() {
     </section>
   );
 }
+
+
+
+

@@ -1,3 +1,4 @@
+﻿import Link from 'next/link';
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -16,8 +17,8 @@ import {
 const locales = [
   { code: 'en', label: 'English' },
   { code: 'de', label: 'Deutsch' },
-  { code: 'fr', label: 'Français' },
-  { code: 'es', label: 'Español' },
+  { code: 'fr', label: 'FranÃ§ais' },
+  { code: 'es', label: 'EspaÃ±ol' },
   { code: 'it', label: 'Italiano' },
 ];
 
@@ -79,7 +80,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
@@ -105,7 +106,7 @@ export function Header() {
               <DropdownMenuContent align="end">
                 {locales.map((locale) => (
                   <DropdownMenuItem key={locale.code} asChild>
-                    <Link href={pathname} locale={locale.code}>
+                    <a href={pathname}>
                       {locale.label}
                     </Link>
                   </DropdownMenuItem>
@@ -114,7 +115,7 @@ export function Header() {
             </DropdownMenu>
 
             <Button asChild>
-              <Link href="https://teach.zazatechnologies.com">
+              <a href="https://teach.zazatechnologies.com" target="_blank" rel="noopener noreferrer">
                 Try Zaza Teach
               </Link>
             </Button>
@@ -140,7 +141,7 @@ export function Header() {
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
             <div className="py-4 space-y-1">
               {navigation.map((item) => (
-                <Link
+                <a
                   key={item.name}
                   href={item.href}
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
@@ -151,7 +152,7 @@ export function Header() {
               ))}
               <div className="pt-4">
                 <Button asChild className="w-full">
-                  <Link href="https://teach.zazatechnologies.com">
+                  <a href="https://teach.zazatechnologies.com" target="_blank" rel="noopener noreferrer">
                     Try Zaza Teach
                   </Link>
                 </Button>
@@ -163,3 +164,10 @@ export function Header() {
     </header>
   );
 }
+
+
+
+
+
+
+

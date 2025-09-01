@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+﻿import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
@@ -24,14 +24,14 @@ export function Hero() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button asChild size="lg">
-                <Link href="https://teach.zazatechnologies.com" className="inline-flex items-center justify-center">
+                <a href="https://teach.zazatechnologies.com" className="inline-flex items-center justify-center" target="_blank" rel="noopener noreferrer">
                   {t('cta_primary')}
-                </Link>
+                </a>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link href="#waitlist" className="inline-flex items-center justify-center">
+                <a href="#waitlist" className="inline-flex items-center justify-center">
                   {t('cta_secondary')}
-                </Link>
+                </a>
               </Button>
             </div>
           </div>
@@ -54,3 +54,6 @@ export function Hero() {
     </section>
   );
 }
+
+
+

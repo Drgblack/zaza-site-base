@@ -1,4 +1,4 @@
-// Stripe configuration and utilities
+﻿// Stripe configuration and utilities
 export const stripeConfig = {
   checkoutUrls: {
     monthly: process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_MONTHLY || '',
