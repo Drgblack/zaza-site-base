@@ -5,35 +5,35 @@ import Image from 'next/image';
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    role: "5th Grade Teacher",
-    content: "Zaza Promptly has transformed my grading workflow. I save 3-4 hours every week!",
+    name: "Sarah",
+    role: "Year 6 Teacher",
+    content: "Promptly cut my Sunday admin in half.",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5e5?w=100&h=100&fit=crop&crop=face"
   },
   {
-    name: "Michael Chen", 
-    role: "High School English",
-    content: "The AI-generated comments are thoughtful and help me provide better feedback to students.",
+    name: "Jamal", 
+    role: "High School Teacher",
+    content: "I used to agonize over parent emails. Now I feel confident in minutes.",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
   },
   {
-    name: "Emily Rodriguez",
-    role: "Middle School Math", 
-    content: "Finally, a tool that understands education! Zaza gets what teachers actually need.",
+    name: "Emily",
+    role: "Primary Teacher", 
+    content: "Finally, an AI tool that understands teachers.",
     avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
   }
 ];
 
 export function Testimonials() {
   return (
-    <section className="py-24 bg-gray-50 dark:bg-gray-800">
-      <div className="container px-4 md:px-6">
+    <section className="py-24 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            Loved by Educators Worldwide
+            Trusted by teachers who value their time
           </h2>
           <p className="mt-4 text-gray-500 md:text-xl dark:text-gray-400">
-            See what teachers are saying about Zaza Promptly
+            What teachers are saying about Promptly
           </p>
         </div>
         
@@ -57,7 +57,7 @@ export function Testimonials() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300">
-                  &ldquo;{testimonial.content}&rdquo;
+                  "{testimonial.content}"
                 </p>
               </CardContent>
             </Card>

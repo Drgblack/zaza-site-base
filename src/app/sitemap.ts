@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/about', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/pricing', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.5, changeFrequency: 'monthly' as const },
+    { path: '/privacy', priority: 0.4, changeFrequency: 'monthly' as const },
+    { path: '/terms', priority: 0.4, changeFrequency: 'monthly' as const },
+    { path: '/cookies', priority: 0.4, changeFrequency: 'monthly' as const },
   ]
 
   const staticPages: MetadataRoute.Sitemap = []

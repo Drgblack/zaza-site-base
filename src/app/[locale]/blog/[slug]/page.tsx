@@ -13,10 +13,15 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({
-    slug: slug,
-  }));
+  try {
+    const slugs = getAllPostSlugs();
+    return slugs.map((slug) => ({
+      slug: slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -51,25 +56,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
+  try {
+    const { locale, slug } = await params;
+    setRequestLocale(locale);
 
-  const post = getPostBySlug(slug);
+    const post = getPostBySlug(slug);
 
-  if (!post) {
-    notFound();
-  }
+    if (!post) {
+      notFound();
+    }
 
-  const allPosts = getAllPosts();
-  const currentIndex = allPosts.findIndex(p => p.slug === slug);
-  const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+    const allPosts = getAllPosts();
+    const currentIndex = allPosts.findIndex(p => p.slug === slug);
+    const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+    const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
   return (
     <article className="min-h-screen">
       {/* Header */}
       <header className="relative bg-gradient-to-br from-purple-50 via-white to-pink-50 py-20">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Back Link */}
             <div className="mb-8">
@@ -130,7 +136,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* Content */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg prose-purple max-w-none">
               {/* Basic markdown-style rendering until full MDX bundling is added */}
@@ -175,7 +181,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* Post Navigation */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-6 md:grid-cols-2">
               {/* Previous Post */}
@@ -243,4 +249,8 @@ export default async function BlogPostPage({ params }: Props) {
       </section>
     </article>
   );
+  } catch (error) {
+    console.error('Error rendering blog post:', error);
+    notFound();
+  }
 }

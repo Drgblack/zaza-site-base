@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
-    apple: '/images/zaza-logo.png',
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     type: 'website',
@@ -79,7 +79,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/zaza-logo.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>

@@ -116,7 +116,7 @@ export default async function AboutPage({params}: Props) {
                 inspiring, mentoring, and connecting with their students.&rdquo;
               </p>
               <footer className="text-gray-600">
-                <cite>— Greg, Founder & CEO</cite>
+                <cite>- Greg, Founder & CEO</cite>
               </footer>
             </blockquote>
           </div>
