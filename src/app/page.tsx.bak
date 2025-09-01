@@ -1,3 +1,5 @@
+import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -11,19 +13,19 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto">
               AI-powered tools that save educators 5+ hours per week, so you can focus on what matters most - your students.
             </p>
-            <div className="space-y-4">
-              <a 
-                href="https://teach.zazatechnologies.com"
-                className="inline-block px-8 py-4 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Get Started
-              </a>
-              <div className="text-sm text-gray-500">
-                <a href="/en" className="hover:text-purple-600">
-                  View full site →
-                </a>
-              </div>
-            </div>
+          </div>
+          
+          {/* Email Capture Form */}
+          <div className="max-w-2xl mx-auto">
+            <EmailCaptureForm
+              variant="hero"
+              size="lg"
+              title="Get Free AI Teaching Resources"
+              subtitle="Join 12,000+ teachers saving 5+ hours per week with AI-powered tools."
+              buttonText="Get Free Resources"
+              source="homepage_hero"
+              tags={['homepage', 'hero', 'lead_magnet']}
+            />
           </div>
         </div>
       </section>
