@@ -83,6 +83,7 @@ export function Header() {
                 return (
                   <Link
                     key={item.name}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     href={item.href as any}
                     className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
                       pathname === item.href
@@ -161,6 +162,7 @@ export function Header() {
                   return (
                     <Link
                       key={item.name}
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       href={item.href as any}
                       className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
                       onClick={() => setIsMenuOpen(false)}
