@@ -22,7 +22,14 @@
       "Bash(gh workflow:*)",
       "Bash(gh run list:*)",
       "Bash(mv:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(pnpm run build)",
+      "Bash(ls:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(git stash:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }

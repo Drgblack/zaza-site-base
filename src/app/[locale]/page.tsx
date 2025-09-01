@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap } from 'lucide-react';
+import { SnippetTool } from '@/components/site/snippet-tool';
+import { ZaraAssistant } from '@/components/site/zara-assistant';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -81,7 +83,7 @@ export default async function HomePage({params}: Props) {
       </section>
 
       {/* 3. Solution / How It Works */}
-      <section className="py-24 bg-gray-50 dark:bg-gray-800">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-purple-50/50 dark:from-gray-800 dark:to-purple-900/20">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl">
             <div className="text-center space-y-4 mb-16">
@@ -121,6 +123,9 @@ export default async function HomePage({params}: Props) {
           </div>
         </div>
       </section>
+
+      {/* 3.5. Interactive Demo - Snippet Tool */}
+      <SnippetTool />
 
       {/* 4. Social Proof */}
       <section className="py-24 bg-white dark:bg-gray-900">
@@ -162,7 +167,7 @@ export default async function HomePage({params}: Props) {
       </section>
 
       {/* 5. Pricing CTA */}
-      <section className="py-24 bg-purple-50 dark:bg-purple-900/20">
+      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl">
             <div className="text-center space-y-4 mb-16">
@@ -282,18 +287,22 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
+      {/* 6.5. Zara Assistant Preview */}
+      <ZaraAssistant />
+
       {/* 7. Final CTA */}
-      <section className="py-24 bg-purple-600 text-white">
-        <div className="container px-4 md:px-6">
+      <section className="py-24 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+        <div className="container px-4 md:px-6 relative">
           <div className="mx-auto max-w-4xl text-center space-y-8">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Spend less time worrying about words — and more time teaching.
             </h2>
             <div className="space-x-4">
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100">
                 Try Promptly Free
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-purple-600">
+              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 backdrop-blur">
                 See Pricing →
               </Button>
             </div>
