@@ -12,7 +12,12 @@
       "Bash(TSC_COMPILE_ON_ERROR=true npx next build)",
       "Bash(timeout 10s npm run dev)",
       "Bash(timeout 15s npm run dev)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(grep:*)",
+      "Bash(git commit:*)",
+      "Bash(xxd:*)",
+      "Bash(pnpm build:*)",
+      "Bash(set TSC_COMPILE_ON_ERROR=true)"
     ],
     "deny": []
   }

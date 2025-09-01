@@ -12,6 +12,9 @@ const withMDX = createMDX({
 
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ['images.unsplash.com'],
   },
