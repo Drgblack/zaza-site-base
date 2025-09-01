@@ -49,8 +49,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
 export function getAllPosts(): BlogPost[] {
   const slugs = getAllPostSlugs();
-  return slugs
+  const posts = slugs
     .map((slug) => getPostBySlug(slug))
-    .filter(Boolean) as BlogPost[]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .filter(Boolean) as BlogPost[];
+    
+  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
