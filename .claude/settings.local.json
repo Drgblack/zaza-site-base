@@ -6,7 +6,17 @@
       "Bash(md:*)",
       "Bash(md tests)",
       "Bash(md examples)",
-      "Bash(md docs)"
+      "Bash(md docs)",
+      "Bash(git checkout:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx next:*)",
+      "Bash(rm:*)",
+      "Bash(TSC_COMPILE_ON_ERROR=true npx next build)",
+      "Bash(cp:*)",
+      "Bash(powershell:*)",
+      "Bash(node_modules\\.bin\\next build:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,8 +45,8 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-                <img 
-                  src="/images/images/zaza-logo.png" 
+                <Image 
+                  src="/images/zaza-logo.png" 
                   alt="Zaza Technologies Logo" 
                   className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg"
                   width={40}
