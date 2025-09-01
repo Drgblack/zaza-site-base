@@ -16,7 +16,7 @@ export function SnippetTool() {
   const [tone, setTone] = useState('professional');
   const [length, setLength] = useState([150]);
   const [copied, setCopied] = useState(false);
-  const t = useTranslations('snippet_tool');
+  // const t = useTranslations('snippet_tool'); // TODO: Add translations
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
