@@ -69,7 +69,7 @@ export function ResourcesPreview() {
                   {resource.description}
                 </p>
                 <Button asChild variant="outline" size="sm" className="w-full">
-                  <Link href={resource.href}>Access Resource</Link>
+                  <a href={resource.href}>Access Resource</a>
                 </Button>
               </CardContent>
             </Card>

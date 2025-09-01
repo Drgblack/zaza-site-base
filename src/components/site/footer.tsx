@@ -92,12 +92,12 @@ export function Footer() {
                         {link.name}
                       </a>
                     ) : (
-                      <Link
+                      <a
                         href={link.href}
                         className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                       >
                         {link.name}
-                      </Link>
+                      </a>
                     )}
                   </li>
                 ))}

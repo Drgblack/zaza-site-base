@@ -78,19 +78,36 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
-                  pathname === item.href
-                    ? 'text-purple-600 dark:text-purple-400'
-                    : 'text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              if (item.href === '/' || item.href === '/blog' || item.href === '/resources') {
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href as any}
+                    className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
+                      pathname === item.href
+                        ? 'text-purple-600 dark:text-purple-400'
+                        : 'text-gray-700 dark:text-gray-300'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
+                    pathname === item.href
+                      ? 'text-purple-600 dark:text-purple-400'
+                      : 'text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  {item.name}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Desktop Actions */}
@@ -114,9 +131,9 @@ export function Header() {
             </DropdownMenu>
 
             <Button asChild>
-              <Link href="https://teach.zazatechnologies.com">
+              <a href="https://teach.zazatechnologies.com">
                 Try Zaza Teach
-              </Link>
+              </a>
             </Button>
           </div>
 
@@ -139,21 +156,35 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
             <div className="py-4 space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                if (item.href === '/' || item.href === '/blog' || item.href === '/resources') {
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href as any}
+                      className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                }
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                );
+              })}
               <div className="pt-4">
                 <Button asChild className="w-full">
-                  <Link href="https://teach.zazatechnologies.com">
+                  <a href="https://teach.zazatechnologies.com">
                     Try Zaza Teach
-                  </Link>
+                  </a>
                 </Button>
               </div>
             </div>
