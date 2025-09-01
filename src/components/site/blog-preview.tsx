@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 
 const posts = [
   {
@@ -47,10 +48,12 @@ export function BlogPreview() {
         <div className="grid gap-6 md:grid-cols-3">
           {posts.map((post) => (
             <Card key={post.slug} className="overflow-hidden">
-              <img
+              <Image
                 src={post.image}
                 alt={post.title}
                 className="w-full h-48 object-cover"
+                width={400}
+                height={192}
               />
               <CardHeader>
                 <CardTitle className="line-clamp-2">{post.title}</CardTitle>

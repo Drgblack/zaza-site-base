@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -39,10 +40,12 @@ export function Testimonials() {
             <Card key={index}>
               <CardHeader>
                 <div className="flex items-center space-x-4">
-                  <img
+                  <Image
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
+                    width={48}
+                    height={48}
                   />
                   <div>
                     <CardTitle className="text-lg">{testimonial.name}</CardTitle>

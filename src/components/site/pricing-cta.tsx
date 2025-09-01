@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Check } from 'lucide-react';
 
 export function PricingCTA() {
-  const handleStripeCheckout = (_planType: string) => {
+  const handleStripeCheckout = () => {
     // Environment variables will be used for Stripe URLs
     const checkoutUrl = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_MONTHLY || 'https://buy.stripe.com/placeholder';
     window.open(checkoutUrl, '_blank');
@@ -69,7 +69,7 @@ export function PricingCTA() {
               </ul>
               <Button 
                 className="w-full" 
-                onClick={() => handleStripeCheckout('monthly')}
+                onClick={() => handleStripeCheckout()}
               >
                 Start Pro Trial
               </Button>
