@@ -1,22 +1,18 @@
-import "./globals.css";
-import type { Metadata } from "next";
+﻿import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
-  title: { default: "Zaza", template: "%s – Zaza" },
-  description: "AI tools that help teachers thrive.",
+export const metadata = {
+  title: "Zaza Technologies",
+  description: "AI-powered tools that save educators time.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased bg-white text-gray-900">
+      <body>
         <Header />
-        <main className="pt-16 lg:pt-20">
-          {children}
-        </main>
+        <main className="pt-20 lg:pt-24">{children}</main>
         <Footer />
       </body>
     </html>
