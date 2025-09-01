@@ -16,7 +16,17 @@
       "Bash(cp:*)",
       "Bash(powershell:*)",
       "Bash(node_modules\\.bin\\next build:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:zaza-site-base.vercel.app)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)"
     ],
     "deny": []
   }

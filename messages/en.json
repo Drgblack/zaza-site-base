@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "resources": "Resources",
+    "about": "About",
+    "pricing": "Pricing"
+  },
+  "hero": {
+    "title": "AI-powered tools for modern educators",
+    "subtitle": "Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
+    "cta_primary": "Try Zaza Teach",
+    "cta_secondary": "Join Waitlist"
+  },
+  "features": {
+    "title": "Why Zaza Promptly?",
+    "subtitle": "Built by educators, for educators",
+    "instant_feedback": {
+      "title": "Instant Feedback",
+      "description": "Generate personalized comments and feedback in seconds"
+    },
+    "time_saving": {
+      "title": "Save Time",
+      "description": "Reduce grading time by up to 80% with AI assistance"
+    },
+    "student_focused": {
+      "title": "Student-Focused",
+      "description": "Maintain personal connection while scaling your impact"
+    }
+  },
+  "snippet_tool": {
+    "title": "Live Demo: Snippet Tool",
+    "description": "Try our AI-powered comment generator",
+    "placeholder": "Enter assignment topic or student work sample...",
+    "generate": "Generate Comments"
+  },
+  "footer": {
+    "tagline": "Built by educators for educators",
+    "copyright": "© 2024 Zaza Technologies. All rights reserved.",
+    "address": "Königsallee 92a, 40212 Düsseldorf, Germany"
+  }
+}
