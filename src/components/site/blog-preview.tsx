@@ -3,7 +3,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
-import NextLink from 'next/link';
 import Image from 'next/image';
 
 const posts = [
@@ -69,7 +68,7 @@ export function BlogPreview() {
                   {post.description}
                 </p>
                 <Button asChild variant="outline" size="sm">
-                  <NextLink href={`/blog/${post.slug}`}>Read More</NextLink>
+                  <Link href={`/blog/${post.slug}`}>Read More</Link>
                 </Button>
               </CardContent>
             </Card>
