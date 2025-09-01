@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 interface ContactFormData {
   name: string;
@@ -61,7 +61,7 @@ export default function ContactPageClient() {
         setStatus('error');
         setStatusMessage(data?.error || 'Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setStatusMessage('Network error. Please check your connection and try again.');
     } finally {
@@ -258,9 +258,11 @@ export default function ContactPageClient() {
                 </p>
                 <div className="space-y-2">
                   <Button variant="outline" size="sm" asChild className="w-full">
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/faq">View FAQ</a>
                   </Button>
                   <Button variant="outline" size="sm" asChild className="w-full">
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/resources">Browse Resources</a>
                   </Button>
                 </div>
