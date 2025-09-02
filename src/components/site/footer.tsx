@@ -57,7 +57,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <Image 
                   src="/images/zaza-logo.png" 
-                  alt="Zaza Technologies Logo" 
+                  alt="Zaza Promptly Logo" 
                   className="w-6 h-6 rounded"
                   width={24}
                   height={24}

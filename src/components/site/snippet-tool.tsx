@@ -226,18 +226,20 @@ Overall, this represents excellent progress in your learning journey. I'm please
   const selectedTonePreset = tonePresets.find(preset => preset.value === tone);
 
   return (
-    <section className="py-24 bg-white dark:bg-gray-900">
+    <section className="py-24 bg-gradient-to-br from-gray-50/50 via-white to-purple-50/30 dark:from-gray-800/50 dark:via-gray-900 dark:to-purple-900/20">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
             Try Promptly Now
           </h2>
           <p className="mt-4 text-gray-600 md:text-xl dark:text-gray-300">
-            Generate professional parent messages in seconds with AI
+            Type a topic, get instant professional comments — save time, reduce stress
           </p>
-          <p className="mt-2 text-sm text-purple-600 dark:text-purple-400 font-medium">
-            Try it now - type a topic, get instant professional comments
-          </p>
+          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-blue-800 dark:text-blue-200 font-medium">
+              ✨ Try the advanced features: History saves your messages, Favorites lets you star the best ones, and 6 tone presets help you match any situation.
+            </p>
+          </div>
         </div>
         
         <div className="max-w-6xl mx-auto">

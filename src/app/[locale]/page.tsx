@@ -18,25 +18,26 @@ export default async function HomePage({params}: Props) {
     <div className="flex flex-col">
       {/* 1. Hero / Headline */}
       <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10 relative overflow-hidden">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.1),transparent_50%)] animate-pulse" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(236,72,153,0.1),transparent_50%)] animate-pulse" style={{animationDelay: '2s'}} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,69,193,0.05),transparent_70%)] animate-pulse" style={{animationDelay: '4s'}} />
+        {/* Enhanced animated gradient background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.15),transparent_50%)] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(236,72,153,0.15),transparent_50%)] animate-pulse" style={{animationDelay: '2s'}} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,69,193,0.1),transparent_70%)] animate-pulse" style={{animationDelay: '4s'}} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(219,39,119,0.08),transparent_60%)] animate-pulse" style={{animationDelay: '6s'}} />
         
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Content */}
-            <div className="text-center lg:text-left space-y-8">
+            <div className="text-center space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
                   Save hours every week on parent messages,{" "}
                   <span className="text-purple-600">report cards, and classroom communication.</span>
                 </h1>
-                <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 mx-auto lg:mx-0">
-                  Zaza Promptly is your AI-powered teaching assistant - built to help teachers save time, reduce stress, and communicate with confidence.
+                <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 mx-auto">
+                  Your personal teaching assistant that gives you back precious time, reduces stress, and lets you focus on what you love most - your students.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
                   Try Free - 5 Messages / Month
                 </Button>
@@ -56,18 +57,15 @@ export default async function HomePage({params}: Props) {
               </div>
             </div>
             
-            {/* Right side - Hero image placeholder */}
+            {/* Right side - Hero image */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-full max-w-md lg:max-w-lg">
-                <div className="aspect-square bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-3xl shadow-2xl flex items-center justify-center">
-                  <div className="text-center space-y-4 p-8">
-                    <MessageCircle className="h-16 w-16 text-purple-600 mx-auto" />
-                    <div className="space-y-2">
-                      <div className="h-4 bg-purple-200 dark:bg-purple-700 rounded w-full" />
-                      <div className="h-4 bg-purple-200 dark:bg-purple-700 rounded w-3/4 mx-auto" />
-                      <div className="h-4 bg-purple-200 dark:bg-purple-700 rounded w-1/2 mx-auto" />
-                    </div>
-                  </div>
+                <div className="aspect-square rounded-3xl shadow-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=600&h=600&fit=crop&crop=faces"
+                    alt="Teachers collaborating happily"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -129,18 +127,18 @@ export default async function HomePage({params}: Props) {
                 <div className="bg-purple-100 rounded-full p-4 w-16 h-16 mx-auto flex items-center justify-center">
                   <span className="text-2xl font-bold text-purple-600">2</span>
                 </div>
-                <h3 className="text-xl font-semibold">AI generates your message</h3>
+                <h3 className="text-xl font-semibold">You save precious Sunday hours</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Professional, clear, and tailored for parents.
+                  Professional messages generated instantly, leaving you time for what matters.
                 </p>
               </div>
               <div className="text-center space-y-4">
                 <div className="bg-purple-100 rounded-full p-4 w-16 h-16 mx-auto flex items-center justify-center">
                   <span className="text-2xl font-bold text-purple-600">3</span>
                 </div>
-                <h3 className="text-xl font-semibold">Refine with Zara</h3>
+                <h3 className="text-xl font-semibold">Your personal assistant, always ready</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Translate, adjust tone, or rewrite instantly.
+                  Translate, adjust tone, or rewrite - Zara is there whenever you need her.
                 </p>
               </div>
             </div>
@@ -160,29 +158,77 @@ export default async function HomePage({params}: Props) {
                 Trusted by teachers who value their time
               </h2>
             </div>
-            <div className="grid gap-8 md:grid-cols-3">
-              <Card>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+              <Card className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    &ldquo;Promptly cut my Sunday admin in half.&rdquo;
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src="https://images.unsplash.com/photo-1494790108755-2616b612b5e5?w=48&h=48&fit=crop&crop=face"
+                      alt="Sarah"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold">Sarah M.</p>
+                      <p className="text-sm text-gray-500">Year 6 Teacher</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    &ldquo;Promptly cut my Sunday admin in half. I actually have weekends again!&rdquo;
                   </p>
-                  <p className="font-semibold">- Sarah, Year 6 Teacher</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    &ldquo;I used to agonize over parent emails. Now I feel confident in minutes.&rdquo;
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face"
+                      alt="Marcus"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold">Marcus J.</p>
+                      <p className="text-sm text-gray-500">High School Math</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    &ldquo;No more staring at blank screens. Parent messages flow naturally now.&rdquo;
                   </p>
-                  <p className="font-semibold">- Jamal, High School Teacher</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    &ldquo;Finally, an AI tool that understands teachers.&rdquo;
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=48&h=48&fit=crop&crop=face"
+                      alt="Jennifer"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold">Jennifer K.</p>
+                      <p className="text-sm text-gray-500">Elementary</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    &ldquo;I sleep better knowing my parent emails are professional and caring.&rdquo;
                   </p>
-                  <p className="font-semibold">- Emily, Primary Teacher</p>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
+                      alt="David"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold">David R.</p>
+                      <p className="text-sm text-gray-500">Middle School</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    &ldquo;Finally - an AI that speaks teacher. It gets our world completely.&rdquo;
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -314,22 +360,48 @@ export default async function HomePage({params}: Props) {
       {/* 6.5. Zara Assistant Preview */}
       <ZaraAssistant />
 
-      {/* 7. Final CTA */}
-      <section className="py-24 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden">
+      {/* 7. Emotional Closing Section */}
+      <section className="py-32 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden">
+        {/* Enhanced background elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.05),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.05),transparent_50%)]" />
+        
         <div className="container px-4 md:px-6 relative">
-          <div className="mx-auto max-w-4xl text-center space-y-8">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Spend less time worrying about words - and more time teaching.
-            </h2>
-            <div className="space-x-4">
-              <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100">
+          <div className="mx-auto max-w-5xl text-center space-y-12">
+            {/* Emotional storytelling headline */}
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
+                Imagine Sunday afternoons <span className="italic">free.</span>
+              </h2>
+              <p className="text-xl md:text-2xl opacity-95 leading-relaxed max-w-4xl mx-auto">
+                Evenings with family, not admin. More energy for your students, and more joy in your teaching. 
+                <br className="hidden md:block" />
+                That&apos;s what Promptly gives back.
+              </p>
+            </div>
+            
+            {/* Supporting imagery suggestion */}
+            <div className="py-8">
+              <div className="w-24 h-1 bg-white/30 mx-auto rounded-full"></div>
+            </div>
+            
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
                 Try Promptly Free
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 backdrop-blur">
-                See Pricing →
+              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 backdrop-blur px-8 py-4 text-lg font-semibold" asChild>
+                <a href="/pricing">
+                  See Pricing →
+                </a>
               </Button>
             </div>
+            
+            {/* Social proof tagline */}
+            <p className="text-lg opacity-75 italic">
+              Join thousands of teachers who&apos;ve reclaimed their evenings
+            </p>
           </div>
         </div>
       </section>
