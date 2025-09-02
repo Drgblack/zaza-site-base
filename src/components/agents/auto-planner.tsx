@@ -24,7 +24,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { aiServices, AutoPlannerRequest } from '@/lib/ai-services';
-import { useAuth } from '@/hooks/useAuth';
+// import { useAuth } from '@/hooks/useAuth';
 
 interface AutoPlannerProps {
   context?: 'promptly' | 'teach' | 'collaboration';
@@ -48,7 +48,9 @@ export function AutoPlannerAgent({ context = 'promptly', initialInput = '', onPl
   const [planHistory, setPlanHistory] = useState<GeneratedPlan[]>([]);
   const [crossAppMode, setCrossAppMode] = useState(false);
   
-  const { user, userProfile } = useAuth();
+  // Mock user profile for demo - replace with actual useAuth hook
+  const user = { uid: 'demo-user' };
+  const userProfile = { teachingSubject: 'Elementary Education', gradeLevel: 'K-5' };
 
   useEffect(() => {
     // Load plan history from localStorage

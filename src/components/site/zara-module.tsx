@@ -20,7 +20,7 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { aiServices } from '@/lib/ai-services';
-import { useAuth } from '@/hooks/useAuth';
+// import { useAuth } from '@/hooks/useAuth';
 
 interface ZaraModuleProps {
   variant?: 'default' | 'compact' | 'inline';
@@ -52,7 +52,9 @@ export function ZaraModule({
   const [knowledgeCoreActive, setKnowledgeCoreActive] = useState(false);
   const [isKnowledgeEnhanced, setIsKnowledgeEnhanced] = useState(false);
   
-  const { user, userProfile } = useAuth();
+  // Mock user profile for demo - replace with actual useAuth hook
+  const user = { uid: 'demo-user' };
+  const userProfile = { teachingSubject: 'Elementary Education', gradeLevel: 'K-5' };
 
   useEffect(() => {
     // Check if KnowledgeCore is active

@@ -24,7 +24,7 @@ import {
   Zap
 } from 'lucide-react';
 import { aiServices, KnowledgeCoreContext } from '@/lib/ai-services';
-import { useAuth } from '@/hooks/useAuth';
+// import { useAuth } from '@/hooks/useAuth';
 import { getUserSnippets, getSharedSnippets } from '@/lib/db';
 
 interface KnowledgeCoreProps {
@@ -62,7 +62,9 @@ export function KnowledgeCoreActivation({ onActivated }: KnowledgeCoreProps) {
   const [zaraEnhancements, setZaraEnhancements] = useState<ZaraEnhancement[]>([]);
   const [activationResult, setActivationResult] = useState<any>(null);
   
-  const { user, userProfile } = useAuth();
+  // Mock user profile for demo - replace with actual useAuth hook
+  const user = { uid: 'demo-user' };
+  const userProfile = { teachingSubject: 'Elementary Education', gradeLevel: 'K-5' };
 
   useEffect(() => {
     loadKnowledgeStats();
