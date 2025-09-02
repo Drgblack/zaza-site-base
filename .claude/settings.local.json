@@ -57,7 +57,8 @@
       "Bash(pnpm dev:*)",
       "Bash(npm run dev:*)",
       "Bash(git log:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": []
   }
