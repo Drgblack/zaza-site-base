@@ -29,7 +29,8 @@ import {
   ThumbsDown,
   Share2,
   Heart,
-  Shield
+  Shield,
+  Users
 } from 'lucide-react';
 
 interface GeneratedMessage {
@@ -356,6 +357,43 @@ Overall, this represents excellent progress in your learning journey. I'm please
     }
   };
 
+  const handleShareWithCommunity = async () => {
+    if (!isAuthenticated) {
+      setShowSignInPrompt(true);
+      return;
+    }
+
+    if (!output || !user) return;
+
+    setIsSharing(true);
+    try {
+      // First save the snippet to user's library
+      const snippetId = await saveSnippetToLibrary(user.uid, {
+        content: output,
+        tone,
+        category: 'parent-communication',
+        context: input
+      });
+
+      // Share with community (anonymized by default for privacy)
+      const shareId = await shareSnippet(snippetId, false); // false = not anonymous, show attribution
+      
+      // Update the current message with share ID
+      const updatedHistory = history.map(h => 
+        h.output === output ? { ...h, shareId, sharedWithCommunity: true } : h
+      );
+      setHistory(updatedHistory);
+      
+      // Show success message
+      alert('🎉 Snippet shared with the teacher community! Other educators will be able to find and use your message. Thank you for contributing!');
+    } catch (error) {
+      console.error('Error sharing with community:', error);
+      alert('Error sharing with community. Please try again.');
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
   const handleSignIn = async () => {
     try {
       await signInWithGoogle();
@@ -598,6 +636,24 @@ Overall, this represents excellent progress in your learning journey. I'm please
                             </Button>
                           </div>
 
+                          {/* Community Sharing Row */}
+                          <div className="flex gap-2">
+                            <Button
+                              onClick={handleShareWithCommunity}
+                              disabled={isSharing}
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-800/30"
+                            >
+                              {isSharing ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              ) : (
+                                <Users className="mr-2 h-4 w-4" />
+                              )}
+                              {isAuthenticated ? 'Share with Community' : 'Share with Community (Sign In)'}
+                            </Button>
+                          </div>
+
                           {/* Rating Row */}
                           <div className="flex items-center justify-center gap-4 pt-2">
                             <span className="text-sm text-gray-600 dark:text-gray-400">Rate this message:</span>
@@ -813,8 +869,9 @@ Overall, this represents excellent progress in your learning journey. I'm please
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>Save unlimited snippets to your personal library</li>
                   <li>Access your snippets from any device</li>
-                  <li>Share snippets with the teacher community</li>
-                  <li>Track your communication success</li>
+                  <li>Share snippets with the teacher community and earn recognition</li>
+                  <li>Browse and save snippets shared by fellow educators</li>
+                  <li>Track your communication success and time saved</li>
                 </ul>
               </div>
               <div className="flex gap-2">

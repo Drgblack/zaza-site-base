@@ -25,8 +25,13 @@ import {
   Award,
   TrendingUp,
   BarChart3,
-  Upload
+  Upload,
+  Sparkles,
+  Zap,
+  Heart
 } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { ErrorBoundary } from '@/components/ui/error-boundary';
 
 export function Dashboard() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -61,11 +66,8 @@ export function Dashboard() {
 
   if (loading || isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading your dashboard...</p>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <LoadingSpinner size="xl" text="Loading your dashboard..." />
       </div>
     );
   }
@@ -101,26 +103,41 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                Welcome back, {userProfile?.displayName || user?.displayName}!
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">
-                Manage your snippets and track your teaching communication success
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="secondary">Teacher</Badge>
-              <Badge variant="outline">Pro User</Badge>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-background">
+        {/* Modern Header */}
+        <div className="bg-card border-b border-border relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-50/50 via-pink-50/30 to-blue-50/50 dark:from-purple-950/20 dark:via-pink-950/10 dark:to-blue-950/10" />
+          <div className="max-w-7xl mx-auto px-4 py-8 relative">
+            <div className="flex items-center justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h1 className="text-3xl font-display font-bold text-foreground">
+                      Welcome back, {userProfile?.displayName || user?.displayName}!
+                    </h1>
+                    <p className="text-muted-foreground text-lg">
+                      Your teaching communication hub
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Badge className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 dark:from-purple-900/30 dark:to-pink-900/30 dark:text-purple-300">
+                  <GraduationCap className="w-4 h-4 mr-1" />
+                  Teacher
+                </Badge>
+                <Badge variant="outline" className="border-primary/20 text-primary">
+                  <Zap className="w-4 h-4 mr-1" />
+                  Pro User
+                </Badge>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Insights Widget */}
@@ -128,66 +145,116 @@ export function Dashboard() {
           <InsightsWidget />
         </div>
 
-        {/* Stats Cards */}
+        {/* Modern Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="group glass-card hover:teacher-shadow-lg transition-all duration-300 hover:-translate-y-1 border-purple-100 dark:border-purple-900/30">
             <CardContent className="p-6">
-              <div className="flex items-center">
-                <BookOpen className="h-8 w-8 text-purple-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Saved Snippets</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.savedSnippets}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/50 dark:to-purple-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Saved Snippets</p>
+                    <p className="text-2xl font-bold text-foreground">{stats.savedSnippets}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-green-600 dark:text-green-400 font-medium">+12%</div>
+                  <div className="text-xs text-muted-foreground">this month</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="group glass-card hover:teacher-shadow-lg transition-all duration-300 hover:-translate-y-1 border-blue-100 dark:border-blue-900/30">
             <CardContent className="p-6">
-              <div className="flex items-center">
-                <Share2 className="h-8 w-8 text-blue-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Shared</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.sharedSnippets}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Share2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Shared</p>
+                    <p className="text-2xl font-bold text-foreground">{stats.sharedSnippets}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">+8%</div>
+                  <div className="text-xs text-muted-foreground">this month</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="group glass-card hover:teacher-shadow-lg transition-all duration-300 hover:-translate-y-1 border-yellow-100 dark:border-yellow-900/30">
             <CardContent className="p-6">
-              <div className="flex items-center">
-                <Star className="h-8 w-8 text-yellow-500" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Helpful Votes</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.totalRating}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/50 dark:to-yellow-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Star className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Helpful Votes</p>
+                    <p className="text-2xl font-bold text-foreground">{stats.totalRating}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-yellow-600 dark:text-yellow-400 font-medium">+15%</div>
+                  <div className="text-xs text-muted-foreground">this month</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="group glass-card hover:teacher-shadow-lg transition-all duration-300 hover:-translate-y-1 border-green-100 dark:border-green-900/30">
             <CardContent className="p-6">
-              <div className="flex items-center">
-                <Gift className="h-8 w-8 text-green-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Referral Credits</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.referralCredits}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/50 dark:to-green-800/50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Gift className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Referral Credits</p>
+                    <p className="text-2xl font-bold text-foreground">{stats.referralCredits}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-green-600 dark:text-green-400 font-medium">+3</div>
+                  <div className="text-xs text-muted-foreground">this month</div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Content Tabs */}
-        <Tabs defaultValue="snippets" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 max-w-3xl">
-            <TabsTrigger value="snippets">My Snippets</TabsTrigger>
-            <TabsTrigger value="knowledge">KnowledgeCore</TabsTrigger>
-            <TabsTrigger value="history">Downloads</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="referrals">Referrals</TabsTrigger>
-            <TabsTrigger value="gamification">Progress</TabsTrigger>
+        {/* Modern Main Content Tabs */}
+        <Tabs defaultValue="snippets" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-6 max-w-4xl bg-muted/50 backdrop-blur-sm border border-border/50 rounded-2xl p-2">
+            <TabsTrigger value="snippets" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <BookOpen className="w-4 h-4 mr-2" />
+              My Snippets
+            </TabsTrigger>
+            <TabsTrigger value="knowledge" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <Upload className="w-4 h-4 mr-2" />
+              KnowledgeCore
+            </TabsTrigger>
+            <TabsTrigger value="history" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <Download className="w-4 h-4 mr-2" />
+              Downloads
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Analytics
+            </TabsTrigger>
+            <TabsTrigger value="referrals" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <Gift className="w-4 h-4 mr-2" />
+              Referrals
+            </TabsTrigger>
+            <TabsTrigger value="gamification" className="rounded-xl data-[state=active]:bg-background data-[state=active]:shadow-sm">
+              <Award className="w-4 h-4 mr-2" />
+              Progress
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="snippets" className="space-y-6">
@@ -346,6 +413,7 @@ export function Dashboard() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }

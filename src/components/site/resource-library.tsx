@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { CommunityResourceHub } from '@/components/community/community-resource-hub';
 
 interface Resource {
   id: string;
@@ -140,7 +141,7 @@ const resources: Resource[] = [
   }
 ];
 
-const categories = ['All', 'Lesson Tools', 'Report Writing', 'Parent Communication', 'Wellbeing'];
+const categories = ['All', 'Teacher Shared', 'Lesson Tools', 'Report Writing', 'Parent Communication', 'Wellbeing'];
 
 const typeIcons = {
   PDF: FileText,
@@ -221,7 +222,12 @@ export function ResourceLibrary() {
           </div>
         </div>
 
-        {/* Featured Resources */}
+        {/* Teacher Shared Resources Section */}
+        {selectedCategory === 'Teacher Shared' ? (
+          <CommunityResourceHub />
+        ) : (
+          <>
+            {/* Featured Resources */}
         {selectedCategory === 'All' && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-6">Featured Resources</h2>
@@ -359,6 +365,8 @@ export function ResourceLibrary() {
             </div>
           )}
         </div>
+          </>
+        )}
       </div>
     </section>
   );

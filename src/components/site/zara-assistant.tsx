@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Bot, MessageCircle, Sparkles, Send, User } from 'lucide-react';
+import { Bot, MessageCircle, Sparkles, Send, User, Users } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -29,6 +29,13 @@ const mockConversation = [
     type: 'assistant' as const,
     message: "Here's a draft email template:\n\n\"Dear [Parent name],\n\nI wanted to reach out regarding a small incident that occurred during today's group work activity. [Student name] and a classmate had a disagreement about their project approach.\n\nI intervened immediately and helped both students work through the situation. They were able to resolve their differences and completed the activity successfully together.\n\n[Student name] handled the resolution well and showed maturity in listening to their classmate's perspective.\n\nPlease let me know if you have any questions.\n\nBest regards,\n[Your name]\"",
     timestamp: "2:37 PM"
+  },
+  {
+    id: 5,
+    type: 'assistant' as const,
+    message: "💡 I also found similar messages from the teacher community that might help:\n\n• \"Classroom conflict resolution template\" by Sarah M. (saved 67 times)\n• \"Group work incident parent email\" by Jennifer K. (saved 43 times)\n\nWould you like me to show you how other teachers handled similar situations?",
+    timestamp: "2:37 PM",
+    isCommunitySuggestion: true
   }
 ];
 
@@ -102,15 +109,25 @@ export function ZaraAssistant() {
                     }`}
                   >
                     {msg.type === 'assistant' && (
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white flex-shrink-0 mt-1">
-                        <Bot className="h-4 w-4" />
+                      <div className={`flex h-8 w-8 items-center justify-center rounded-full text-white flex-shrink-0 mt-1 ${
+                        (msg as any).isCommunitySuggestion 
+                          ? 'bg-gradient-to-r from-green-500 to-blue-500'
+                          : 'bg-gradient-to-r from-purple-500 to-pink-500'
+                      }`}>
+                        {(msg as any).isCommunitySuggestion ? (
+                          <Users className="h-4 w-4" />
+                        ) : (
+                          <Bot className="h-4 w-4" />
+                        )}
                       </div>
                     )}
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                         msg.type === 'user'
                           ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                          : (msg as any).isCommunitySuggestion
+                            ? 'bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border border-green-200 dark:border-green-800 text-gray-900 dark:text-gray-100'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{msg.message}</p>
@@ -176,10 +193,10 @@ export function ZaraAssistant() {
             <Card className="relative overflow-hidden border-0 bg-white/60 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow">
               <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent" />
               <CardContent className="p-6 text-center relative">
-                <Sparkles className="mx-auto mb-4 h-12 w-12 text-pink-600" />
-                <h3 className="font-semibold text-lg mb-2">Smart Suggestions</h3>
+                <Users className="mx-auto mb-4 h-12 w-12 text-pink-600" />
+                <h3 className="font-semibold text-lg mb-2">Community Wisdom</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Get personalized templates and suggestions based on your specific situation
+                  Access real messages shared by fellow teachers and proven to work in classrooms
                 </p>
               </CardContent>
             </Card>
