@@ -128,7 +128,7 @@ export function SnippetTool() {
     
     setIsLoading(true);
     // Simulate API call with tone and length considerations
-    setTimeout(() => {
+    setTimeout(async () => {
       const toneTemplates = {
         professional: 'I wanted to share some feedback regarding your recent work',
         friendly: 'Hope you\'re doing well! I wanted to chat about',
