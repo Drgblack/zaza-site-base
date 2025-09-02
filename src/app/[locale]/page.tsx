@@ -1,4 +1,5 @@
 import {setRequestLocale} from 'next-intl/server';
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -63,9 +64,12 @@ export default async function HomePage({params}: Props) {
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-full max-w-md lg:max-w-lg">
                 <div className="aspect-square rounded-3xl shadow-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=600&h=600&fit=crop&crop=faces"
                     alt="Teachers collaborating happily"
+                    width={600}
+                    height={600}
+                    priority
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -247,9 +251,11 @@ export default async function HomePage({params}: Props) {
               <div className="relative">
                 {/* Placeholder for Greg's photo */}
                 <div className="w-full max-w-sm mx-auto">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
                     alt="Greg Blackburn, PhD - Founder of Zaza Promptly"
+                    width={400}
+                    height={400}
                     className="w-full h-96 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute -bottom-6 left-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">

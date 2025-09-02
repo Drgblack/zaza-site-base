@@ -12,6 +12,7 @@ import { ProgressTracker } from "@/components/site/progress-tracker";
 import { AuthProvider } from "@/contexts/auth-context";
 import { UnifiedAuthProvider } from "@/contexts/unified-auth-context";
 import { Toaster } from "sonner";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -82,31 +83,28 @@ export default async function LocaleLayout({
  
   return (
     <html lang={locale}>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider>
-            <UnifiedAuthProvider app="promptly">
-              <Header />
-              <main>
-                {children}
-              </main>
-              <Footer />
-              <ReferralBanner />
-              <ProgressTracker />
-              <Toaster 
-                position="bottom-right" 
-                richColors 
-                closeButton 
-                expand={true}
-                duration={4000}
-              />
-            </UnifiedAuthProvider>
-          </AuthProvider>
+          <ErrorBoundary>
+            <AuthProvider>
+              <UnifiedAuthProvider app="promptly">
+                <Header />
+                <main>
+                  {children}
+                </main>
+                <Footer />
+                <ReferralBanner />
+                <ProgressTracker />
+                <Toaster 
+                  position="bottom-right" 
+                  richColors 
+                  closeButton 
+                  expand={true}
+                  duration={4000}
+                />
+              </UnifiedAuthProvider>
+            </AuthProvider>
+          </ErrorBoundary>
         </NextIntlClientProvider>
       </body>
     </html>
