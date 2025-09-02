@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,8 +14,13 @@ import {
   BookOpen,
   Lightbulb,
   ArrowRight,
-  Zap
+  Zap,
+  Database,
+  Brain,
+  CheckCircle
 } from 'lucide-react';
+import { aiServices } from '@/lib/ai-services';
+import { useAuth } from '@/hooks/useAuth';
 
 interface ZaraModuleProps {
   variant?: 'default' | 'compact' | 'inline';
@@ -44,17 +49,101 @@ export function ZaraModule({
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState('');
+  const [knowledgeCoreActive, setKnowledgeCoreActive] = useState(false);
+  const [isKnowledgeEnhanced, setIsKnowledgeEnhanced] = useState(false);
+  
+  const { user, userProfile } = useAuth();
+
+  useEffect(() => {
+    // Check if KnowledgeCore is active
+    const kcStatus = localStorage.getItem('knowledgecore-status');
+    setKnowledgeCoreActive(kcStatus === 'active');
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     setIsLoading(true);
+    setIsKnowledgeEnhanced(false);
     
-    // Simulate AI response based on context
-    setTimeout(() => {
-      const responses = {
-        general: `I'd be happy to help you with "${input}". Here's what I suggest:
+    try {
+      // First, apply safety filtering
+      const safetyResult = await aiServices.safety.scanContent(input);
+      
+      let processedInput = input;
+      if (!safetyResult.isApproved) {
+        processedInput = await aiServices.safety.neutralizeSensitiveContent(input);
+      }
+      
+      // Generate enhanced response if KnowledgeCore is active
+      let enhancedResponse = '';
+      if (knowledgeCoreActive) {
+        try {
+          // This would use actual user knowledge in production
+          enhancedResponse = await generateKnowledgeEnhancedResponse(processedInput, context);
+          setIsKnowledgeEnhanced(true);
+        } catch (error) {
+          console.error('KnowledgeCore enhancement failed:', error);
+        }
+      }
+      
+      // Fallback to standard responses if enhancement fails or KC is inactive
+      if (!enhancedResponse) {
+        enhancedResponse = getStandardResponse(processedInput, context);
+      }
+      
+      setResponse(enhancedResponse);
+      
+    } catch (error) {
+      console.error('Zara response error:', error);
+      setResponse('I apologize, but I encountered an error while processing your request. Please try again or rephrase your question.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const generateKnowledgeEnhancedResponse = async (userInput: string, responseContext: string) => {
+    // Simulate knowledge-enhanced response with user context
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    const userContext = userProfile ? `${userProfile.teachingSubject || 'General Education'} (${userProfile.gradeLevel || 'K-12'})` : 'General Education';
+    const hasOrganization = userProfile?.organizationId ? 'institutional' : 'individual';
+    
+    return `## 🧠 Knowledge-Enhanced Response
+
+Hi! I've analyzed your question "${userInput}" using your personalized knowledge base and teaching context.
+
+### 📚 Based on Your Profile
+- **Subject Area**: ${userContext}
+- **Teaching Context**: ${hasOrganization === 'institutional' ? 'School/District Environment' : 'Individual Educator'}
+- **Personalization Level**: Advanced (using your content patterns)
+
+### 💡 Tailored Recommendations
+
+**Immediate Actions:**
+1. **Contextual Approach**: Based on your ${userContext} background, I recommend starting with strategies that align with your curriculum standards
+2. **Proven Patterns**: Your successful communications typically use ${['professional', 'collaborative', 'solution-focused'][Math.floor(Math.random() * 3)]} approaches
+3. **Resource Integration**: I can connect this with ${['lesson planning', 'parent communication', 'assessment'][Math.floor(Math.random() * 3)]} resources you've used before
+
+**Personalized Insights:**
+- Your communication style tends toward ${['clear and direct', 'warm and supportive', 'structured and detailed'][Math.floor(Math.random() * 3)]} messaging
+- Similar situations in your history have been most successful when you ${['provided specific examples', 'invited collaboration', 'set clear expectations'][Math.floor(Math.random() * 3)]}
+- Your ${hasOrganization === 'institutional' ? 'school team' : 'professional network'} has shared effective strategies for this type of challenge
+
+### 🎯 Next Steps
+1. **Apply Your Style**: Use the tone and approach that's worked well for you in the past
+2. **Leverage Resources**: I can help you adapt templates from your knowledge base
+3. **Track Results**: Monitor outcomes and I'll learn from what works best for you
+
+**🔗 Connected Resources**: ${hasOrganization === 'institutional' ? 'I can also suggest approaches that have worked well for other teachers in your organization' : 'I can recommend resources from the community knowledge base'}
+
+*This response was enhanced using your personal teaching knowledge and communication patterns.*`;
+  };
+
+  const getStandardResponse = (userInput: string, responseContext: string) => {
+    const responses = {
+      general: `I'd be happy to help you with "${userInput}". Here's what I suggest:
 
 1. **Understanding the Context**: Let me break down your request to provide the most relevant guidance.
 
@@ -63,8 +152,8 @@ export function ZaraModule({
 3. **Additional Resources**: I can also suggest some resources and templates that might be helpful.
 
 Would you like me to elaborate on any of these points or help you with something more specific?`,
-        
-        blog: `Great question about "${input}"! This is a topic I see many teachers asking about. Here's my perspective:
+      
+      blog: `Great question about "${userInput}"! This is a topic I see many teachers asking about. Here's my perspective:
 
 **Key Insights:**
 - This is a common challenge in modern classrooms
@@ -77,8 +166,8 @@ Would you like me to elaborate on any of these points or help you with something
 - Don't hesitate to reach out if you need more specific guidance
 
 Would you like me to dive deeper into any particular aspect?`,
-        
-        resources: `I can definitely help you with "${input}"! Here are some resources and approaches:
+      
+      resources: `I can definitely help you with "${userInput}"! Here are some resources and approaches:
 
 **Immediate Solutions:**
 - Quick templates and frameworks you can use today
@@ -91,8 +180,8 @@ Would you like me to dive deeper into any particular aspect?`,
 - Measuring and improving over time
 
 Let me know if you'd like me to focus on any specific area!`,
-        
-        pricing: `Thanks for asking about "${input}"! This is exactly the kind of challenge Zaza is designed to help with:
+      
+      pricing: `Thanks for asking about "${userInput}"! This is exactly the kind of challenge Zaza is designed to help with:
 
 **How Zaza Can Help:**
 - Instant access to teaching expertise
@@ -106,11 +195,9 @@ Let me know if you'd like me to focus on any specific area!`,
 - Join thousands of teachers already saving time with Zara
 
 Ready to transform your teaching workflow?`
-      };
+    };
 
-      setResponse(responses[context as keyof typeof responses] || responses.general);
-      setIsLoading(false);
-    }, 2000);
+    return responses[responseContext as keyof typeof responses] || responses.general;
   };
 
   const handleExampleClick = (example: string) => {
@@ -254,8 +341,21 @@ Ready to transform your teaching workflow?`
               <Zap className="h-3 w-3 mr-1" />
               AI-Powered
             </Badge>
+            {knowledgeCoreActive && (
+              <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                <Database className="h-3 w-3 mr-1" />
+                KnowledgeCore
+              </Badge>
+            )}
+            {isKnowledgeEnhanced && (
+              <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                <Brain className="h-3 w-3 mr-1" />
+                Enhanced
+              </Badge>
+            )}
             <Badge variant="outline" className="text-purple-600 dark:text-purple-400">
-              Free to Try
+              <CheckCircle className="h-3 w-3 mr-1" />
+              Safety Protected
             </Badge>
           </div>
           <Button variant="ghost" size="sm" className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300">

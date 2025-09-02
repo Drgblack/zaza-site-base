@@ -191,7 +191,23 @@ Overall, this represents excellent progress in your learning journey. I'm please
         favorited: false
       };
       
-      setOutput(message);
+      // Apply AI safety filtering before displaying
+      try {
+        const { aiServices } = await import('@/lib/ai-services');
+        const safetyResult = await aiServices.safety.scanContent(message);
+        
+        if (!safetyResult.isApproved) {
+          const neutralizedMessage = await aiServices.safety.neutralizeSensitiveContent(message);
+          setOutput(neutralizedMessage);
+          newMessage.content = neutralizedMessage;
+        } else {
+          setOutput(message);
+        }
+      } catch (error) {
+        console.error('Safety filtering error:', error);
+        setOutput(message); // Fallback to original if safety check fails
+      }
+      
       setHistory(prev => [newMessage, ...prev.slice(0, 9)]); // Keep last 10
       
       // Track time saved for authenticated users
