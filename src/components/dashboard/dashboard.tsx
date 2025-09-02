@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { InsightsWidget } from './insights-widget';
 import { KnowledgeCore } from './knowledge-core';
 import { AnalyticsDashboard } from './analytics-dashboard';
+import { GamificationWidget } from './gamification-widget';
 import { 
   BookOpen, 
   Download, 
@@ -32,17 +33,20 @@ export function Dashboard() {
   const [userProfile, setUserProfile] = useState<any>(null);
   const [savedSnippets, setSavedSnippets] = useState<SavedSnippet[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [referralStats, setReferralStats] = useState({ referredCount: 0, creditsEarned: 0, referralCode: '' });
 
   useEffect(() => {
     const loadUserData = async () => {
       if (user) {
         try {
-          const [profile, snippets] = await Promise.all([
+          const [profile, snippets, referrals] = await Promise.all([
             getUserProfile(user.uid),
-            getUserSnippets(user.uid)
+            getUserSnippets(user.uid),
+            fetch(`/api/referrals?uid=${user.uid}`).then(res => res.json()).catch(() => ({ referredCount: 0, creditsEarned: 0, referralCode: '' }))
           ]);
           setUserProfile(profile);
           setSavedSnippets(snippets);
+          setReferralStats(referrals);
         } catch (error) {
           console.error('Error loading user data:', error);
         }
@@ -92,7 +96,7 @@ export function Dashboard() {
   const stats = {
     savedSnippets: savedSnippets.length,
     sharedSnippets: savedSnippets.filter(s => s.isShared).length,
-    referralCredits: userProfile?.referralCredits || 0,
+    referralCredits: referralStats.creditsEarned || userProfile?.referralCredits || 0,
     totalRating: savedSnippets.filter(s => s.rating && s.rating > 0).length
   };
 
@@ -177,12 +181,13 @@ export function Dashboard() {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="snippets" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 max-w-2xl">
+          <TabsList className="grid w-full grid-cols-6 max-w-3xl">
             <TabsTrigger value="snippets">My Snippets</TabsTrigger>
             <TabsTrigger value="knowledge">KnowledgeCore</TabsTrigger>
             <TabsTrigger value="history">Downloads</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="referrals">Referrals</TabsTrigger>
+            <TabsTrigger value="gamification">Progress</TabsTrigger>
           </TabsList>
 
           <TabsContent value="snippets" className="space-y-6">
@@ -300,17 +305,44 @@ export function Dashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">0</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{referralStats.referredCount}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Teachers Referred</p>
                   </div>
                   <div className="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <Award className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.referralCredits}</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{referralStats.creditsEarned}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Credits Earned</p>
                   </div>
                 </div>
+
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Share Your Link</h4>
+                  <div className="flex items-center gap-2 mb-3">
+                    <code className="bg-blue-100 dark:bg-blue-800 px-3 py-1 rounded text-blue-900 dark:text-blue-100 font-mono text-sm flex-1">
+                      {typeof window !== 'undefined' ? `${window.location.origin}/?ref=${userProfile?.referralCode}` : `/?ref=${userProfile?.referralCode}`}
+                    </code>
+                    <Button 
+                      size="sm" 
+                      onClick={() => {
+                        const referralUrl = typeof window !== 'undefined' 
+                          ? `${window.location.origin}/?ref=${userProfile?.referralCode}`
+                          : `/?ref=${userProfile?.referralCode}`;
+                        navigator.clipboard.writeText(referralUrl);
+                      }}
+                    >
+                      Copy Link
+                    </Button>
+                  </div>
+                  <p className="text-xs text-blue-600 dark:text-blue-400">
+                    💡 Earn 5 credits for each teacher who signs up with your link!
+                  </p>
+                </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="gamification" className="space-y-6">
+            <GamificationWidget />
           </TabsContent>
         </Tabs>
       </div>

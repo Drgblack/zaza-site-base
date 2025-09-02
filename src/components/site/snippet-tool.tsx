@@ -13,6 +13,7 @@ import { saveSnippetToLibrary, rateSnippet, getSnippetRating, shareSnippet, trac
 import { signInWithGoogle } from '@/lib/auth';
 import { ShareButton } from '@/components/site/share-button';
 import { AITrustModal } from '@/components/site/ai-trust-modal';
+import { ShareModal } from '@/components/sharing/share-modal';
 import { 
   Loader2, 
   Copy, 
@@ -100,6 +101,8 @@ export function SnippetTool() {
   const [isSharing, setIsSharing] = useState(false);
   const [showSignInPrompt, setShowSignInPrompt] = useState(false);
   const [showTrustModal, setShowTrustModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [currentShareId, setCurrentShareId] = useState<string | undefined>();
 
   // Load history and favorites from localStorage on mount
   useEffect(() => {
@@ -296,6 +299,20 @@ Overall, this represents excellent progress in your learning journey. I'm please
 
     if (!output || !user) return;
 
+    // Check if snippet is already shared by looking for existing share ID
+    const existingMessage = history.find(h => h.output === output);
+    if (existingMessage && (existingMessage as any).shareId) {
+      setCurrentShareId((existingMessage as any).shareId);
+      setShowShareModal(true);
+      return;
+    }
+
+    // If not authenticated but trying to share, just open modal for preview
+    if (!isAuthenticated) {
+      setShowShareModal(true);
+      return;
+    }
+
     setIsSharing(true);
     try {
       // First save the snippet if not already saved
@@ -309,11 +326,14 @@ Overall, this represents excellent progress in your learning journey. I'm please
       // Then share it
       const shareId = await shareSnippet(snippetId);
       
-      // Copy share URL to clipboard
-      const shareUrl = `${window.location.origin}/gallery/${shareId}`;
-      await navigator.clipboard.writeText(shareUrl);
+      // Update the current message with share ID
+      const updatedHistory = history.map(h => 
+        h.output === output ? { ...h, shareId } : h
+      );
+      setHistory(updatedHistory);
       
-      alert('Snippet shared! Link copied to clipboard.');
+      setCurrentShareId(shareId);
+      setShowShareModal(true);
     } catch (error) {
       console.error('Error sharing snippet:', error);
       alert('Error sharing snippet. Please try again.');
@@ -810,6 +830,19 @@ Overall, this represents excellent progress in your learning journey. I'm please
         tone={tone}
         context={input}
       />
+      
+      {/* Share Modal */}
+      {output && (
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          content={output}
+          tone={tone}
+          category="parent-communication"
+          shareId={currentShareId}
+          authorName={user?.displayName || 'Anonymous'}
+        />
+      )}
     </section>
   );
 }

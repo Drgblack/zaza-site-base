@@ -10,12 +10,12 @@ const getFirebaseFunctions = async () => {
   try {
     const { 
       doc, getDoc, setDoc, updateDoc, addDoc, collection, 
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp 
+      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
     } = await import('firebase/firestore');
     
     return {
       doc, getDoc, setDoc, updateDoc, addDoc, collection,
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp
+      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
     };
   } catch (error) {
     console.warn('Firebase functions not available:', error);
@@ -42,6 +42,14 @@ export interface UserProfile {
   monthlyTimeSaved: number; // in minutes
   snippetsGenerated: number;
   customSnippets: string[]; // IDs of custom uploaded snippets
+  // Phase 10: Referral and Gamification
+  referredUsers: string[]; // UIDs of users they referred
+  referredBy?: string; // UID of user who referred them
+  streakDays: number; // consecutive days of usage
+  lastActiveDate?: any;
+  achievements: string[]; // achievement badges earned
+  totalPoints: number; // gamification points
+  level: number; // user level based on activity
 }
 
 export interface SavedSnippet {
@@ -108,6 +116,35 @@ export interface AnalyticsData {
   }[];
 }
 
+// Phase 10: Referral and Gamification Interfaces
+export interface ReferralData {
+  referrerUid: string;
+  referredUid: string;
+  referralCode: string;
+  completedAt: any;
+  rewardClaimed: boolean;
+  conversionType: 'signup' | 'first_snippet' | 'premium';
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: 'referral' | 'usage' | 'streak' | 'social' | 'milestone';
+  requirement: number;
+  pointsReward: number;
+}
+
+export interface LeaderboardEntry {
+  uid: string;
+  displayName: string;
+  photoURL?: string;
+  score: number;
+  rank: number;
+  badge?: string;
+}
+
 // User Profile Functions
 export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile> => {
   const firebase = await getFirebaseFunctions();
@@ -142,6 +179,13 @@ export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile
       monthlyTimeSaved: 0,
       snippetsGenerated: 0,
       customSnippets: [],
+      // Phase 10: Initialize referral and gamification fields
+      referredUsers: [],
+      streakDays: 1,
+      lastActiveDate: serverTimestamp(),
+      achievements: [],
+      totalPoints: 0,
+      level: 1,
     };
 
     await setDoc(userRef, newProfile);
@@ -488,4 +532,208 @@ export const getAnalyticsData = async (): Promise<AnalyticsData> => {
     monthlyStats: [], // TODO: Implement monthly stats
     topSnippets: [] // TODO: Implement top snippets
   };
+};
+
+// Phase 10: Referral Functions
+export const processReferral = async (
+  referralCode: string, 
+  newUserUid: string
+): Promise<boolean> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return false;
+  }
+
+  const { query, collection, where, limit, getDocs, doc, updateDoc, arrayUnion, addDoc, serverTimestamp, increment } = firebase;
+  
+  // Find the referrer by referral code
+  const q = query(
+    collection(db, 'users'),
+    where('referralCode', '==', referralCode),
+    limit(1)
+  );
+
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty) {
+    return false;
+  }
+
+  const referrerDoc = querySnapshot.docs[0];
+  const referrerUid = referrerDoc.id;
+
+  // Update referrer - add to referred users and give credits
+  const referrerRef = doc(db, 'users', referrerUid);
+  await updateDoc(referrerRef, {
+    referredUsers: arrayUnion(newUserUid),
+    referralCredits: increment(5),
+    totalPoints: increment(100)
+  });
+
+  // Update new user - set referredBy
+  const newUserRef = doc(db, 'users', newUserUid);
+  await updateDoc(newUserRef, {
+    referredBy: referrerUid
+  });
+
+  // Create referral record
+  await addDoc(collection(db, 'referrals'), {
+    referrerUid,
+    referredUid: newUserUid,
+    referralCode,
+    completedAt: serverTimestamp(),
+    rewardClaimed: false,
+    conversionType: 'signup'
+  } as Omit<ReferralData, 'id'>);
+
+  return true;
+};
+
+export const getReferralStats = async (uid: string) => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return { referredCount: 0, creditsEarned: 0 };
+  }
+
+  const { doc, getDoc } = firebase;
+  const userRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userRef);
+  
+  if (!userDoc.exists()) {
+    return { referredCount: 0, creditsEarned: 0 };
+  }
+
+  const userData = userDoc.data() as UserProfile;
+  return {
+    referredCount: userData.referredUsers?.length || 0,
+    creditsEarned: userData.referralCredits || 0,
+    referralCode: userData.referralCode
+  };
+};
+
+// Phase 10: Gamification Functions
+export const updateUserStreak = async (uid: string): Promise<number> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return 1;
+  }
+
+  const { doc, getDoc, updateDoc, serverTimestamp } = firebase;
+  const userRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userRef);
+  
+  if (!userDoc.exists()) {
+    return 1;
+  }
+
+  const userData = userDoc.data() as UserProfile;
+  const lastActive = userData.lastActiveDate?.toDate() || new Date();
+  const today = new Date();
+  const daysDiff = Math.floor((today.getTime() - lastActive.getTime()) / (1000 * 60 * 60 * 24));
+  
+  let newStreak = 1;
+  if (daysDiff === 0) {
+    // Same day, no change
+    newStreak = userData.streakDays || 1;
+  } else if (daysDiff === 1) {
+    // Consecutive day, increment streak
+    newStreak = (userData.streakDays || 0) + 1;
+  } else {
+    // Streak broken, reset to 1
+    newStreak = 1;
+  }
+
+  await updateDoc(userRef, {
+    streakDays: newStreak,
+    lastActiveDate: serverTimestamp()
+  });
+
+  return newStreak;
+};
+
+export const awardAchievement = async (uid: string, achievementId: string): Promise<boolean> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return false;
+  }
+
+  const { doc, getDoc, updateDoc, arrayUnion, increment } = firebase;
+  const userRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userRef);
+  
+  if (!userDoc.exists()) {
+    return false;
+  }
+
+  const userData = userDoc.data() as UserProfile;
+  const achievements = userData.achievements || [];
+  
+  if (achievements.includes(achievementId)) {
+    return false; // Already has this achievement
+  }
+
+  // Award achievement and points
+  const pointsReward = getAchievementPoints(achievementId);
+  await updateDoc(userRef, {
+    achievements: arrayUnion(achievementId),
+    totalPoints: increment(pointsReward)
+  });
+
+  return true;
+};
+
+const getAchievementPoints = (achievementId: string): number => {
+  const pointsMap: { [key: string]: number } = {
+    'first_referral': 50,
+    'referral_champion': 200,
+    'week_streak': 75,
+    'month_streak': 300,
+    'hundred_snippets': 150,
+    'time_master': 250
+  };
+  return pointsMap[achievementId] || 25;
+};
+
+export const getLeaderboard = async (limit: number = 10): Promise<LeaderboardEntry[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, orderBy, limit: queryLimit, getDocs } = firebase;
+  const q = query(
+    collection(db, 'users'),
+    orderBy('totalPoints', 'desc'),
+    queryLimit(limit)
+  );
+
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc, index) => {
+    const data = doc.data() as UserProfile;
+    return {
+      uid: doc.id,
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+      score: data.totalPoints || 0,
+      rank: index + 1,
+      badge: getTopBadge(data.achievements || [])
+    };
+  });
+};
+
+const getTopBadge = (achievements: string[]): string | undefined => {
+  const badgePriority = [
+    'referral_champion',
+    'time_master', 
+    'month_streak',
+    'hundred_snippets',
+    'week_streak',
+    'first_referral'
+  ];
+  
+  for (const badge of badgePriority) {
+    if (achievements.includes(badge)) {
+      return badge;
+    }
+  }
+  return undefined;
 };
