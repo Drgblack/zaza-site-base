@@ -10,6 +10,7 @@ import { Footer } from "@/components/site/footer";
 import { ReferralBanner } from "@/components/site/referral-banner";
 import { ProgressTracker } from "@/components/site/progress-tracker";
 import { AuthProvider } from "@/contexts/auth-context";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -95,6 +96,13 @@ export default async function LocaleLayout({
             <Footer />
             <ReferralBanner />
             <ProgressTracker />
+            <Toaster 
+              position="bottom-right" 
+              richColors 
+              closeButton 
+              expand={true}
+              duration={4000}
+            />
           </AuthProvider>
         </NextIntlClientProvider>
       </body>
