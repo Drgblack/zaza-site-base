@@ -131,7 +131,7 @@ export function SnippetTool() {
     
     setIsLoading(true);
     // Simulate API call with tone and length considerations
-    setTimeout(async () => {
+    setTimeout(() => {
       const toneTemplates = {
         professional: 'I wanted to share some feedback regarding your recent work',
         friendly: 'Hope you\'re doing well! I wanted to chat about',
@@ -196,11 +196,9 @@ Overall, this represents excellent progress in your learning journey. I'm please
       
       // Track time saved for authenticated users
       if (isAuthenticated && user) {
-        try {
-          await trackSnippetGeneration(user.uid, 15); // 15 minutes estimated time saved
-        } catch (error) {
+        trackSnippetGeneration(user.uid, 15).catch(error => {
           console.error('Error tracking snippet generation:', error);
-        }
+        }); // 15 minutes estimated time saved
       }
       
       setIsLoading(false);
