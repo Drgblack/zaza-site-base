@@ -1,5 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { ResourceLibrary } from '@/components/site/resource-library';
+import { ZaraModule } from '@/components/site/zara-module';
+import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -33,7 +35,28 @@ export default async function ResourcesPage({params}: Props) {
       </section>
 
       {/* Resource Library Component */}
-      <ResourceLibrary />
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <ResourceLibrary />
+          </div>
+          
+          <div className="lg:col-span-1 space-y-6">
+            <ZaraModule 
+              variant="compact"
+              context="resources"
+              title="Need Help?"
+              description="Ask Zara about resources"
+              placeholder="What teaching resources do you need help with?"
+            />
+            
+            <CrossAppCTA 
+              from="promptly"
+              variant="compact"
+            />
+          </div>
+        </div>
+      </div>
 
       {/* Newsletter CTA */}
       <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white">

@@ -3,6 +3,8 @@ import { getAllPosts, getAllCategories, getFeaturedPosts } from '@/lib/blog-mdx'
 import { BlogGrid } from '@/components/blog/blog-grid';
 import { BlogFilters } from '@/components/blog/blog-filters';
 import { BlogHero } from '@/components/blog/blog-hero';
+import { ZaraModule } from '@/components/site/zara-module';
+import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -58,10 +60,29 @@ export default async function BlogPage({ params, searchParams }: Props) {
           selectedTag={tag}
         />
 
-        <BlogGrid 
-          posts={filteredPosts}
-          showLoadMore={filteredPosts.length >= 9}
-        />
+        <div className="grid lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <BlogGrid 
+              posts={filteredPosts}
+              showLoadMore={filteredPosts.length >= 9}
+            />
+          </div>
+          
+          <div className="lg:col-span-1 space-y-6">
+            <ZaraModule 
+              variant="compact"
+              context="blog"
+              title="Ask Zara"
+              description="Get help with teaching challenges"
+              placeholder="Ask about AI tools, parent communication, or classroom management..."
+            />
+            
+            <CrossAppCTA 
+              from="promptly"
+              variant="compact"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

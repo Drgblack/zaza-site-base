@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { FAQSection } from '@/components/site/faq-section';
 import { TrustBadges } from '@/components/site/trust-badges';
+import { ZaraModule } from '@/components/site/zara-module';
+import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
@@ -412,7 +414,28 @@ export default async function PricingPage({params}: Props) {
       </section>
 
       {/* FAQ Section */}
-      <FAQSection />
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <FAQSection />
+          </div>
+          
+          <div className="lg:col-span-1 space-y-6">
+            <ZaraModule 
+              variant="compact"
+              context="pricing"
+              title="Questions?"
+              description="Ask Zara about pricing"
+              placeholder="What plan is right for me?"
+            />
+            
+            <CrossAppCTA 
+              from="promptly"
+              variant="compact"
+            />
+          </div>
+        </div>
+      </div>
 
       {/* Social Proof */}
       <section className="py-16 bg-white dark:bg-gray-900">

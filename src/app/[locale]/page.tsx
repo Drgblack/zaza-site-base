@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap } from 'lucide-react';
 import { SnippetTool } from '@/components/site/snippet-tool';
 import { ZaraAssistant } from '@/components/site/zara-assistant';
+import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { StructuredData } from '@/components/seo/structured-data';
 
 type Props = {
@@ -439,6 +440,16 @@ export default async function HomePage({params}: Props) {
 
       {/* 6.5. Zara Assistant Preview */}
       <ZaraAssistant />
+
+      {/* 6.6. Cross-App CTA Banner */}
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+        <div className="max-w-4xl mx-auto px-4">
+          <CrossAppCTA 
+            from="promptly"
+            variant="banner"
+          />
+        </div>
+      </section>
 
       {/* 7. Emotional Closing Section */}
       <section className="py-32 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden">
