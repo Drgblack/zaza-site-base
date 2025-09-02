@@ -1,29 +1,35 @@
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  orderBy, 
-  limit, 
-  getDocs,
-  updateDoc,
-  arrayUnion,
-  serverTimestamp,
-  Timestamp
-} from 'firebase/firestore';
 import { db } from './firebase';
 import { User } from 'firebase/auth';
+
+// Import Firebase functions dynamically to avoid build-time issues
+const getFirebaseFunctions = async () => {
+  if (!db || typeof window === 'undefined') {
+    return null;
+  }
+  
+  try {
+    const { 
+      doc, getDoc, setDoc, updateDoc, addDoc, collection, 
+      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp 
+    } = await import('firebase/firestore');
+    
+    return {
+      doc, getDoc, setDoc, updateDoc, addDoc, collection,
+      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp
+    };
+  } catch (error) {
+    console.warn('Firebase functions not available:', error);
+    return null;
+  }
+};
 
 export interface UserProfile {
   uid: string;
   email: string;
   displayName: string;
   photoURL?: string;
-  createdAt: Timestamp;
-  lastLogin: Timestamp;
+  createdAt: any;
+  lastLogin: any;
   savedSnippets: string[];
   downloadHistory: string[];
   referralCredits: number;
@@ -40,7 +46,7 @@ export interface SavedSnippet {
   tone: string;
   category: string;
   context: string;
-  createdAt: Timestamp;
+  createdAt: any;
   rating?: number;
   isShared: boolean;
   shareId?: string;
@@ -51,7 +57,7 @@ export interface SharedSnippet extends SavedSnippet {
   authorId: string;
   shareCount: number;
   saveCount: number;
-  sharedAt: Timestamp;
+  sharedAt: any;
   isAnonymous: boolean;
 }
 
@@ -59,11 +65,17 @@ export interface SnippetRating {
   snippetId: string;
   userId: string;
   rating: number; // 1 for thumbs up, -1 for thumbs down
-  createdAt: Timestamp;
+  createdAt: any;
 }
 
 // User Profile Functions
-export const createOrUpdateUserProfile = async (user: User) => {
+export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Firebase not available');
+  }
+
+  const { doc, getDoc, setDoc, updateDoc, serverTimestamp } = firebase;
   const userRef = doc(db, 'users', user.uid);
   const userDoc = await getDoc(userRef);
 
@@ -76,8 +88,8 @@ export const createOrUpdateUserProfile = async (user: User) => {
       email: user.email!,
       displayName: user.displayName || 'Teacher',
       photoURL: user.photoURL || undefined,
-      createdAt: serverTimestamp() as Timestamp,
-      lastLogin: serverTimestamp() as Timestamp,
+      createdAt: serverTimestamp(),
+      lastLogin: serverTimestamp(),
       savedSnippets: [],
       downloadHistory: [],
       referralCredits: 0,
@@ -99,6 +111,12 @@ export const createOrUpdateUserProfile = async (user: User) => {
 };
 
 export const getUserProfile = async (uid: string): Promise<UserProfile | null> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return null;
+  }
+
+  const { doc, getDoc } = firebase;
   const userRef = doc(db, 'users', uid);
   const userDoc = await getDoc(userRef);
   
@@ -113,6 +131,12 @@ export const saveSnippetToLibrary = async (
   userId: string, 
   snippet: Omit<SavedSnippet, 'id' | 'userId' | 'createdAt' | 'isShared'>
 ): Promise<string> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { doc, addDoc, collection, updateDoc, arrayUnion, serverTimestamp } = firebase;
   const snippetData = {
     ...snippet,
     userId,
@@ -132,6 +156,12 @@ export const saveSnippetToLibrary = async (
 };
 
 export const getUserSnippets = async (userId: string): Promise<SavedSnippet[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, where, orderBy, getDocs } = firebase;
   const q = query(
     collection(db, 'snippets'),
     where('userId', '==', userId),
@@ -147,17 +177,29 @@ export const getUserSnippets = async (userId: string): Promise<SavedSnippet[]> =
 
 // Snippet Rating Functions
 export const rateSnippet = async (snippetId: string, userId: string, rating: number) => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { addDoc, collection, serverTimestamp } = firebase;
   const ratingData: SnippetRating = {
     snippetId,
     userId,
     rating,
-    createdAt: serverTimestamp() as Timestamp
+    createdAt: serverTimestamp()
   };
 
   await addDoc(collection(db, 'snippet_ratings'), ratingData);
 };
 
 export const getSnippetRating = async (snippetId: string, userId: string): Promise<number | null> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return null;
+  }
+
+  const { query, collection, where, limit, getDocs } = firebase;
   const q = query(
     collection(db, 'snippet_ratings'),
     where('snippetId', '==', snippetId),
@@ -177,6 +219,12 @@ export const shareSnippet = async (
   snippetId: string, 
   isAnonymous: boolean = false
 ): Promise<string> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { doc, getDoc, addDoc, collection, updateDoc, serverTimestamp } = firebase;
   const snippetRef = doc(db, 'snippets', snippetId);
   const snippetDoc = await getDoc(snippetRef);
   
@@ -200,7 +248,7 @@ export const shareSnippet = async (
     authorId: userProfile.uid,
     shareCount: 0,
     saveCount: 0,
-    sharedAt: serverTimestamp() as Timestamp,
+    sharedAt: serverTimestamp(),
     isAnonymous
   };
 
@@ -216,6 +264,12 @@ export const shareSnippet = async (
 };
 
 export const getSharedSnippets = async (): Promise<SharedSnippet[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, orderBy, limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     orderBy('sharedAt', 'desc'),
@@ -230,6 +284,17 @@ export const getSharedSnippets = async (): Promise<SharedSnippet[]> => {
 };
 
 export const getSharedSnippetByShareId = async (shareId: string): Promise<SharedSnippet | null> => {
+  // Skip Firebase calls during build
+  if (!db || (typeof process !== 'undefined' && process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID)) {
+    return null;
+  }
+
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return null;
+  }
+
+  const { query, collection, where, limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     where('shareId', '==', shareId),

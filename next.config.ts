@@ -1,5 +1,6 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 import createMDX from '@next/mdx';
+import type { NextConfig } from 'next';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -10,12 +11,12 @@ const withMDX = createMDX({
   }
 });
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: 'standalone',
+  output: 'standalone' as const,
   images: {
     domains: ['images.unsplash.com'],
   },

@@ -19,7 +19,9 @@ export const routing = defineRouting({
       fr: '/ressources',
       es: '/recursos', 
       it: '/risorse'
-    }
+    },
+    '/cookies': '/cookies',
+    '/blog/[slug]': '/blog/[slug]'
   }
 });
  

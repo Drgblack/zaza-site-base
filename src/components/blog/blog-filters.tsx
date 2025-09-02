@@ -16,7 +16,7 @@ export function BlogFilters({ categories, selectedCategory, selectedTag }: BlogF
   const searchParams = useSearchParams();
 
   const handleCategoryChange = (category: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || '');
     
     if (category === 'all' || category === selectedCategory) {
       params.delete('category');
@@ -32,7 +32,7 @@ export function BlogFilters({ categories, selectedCategory, selectedTag }: BlogF
   };
 
   const handleTagClear = () => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || '');
     params.delete('tag');
     
     const query = params.toString();

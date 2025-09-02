@@ -1,18 +1,17 @@
-import { 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  signOut,
-  onAuthStateChanged,
-  User
-} from 'firebase/auth';
 import { auth } from './firebase';
 
-const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('profile');
-googleProvider.addScope('email');
-
+// Stub functions for when Firebase is not available
 export const signInWithGoogle = async () => {
+  if (!auth || typeof window === 'undefined') {
+    throw new Error('Authentication not available');
+  }
+  
   try {
+    const { GoogleAuthProvider, signInWithPopup } = await import('firebase/auth');
+    const googleProvider = new GoogleAuthProvider();
+    googleProvider.addScope('profile');
+    googleProvider.addScope('email');
+    
     const result = await signInWithPopup(auth, googleProvider);
     return result.user;
   } catch (error) {
@@ -22,7 +21,12 @@ export const signInWithGoogle = async () => {
 };
 
 export const signOutUser = async () => {
+  if (!auth) {
+    return;
+  }
+  
   try {
+    const { signOut } = await import('firebase/auth');
     await signOut(auth);
   } catch (error) {
     console.error('Error signing out:', error);
@@ -30,6 +34,17 @@ export const signOutUser = async () => {
   }
 };
 
-export const onAuthStateChange = (callback: (user: User | null) => void) => {
-  return onAuthStateChanged(auth, callback);
+export const onAuthStateChange = (callback: (user: any) => void) => {
+  if (!auth) {
+    callback(null);
+    return () => {};
+  }
+  
+  try {
+    const { onAuthStateChanged } = require('firebase/auth');
+    return onAuthStateChanged(auth, callback);
+  } catch (error) {
+    callback(null);
+    return () => {};
+  }
 };

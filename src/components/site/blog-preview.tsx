@@ -68,7 +68,7 @@ export function BlogPreview() {
                   {post.description}
                 </p>
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/blog/${post.slug}`}>Read More</Link>
+                  <Link href={`/blog/${post.slug}` as any}>Read More</Link>
                 </Button>
               </CardContent>
             </Card>

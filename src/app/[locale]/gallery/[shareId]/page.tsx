@@ -11,6 +11,14 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { shareId } = await params;
   
+  // Skip Firebase calls during build
+  if (process.env.NODE_ENV === 'production' && !process.env.FIREBASE_PROJECT_ID) {
+    return {
+      title: 'Shared Teaching Snippet | Zaza Promptly',
+      description: 'View this shared teaching snippet from the Zaza Promptly community.',
+    };
+  }
+  
   try {
     const snippet = await getSharedSnippetByShareId(shareId);
     
@@ -40,11 +48,21 @@ export default async function SharedSnippetPage({ params }: Props) {
   const { locale, shareId } = await params;
   setRequestLocale(locale);
 
-  const snippet = await getSharedSnippetByShareId(shareId);
-  
-  if (!snippet) {
+  // Skip Firebase calls during build
+  if (process.env.NODE_ENV === 'production' && !process.env.FIREBASE_PROJECT_ID) {
     notFound();
   }
 
-  return <SharedSnippetView snippet={snippet} />;
+  try {
+    const snippet = await getSharedSnippetByShareId(shareId);
+    
+    if (!snippet) {
+      notFound();
+    }
+
+    return <SharedSnippetView snippet={snippet} />;
+  } catch (error) {
+    console.error('Error fetching shared snippet:', error);
+    notFound();
+  }
 }

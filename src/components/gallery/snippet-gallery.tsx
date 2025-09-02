@@ -198,7 +198,7 @@ export function SnippetGallery() {
                             <span className="font-medium text-gray-900 dark:text-gray-100">
                               {snippet.authorName}
                             </span>
-                            {Object.entries(topContributors).find(([name]) => name === snippet.authorName)?.[1] >= 5 && (
+                            {Object.entries(topContributors).find(([name]) => name === snippet.authorName)?.[1] && Object.entries(topContributors).find(([name]) => name === snippet.authorName)?.[1]! >= 5 && (
                               <Badge className="bg-yellow-100 text-yellow-700">
                                 <Award className="h-3 w-3 mr-1" />
                                 Top Contributor
