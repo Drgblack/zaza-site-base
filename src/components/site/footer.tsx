@@ -24,7 +24,6 @@ export function Footer() {
         { name: 'Blog', href: '/blog' },
         { name: 'Gallery', href: '/gallery' },
         { name: 'Contact', href: '/contact' },
-        { name: 'Careers', href: '/careers' },
       ]
     },
     {
@@ -41,7 +40,7 @@ export function Footer() {
       links: [
         { name: 'TikTok', href: 'https://tiktok.com/@zazatechnologies' },
         { name: 'LinkedIn', href: 'https://linkedin.com/company/zaza-technologies' },
-        { name: 'X (Twitter)', href: 'https://x.com/zazatechnologies' },
+        { name: 'X (Twitter)', href: 'https://x.com/zazateachapp' },
         { name: 'Support', href: '/support' },
       ]
     }
@@ -142,7 +141,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://x.com/zazatechnologies"
+                href="https://x.com/zazateachapp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"

@@ -34,15 +34,16 @@ export interface BlogPost extends BlogPostMeta {
 }
 
 export async function getAllPosts(locale: string = 'en'): Promise<BlogPost[]> {
-  const localizedDir = getLocalizedContentDirectory(locale);
-  
-  // Try localized directory first, fallback to default
-  const dirsToCheck = locale !== 'en' ? [localizedDir, contentDirectory] : [contentDirectory];
-  
-  const allPosts: BlogPost[] = [];
-  
-  for (const dir of dirsToCheck) {
-    if (!fs.existsSync(dir)) continue;
+  try {
+    const localizedDir = getLocalizedContentDirectory(locale);
+    
+    // Try localized directory first, fallback to default
+    const dirsToCheck = locale !== 'en' ? [localizedDir, contentDirectory] : [contentDirectory];
+    
+    const allPosts: BlogPost[] = [];
+    
+    for (const dir of dirsToCheck) {
+      if (!fs.existsSync(dir)) continue;
     
     const fileNames = fs.readdirSync(dir).filter(name => 
       name.endsWith('.md') || name.endsWith('.mdx')
@@ -100,6 +101,11 @@ export async function getAllPosts(locale: string = 'en'): Promise<BlogPost[]> {
   return uniquePosts.sort((a, b) => 
     new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
   );
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+    // Return empty array instead of throwing error to prevent 500
+    return [];
+  }
 }
 
 export async function getPostBySlug(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
@@ -168,14 +174,24 @@ export async function getPostsByCategory(category: string, locale: string = 'en'
 }
 
 export async function getFeaturedPosts(locale: string = 'en'): Promise<BlogPost[]> {
-  const allPosts = await getAllPosts(locale);
-  return allPosts.filter(post => post.featured);
+  try {
+    const allPosts = await getAllPosts(locale);
+    return allPosts.filter(post => post.featured);
+  } catch (error) {
+    console.error('Error loading featured posts:', error);
+    return [];
+  }
 }
 
 export async function getAllCategories(locale: string = 'en'): Promise<string[]> {
-  const allPosts = await getAllPosts(locale);
-  const categories = allPosts.map(post => post.category);
-  return Array.from(new Set(categories)).sort();
+  try {
+    const allPosts = await getAllPosts(locale);
+    const categories = allPosts.map(post => post.category);
+    return Array.from(new Set(categories)).sort();
+  } catch (error) {
+    console.error('Error loading categories:', error);
+    return ['General', 'Teaching Tips', 'AI Tools'];
+  }
 }
 
 export async function getAllTags(locale: string = 'en'): Promise<string[]> {

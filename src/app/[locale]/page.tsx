@@ -20,12 +20,12 @@ export default async function HomePage({params}: Props) {
   return (
     <div className="flex flex-col">
       {/* 1. Hero / Headline */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10 relative overflow-hidden">
-        {/* Enhanced animated gradient background */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.15),transparent_50%)] animate-pulse" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(236,72,153,0.15),transparent_50%)] animate-pulse" style={{animationDelay: '2s'}} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,69,193,0.1),transparent_70%)] animate-pulse" style={{animationDelay: '4s'}} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(219,39,119,0.08),transparent_60%)] animate-pulse" style={{animationDelay: '6s'}} />
+      <section className="py-24 bg-gradient-to-br from-purple-200 via-pink-300/70 to-blue-400/60 dark:from-purple-700/40 dark:via-pink-600/30 dark:to-blue-600/40 relative overflow-hidden">
+        {/* More vibrant animated gradient background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.25),transparent_50%)] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(236,72,153,0.25),transparent_50%)] animate-pulse" style={{animationDelay: '2s'}} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,69,193,0.2),transparent_70%)] animate-pulse" style={{animationDelay: '4s'}} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(219,39,119,0.15),transparent_60%)] animate-pulse" style={{animationDelay: '6s'}} />
         
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -65,8 +65,8 @@ export default async function HomePage({params}: Props) {
               <div className="relative w-full max-w-md lg:max-w-lg">
                 <div className="aspect-square rounded-3xl shadow-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=600&h=600&fit=crop&crop=faces"
-                    alt="Teachers collaborating happily"
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=600&fit=crop&crop=faces"
+                    alt="Smiling teacher in classroom with happy students and blackboard visible"
                     width={600}
                     height={600}
                     priority
@@ -79,39 +79,39 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 2. Problem / Pain */}
-      <section className="py-24 bg-white dark:bg-gray-900">
+      {/* 2. Problem / Pain - Updated with lighter background */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mx-auto max-w-4xl text-center space-y-8">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900 dark:text-gray-100">
               Why writing parent messages feels overwhelming
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Teachers already spend evenings lesson planning and grading - and then there&apos;s the endless stream of parent messages.
             </p>
             <div className="grid gap-8 md:grid-cols-3 mt-12">
               <div className="text-center space-y-4">
                 <Clock className="h-12 w-12 text-red-500 mx-auto" />
-                <h3 className="text-lg font-semibold">Drafting the right words takes too long.</h3>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Drafting the right words takes too long.</h3>
               </div>
               <div className="text-center space-y-4">
                 <MessageCircle className="h-12 w-12 text-red-500 mx-auto" />
-                <h3 className="text-lg font-semibold">The tone has to be professional and caring.</h3>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">The tone has to be professional and caring.</h3>
               </div>
               <div className="text-center space-y-4">
                 <Zap className="h-12 w-12 text-red-500 mx-auto" />
-                <h3 className="text-lg font-semibold">Mistakes cause stress and misunderstandings.</h3>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Mistakes cause stress and misunderstandings.</h3>
               </div>
             </div>
-            <p className="text-xl font-medium text-gray-800 dark:text-gray-200">
+            <p className="text-xl font-medium text-gray-900 dark:text-gray-100">
               The result? Burnout, late nights, and less energy for actual teaching.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 3. Solution / How It Works */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-purple-50/50 dark:from-gray-800 dark:to-purple-900/20">
+      {/* 3. Solution / How It Works - Updated with lighter, modern gradient */}
+      <section className="py-24 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 dark:from-pink-900/30 dark:via-purple-900/30 dark:to-blue-900/30">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <div className="text-center space-y-4 mb-16">
@@ -242,17 +242,16 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 4.5. Built by a Teacher Trust Section */}
+      {/* 4.5. Founder Story Section - Updated with new copy and Greg's photo */}
       <section className="py-24 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Photo and credentials */}
             <div className="order-2 lg:order-1">
               <div className="relative">
-                {/* Placeholder for Greg's photo */}
                 <div className="w-full max-w-sm mx-auto">
                   <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                    src="/images/greg-founder-photo-v2.png"
                     alt="Greg Blackburn, PhD - Founder of Zaza Promptly"
                     width={400}
                     height={400}
@@ -275,42 +274,25 @@ export default async function HomePage({params}: Props) {
               </div>
               
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 dark:text-gray-100">
-                From Classroom to Code: <br />
+                From Paint Brushes to PhD: <br />
                 <span className="text-purple-600">A Teacher's Journey</span>
               </h2>
               
               <div className="space-y-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
-                  Zaza Promptly was created by <strong className="text-gray-900 dark:text-gray-100">Greg Blackburn, PhD in Professional Education</strong>, 
-                  with 20+ years' experience in learning design and educational technology.
+                  I didn't start in tech. My first job was as a painter and decorator in Tasmania, working in a paint factory and on building sites. But I always believed education could open doors, so I took a leap — traveling, studying languages, and eventually earning my PhD in Professional Education.
                 </p>
                 <p>
-                  From paintbrushes in Tasmania to publishing research in London, Greg's journey is proof that 
-                  education transforms lives — and Zaza exists to help teachers thrive, not burn out.
+                  Over the past 20 years, I've worked with teachers, schools, and learning organizations around the world. I've seen first-hand how much time and energy teachers lose to admin — and how it takes away from what really matters: teaching, relationships, and joy.
                 </p>
                 <p>
-                  <em>"I built Promptly because I know what it's like to spend Sunday afternoons writing parent emails. 
-                  Teachers deserve tools that understand our world, not generic AI that misses the heart of education."</em>
+                  That's why I built Zaza Promptly. Not as a tech project, but as a teacher-first mission: to give educators back their time. Every hour saved on report cards or parent messages is an hour you can spend with students, colleagues, or family.
                 </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">PhD in Professional Education</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">20+ years in learning design and EdTech</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">Published researcher in educational innovation</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">Former classroom teacher who understands your challenges</span>
-                </div>
+                <p>
+                  <em>"This isn't about AI replacing teachers. It's about helping teachers thrive."</em>
+                  <br />
+                  <strong className="text-gray-900 dark:text-gray-100">– Greg Blackburn, PhD</strong>
+                </p>
               </div>
 
               <div className="pt-4">
@@ -352,11 +334,11 @@ export default async function HomePage({params}: Props) {
                   Most Popular
                 </Badge>
                 <CardHeader>
-                  <CardTitle>Promptly Pro</CardTitle>
+                  <CardTitle>Starter</CardTitle>
                   <CardDescription>For active teachers</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-3xl font-bold">€14.99<span className="text-sm font-normal">/month</span></div>
+                  <div className="text-3xl font-bold">€99<span className="text-sm font-normal">/year</span></div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500" />
@@ -384,7 +366,7 @@ export default async function HomePage({params}: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Upgrade Anytime
+                      Choose Starter
                     </a>
                   </Button>
                 </CardContent>
@@ -392,15 +374,30 @@ export default async function HomePage({params}: Props) {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Bundle with Zaza Teach</CardTitle>
+                  <CardTitle>Pro</CardTitle>
                   <CardDescription>Complete teaching solution</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-3xl font-bold">€24.99<span className="text-sm font-normal">/month</span></div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Lesson planning + parent communication
-                  </p>
-                  <Button variant="outline" className="w-full">Coming Soon</Button>
+                  <div className="text-3xl font-bold">€149<span className="text-sm font-normal">/year</span></div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      Everything in Starter
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      Advanced AI features
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      Priority support
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-green-500" />
+                      Analytics & insights
+                    </li>
+                  </ul>
+                  <Button variant="outline" className="w-full">Choose Pro</Button>
                 </CardContent>
               </Card>
             </div>
@@ -408,34 +405,34 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 6. Secondary Benefits */}
-      <section className="py-24 bg-white dark:bg-gray-900">
+      {/* 6. Secondary Benefits - Improved readability */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <div className="text-center space-y-4 mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900 dark:text-gray-100">
                 Why Promptly is different
               </h2>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
-              <div className="text-center space-y-4">
+              <div className="text-center space-y-4 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm">
                 <GraduationCap className="h-12 w-12 text-purple-600 mx-auto" />
-                <h3 className="text-xl font-semibold">Built by educators</h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Built by educators</h3>
+                <p className="text-gray-700 dark:text-gray-300">
                   Designed by a PhD in Professional Education.
                 </p>
               </div>
-              <div className="text-center space-y-4">
+              <div className="text-center space-y-4 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm">
                 <Shield className="h-12 w-12 text-purple-600 mx-auto" />
-                <h3 className="text-xl font-semibold">Safe & secure</h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Safe & secure</h3>
+                <p className="text-gray-700 dark:text-gray-300">
                   Your messages never get shared or sold.
                 </p>
               </div>
-              <div className="text-center space-y-4">
+              <div className="text-center space-y-4 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm">
                 <Heart className="h-12 w-12 text-purple-600 mx-auto" />
-                <h3 className="text-xl font-semibold">Time back for teaching</h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Time back for teaching</h3>
+                <p className="text-gray-700 dark:text-gray-300">
                   Less admin, more energy for your students.
                 </p>
               </div>

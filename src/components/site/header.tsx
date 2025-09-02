@@ -58,7 +58,6 @@ export function Header() {
     { name: 'About', href: '/about' },
     { name: 'Meet Your Fellow Educator', href: '/meet-your-fellow-educator' },
     { name: 'Press', href: '/press' },
-    { name: 'Careers', href: '/careers' },
   ];
 
   return (
@@ -138,12 +137,12 @@ export function Header() {
                 <span>Our Company</span>
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg dark:bg-gray-900/95 dark:border-gray-700">
                 {companyLinks.map((link) => (
-                  <DropdownMenuItem key={link.href} asChild>
+                  <DropdownMenuItem key={link.href} asChild className="hover:bg-gray-50 dark:hover:bg-gray-800 focus:bg-gray-50 dark:focus:bg-gray-800">
                     <a
                       href={link.href}
-                      className="w-full cursor-pointer"
+                      className="w-full cursor-pointer text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
                     >
                       {link.name}
                     </a>
