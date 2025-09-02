@@ -50,6 +50,13 @@ export interface UserProfile {
   achievements: string[]; // achievement badges earned
   totalPoints: number; // gamification points
   level: number; // user level based on activity
+  // Phase 11: Institutional Features
+  organizationId?: string; // Organization membership
+  role?: 'super_admin' | 'admin' | 'teacher' | 'viewer';
+  department?: string;
+  grade?: string;
+  isActive: boolean;
+  lastSeenAt?: any;
 }
 
 export interface SavedSnippet {
@@ -145,6 +152,100 @@ export interface LeaderboardEntry {
   badge?: string;
 }
 
+// Phase 11: Institutional Interfaces
+export interface Organization {
+  id: string;
+  name: string;
+  type: 'school' | 'district' | 'university' | 'enterprise';
+  domain?: string;
+  logo?: string;
+  adminUsers: string[];
+  memberCount: number;
+  activeSeats: number;
+  totalSeats: number;
+  settings: OrganizationSettings;
+  subscription?: SubscriptionInfo;
+  createdAt: any;
+  updatedAt: any;
+  createdBy: string;
+}
+
+export interface OrganizationSettings {
+  allowPublicSharing: boolean;
+  requireApproval: boolean;
+  customBranding: boolean;
+  ssoEnabled: boolean;
+  domainRestricted: boolean;
+  allowedDomains: string[];
+  defaultRole: 'teacher' | 'viewer';
+  contentFiltering: boolean;
+  analyticsEnabled: boolean;
+}
+
+export interface SubscriptionInfo {
+  planId: string;
+  planName: string;
+  seats: number;
+  price: number;
+  billingCycle: 'monthly' | 'annual';
+  status: 'active' | 'cancelled' | 'past_due' | 'trialing';
+  currentPeriodStart: any;
+  currentPeriodEnd: any;
+  cancelAtPeriodEnd: boolean;
+  stripeSubscriptionId?: string;
+  stripeCustomerId?: string;
+}
+
+export interface OrganizationMember {
+  userId: string;
+  organizationId: string;
+  role: 'super_admin' | 'admin' | 'teacher' | 'viewer';
+  department?: string;
+  grade?: string;
+  joinedAt: any;
+  invitedBy?: string;
+  status: 'active' | 'invited' | 'suspended';
+}
+
+export interface SharedSnippetBank {
+  id: string;
+  organizationId: string;
+  name: string;
+  description: string;
+  snippets: string[]; // snippet IDs
+  createdBy: string;
+  createdAt: any;
+  updatedAt: any;
+  permissions: {
+    canView: string[]; // user IDs or roles
+    canEdit: string[]; // user IDs or roles
+    canShare: string[]; // user IDs or roles
+  };
+}
+
+export interface OrganizationAnalytics {
+  organizationId: string;
+  period: string; // e.g., '2024-01'
+  activeUsers: number;
+  totalSnippets: number;
+  totalTimeSaved: number;
+  topUsers: {
+    userId: string;
+    displayName: string;
+    snippetsGenerated: number;
+    timeSaved: number;
+  }[];
+  topCategories: {
+    category: string;
+    count: number;
+  }[];
+  usageByDepartment: {
+    department: string;
+    userCount: number;
+    snippetCount: number;
+  }[];
+}
+
 // User Profile Functions
 export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile> => {
   const firebase = await getFirebaseFunctions();
@@ -186,6 +287,9 @@ export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile
       achievements: [],
       totalPoints: 0,
       level: 1,
+      // Phase 11: Initialize institutional fields
+      isActive: true,
+      lastSeenAt: serverTimestamp(),
     };
 
     await setDoc(userRef, newProfile);
@@ -736,4 +840,235 @@ const getTopBadge = (achievements: string[]): string | undefined => {
     }
   }
   return undefined;
+};
+
+// Phase 11: Organizational Functions
+export const createOrganization = async (
+  orgData: Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>,
+  createdByUserId: string
+): Promise<string> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { addDoc, collection, serverTimestamp } = firebase;
+  
+  const organization: Omit<Organization, 'id'> = {
+    ...orgData,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+    createdBy: createdByUserId
+  };
+
+  const docRef = await addDoc(collection(db, 'organizations'), organization);
+  return docRef.id;
+};
+
+export const getOrganization = async (orgId: string): Promise<Organization | null> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return null;
+  }
+
+  const { doc, getDoc } = firebase;
+  const orgRef = doc(db, 'organizations', orgId);
+  const orgDoc = await getDoc(orgRef);
+  
+  if (orgDoc.exists()) {
+    return { id: orgDoc.id, ...orgDoc.data() } as Organization;
+  }
+  return null;
+};
+
+export const addOrganizationMember = async (
+  organizationId: string,
+  userId: string,
+  role: 'super_admin' | 'admin' | 'teacher' | 'viewer',
+  invitedBy: string,
+  department?: string,
+  grade?: string
+): Promise<void> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { addDoc, collection, doc, updateDoc, serverTimestamp } = firebase;
+  
+  // Create membership record
+  const membership: Omit<OrganizationMember, 'id'> = {
+    userId,
+    organizationId,
+    role,
+    department,
+    grade,
+    joinedAt: serverTimestamp(),
+    invitedBy,
+    status: 'active'
+  };
+
+  await addDoc(collection(db, 'organization_members'), membership);
+
+  // Update user profile
+  const userRef = doc(db, 'users', userId);
+  await updateDoc(userRef, {
+    organizationId,
+    role,
+    department,
+    grade
+  });
+
+  // Update organization member count
+  const orgRef = doc(db, 'organizations', organizationId);
+  await updateDoc(orgRef, {
+    memberCount: increment(1),
+    updatedAt: serverTimestamp()
+  });
+};
+
+export const getOrganizationMembers = async (organizationId: string): Promise<(OrganizationMember & { userProfile?: UserProfile })[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, where, getDocs, doc, getDoc } = firebase;
+  const membersQuery = query(
+    collection(db, 'organization_members'),
+    where('organizationId', '==', organizationId),
+    where('status', '==', 'active')
+  );
+
+  const membersSnapshot = await getDocs(membersQuery);
+  const members = await Promise.all(
+    membersSnapshot.docs.map(async (memberDoc) => {
+      const memberData = { id: memberDoc.id, ...memberDoc.data() } as OrganizationMember;
+      
+      // Get user profile data
+      try {
+        const userRef = doc(db, 'users', memberData.userId);
+        const userDoc = await getDoc(userRef);
+        const userProfile = userDoc.exists() ? userDoc.data() as UserProfile : undefined;
+        
+        return {
+          ...memberData,
+          userProfile
+        };
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        return memberData;
+      }
+    })
+  );
+
+  return members;
+};
+
+export const getOrganizationAnalytics = async (
+  organizationId: string,
+  period?: string
+): Promise<OrganizationAnalytics> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { query, collection, where, getDocs } = firebase;
+  
+  // Get organization members
+  const membersQuery = query(
+    collection(db, 'organization_members'),
+    where('organizationId', '==', organizationId),
+    where('status', '==', 'active')
+  );
+
+  const membersSnapshot = await getDocs(membersQuery);
+  const memberIds = membersSnapshot.docs.map(doc => doc.data().userId);
+
+  // Get user analytics for organization members
+  const userAnalytics = await Promise.all(
+    memberIds.map(async (userId) => {
+      try {
+        const userProfile = await getUserProfile(userId);
+        return userProfile;
+      } catch (error) {
+        console.error(`Error fetching analytics for user ${userId}:`, error);
+        return null;
+      }
+    })
+  );
+
+  const validUsers = userAnalytics.filter(user => user !== null) as UserProfile[];
+  
+  // Calculate analytics
+  const analytics: OrganizationAnalytics = {
+    organizationId,
+    period: period || new Date().toISOString().slice(0, 7),
+    activeUsers: validUsers.filter(user => {
+      const lastActive = user.lastSeenAt?.toDate();
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      return lastActive && lastActive > thirtyDaysAgo;
+    }).length,
+    totalSnippets: validUsers.reduce((sum, user) => sum + (user.snippetsGenerated || 0), 0),
+    totalTimeSaved: validUsers.reduce((sum, user) => sum + (user.totalTimeSaved || 0), 0),
+    topUsers: validUsers
+      .map(user => ({
+        userId: user.uid,
+        displayName: user.displayName,
+        snippetsGenerated: user.snippetsGenerated || 0,
+        timeSaved: user.totalTimeSaved || 0
+      }))
+      .sort((a, b) => b.snippetsGenerated - a.snippetsGenerated)
+      .slice(0, 10),
+    topCategories: [], // TODO: Implement category tracking
+    usageByDepartment: [] // TODO: Implement department analytics
+  };
+
+  return analytics;
+};
+
+export const createSharedSnippetBank = async (
+  organizationId: string,
+  bankData: Omit<SharedSnippetBank, 'id' | 'createdAt' | 'updatedAt'>,
+  createdBy: string
+): Promise<string> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { addDoc, collection, serverTimestamp } = firebase;
+  
+  const bank: Omit<SharedSnippetBank, 'id'> = {
+    ...bankData,
+    organizationId,
+    createdBy,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  };
+
+  const docRef = await addDoc(collection(db, 'shared_snippet_banks'), bank);
+  return docRef.id;
+};
+
+export const getOrganizationSnippetBanks = async (organizationId: string): Promise<SharedSnippetBank[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, where, orderBy, getDocs } = firebase;
+  const banksQuery = query(
+    collection(db, 'shared_snippet_banks'),
+    where('organizationId', '==', organizationId),
+    orderBy('createdAt', 'desc')
+  );
+
+  const banksSnapshot = await getDocs(banksQuery);
+  return banksSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  })) as SharedSnippetBank[];
 };
