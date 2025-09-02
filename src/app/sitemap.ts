@@ -1,10 +1,9 @@
 import { MetadataRoute } from 'next'
-import { getAllPosts } from '@/lib/mdx'
+import { getAllPosts } from '@/lib/blog-mdx'
  
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'
   const locales = ['en', 'de', 'fr', 'es', 'it']
-  const posts = getAllPosts()
   
   const routes = [
     { path: '', priority: 1, changeFrequency: 'weekly' as const },
@@ -42,16 +41,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   // Add blog posts for each locale
   const blogPages: MetadataRoute.Sitemap = []
-  locales.forEach(locale => {
+  for (const locale of locales) {
+    const posts = await getAllPosts(locale)
     posts.forEach(post => {
       blogPages.push({
         url: `${baseUrl}/${locale}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
+        lastModified: new Date(post.publishDate),
         changeFrequency: 'monthly',
         priority: 0.6,
       })
     })
-  })
+  }
   
   return [...staticPages, ...blogPages]
 }

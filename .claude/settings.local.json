@@ -44,7 +44,12 @@
       "Bash(npm run typecheck:*)",
       "Bash(mkdir:*)",
       "WebFetch(domain:github.com)",
-      "Bash(file:*)"
+      "Bash(file:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(ls:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }

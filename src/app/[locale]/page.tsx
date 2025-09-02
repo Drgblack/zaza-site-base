@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap } from 'lucide-react';
 import { SnippetTool } from '@/components/site/snippet-tool';
 import { ZaraAssistant } from '@/components/site/zara-assistant';
+import { StructuredData } from '@/components/seo/structured-data';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -236,6 +237,85 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
+      {/* 4.5. Built by a Teacher Trust Section */}
+      <section className="py-24 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Photo and credentials */}
+            <div className="order-2 lg:order-1">
+              <div className="relative">
+                {/* Placeholder for Greg's photo */}
+                <div className="w-full max-w-sm mx-auto">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                    alt="Greg Blackburn, PhD - Founder of Zaza Promptly"
+                    className="w-full h-96 object-cover rounded-2xl shadow-lg"
+                  />
+                  <div className="absolute -bottom-6 left-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Active in education for 20+ years</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - Content */}
+            <div className="order-1 lg:order-2 space-y-6">
+              <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-700 dark:bg-purple-800 dark:text-purple-300 mb-4">
+                Built by a Teacher for Teachers
+              </div>
+              
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 dark:text-gray-100">
+                From Classroom to Code: <br />
+                <span className="text-purple-600">A Teacher's Journey</span>
+              </h2>
+              
+              <div className="space-y-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p>
+                  Zaza Promptly was created by <strong className="text-gray-900 dark:text-gray-100">Greg Blackburn, PhD in Professional Education</strong>, 
+                  with 20+ years' experience in learning design and educational technology.
+                </p>
+                <p>
+                  From paintbrushes in Tasmania to publishing research in London, Greg's journey is proof that 
+                  education transforms lives — and Zaza exists to help teachers thrive, not burn out.
+                </p>
+                <p>
+                  <em>"I built Promptly because I know what it's like to spend Sunday afternoons writing parent emails. 
+                  Teachers deserve tools that understand our world, not generic AI that misses the heart of education."</em>
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                  <span className="text-gray-700 dark:text-gray-300">PhD in Professional Education</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                  <span className="text-gray-700 dark:text-gray-300">20+ years in learning design and EdTech</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                  <span className="text-gray-700 dark:text-gray-300">Published researcher in educational innovation</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                  <span className="text-gray-700 dark:text-gray-300">Former classroom teacher who understands your challenges</span>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <Button size="lg" variant="outline" className="bg-white dark:bg-gray-900 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300" asChild>
+                  <a href="/about/greg">Read My Story →</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 5. Pricing CTA */}
       <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
         <div className="max-w-7xl mx-auto px-4">
@@ -405,6 +485,10 @@ export default async function HomePage({params}: Props) {
           </div>
         </div>
       </section>
+      
+      {/* Structured Data for SEO */}
+      <StructuredData type="website" data={{}} />
+      <StructuredData type="organization" data={{}} />
     </div>
   );
 }

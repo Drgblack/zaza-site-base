@@ -22,6 +22,7 @@ export function Footer() {
       links: [
         { name: 'About', href: '/about' },
         { name: 'Blog', href: '/blog' },
+        { name: 'Gallery', href: '/gallery' },
         { name: 'Contact', href: '/contact' },
         { name: 'Careers', href: '/careers' },
       ]

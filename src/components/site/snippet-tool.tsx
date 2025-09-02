@@ -8,6 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/auth-context';
+import { saveSnippetToLibrary, rateSnippet, getSnippetRating, shareSnippet } from '@/lib/db';
+import { signInWithGoogle } from '@/lib/auth';
+import { ShareButton } from '@/components/site/share-button';
 import { 
   Loader2, 
   Copy, 
@@ -17,7 +21,12 @@ import {
   StarOff,
   History,
   Trash2,
-  Clock
+  Clock,
+  BookOpen,
+  ThumbsUp,
+  ThumbsDown,
+  Share2,
+  Heart
 } from 'lucide-react';
 
 interface GeneratedMessage {
@@ -70,6 +79,7 @@ const tonePresets = [
 ];
 
 export function SnippetTool() {
+  const { user, isAuthenticated } = useAuth();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -81,6 +91,12 @@ export function SnippetTool() {
   // History and favorites state
   const [history, setHistory] = useState<GeneratedMessage[]>([]);
   const [favorites, setFavorites] = useState<GeneratedMessage[]>([]);
+  
+  // New authentication and database state
+  const [currentRating, setCurrentRating] = useState<number | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const [showSignInPrompt, setShowSignInPrompt] = useState(false);
 
   // Load history and favorites from localStorage on mount
   useEffect(() => {
@@ -212,6 +228,94 @@ Overall, this represents excellent progress in your learning journey. I'm please
   const handleDeleteFromHistory = (messageId: string) => {
     setHistory(prev => prev.filter(h => h.id !== messageId));
     setFavorites(prev => prev.filter(f => f.id !== messageId));
+  };
+
+  // New functions for Phase 5 features
+  const handleSaveToLibrary = async () => {
+    if (!isAuthenticated) {
+      setShowSignInPrompt(true);
+      return;
+    }
+
+    if (!output || !user) return;
+
+    setIsSaving(true);
+    try {
+      await saveSnippetToLibrary(user.uid, {
+        content: output,
+        tone,
+        category: 'parent-communication',
+        context: input
+      });
+      
+      // Track snippet usage for gamification
+      if (typeof window !== 'undefined') {
+        const currentUses = parseInt(localStorage.getItem('zaza-snippet-uses') || '0');
+        localStorage.setItem('zaza-snippet-uses', String(currentUses + 1));
+      }
+      
+      // Show success feedback
+      alert('Snippet saved to your library!');
+    } catch (error) {
+      console.error('Error saving snippet:', error);
+      alert('Error saving snippet. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleRating = async (rating: number) => {
+    if (!isAuthenticated || !user || !history[0]) return;
+
+    try {
+      await rateSnippet(history[0].id, user.uid, rating);
+      setCurrentRating(rating);
+    } catch (error) {
+      console.error('Error rating snippet:', error);
+    }
+  };
+
+  const handleShareSnippet = async () => {
+    if (!isAuthenticated) {
+      setShowSignInPrompt(true);
+      return;
+    }
+
+    if (!output || !user) return;
+
+    setIsSharing(true);
+    try {
+      // First save the snippet if not already saved
+      const snippetId = await saveSnippetToLibrary(user.uid, {
+        content: output,
+        tone,
+        category: 'parent-communication',
+        context: input
+      });
+
+      // Then share it
+      const shareId = await shareSnippet(snippetId);
+      
+      // Copy share URL to clipboard
+      const shareUrl = `${window.location.origin}/gallery/${shareId}`;
+      await navigator.clipboard.writeText(shareUrl);
+      
+      alert('Snippet shared! Link copied to clipboard.');
+    } catch (error) {
+      console.error('Error sharing snippet:', error);
+      alert('Error sharing snippet. Please try again.');
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      setShowSignInPrompt(false);
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
   };
 
   const quickTopics = [
@@ -385,32 +489,90 @@ Overall, this represents excellent progress in your learning journey. I'm please
                         className="min-h-[150px] bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                       />
                       {output && (
-                        <div className="flex gap-2">
-                          <Button 
-                            onClick={() => handleCopy()}
-                            variant="outline"
-                            size="sm"
-                            className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
-                          >
-                            <Copy className="mr-2 h-4 w-4" />
-                            {copied ? 'Copied!' : 'Copy Message'}
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              const currentMessage = history[0];
-                              if (currentMessage) {
-                                handleFavorite(currentMessage);
+                        <div className="space-y-3">
+                          {/* Primary Actions Row */}
+                          <div className="flex gap-2">
+                            <Button 
+                              onClick={() => handleCopy()}
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                            >
+                              <Copy className="mr-2 h-4 w-4" />
+                              {copied ? 'Copied!' : 'Copy Message'}
+                            </Button>
+                            <Button
+                              onClick={() => {
+                                const currentMessage = history[0];
+                                if (currentMessage) {
+                                  handleFavorite(currentMessage);
+                                }
+                              }}
+                              variant="outline"
+                              size="sm"
+                              className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                            >
+                              {history[0]?.favorited ? 
+                                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" /> : 
+                                <StarOff className="h-4 w-4" />
                               }
-                            }}
-                            variant="outline"
-                            size="sm"
-                            className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
-                          >
-                            {history[0]?.favorited ? 
-                              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" /> : 
-                              <StarOff className="h-4 w-4" />
-                            }
-                          </Button>
+                            </Button>
+                          </div>
+
+                          {/* Secondary Actions Row */}
+                          <div className="flex gap-2">
+                            <Button
+                              onClick={handleSaveToLibrary}
+                              disabled={isSaving}
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                            >
+                              {isSaving ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              ) : (
+                                <BookOpen className="mr-2 h-4 w-4" />
+                              )}
+                              {isAuthenticated ? 'Save to Library' : 'Save (Sign In)'}
+                            </Button>
+                            <Button
+                              onClick={handleShareSnippet}
+                              disabled={isSharing}
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                            >
+                              {isSharing ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              ) : (
+                                <Share2 className="mr-2 h-4 w-4" />
+                              )}
+                              Share Snippet
+                            </Button>
+                          </div>
+
+                          {/* Rating Row */}
+                          <div className="flex items-center justify-center gap-4 pt-2">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Rate this message:</span>
+                            <div className="flex gap-2">
+                              <Button
+                                onClick={() => handleRating(1)}
+                                variant="outline"
+                                size="sm"
+                                className={`p-2 ${currentRating === 1 ? 'bg-green-100 border-green-300' : ''}`}
+                              >
+                                <ThumbsUp className={`h-4 w-4 ${currentRating === 1 ? 'text-green-600' : ''}`} />
+                              </Button>
+                              <Button
+                                onClick={() => handleRating(-1)}
+                                variant="outline"
+                                size="sm"
+                                className={`p-2 ${currentRating === -1 ? 'bg-red-100 border-red-300' : ''}`}
+                              >
+                                <ThumbsDown className={`h-4 w-4 ${currentRating === -1 ? 'text-red-600' : ''}`} />
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -571,6 +733,48 @@ Overall, this represents excellent progress in your learning journey. I'm please
           </Tabs>
         </div>
       </div>
+
+      {/* Sign In Prompt Modal */}
+      {showSignInPrompt && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Card className="max-w-md mx-4">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Heart className="h-5 w-5 text-purple-600" />
+                Want to keep this snippet?
+              </CardTitle>
+              <CardDescription>
+                Create your free account to save snippets, access your library, and share with other teachers.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-sm text-gray-600">
+                <p className="font-medium mb-2">With a free account you get:</p>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  <li>Save unlimited snippets to your personal library</li>
+                  <li>Access your snippets from any device</li>
+                  <li>Share snippets with the teacher community</li>
+                  <li>Track your communication success</li>
+                </ul>
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  onClick={handleSignIn}
+                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                >
+                  Sign in with Google
+                </Button>
+                <Button 
+                  onClick={() => setShowSignInPrompt(false)}
+                  variant="outline"
+                >
+                  Later
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </section>
   );
 }

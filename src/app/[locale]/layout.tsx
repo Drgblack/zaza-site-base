@@ -7,6 +7,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { ReferralBanner } from "@/components/site/referral-banner";
+import { ProgressTracker } from "@/components/site/progress-tracker";
+import { AuthProvider } from "@/contexts/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -84,11 +87,15 @@ export default async function LocaleLayout({
       </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
+            <ReferralBanner />
+            <ProgressTracker />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
