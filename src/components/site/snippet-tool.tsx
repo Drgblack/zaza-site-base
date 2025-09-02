@@ -9,9 +9,10 @@ import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/auth-context';
-import { saveSnippetToLibrary, rateSnippet, getSnippetRating, shareSnippet } from '@/lib/db';
+import { saveSnippetToLibrary, rateSnippet, getSnippetRating, shareSnippet, trackSnippetGeneration } from '@/lib/db';
 import { signInWithGoogle } from '@/lib/auth';
 import { ShareButton } from '@/components/site/share-button';
+import { AITrustModal } from '@/components/site/ai-trust-modal';
 import { 
   Loader2, 
   Copy, 
@@ -26,7 +27,8 @@ import {
   ThumbsUp,
   ThumbsDown,
   Share2,
-  Heart
+  Heart,
+  Shield
 } from 'lucide-react';
 
 interface GeneratedMessage {
@@ -97,6 +99,7 @@ export function SnippetTool() {
   const [isSaving, setIsSaving] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
   const [showSignInPrompt, setShowSignInPrompt] = useState(false);
+  const [showTrustModal, setShowTrustModal] = useState(false);
 
   // Load history and favorites from localStorage on mount
   useEffect(() => {
@@ -187,6 +190,16 @@ Overall, this represents excellent progress in your learning journey. I'm please
       
       setOutput(message);
       setHistory(prev => [newMessage, ...prev.slice(0, 9)]); // Keep last 10
+      
+      // Track time saved for authenticated users
+      if (isAuthenticated && user) {
+        try {
+          await trackSnippetGeneration(user.uid, 15); // 15 minutes estimated time saved
+        } catch (error) {
+          console.error('Error tracking snippet generation:', error);
+        }
+      }
+      
       setIsLoading(false);
     }, 2000);
   };
@@ -573,6 +586,19 @@ Overall, this represents excellent progress in your learning journey. I'm please
                               </Button>
                             </div>
                           </div>
+
+                          {/* Trust Layer Button */}
+                          <div className="flex justify-center pt-2">
+                            <Button
+                              onClick={() => setShowTrustModal(true)}
+                              variant="ghost"
+                              size="sm"
+                              className="text-purple-600 hover:text-purple-700 hover:bg-purple-50 dark:text-purple-400 dark:hover:text-purple-300"
+                            >
+                              <Shield className="h-4 w-4 mr-2" />
+                              How Zara wrote this
+                            </Button>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -775,6 +801,15 @@ Overall, this represents excellent progress in your learning journey. I'm please
           </Card>
         </div>
       )}
+
+      {/* AI Trust Layer Modal */}
+      <AITrustModal
+        isOpen={showTrustModal}
+        onClose={() => setShowTrustModal(false)}
+        snippetContent={output}
+        tone={tone}
+        context={input}
+      />
     </section>
   );
 }

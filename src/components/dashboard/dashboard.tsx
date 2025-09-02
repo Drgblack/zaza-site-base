@@ -8,6 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { InsightsWidget } from './insights-widget';
+import { KnowledgeCore } from './knowledge-core';
+import { AnalyticsDashboard } from './analytics-dashboard';
 import { 
   BookOpen, 
   Download, 
@@ -19,7 +22,9 @@ import {
   Star,
   Users,
   Award,
-  TrendingUp
+  TrendingUp,
+  BarChart3,
+  Upload
 } from 'lucide-react';
 
 export function Dashboard() {
@@ -114,6 +119,11 @@ export function Dashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Insights Widget */}
+        <div className="mb-8">
+          <InsightsWidget />
+        </div>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
@@ -167,9 +177,11 @@ export function Dashboard() {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="snippets" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 max-w-md">
+          <TabsList className="grid w-full grid-cols-5 max-w-2xl">
             <TabsTrigger value="snippets">My Snippets</TabsTrigger>
+            <TabsTrigger value="knowledge">KnowledgeCore</TabsTrigger>
             <TabsTrigger value="history">Downloads</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="referrals">Referrals</TabsTrigger>
           </TabsList>
 
@@ -226,6 +238,10 @@ export function Dashboard() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="knowledge" className="space-y-6">
+            <KnowledgeCore />
+          </TabsContent>
+
           <TabsContent value="history" className="space-y-6">
             <Card>
               <CardHeader>
@@ -246,6 +262,10 @@ export function Dashboard() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-6">
+            <AnalyticsDashboard />
           </TabsContent>
 
           <TabsContent value="referrals" className="space-y-6">

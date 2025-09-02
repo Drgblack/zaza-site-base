@@ -37,6 +37,11 @@ export interface UserProfile {
   isTeacher: boolean;
   school?: string;
   subject?: string;
+  // Phase 8: Time tracking and insights
+  totalTimeSaved: number; // in minutes
+  monthlyTimeSaved: number; // in minutes
+  snippetsGenerated: number;
+  customSnippets: string[]; // IDs of custom uploaded snippets
 }
 
 export interface SavedSnippet {
@@ -68,6 +73,41 @@ export interface SnippetRating {
   createdAt: any;
 }
 
+// Phase 8: Custom Snippets
+export interface CustomSnippet {
+  id: string;
+  userId: string;
+  title: string;
+  content: string;
+  category: string;
+  tags: string[];
+  isPublic: boolean;
+  usageCount: number;
+  createdAt: any;
+  updatedAt: any;
+}
+
+// Phase 8: Analytics
+export interface AnalyticsData {
+  totalSnippets: number;
+  totalUsers: number;
+  totalTimeSaved: number;
+  popularTones: { tone: string; count: number }[];
+  popularCategories: { category: string; count: number }[];
+  monthlyStats: {
+    month: string;
+    snippetsGenerated: number;
+    timeSaved: number;
+    newUsers: number;
+  }[];
+  topSnippets: {
+    snippetId: string;
+    content: string;
+    usageCount: number;
+    rating: number;
+  }[];
+}
+
 // User Profile Functions
 export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile> => {
   const firebase = await getFirebaseFunctions();
@@ -97,6 +137,11 @@ export const createOrUpdateUserProfile = async (user: User): Promise<UserProfile
       isTeacher: true,
       school: undefined,
       subject: undefined,
+      // Phase 8: Initialize new fields
+      totalTimeSaved: 0,
+      monthlyTimeSaved: 0,
+      snippetsGenerated: 0,
+      customSnippets: [],
     };
 
     await setDoc(userRef, newProfile);
@@ -310,4 +355,137 @@ export const getSharedSnippetByShareId = async (shareId: string): Promise<Shared
     } as SharedSnippet;
   }
   return null;
+};
+
+// Phase 8: Custom Snippet Functions
+export const createCustomSnippet = async (
+  userId: string,
+  snippet: Omit<CustomSnippet, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'usageCount'>
+): Promise<string> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    throw new Error('Database not available');
+  }
+
+  const { addDoc, collection, updateDoc, doc, arrayUnion, serverTimestamp } = firebase;
+  const snippetData = {
+    ...snippet,
+    userId,
+    usageCount: 0,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  };
+
+  const docRef = await addDoc(collection(db, 'custom_snippets'), snippetData);
+  
+  // Add to user's custom snippets
+  const userRef = doc(db, 'users', userId);
+  await updateDoc(userRef, {
+    customSnippets: arrayUnion(docRef.id)
+  });
+
+  return docRef.id;
+};
+
+export const getUserCustomSnippets = async (userId: string): Promise<CustomSnippet[]> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return [];
+  }
+
+  const { query, collection, where, orderBy, getDocs } = firebase;
+  const q = query(
+    collection(db, 'custom_snippets'),
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc')
+  );
+
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  })) as CustomSnippet[];
+};
+
+// Phase 8: Time Tracking Functions
+export const trackSnippetGeneration = async (userId: string, estimatedTimeSaved: number = 15) => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return;
+  }
+
+  const { doc, updateDoc, increment, serverTimestamp } = firebase;
+  const userRef = doc(db, 'users', userId);
+  
+  // Update time tracking and snippet count
+  await updateDoc(userRef, {
+    totalTimeSaved: increment(estimatedTimeSaved),
+    monthlyTimeSaved: increment(estimatedTimeSaved),
+    snippetsGenerated: increment(1),
+    lastLogin: serverTimestamp()
+  });
+};
+
+// Phase 8: Analytics Functions
+export const getAnalyticsData = async (): Promise<AnalyticsData> => {
+  const firebase = await getFirebaseFunctions();
+  if (!firebase) {
+    return {
+      totalSnippets: 0,
+      totalUsers: 0,
+      totalTimeSaved: 0,
+      popularTones: [],
+      popularCategories: [],
+      monthlyStats: [],
+      topSnippets: []
+    };
+  }
+
+  const { collection, getDocs, query, orderBy, limit } = firebase;
+  
+  // Get basic counts
+  const [snippetsSnapshot, usersSnapshot] = await Promise.all([
+    getDocs(collection(db, 'snippets')),
+    getDocs(collection(db, 'users'))
+  ]);
+
+  const totalSnippets = snippetsSnapshot.size;
+  const totalUsers = usersSnapshot.size;
+  
+  // Calculate total time saved
+  let totalTimeSaved = 0;
+  usersSnapshot.forEach(doc => {
+    const userData = doc.data();
+    totalTimeSaved += userData.totalTimeSaved || 0;
+  });
+
+  // Get popular tones and categories
+  const toneCounts: { [key: string]: number } = {};
+  const categoryCounts: { [key: string]: number } = {};
+  
+  snippetsSnapshot.forEach(doc => {
+    const data = doc.data();
+    toneCounts[data.tone] = (toneCounts[data.tone] || 0) + 1;
+    categoryCounts[data.category] = (categoryCounts[data.category] || 0) + 1;
+  });
+
+  const popularTones = Object.entries(toneCounts)
+    .map(([tone, count]) => ({ tone, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  const popularCategories = Object.entries(categoryCounts)
+    .map(([category, count]) => ({ category, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  return {
+    totalSnippets,
+    totalUsers,
+    totalTimeSaved,
+    popularTones,
+    popularCategories,
+    monthlyStats: [], // TODO: Implement monthly stats
+    topSnippets: [] // TODO: Implement top snippets
+  };
 };
