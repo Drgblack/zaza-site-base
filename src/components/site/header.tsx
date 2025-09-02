@@ -39,6 +39,7 @@ export function Header() {
     { name: t('home'), href: '/' },
     { name: t('blog'), href: '/blog' },
     { name: t('resources'), href: '/resources' },
+    { name: 'Community', href: '/community' },
     { name: t('pricing'), href: '/pricing' },
   ];
 
@@ -85,7 +86,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => {
-              if (item.href === '/' || item.href === '/blog' || item.href === '/resources') {
+              if (item.href === '/' || item.href === '/blog' || item.href === '/resources' || item.href === '/community') {
                 return (
                   <Link
                     key={item.name}
