@@ -258,11 +258,9 @@ export default function ContactPageClient() {
                 </p>
                 <div className="space-y-2">
                   <Button variant="outline" size="sm" asChild className="w-full">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/faq">View FAQ</a>
                   </Button>
                   <Button variant="outline" size="sm" asChild className="w-full">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/resources">Browse Resources</a>
                   </Button>
                 </div>

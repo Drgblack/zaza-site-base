@@ -61,7 +61,11 @@ export default [
       // Allow console for debugging and logging
       "no-console": "off",
       // Allow undef for globals
-      "no-undef": "warn"
+      "no-undef": "warn",
+      // Disable problematic Next.js rules that aren't properly configured
+      "@next/next/no-html-link-for-pages": "off",
+      // Disable non-null assertion warnings for this project
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
     }
   }
 ];

@@ -7,7 +7,6 @@ export default function NotFound() {
         <p className="text-gray-600 max-w-md mx-auto">
           Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a 
           href="/"
           className="inline-block px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg"

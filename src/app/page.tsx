@@ -19,7 +19,6 @@ export default function Home() {
                 Get Started
               </a>
               <div className="text-sm text-gray-500">
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a href="/en" className="hover:text-purple-600">
                   View full site →
                 </a>
