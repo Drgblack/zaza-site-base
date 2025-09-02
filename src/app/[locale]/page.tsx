@@ -29,8 +29,8 @@ export default async function HomePage({params}: Props) {
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                  Write parent messages in minutes,{" "}
-                  <span className="text-purple-600">not hours.</span>
+                  Save hours every week on parent messages,{" "}
+                  <span className="text-purple-600">report cards, and classroom communication.</span>
                 </h1>
                 <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 mx-auto lg:mx-0">
                   Zaza Promptly is your AI-powered teaching assistant - built to help teachers save time, reduce stress, and communicate with confidence.
