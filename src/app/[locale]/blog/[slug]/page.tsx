@@ -66,17 +66,7 @@ export default async function PostPage({ params }: Props) {
   
   return (
     <div className="min-h-screen bg-white">
-      <ArticleLayout 
-        post={post} 
-        locale={locale}
-        relatedPosts={
-          <RelatedPosts 
-            currentSlug={post.slug}
-            category={post.category}
-            locale={locale}
-          />
-        }
-      >
+      <ArticleLayout post={post}>
         {/* Render markdown content as HTML */}
         <div 
           dangerouslySetInnerHTML={{ 
