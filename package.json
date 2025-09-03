@@ -65,5 +65,8 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "typescript-eslint": "^8.41.0"
+  },
+  "engines": {
+    "node": ">=18.17 <21"
   }
 }
