@@ -1,0 +1,19 @@
+{
+  "name": "projects/your-project-id/locations/europe-west1/jobs/zaza-trends-ingest",
+  "description": "Scheduled trend ingestion for Zaza AI",
+  "schedule": "0 6 * * 1,3,5",
+  "timeZone": "Europe/Berlin",
+  "httpTarget": {
+    "uri": "https://zaza-trends-your-hash-ew.a.run.app/cron/ingest?token=YOUR_CRON_TOKEN",
+    "httpMethod": "GET",
+    "headers": {
+      "User-Agent": "Google-Cloud-Scheduler"
+    }
+  },
+  "retryConfig": {
+    "retryCount": 3,
+    "maxRetryDuration": "1800s",
+    "minBackoffDuration": "5s",
+    "maxBackoffDuration": "60s"
+  }
+}

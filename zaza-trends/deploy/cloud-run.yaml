@@ -1,0 +1,89 @@
+# Cloud Run service configuration
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: zaza-trends
+  namespace: 'your-project-id'
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/execution-environment: gen2
+spec:
+  template:
+    metadata:
+      annotations:
+        # Auto-scaling
+        autoscaling.knative.dev/maxScale: '10'
+        autoscaling.knative.dev/minScale: '0'
+        # CPU allocation
+        run.googleapis.com/cpu-throttling: 'false'
+        run.googleapis.com/memory: '1Gi'
+        run.googleapis.com/cpu: '1000m'
+        # Timeout (for long-running ingestion)
+        run.googleapis.com/timeout: '1800s'
+    spec:
+      serviceAccountName: zaza-trends-sa@your-project-id.iam.gserviceaccount.com
+      containers:
+      - image: gcr.io/your-project-id/zaza-trends:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: '1000m'
+            memory: '1Gi'
+        env:
+        # Secrets from Secret Manager
+        - name: REDDIT_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: reddit-client-id
+              key: latest
+        - name: REDDIT_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: reddit-client-secret
+              key: latest
+        - name: REDDIT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: reddit-username
+              key: latest
+        - name: REDDIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: reddit-password
+              key: latest
+        - name: TWITTER_BEARER_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: twitter-bearer-token
+              key: latest
+        - name: FACEBOOK_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: facebook-app-id
+              key: latest
+        - name: FACEBOOK_APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: facebook-app-secret
+              key: latest
+        - name: CRON_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: cron-token
+              key: latest
+        - name: GOOGLE_CLOUD_PROJECT_ID
+          value: "your-project-id"
+        # Health check
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
