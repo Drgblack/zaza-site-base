@@ -68,7 +68,7 @@ export default async function Blog2PostPage({ params }: Props) {
   if (!post) return notFound();
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" data-route="blog2-article">
       {/* TEMP: route verification watermark */}
       <div className="px-4 py-2 text-[11px] text-blue-600/80 bg-blue-50 border-b">
         🧪 <strong>BLOG2 ROUTE:</strong> app/en/blog2/[slug]/page.tsx | slug: {slug}
