@@ -3,16 +3,27 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Post as BlogPostType } from '@/lib/blog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareButton } from '@/components/site/share-button';
-// import { StructuredData } from '@/components/seo/structured-data';
 import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
 
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
+
 interface BlogPostProps {
-  post: BlogPostType;
+  post: Post;
 }
 
 export function BlogPost({ post }: BlogPostProps) {

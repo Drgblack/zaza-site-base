@@ -1,9 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { Post } from '@/lib/blog';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
 
 interface BlogNavigationProps {
   previousPost?: Post | null;

@@ -3,7 +3,19 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, ArrowRight } from "lucide-react";
-import type { Post } from "@/lib/blog";
+
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
 
 interface HeroSectionProps {
   post: Post;

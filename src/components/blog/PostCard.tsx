@@ -1,7 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock } from "lucide-react";
-import type { Post } from "@/lib/blog";
+
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
 
 interface PostCardProps {
   post: Post;

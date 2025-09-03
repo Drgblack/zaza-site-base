@@ -3,7 +3,19 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PostCard from "./PostCard";
-import type { Post } from "@/lib/blog";
+
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
 
 interface RowProps {
   title: string;

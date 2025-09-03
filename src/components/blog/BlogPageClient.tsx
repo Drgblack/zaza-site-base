@@ -1,11 +1,23 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import type { Post } from '@/lib/blog';
 import HeroSection from './HeroSection';
 import Row from './Row';
 import SearchAndFilter from './SearchAndFilter';
 import PostCard from './PostCard';
+
+type Post = {
+  title: string; 
+  slug: string; 
+  description?: string; 
+  date: string;
+  author?: string; 
+  category?: string; 
+  readingTime?: number; 
+  featured?: boolean;
+  image?: string; 
+  content: string;
+};
 
 const CATEGORIES = [
   "All Articles", 
@@ -22,23 +34,21 @@ function getPostsByCategory(posts: Post[], category: string): Post[] {
   return posts.filter(p => p.category === category);
 }
 
-interface BlogPageClientProps {
+export default function BlogPageClient({
+  locale, 
+  featured, 
+  allPosts, 
+  rows,
+  initialCategory,
+  initialSearch
+}: {
   locale: string;
+  featured: Post | null;
+  allPosts: Post[];
+  rows: { title: string; posts: Post[] }[];
   initialCategory?: string;
   initialSearch?: string;
-  allPosts: Post[];
-  featuredPost: Post | null;
-  rows: { title: string; posts: Post[] }[];
-}
-
-export default function BlogPageClient({ 
-  locale, 
-  initialCategory, 
-  initialSearch,
-  allPosts,
-  featuredPost,
-  rows
-}: BlogPageClientProps) {
+}) {
   const [searchQuery, setSearchQuery] = useState(initialSearch || "");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "All Articles");
   
@@ -77,9 +87,9 @@ export default function BlogPageClient({
 
       <div className="max-w-7xl mx-auto py-8">
         {/* Featured Hero */}
-        {featuredPost && (
+        {featured && (
           <div className="px-4 mb-12">
-            <HeroSection post={featuredPost} locale={locale} />
+            <HeroSection post={featured} locale={locale} />
           </div>
         )}
 

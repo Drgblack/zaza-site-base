@@ -1,13 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
-import BlogPageClient from '@/components/blog/BlogPageClient';
-import { 
-  getAllPosts, 
-  getFeaturedPost, 
-  getPostsByCategory, 
-  getRecentPosts, 
-  getPopularPosts, 
-  getEditorsPicks 
-} from '@/lib/blog';
+import { getAllPosts } from "@/lib/blog.server";
+import BlogPageClient from "@/components/blog/BlogPageClient";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -27,6 +20,8 @@ export const metadata: Metadata = {
   }
 };
 
+export const dynamic = "force-static"; // ok to SSG
+
 type Props = {
   params: Promise<{locale: string}>;
   searchParams: Promise<{category?: string; search?: string}>;
@@ -38,37 +33,35 @@ export default async function BlogPage({ params, searchParams }: Props) {
   
   setRequestLocale(locale);
 
-  // Fetch all data on the server
-  const allPosts = getAllPosts();
-  const featuredPost = getFeaturedPost();
-  
-  // Organize posts into rows (server-side)
-  const editorsPicks = getEditorsPicks().filter(p => p.slug !== featuredPost?.slug);
-  const recent = getRecentPosts(14).filter(p => p.slug !== featuredPost?.slug);
-  const popular = getPopularPosts().filter(p => p.slug !== featuredPost?.slug);
-  const teacherTips = getPostsByCategory("Teacher Tips").filter(p => p.slug !== featuredPost?.slug);
-  const productivity = getPostsByCategory("Productivity").filter(p => p.slug !== featuredPost?.slug);
-  const parentCommunication = getPostsByCategory("Parent Communication").filter(p => p.slug !== featuredPost?.slug);
-  const wellbeing = getPostsByCategory("Wellbeing").filter(p => p.slug !== featuredPost?.slug);
+  const posts = getAllPosts();
+  const featured = posts.find(p => p.featured) ?? posts[0] ?? null;
+
+  // build rails (arrays) server-side
+  const by = (cat: string) => posts.filter(p => p.category === cat);
+  const daysAgo = (n: number) => {
+    const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString();
+  };
+  const newThisWeek = posts.filter(p => p.date >= daysAgo(14));
+  const editors = posts.filter(p => p.featured);
 
   const rows = [
-    { title: "Editor's Picks", posts: editorsPicks },
-    { title: "New This Week", posts: recent },
-    { title: "Teacher Tips", posts: teacherTips },
-    { title: "Productivity", posts: productivity },
-    { title: "Parent Communication", posts: parentCommunication },
-    { title: "Wellbeing", posts: wellbeing },
-    { title: "Most Popular", posts: popular },
+    { title: "Editor's Picks", posts: editors },
+    { title: "New This Week", posts: newThisWeek },
+    { title: "Teacher Tips", posts: by("Teacher Tips") },
+    { title: "Productivity", posts: by("Productivity") },
+    { title: "Parent Communication", posts: by("Parent Communication") },
+    { title: "Wellbeing", posts: by("Wellbeing") },
+    { title: "Most Popular", posts }, // replace with popularity later
   ].filter(row => row.posts.length > 0);
 
   return (
-    <BlogPageClient 
+    <BlogPageClient
       locale={locale}
+      featured={featured}
+      allPosts={posts}
+      rows={rows}
       initialCategory={category}
       initialSearch={search}
-      allPosts={allPosts}
-      featuredPost={featuredPost}
-      rows={rows}
     />
   );
 }

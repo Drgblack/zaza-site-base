@@ -1,9 +1,6 @@
-import { notFound } from 'next/navigation';
+import { getAllPosts, getPostBySlug } from "@/lib/blog.server";
+import { notFound } from "next/navigation";
 import { setRequestLocale } from 'next-intl/server';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
-import { BlogPost } from '@/components/blog/blog-post';
-import { RelatedPosts } from '@/components/blog/related-posts';
-import { BlogNavigation } from '@/components/blog/blog-navigation';
 import type { Metadata } from 'next';
 
 type Props = {
@@ -12,13 +9,14 @@ type Props = {
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({
+  return posts.map(post => ({
+    locale: "en",
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = getPostBySlug(slug);
   
   if (!post) {
@@ -27,8 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const { locale } = await params;
-  
   return {
     title: `${post.title} - Zaza Promptly Blog`,
     description: post.description,
@@ -59,55 +55,80 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function PostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  
+  const post = getPostBySlug(slug);
+  if (!post) return notFound();
+  
+  return (
+    <div className="min-h-screen bg-white">
+      <article className="prose prose-lg prose-purple max-w-4xl mx-auto px-4 py-16 dark:prose-invert">
+        {/* Header */}
+        <header className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">
+              {post.category}
+            </span>
+          </div>
+          <h1 className="text-4xl font-bold leading-tight mb-4">{post.title}</h1>
+          <p className="text-xl text-gray-600 mb-6">{post.description}</p>
+          
+          <div className="flex items-center gap-6 text-sm text-gray-500 mb-8">
+            <span>By {post.author}</span>
+            <span>{post.readingTime} min read</span>
+            <span>{new Date(post.date).toLocaleDateString()}</span>
+          </div>
+        </header>
 
-  try {
-    const post = getPostBySlug(slug);
-    
-    if (!post) {
-      notFound();
-    }
-
-  const allPosts = getAllPosts();
-
-  // Get related posts (same category)
-  const relatedPosts = allPosts
-    .filter(p => p.slug !== slug && p.category === post.category)
-    .slice(0, 3);
-
-  // Find current post position for navigation
-  const currentIndex = allPosts.findIndex(p => p.slug === slug);
-  const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
-        <BlogPost post={post} />
+        {/* Content */}
+        <div 
+          className="prose-content"
+          dangerouslySetInnerHTML={{ __html: post.content.replace(/^#{1,6}\s+/gm, (match) => {
+            const level = match.trim().split(' ')[0].length;
+            const text = match.replace(/^#{1,6}\s+/, '');
+            return `<h${level}>${text}</h${level}>`;
+          })}}
+        />
         
-        {(previousPost || nextPost) && (
-          <BlogNavigation 
-            previousPost={previousPost}
-            nextPost={nextPost}
-          />
-        )}
-        
-        {relatedPosts.length > 0 && (
-          <RelatedPosts posts={relatedPosts} />
-        )}
-      </div>
-    );
-  } catch (error) {
-    console.error('Error in BlogPostPage:', error);
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Article Not Available</h1>
-          <p className="text-gray-600 mb-4">We're having trouble loading this article.</p>
-          <a href={`/${locale}/blog`} className="text-purple-600 hover:underline">← Back to Blog</a>
-        </div>
-      </div>
-    );
-  }
+        {/* JSON-LD for Article */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": post.title,
+              "description": post.description,
+              "image": post.image || "/images/blog/default.jpg",
+              "author": {
+                "@type": "Person",
+                "name": post.author || "Zaza Team"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Zaza Technologies",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://zazapromptly.com/images/zaza-logo.png"
+                }
+              },
+              "datePublished": post.date,
+              "dateModified": post.date,
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://zazapromptly.com/${locale}/blog/${post.slug}`
+              },
+              "articleSection": post.category,
+              "about": {
+                "@type": "Thing",
+                "name": "AI in Education"
+              }
+            })
+          }}
+        />
+      </article>
+    </div>
+  );
 }

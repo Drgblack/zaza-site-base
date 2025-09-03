@@ -2,10 +2,22 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Post } from '@/lib/blog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, User, BookOpen, ArrowRight } from 'lucide-react';
+
+type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
 
 interface RelatedPostsProps {
   posts: Post[];
