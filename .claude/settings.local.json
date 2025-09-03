@@ -69,7 +69,8 @@
       "Bash(npx playwright:*)",
       "WebFetch(domain:zaza-site-base-903huxf3e-zaza-d3c15292.vercel.app)",
       "WebFetch(domain:zazapromptly.com)",
-      "WebFetch(domain:zaza-site-base-ml3nd5vyg-zaza-d3c15292.vercel.app)"
+      "WebFetch(domain:zaza-site-base-ml3nd5vyg-zaza-d3c15292.vercel.app)",
+      "Bash(git revert:*)"
     ],
     "deny": []
   }
