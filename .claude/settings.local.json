@@ -63,7 +63,8 @@
       "WebFetch(domain:zaza-site-base-ckwk4oyfz-zaza-d3c15292.vercel.app)",
       "WebFetch(domain:zaza-site-base-4etgjati5-zaza-d3c15292.vercel.app)",
       "Bash(git grep:*)",
-      "Bash(del \"C:\\dev\\zaza\\zaza-site-base\\src\\components\\blog\\DebugInfo.tsx\")"
+      "Bash(del \"C:\\dev\\zaza\\zaza-site-base\\src\\components\\blog\\DebugInfo.tsx\")",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

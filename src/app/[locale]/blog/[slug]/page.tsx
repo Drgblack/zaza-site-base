@@ -1,6 +1,8 @@
 import { getAllPosts, getPostBySlug } from "@/lib/blog.server";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from 'next-intl/server';
+import ArticleLayout from "@/components/blog/article/ArticleLayout";
+import RelatedPosts from "@/components/blog/article/RelatedPosts";
 import type { Metadata } from 'next';
 
 type Props = {
@@ -64,71 +66,65 @@ export default async function PostPage({ params }: Props) {
   
   return (
     <div className="min-h-screen bg-white">
-      <article className="prose prose-lg prose-purple max-w-4xl mx-auto px-4 py-16 dark:prose-invert">
-        {/* Header */}
-        <header className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">
-              {post.category}
-            </span>
-          </div>
-          <h1 className="text-4xl font-bold leading-tight mb-4">{post.title}</h1>
-          <p className="text-xl text-gray-600 mb-6">{post.description}</p>
-          
-          <div className="flex items-center gap-6 text-sm text-gray-500 mb-8">
-            <span>By {post.author}</span>
-            <span>{post.readingTime} min read</span>
-            <span>{new Date(post.date).toLocaleDateString()}</span>
-          </div>
-        </header>
-
-        {/* Content */}
+      <ArticleLayout 
+        post={post} 
+        locale={locale}
+        relatedPosts={
+          <RelatedPosts 
+            currentSlug={post.slug}
+            category={post.category}
+            locale={locale}
+          />
+        }
+      >
+        {/* Render markdown content as HTML */}
         <div 
-          className="prose-content"
-          dangerouslySetInnerHTML={{ __html: post.content.replace(/^#{1,6}\s+/gm, (match) => {
-            const level = match.trim().split(' ')[0].length;
-            const text = match.replace(/^#{1,6}\s+/, '');
-            return `<h${level}>${text}</h${level}>`;
-          })}}
-        />
-        
-        {/* JSON-LD for Article */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              "headline": post.title,
-              "description": post.description,
-              "image": post.image || "/images/blog/default.jpg",
-              "author": {
-                "@type": "Person",
-                "name": post.author || "Zaza Team"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Zaza Technologies",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://zazapromptly.com/images/zaza-logo.png"
-                }
-              },
-              "datePublished": post.date,
-              "dateModified": post.date,
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": `https://zazapromptly.com/${locale}/blog/${post.slug}`
-              },
-              "articleSection": post.category,
-              "about": {
-                "@type": "Thing",
-                "name": "AI in Education"
-              }
+          dangerouslySetInnerHTML={{ 
+            __html: post.content.replace(/^#{1,6}\s+/gm, (match) => {
+              const level = match.trim().split(' ')[0].length;
+              const text = match.replace(/^#{1,6}\s+/, '');
+              return `<h${level}>${text}</h${level}>`;
             })
           }}
         />
-      </article>
+      </ArticleLayout>
+      
+      {/* JSON-LD for Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": post.description,
+            "image": post.image || "/images/blog/default.jpg",
+            "author": {
+              "@type": "Person",
+              "name": post.author || "Zaza Team"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Zaza Technologies",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://zazapromptly.com/images/zaza-logo.png"
+              }
+            },
+            "datePublished": post.date,
+            "dateModified": post.date,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://zazapromptly.com/${locale}/blog/${post.slug}`
+            },
+            "articleSection": post.category,
+            "about": {
+              "@type": "Thing",
+              "name": "AI in Education"
+            }
+          })
+        }}
+      />
     </div>
   );
 }
