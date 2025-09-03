@@ -57,6 +57,23 @@ export default async function BlogPage({ params, searchParams }: Props) {
 
   return (
     <>
+      {/* Blog2 Feature Flag Banner */}
+      {process.env.NEXT_PUBLIC_BLOG2 === "1" && (
+        <div className="bg-blue-600 text-white py-3 px-4 text-center">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-sm">
+              🧪 <strong>New blog experience available!</strong> Clean implementation with better performance.
+            </div>
+            <a 
+              href="/en/blog2" 
+              className="px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-sm"
+            >
+              Try New Blog →
+            </a>
+          </div>
+        </div>
+      )}
+      
       <BlogPageClient
         locale={locale}
         featured={featured}

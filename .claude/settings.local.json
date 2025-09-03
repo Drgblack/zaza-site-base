@@ -72,7 +72,8 @@
       "WebFetch(domain:zaza-site-base-ml3nd5vyg-zaza-d3c15292.vercel.app)",
       "Bash(git revert:*)",
       "Bash(pnpm install:*)",
-      "Bash(npx ts-node:*)"
+      "Bash(npx ts-node:*)",
+      "Bash(pnpm add:*)"
     ],
     "deny": []
   }
