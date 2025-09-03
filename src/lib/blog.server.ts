@@ -21,12 +21,23 @@ export type Post = {
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+const stem = (f: string) => f.replace(/\.mdx?$/i, "");
+
+function canonicalSlug(fileBasename: string, fmSlug?: string) {
+  const s = (fmSlug ?? stem(fileBasename)).trim().toLowerCase();
+  return s
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function toExcerpt(md: string, n=28) {
   const txt = md.replace(/[`*_>#\-!\[\]\(\)]/g, " ").replace(/\s+/g, " ").trim();
   return txt.split(" ").slice(0,n).join(" ") + "…";
 }
 
-// Helper function to get the correct image path
+// Helper function to get the correct image path - always returns a valid path
 function getImagePath(data: any, slug?: string): string {
   // Try different image field names in order of preference
   const imageFields = [
@@ -40,12 +51,14 @@ function getImagePath(data: any, slug?: string): string {
   
   for (const imageField of imageFields) {
     if (imageField && typeof imageField === 'string' && imageField.trim()) {
-      return resolveImage(imageField.trim());
+      const resolved = resolveImage(imageField.trim());
+      // resolveImage already guarantees a fallback, so this will never be empty
+      return resolved;
     }
   }
   
   // Fallback to default image using unified resolver
-  return resolveImage();
+  return resolveImage(); // This guarantees "/images/blog/default.jpg" if no image found
 }
 
 function readAll(): Post[] {
@@ -55,7 +68,7 @@ function readAll(): Post[] {
     const fp = path.join(BLOG_DIR, file);
     const raw = fs.readFileSync(fp, "utf8");
     const { data, content } = matter(raw);
-    const slug = (data.slug || file.replace(/\.mdx?$/, "")).toString();
+    const fileSlug = canonicalSlug(file, data.slug);
     
     // Handle author field - could be string or object
     let authorName = "";
@@ -103,28 +116,26 @@ function readAll(): Post[] {
     }
     
     return {
-      title: data.title ?? slug,
-      slug,
+      title: data.title ?? fileSlug,
+      slug: fileSlug,
       description: (data.description?.trim() || toExcerpt(content)),
       date: postDate,
       author: authorName,
       category: categoryName,
       readingTime: readingTimeNum,
       featured: Boolean(data.featured ?? false),
-      image: getImagePath(data, slug),
+      image: getImagePath(data, fileSlug),
       content,
     };
   }).sort((a, b) => (a.date < b.date ? 1 : -1));
 
   // Build-time diagnostics for missing images
-  if (process.env.NODE_ENV === "production") {
-    const missing = posts
-      .filter(p => !/^https?:\/\//.test(p.image))
-      .filter(p => !fs.existsSync(path.join(process.cwd(), "public", p.image)))
-      .map(p => `${p.slug} -> ${p.image}`);
-    if (missing.length) {
-      console.warn("[blog] Missing local images:\n" + missing.join("\n"));
-    }
+  const missing = posts
+    .filter(p => !/^https?:\/\//.test(p.image || ''))
+    .filter(p => p.image && !fs.existsSync(path.join(process.cwd(), "public", p.image)))
+    .map(p => `${p.slug} -> ${p.image}`);
+  if (missing.length) {
+    console.warn("[blog] Missing local images:\n" + missing.join("\n"));
   }
 
   return posts;

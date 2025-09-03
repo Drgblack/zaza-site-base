@@ -6,7 +6,7 @@ export default function ShareBar({ title, slug }:{ title:string; slug:string }) 
   };
   const enc = encodeURIComponent;
   return (
-    <div className="sticky top-24 flex flex-col gap-3">
+    <div className="sticky top-24 hidden md:flex flex-col gap-3" data-share-rail>
       <button onClick={share} className="rounded-full border px-3 py-2 text-xs">Share</button>
       <a href={`https://wa.me/?text=${enc(title+" "+url)}`} className="text-xs opacity-70 hover:opacity-100">WhatsApp</a>
       <a href={`mailto:?subject=${enc(title)}&body=${enc(url)}`} className="text-xs opacity-70 hover:opacity-100">Email</a>
