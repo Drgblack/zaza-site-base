@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /en/blog
+Disallow: /de/blog
+Disallow: /fr/blog
+
+Sitemap: https://zazapromptly.com/sitemap.xml
