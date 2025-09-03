@@ -24,8 +24,8 @@ export default function EmailCTA({ variant = "newsletter", className = "" }: Ema
     },
     product: {
       headline: "Ready to save 3+ hours per week?",
-      description: "Try Zaza Promptly - AI-powered tools that help teachers write better reports, emails, and feedback in minutes.",
-      buttonText: "Try Zaza Free",
+      description: "Try Zaza Teach - AI-powered tools that help teachers write better reports, emails, and feedback in minutes.",
+      buttonText: "Try Zaza Teach",
       successMessage: "Thanks! We'll be in touch soon.",
     },
   };
