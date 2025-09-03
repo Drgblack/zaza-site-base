@@ -2,14 +2,14 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: 2,
+  fullyParallel: false,
+  forbidOnly: false,
+  retries: 1,
   workers: 1,
-  reporter: 'html',
+  reporter: 'list',
   use: {
     baseURL: 'https://zazapromptly.com',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
 
   projects: [
