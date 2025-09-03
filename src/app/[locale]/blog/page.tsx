@@ -42,7 +42,19 @@ export default async function BlogPage({ params, searchParams }: Props) {
   
   return (
     <>
-      <div className="min-h-screen bg-white" data-route="blog-index">
+      <div className="min-h-screen bg-white">
+        {/* Preview new blog banner */}
+        <div className="bg-blue-50 border-b border-blue-100">
+          <div className="max-w-6xl mx-auto px-4 py-3 text-center">
+            <a 
+              href="/en/blog2" 
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-2"
+            >
+              Preview new blog experience →
+            </a>
+          </div>
+        </div>
+        
         {/* Header */}
         <div className="relative mx-auto max-w-6xl px-4 py-12">
           <div className="text-center">
@@ -63,13 +75,6 @@ export default async function BlogPage({ params, searchParams }: Props) {
         <NetflixRailClient title="Parent Communication" posts={posts.filter(p => p.category === 'Parent Communication').slice(0, 8)} railId="parent-comm" />
         <NetflixRailClient title="Most Popular" posts={posts.slice(0, 8)} railId="popular" />
 
-        {/* Debug Info */}
-        <section className="mx-auto max-w-6xl px-4 py-8 mt-16 border-t">
-          <div className="text-center text-sm text-gray-500">
-            <p>Main Blog System: {posts.length} posts loaded</p>
-            <p>Build: {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || 'local'}</p>
-          </div>
-        </section>
       </div>
       
       <div className="max-w-6xl mx-auto px-4"><BuildStamp /></div>

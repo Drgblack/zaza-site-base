@@ -68,12 +68,7 @@ export default async function Blog2PostPage({ params }: Props) {
   if (!post) return notFound();
   
   return (
-    <div className="min-h-screen bg-white" data-route="blog-article">
-      {/* TEMP: route verification watermark */}
-      <div className="px-4 py-2 text-[11px] text-green-600/80 bg-green-50 border-b">
-        ✅ <strong>MAIN BLOG (Blog2 System):</strong> app/[locale]/blog/[slug]/page.tsx | slug: {slug}
-      </div>
-      
+    <div className="min-h-screen bg-white">
       <ArticleLayout2 post={post}>
         <MDXRemote
           source={post.content}
