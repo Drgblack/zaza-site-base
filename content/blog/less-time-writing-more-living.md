@@ -1,3 +1,14 @@
+---
+title: "Less Time Writing, More Time Living"
+description: "Reclaim your evenings and weekends with AI-powered tools that handle administrative tasks, so you can focus on what matters most in teaching."
+date: "2024-12-15"
+author: "Zaza Team"
+category: "Teacher Tips"
+readingTime: 6
+image: "/images/blog/default.jpg"
+imageAlt: "Teacher working late on administrative tasks"
+---
+
 # Less Time Writing, More Time Living
 
 *It's 9:47 PM on a Tuesday. Your family is asleep. The house is quiet except for the soft clicking of your laptop keys as you craft yet another parent email, trying to find the perfect words to explain why Jake had a rough day without making his mom feel like she's failing.*

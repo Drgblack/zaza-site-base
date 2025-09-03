@@ -1,3 +1,14 @@
+---
+title: "5 Phrases That Turn Parent Emails From Stressful to Supportive"
+description: "Transform difficult parent conversations with these proven phrases that build collaboration and trust instead of defensiveness."
+date: "2024-12-10"
+author: "Zaza Team"
+category: "Parent Communication"
+readingTime: 5
+image: "/images/blog/default.jpg"
+imageAlt: "Parent and teacher collaboration"
+---
+
 # 5 Phrases That Turn Parent Emails From Stressful to Supportive
 
 *Let's be honest – we've all been there. You're crafting an email to a parent about their child's behavior or academic performance, and you're staring at the screen, second-guessing every word. Will this sound too harsh? Too soft? Professional but not cold?*

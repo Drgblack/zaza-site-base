@@ -61,7 +61,7 @@ function readAllBlog2Posts(): Blog2Post[] {
     
     const fileName = file.replace(/\.[mc]?mdx?$/i, "");
     const slug = canonicalSlug(fileName, data.slug);
-    const image = resolveImage(data.image);
+    const image = resolveImage(data.image || data.featuredImage || data.heroImage);
     const description = (data.description?.trim() || toExcerpt(content));
     
     // Guaranteed fields with fallbacks
@@ -75,10 +75,10 @@ function readAllBlog2Posts(): Blog2Post[] {
     // Handle date with fallback
     let postDate: string;
     try {
-      const rawDate = data.date || data.publishDate || new Date(0);
+      const rawDate = data.date || data.publishDate || data.publishedAt || "2024-12-01";
       postDate = new Date(rawDate).toISOString();
     } catch {
-      postDate = new Date(0).toISOString();
+      postDate = new Date("2024-12-01").toISOString();
     }
     
     return {

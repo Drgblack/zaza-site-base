@@ -5,7 +5,7 @@ category: "Teaching Tips"
 tags: ["time management", "productivity", "teacher wellness", "work-life balance"]
 author: "Sarah Johnson"
 authorBio: "Veteran educator with 15 years of classroom experience and a passion for teacher efficiency."
-publishDate: "2024-11-28"
+date: "2024-11-28"
 readingTime: "6 min read"
 featuredImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop"
 featured: false
