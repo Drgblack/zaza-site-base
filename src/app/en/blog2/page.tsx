@@ -13,7 +13,7 @@ export default function Blog2Page() {
   const parentComm = posts.filter(p => p.category === 'Parent Communication');
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" data-route="blog2-index">
 
       {/* Header */}
       <div className="relative mx-auto max-w-6xl px-4 py-12">

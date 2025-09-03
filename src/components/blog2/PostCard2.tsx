@@ -21,8 +21,8 @@ export default function PostCard2({ post, locale = "en", basePath = "blog" }: Po
       <div className="relative aspect-[16/9] bg-neutral-200 overflow-hidden">
         {/* Always render Image - no conditional logic */}
         <Image
-          src={post.image}
-          alt={post.title}
+          src={post.image || '/images/blog/default.jpg'}
+          alt={post.imageAlt || post.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="300px"

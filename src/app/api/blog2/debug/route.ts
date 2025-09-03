@@ -5,14 +5,11 @@ import path from 'path';
 
 export function GET() {
   const posts = getAllBlog2Posts();
+  const slugs = posts.map(p => p.slug);
   const missingImages = posts
     .filter(p => !/^https?:/.test(p.image))
-    .filter(p => !fs.existsSync(path.join(process.cwd(), 'public', p.image)))
+    .filter(p => !fs.existsSync(path.join(process.cwd(),'public', p.image)))
     .map(p => ({ slug: p.slug, image: p.image }));
     
-  return NextResponse.json({ 
-    count: posts.length, 
-    slugs: posts.map(p => p.slug), 
-    missingImages 
-  });
+  return NextResponse.json({ count: posts.length, slugs, missingImages });
 }

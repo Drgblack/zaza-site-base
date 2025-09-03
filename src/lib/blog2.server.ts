@@ -20,46 +20,26 @@ export type Blog2Post = {
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
-// canonical slug
-export function canonicalSlug(fileBase: string, fmSlug?: string): string {
-  const s = (fmSlug ?? fileBase).toLowerCase().trim();
-  return s.replace(/\.[mc]?mdx?$/, "")
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "");
+const stem = (f:string) => f.replace(/\.[mc]?mdx?$/i,'');
+export function canonicalSlug(fileBase:string, fmSlug?:string): string {
+  const s = (fmSlug || stem(fileBase)).toLowerCase().trim();
+  return s.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 }
 
-// image resolver
-export function resolveImage(img?: string): string {
-  if (!img) return "/images/blog/default.jpg";
+export function resolveImage(i?:string): string {
+  const v = (i || '').trim();
+  if (!v) return '/images/blog/default.jpg';
   try {
-    let u = decodeURIComponent(img).replace(/^public\//, "");
-    
-    // Fix malformed URLs like /https://...
-    if (u.startsWith("/https://") || u.startsWith("/http://")) {
-      u = u.substring(1); // Remove leading slash
-    }
-    
-    // Return external URLs as-is
-    if (u.startsWith("https://") || u.startsWith("http://")) {
-      return u;
-    }
-    
-    // For local paths, ensure leading slash
-    return u.startsWith("/") ? u : "/" + u;
-  } catch { 
-    return "/images/blog/default.jpg"; 
-  }
+    if (/^https?:\/\//i.test(v)) return v;            // external ok
+    const u = decodeURIComponent(v).replace(/^public\//,'');
+    return u.startsWith('/') ? u : '/'+u;
+  } catch { return '/images/blog/default.jpg'; }
 }
 
-// excerpt
-export function toExcerpt(md: string, words = 28): string {
-  return md.replace(/```[\s\S]*?```/g, " ")
-           .replace(/[#>*_`[\]()-]/g, " ")
-           .replace(/\s+/g, " ")
-           .trim()
-           .split(" ")
-           .slice(0, words)
-           .join(" ") + "…";
+export function toExcerpt(md:string, words=28): string {
+  return md.replace(/```[\s\S]*?```/g,' ')
+           .replace(/[#>*_`[\]()-]/g,' ')
+           .replace(/\s+/g,' ').trim().split(' ').slice(0,words).join(' ')+'…';
 }
 
 function readAllBlog2Posts(): Blog2Post[] {
@@ -74,7 +54,7 @@ function readAllBlog2Posts(): Blog2Post[] {
     const fileName = file.replace(/\.[mc]?mdx?$/i, "");
     const slug = canonicalSlug(fileName, data.slug);
     const image = resolveImage(data.image || data.featuredImage || data.heroImage);
-    const description = (data.description?.trim() || toExcerpt(content));
+    const description = data.description?.trim() || toExcerpt(content);
     
     // Guaranteed fields with fallbacks
     const title = data.title?.trim() || slug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
