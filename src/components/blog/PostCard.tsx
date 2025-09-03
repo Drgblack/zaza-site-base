@@ -31,11 +31,21 @@ export default function PostCard({ post, locale = "en" }: PostCardProps) {
     >
       <div className="relative aspect-[16/9] bg-neutral-200 overflow-hidden">
         <Image
-          src={post.image || "/images/blog/default.jpg"}
+          src={post.image || "/images/blog/default.svg"}
           alt={post.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, 300px"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            console.log('Image failed to load:', target.src);
+            if (target.src !== '/images/blog/default.svg') {
+              target.src = '/images/blog/default.svg';
+            }
+          }}
+          onLoad={() => {
+            // console.log('Image loaded successfully:', post.image);
+          }}
         />
         <span className="absolute left-3 top-3 text-xs px-2 py-1 rounded-full bg-black/80 text-white font-medium">
           {post.category || "General"}
@@ -46,7 +56,7 @@ export default function PostCard({ post, locale = "en" }: PostCardProps) {
           {post.title}
         </h3>
         <p className="mt-2 text-xs text-gray-600 line-clamp-2 flex-grow">
-          {post.description}
+          {post.description || 'No description available'}
         </p>
         <div className="mt-auto pt-2 flex items-center gap-3 text-[11px] text-gray-500">
           <span className="inline-flex items-center gap-1">

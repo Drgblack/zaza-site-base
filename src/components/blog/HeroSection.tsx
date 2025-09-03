@@ -29,12 +29,18 @@ export default function HeroSection({ post, locale }: HeroSectionProps) {
     <section className="relative mb-12">
       <div className="relative aspect-[21/9] rounded-2xl overflow-hidden group">
         <Image
-          src={post.image || "/images/blog/default.jpg"}
+          src={post.image || "/images/blog/default.svg"}
           alt={post.title}
           fill
           className="object-cover"
           priority
           sizes="100vw"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (target.src !== '/images/blog/default.svg') {
+              target.src = '/images/blog/default.svg';
+            }
+          }}
         />
         
         {/* Dark gradient overlay for text contrast */}

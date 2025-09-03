@@ -73,13 +73,12 @@ export default function Row({ title, posts, locale = "en" }: RowProps) {
       
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 px-4"
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 px-4 [&::-webkit-scrollbar]:hidden"
         role="list"
         aria-label={`${title} articles`}
         style={{
           scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          WebkitScrollbar: { display: 'none' }
+          msOverflowStyle: 'none'
         }}
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft') {
