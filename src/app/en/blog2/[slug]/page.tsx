@@ -2,6 +2,7 @@ import { getAllBlog2Posts, getBlog2PostBySlug } from "@/lib/blog2.server";
 import { notFound } from "next/navigation";
 import ArticleLayout2 from "@/components/blog2/ArticleLayout2";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { mdxComponents } from "@/components/blog2/mdx-components";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -76,6 +77,7 @@ export default async function Blog2PostPage({ params }: Props) {
       <ArticleLayout2 post={post}>
         <MDXRemote
           source={post.content}
+          components={mdxComponents}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
