@@ -5,7 +5,6 @@ import HeroSection from './HeroSection';
 import Row from './Row';
 import SearchAndFilter from './SearchAndFilter';
 import PostCard from './PostCard';
-import { DebugInfo } from './DebugInfo';
 
 type Post = {
   title: string; 
@@ -199,8 +198,6 @@ export default function BlogPageClient({
           })
         }}
       />
-      
-      <DebugInfo posts={allPosts} />
     </div>
   );
 }

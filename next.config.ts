@@ -18,7 +18,11 @@ const nextConfig: NextConfig = {
   },
   output: 'standalone' as const,
   images: {
-    domains: ['images.unsplash.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: '**.unsplash.com' },
+      { protocol: 'https', hostname: '**.pexels.com' },
+      { protocol: 'https', hostname: '**.imgix.net' },
+    ],
   },
   async headers() {
     return [

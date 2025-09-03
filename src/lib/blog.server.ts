@@ -20,6 +20,33 @@ export type Post = {
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+// Helper function to normalize and sanitize image paths
+function normalizeImage(src?: string): string {
+  if (!src) return "/images/blog/default.svg";
+  try {
+    // Undo accidental double-encoding like "%2F"
+    const decoded = decodeURIComponent(src);
+    // If external URL: return as-is (Next config must allow host)
+    if (/^https?:\/\//i.test(decoded)) return decoded;
+    // Normalize local paths: strip leading "/public", ensure "/"
+    const local = decoded.replace(/^\/?public\//, "");
+    return local.startsWith("/") ? local : `/${local}`;
+  } catch {
+    return "/images/blog/default.svg";
+  }
+}
+
+function ensureLocalOrFallback(p: string): string {
+  if (/^https?:\/\//.test(p)) return p;
+  const disk = path.join(process.cwd(), "public", p);
+  return fs.existsSync(disk) ? p : "/images/blog/default.svg";
+}
+
+function toExcerpt(md: string, words = 28): string {
+  const txt = md.replace(/[`*_>#\-!\[\]\(\)]/g, " ").replace(/\s+/g, " ").trim();
+  return txt.split(" ").slice(0, words).join(" ") + "…";
+}
+
 // Helper function to get the correct image path
 function getImagePath(data: any, slug?: string): string {
   // Try different image field names in order of preference
@@ -28,35 +55,13 @@ function getImagePath(data: any, slug?: string): string {
     data.featuredImage, 
     data.ogImage,
     data.heroImage,
-    data.coverImage
+    data.coverImage,
+    data.thumbnail
   ];
   
   for (const imageField of imageFields) {
     if (imageField && typeof imageField === 'string' && imageField.trim()) {
-      const imagePath = imageField.trim();
-      
-      // If it's an external URL (starts with http), use it directly
-      if (imagePath.startsWith('http')) {
-        return imagePath;
-      }
-      
-      // Normalize internal paths - ensure they start with /images/blog/
-      if (imagePath.startsWith('/blog/')) {
-        return imagePath.replace('/blog/', '/images/blog/');
-      }
-      
-      // If it already starts with /images/blog/, use it as is
-      if (imagePath.startsWith('/images/blog/')) {
-        return imagePath;
-      }
-      
-      // If it's just a filename, prepend the blog path
-      if (!imagePath.startsWith('/')) {
-        return `/images/blog/${imagePath}`;
-      }
-      
-      // Default case - use the path as provided
-      return imagePath;
+      return ensureLocalOrFallback(normalizeImage(imageField.trim()));
     }
   }
   
@@ -105,14 +110,49 @@ function readAll(): Post[] {
       }
     }
     
+    // Handle date field - could be 'date' or 'publishDate'
+    let postDate = data.date || data.publishDate;
+    if (!postDate) {
+      postDate = new Date(0).toISOString();
+    } else {
+      postDate = new Date(postDate).toISOString();
+    }
+    
+    // Handle reading time - could be 'readingTime', 'readTime', or string with 'min'
+    let readingTimeNum = 4; // default
+    if (data.readingTime) {
+      readingTimeNum = typeof data.readingTime === 'string' 
+        ? parseInt(data.readingTime.replace(/\D/g, ''), 10) || 4
+        : Number(data.readingTime);
+    } else if (data.readTime) {
+      readingTimeNum = typeof data.readTime === 'string'
+        ? parseInt(data.readTime.replace(/\D/g, ''), 10) || 4
+        : Number(data.readTime);
+    }
+    
+    // Normalize category names
+    let categoryName = data.category ?? "General";
+    if (typeof categoryName === 'string') {
+      // Convert "ai-tools" to "AI Tools", "parent communication" to "Parent Communication"
+      categoryName = categoryName
+        .split(/[-\s]+/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+      
+      // Special cases for AI
+      categoryName = categoryName.replace(/^Ai\s/, 'AI ');
+      categoryName = categoryName.replace(/\sAi$/, ' AI');
+      categoryName = categoryName.replace(/\sAi\s/, ' AI ');
+    }
+    
     return {
       title: data.title ?? slug,
       slug,
-      description: data.description ?? "",
-      date: (data.date ? new Date(data.date).toISOString() : new Date(0).toISOString()),
+      description: data.description?.trim() || toExcerpt(content),
+      date: postDate,
       author: authorName,
-      category: data.category ?? "General",
-      readingTime: Number(data.readingTime ?? 4),
+      category: categoryName,
+      readingTime: readingTimeNum,
       featured: Boolean(data.featured ?? false),
       image: getImagePath(data, slug),
       content,

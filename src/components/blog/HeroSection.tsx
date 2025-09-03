@@ -44,7 +44,7 @@ export default function HeroSection({ post, locale }: HeroSectionProps) {
         />
         
         {/* Dark gradient overlay for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/0" />
         
         {/* Content overlay */}
         <div className="absolute inset-0 flex items-end">
