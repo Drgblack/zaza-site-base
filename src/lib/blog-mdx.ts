@@ -69,19 +69,19 @@ export async function getAllPosts(locale: string = 'en'): Promise<BlogPost[]> {
 
         return {
           slug,
-          title: data.title,
-          description: data.description,
+          title: data.title || 'Untitled',
+          description: data.description || data.excerpt || '',
           category: data.category || 'General',
-          tags: data.tags || [],
-          author: data.author || 'Zaza Team',
-          authorBio: data.authorBio || '',
+          tags: Array.isArray(data.tags) ? data.tags : [],
+          author: data.author || (data.author?.name) || 'Zaza Team',
+          authorBio: data.authorBio || (data.author?.bio) || '',
           publishDate: data.publishDate || data.date || new Date().toISOString().split('T')[0],
-          readingTime: data.readingTime || '5 min read',
+          readingTime: data.readingTime || estimateReadingTime(content),
           featuredImage: data.featuredImage || data.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop',
           featured: data.featured || false,
-          seoKeywords: data.seoKeywords || data.tags || [],
+          seoKeywords: Array.isArray(data.seoKeywords) ? data.seoKeywords : (Array.isArray(data.tags) ? data.tags : []),
           content: contentHtml,
-          excerpt
+          excerpt: data.excerpt || excerpt
         } as BlogPost;
       })
     );
@@ -145,19 +145,19 @@ export async function getPostBySlug(slug: string, locale: string = 'en'): Promis
 
       return {
         slug,
-        title: data.title,
-        description: data.description,
-        category: data.category,
-        tags: data.tags || [],
-        author: data.author,
-        authorBio: data.authorBio || '',
-        publishDate: data.publishDate,
-        readingTime: data.readingTime,
-        featuredImage: data.featuredImage,
+        title: data.title || 'Untitled',
+        description: data.description || data.excerpt || '',
+        category: data.category || 'General',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        author: data.author || (data.author?.name) || 'Zaza Team',
+        authorBio: data.authorBio || (data.author?.bio) || '',
+        publishDate: data.publishDate || data.date || new Date().toISOString().split('T')[0],
+        readingTime: data.readingTime || estimateReadingTime(content),
+        featuredImage: data.featuredImage || data.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop',
         featured: data.featured || false,
-        seoKeywords: data.seoKeywords || [],
+        seoKeywords: Array.isArray(data.seoKeywords) ? data.seoKeywords : (Array.isArray(data.tags) ? data.tags : []),
         content: contentHtml,
-        excerpt
+        excerpt: data.excerpt || excerpt
       } as BlogPost;
     }
     
