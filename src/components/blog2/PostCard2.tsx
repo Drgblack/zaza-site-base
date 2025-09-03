@@ -9,7 +9,7 @@ interface PostCard2Props {
 }
 
 export default function PostCard2({ post, locale = "en" }: PostCard2Props) {
-  const href = `/${locale}/blog2/${post.slug}`;
+  const href = `/${locale}/blog/${post.slug}`;
   
   return (
     <Link 

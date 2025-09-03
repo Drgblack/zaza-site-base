@@ -1,25 +1,27 @@
-import { getAllPosts, getPostBySlug } from "@/lib/blog.server";
+import { getAllBlog2Posts, getBlog2PostBySlug } from "@/lib/blog2.server";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from 'next-intl/server';
-import ArticleLayout from "@/components/blog/article/ArticleLayout";
-import RelatedPosts from "@/components/blog/article/RelatedPosts";
-import type { Metadata } from 'next';
+import ArticleLayout2 from "@/components/blog2/ArticleLayout2";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { mdxComponents } from "@/components/blog2/mdx-components";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import type { Metadata } from "next";
 
 type Props = {
-  params: Promise<{locale: string; slug: string}>;
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = getAllBlog2Posts();
   return posts.map(post => ({
-    locale: "en",
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug } = await params;
+  const post = getBlog2PostBySlug(slug);
   
   if (!post) {
     return {
@@ -28,62 +30,73 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${post.title} - Zaza Promptly Blog`,
+    title: `${post.title} - Zaza AI Teaching Blog`,
     description: post.description,
-    authors: [{ name: post.author || "Zaza Team" }],
+    authors: [{ name: post.author }],
     alternates: {
-      canonical: `https://zazapromptly.com/${locale}/blog/${post.slug}`
+      canonical: `https://zazapromptly.com/en/blog2/${post.slug}`
     },
     openGraph: {
       title: post.title,
       description: post.description,
       images: [{
-        url: post.image || "/images/blog/default.jpg",
+        url: post.image,
         width: 1200,
         height: 630,
         alt: post.title
       }],
       type: 'article',
       publishedTime: post.date,
-      authors: [post.author || "Zaza Team"],
-      url: `https://zazapromptly.com/${locale}/blog/${post.slug}`
+      authors: [post.author],
+      url: `https://zazapromptly.com/en/blog2/${post.slug}`
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [post.image || "/images/blog/default.jpg"],
+      images: [post.image],
     },
   };
 }
 
-export default async function PostPage({ params }: Props) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
+export default async function Blog2PostPage({ params }: Props) {
+  const { slug } = await params;
   
-  console.log("[article] rendering from app/[locale]/blog/[slug]/page.tsx");
+  console.log("[blog2] rendering article:", slug);
   
-  const post = getPostBySlug(slug);
+  const post = getBlog2PostBySlug(slug);
   if (!post) return notFound();
   
   return (
-    <div className="min-h-screen bg-white">
-      {/* TEMP: remove after verification */}
-      <div data-route-watermark className="px-4 py-2 text-[11px] text-pink-600/80">
-        route: <strong>app/[locale]/blog/[slug]/page.tsx</strong>
+    <div className="min-h-screen bg-white" data-route="blog-article">
+      {/* TEMP: route verification watermark */}
+      <div className="px-4 py-2 text-[11px] text-green-600/80 bg-green-50 border-b">
+        ✅ <strong>MAIN BLOG (Blog2 System):</strong> app/[locale]/blog/[slug]/page.tsx | slug: {slug}
       </div>
-      <ArticleLayout post={post}>
-        {/* Render markdown content as HTML */}
-        <div 
-          dangerouslySetInnerHTML={{ 
-            __html: post.content.replace(/^#{1,6}\s+/gm, (match) => {
-              const level = match.trim().split(' ')[0].length;
-              const text = match.replace(/^#{1,6}\s+/, '');
-              return `<h${level}>${text}</h${level}>`;
-            })
+      
+      <ArticleLayout2 post={post}>
+        <MDXRemote
+          source={post.content}
+          components={mdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [
+                rehypeSlug,
+                [
+                  rehypeAutolinkHeadings,
+                  {
+                    behavior: 'wrap',
+                    properties: {
+                      className: ['anchor-link'],
+                    },
+                  },
+                ],
+              ],
+            },
           }}
         />
-      </ArticleLayout>
+      </ArticleLayout2>
       
       {/* JSON-LD for Article */}
       <script
@@ -94,10 +107,10 @@ export default async function PostPage({ params }: Props) {
             "@type": "BlogPosting",
             "headline": post.title,
             "description": post.description,
-            "image": post.image || "/images/blog/default.jpg",
+            "image": post.image,
             "author": {
               "@type": "Person",
-              "name": post.author || "Zaza Team"
+              "name": post.author
             },
             "publisher": {
               "@type": "Organization",
@@ -111,7 +124,7 @@ export default async function PostPage({ params }: Props) {
             "dateModified": post.date,
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://zazapromptly.com/${locale}/blog/${post.slug}`
+              "@id": `https://zazapromptly.com/en/blog2/${post.slug}`
             },
             "articleSection": post.category,
             "about": {

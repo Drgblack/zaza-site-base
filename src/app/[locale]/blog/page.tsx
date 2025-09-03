@@ -1,88 +1,131 @@
-import { setRequestLocale } from 'next-intl/server';
-import { getAllPosts } from "@/lib/blog.server";
-import BlogPageClient from "@/components/blog/BlogPageClient";
-import BuildStamp from "@/components/BuildStamp";
-import type { Metadata } from 'next';
+"use client";
+import { getAllBlog2Posts } from "@/lib/blog2.server";
+import PostCard2 from "@/components/blog2/PostCard2";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 
-export const metadata: Metadata = {
-  title: 'AI in Education Blog - Zaza Promptly',
-  description: 'Insights, strategies, and real-world examples from educators transforming their classrooms with AI.',
-  keywords: ['AI education blog', 'teacher resources', 'parent communication', 'educational technology', 'teaching tips'],
-  openGraph: {
-    title: 'AI in Education Blog - Zaza Promptly',
-    description: 'Insights, strategies, and real-world examples from educators transforming their classrooms with AI.',
-    type: 'website',
-    images: ['/images/blog/og-blog.jpg']
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI in Education Blog - Zaza Promptly',
-    description: 'Insights, strategies, and real-world examples from educators transforming their classrooms with AI.'
-  }
-};
+interface RailProps {
+  title: string;
+  posts: any[];
+  railId: string;
+}
 
-export const dynamic = "force-static"; // ok to SSG
+function NetflixRail({ title, posts, railId }: RailProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-type Props = {
-  params: Promise<{locale: string}>;
-  searchParams: Promise<{category?: string; search?: string}>;
-};
-
-export default async function BlogPage({ params, searchParams }: Props) {
-  const { locale } = await params;
-  const { category, search } = await searchParams;
-  
-  setRequestLocale(locale);
-
-  const posts = getAllPosts();
-  const featured = posts.find(p => p.featured) ?? posts[0] ?? null;
-
-  // build rails (arrays) server-side
-  const by = (cat: string) => posts.filter(p => p.category === cat);
-  const daysAgo = (n: number) => {
-    const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString();
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
   };
-  const newThisWeek = posts.filter(p => p.date >= daysAgo(14));
-  const editors = posts.filter(p => p.featured);
 
-  const rows = [
-    { title: "Editor's Picks", posts: editors },
-    { title: "New This Week", posts: newThisWeek },
-    { title: "Teacher Tips", posts: by("Teacher Tips") },
-    { title: "Productivity", posts: by("Productivity") },
-    { title: "Parent Communication", posts: by("Parent Communication") },
-    { title: "Wellbeing", posts: by("Wellbeing") },
-    { title: "Most Popular", posts }, // replace with popularity later
-  ].filter(row => row.posts.length > 0);
+  useEffect(() => {
+    checkScrollButtons();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScrollButtons);
+      return () => el.removeEventListener('scroll', checkScrollButtons);
+    }
+  }, [posts]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 320 * 3; // 3 cards worth
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  if (posts.length === 0) return null;
 
   return (
-    <>
-      {/* Blog2 Feature Flag Banner */}
-      {process.env.NEXT_PUBLIC_BLOG2 === "1" && (
-        <div className="bg-blue-600 text-white py-3 px-4 text-center">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-sm">
-              🧪 <strong>New blog experience available!</strong> Clean implementation with better performance.
-            </div>
-            <a 
-              href="/en/blog2" 
-              className="px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-sm"
-            >
-              Try New Blog →
-            </a>
+    <section className="relative mx-auto max-w-6xl px-4 mb-16">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+        <div className="flex gap-2">
+          <button 
+            onClick={() => scroll('left')}
+            disabled={!canScrollLeft}
+            className="h-10 w-10 rounded-full border bg-background/80 backdrop-blur-sm shadow hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => scroll('right')}
+            disabled={!canScrollRight}
+            className="h-10 w-10 rounded-full border bg-background/80 backdrop-blur-sm shadow hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+      <div className="relative overflow-hidden pr-6">
+        <div 
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitScrollbar: { display: 'none' }
+          } as any}
+        >
+          {posts.map((post) => (
+            <PostCard2 key={post.slug} post={post} />
+          ))}
+        </div>
+        {/* Edge fades */}
+        <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+      </div>
+    </section>
+  );
+}
+
+export default function Blog2IndexPage() {
+  const posts = getAllBlog2Posts();
+  
+  // Group posts for rails
+  const featuredPosts = posts.filter(p => p.featured);
+  const recentPosts = posts.filter(p => new Date(p.date) > new Date(Date.now() - 14*24*60*60*1000));
+  
+  return (
+    <div className="min-h-screen bg-white" data-route="blog-index">
+      {/* Header */}
+      <div className="relative mx-auto max-w-6xl px-4 py-12">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 md:text-6xl">
+            AI in Education Blog
+          </h1>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Insights, strategies, and real-world examples from educators transforming their classrooms with AI.
+          </p>
+          <div className="mt-6 text-sm text-green-600 bg-green-50 px-4 py-2 rounded-full inline-block">
+            ✨ Powered by Blog2 System
           </div>
         </div>
-      )}
-      
-      <BlogPageClient
-        locale={locale}
-        featured={featured}
-        allPosts={posts}
-        rows={rows}
-        initialCategory={category}
-        initialSearch={search}
-      />
-      <div className="max-w-6xl mx-auto px-4"><BuildStamp /></div>
-    </>
+      </div>
+
+      {/* Rails */}
+      <NetflixRail title="Editor's Picks" posts={featuredPosts.length ? featuredPosts : posts.slice(0, 8)} railId="featured" />
+      <NetflixRail title="New This Week" posts={recentPosts.length ? recentPosts : posts.slice(0, 8)} railId="recent" />
+      <NetflixRail title="Teacher Tips" posts={posts.filter(p => p.category === 'Teacher Tips').slice(0, 8)} railId="teacher-tips" />
+      <NetflixRail title="Productivity" posts={posts.filter(p => p.category === 'Productivity').slice(0, 8)} railId="productivity" />
+      <NetflixRail title="Parent Communication" posts={posts.filter(p => p.category === 'Parent Communication').slice(0, 8)} railId="parent-comm" />
+      <NetflixRail title="Most Popular" posts={posts.slice(0, 8)} railId="popular" />
+
+      {/* Debug Info */}
+      <section className="mx-auto max-w-6xl px-4 py-8 mt-16 border-t">
+        <div className="text-center text-sm text-gray-500">
+          <p>Main Blog System: {posts.length} posts loaded</p>
+          <p>Build: {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || 'local'}</p>
+        </div>
+      </section>
+    </div>
   );
 }
