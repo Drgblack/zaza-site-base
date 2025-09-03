@@ -68,9 +68,9 @@ export default async function PostPage({ params }: Props) {
   
   return (
     <div className="min-h-screen bg-white">
-      {/* TEMP DEBUG: remove after verification */}
-      <div data-route="ACTIVE: app/[locale]/blog/[slug]/page.tsx" className="text-[11px] opacity-60 px-4 pt-2">
-        route: app/[locale]/blog/[slug]/page.tsx
+      {/* TEMP: remove after verification */}
+      <div data-route-watermark className="px-4 py-2 text-[11px] text-pink-600/80">
+        route: <strong>app/[locale]/blog/[slug]/page.tsx</strong>
       </div>
       <ArticleLayout post={post}>
         {/* Render markdown content as HTML */}

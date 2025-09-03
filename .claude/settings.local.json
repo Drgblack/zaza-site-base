@@ -65,7 +65,8 @@
       "Bash(git grep:*)",
       "Bash(del \"C:\\dev\\zaza\\zaza-site-base\\src\\components\\blog\\DebugInfo.tsx\")",
       "Bash(git checkout:*)",
-      "Bash(npm ls:*)"
+      "Bash(npm ls:*)",
+      "Bash(npx playwright:*)"
     ],
     "deny": []
   }

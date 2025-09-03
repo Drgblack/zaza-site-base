@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
     "audit:blog": "ts-node --transpile-only scripts/audit-blog-images.ts",
     "postbuild": "echo 'Build completed successfully!'"
   },
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
