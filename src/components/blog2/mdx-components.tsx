@@ -61,6 +61,27 @@ export const TipBox = ({ children, type = 'tip' }: {
   );
 };
 
+export const ZazaCTA = ({ children, title, href }: { 
+  children: React.ReactNode; 
+  title?: string;
+  href?: string;
+}) => (
+  <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 my-6 text-center">
+    {title && (
+      <h3 className="text-lg font-semibold text-gray-900 mb-3">{title}</h3>
+    )}
+    <div className="text-gray-700 mb-4">{children}</div>
+    {href && (
+      <a 
+        href={href}
+        className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+      >
+        Get Started with Zaza →
+      </a>
+    )}
+  </div>
+);
+
 // Export all components that might be used in MDX
 export const mdxComponents = {
   Callout,
@@ -68,5 +89,6 @@ export const mdxComponents = {
   Highlight,
   PromptBox,
   TipBox,
+  ZazaCTA,
   // Add any other custom components used in blog posts
 };
