@@ -60,7 +60,9 @@
       "Bash(node:*)",
       "Bash(pnpm install:*)",
       "Bash(vercel:*)",
-      "WebFetch(domain:zaza-site-base-ckwk4oyfz-zaza-d3c15292.vercel.app)"
+      "WebFetch(domain:zaza-site-base-ckwk4oyfz-zaza-d3c15292.vercel.app)",
+      "WebFetch(domain:zaza-site-base-4etgjati5-zaza-d3c15292.vercel.app)",
+      "Bash(git grep:*)"
     ],
     "deny": []
   }

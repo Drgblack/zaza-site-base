@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import { getAllPosts, getAllCategories, getFeaturedPosts, BlogPost } from '@/lib/blog-mdx';
+import { getAllPosts, Post } from '@/lib/blog';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -14,18 +14,20 @@ export const metadata: Metadata = {
   keywords: ['AI education blog', 'teacher resources', 'parent communication', 'educational technology', 'teaching tips'],
 };
 
+const CATEGORIES = ["All Articles","Teacher Tips","Productivity","Parent Communication","Wellbeing"];
+
 type Props = {
   params: Promise<{locale: string}>;
   searchParams: Promise<{category?: string; tag?: string; search?: string; page?: string}>;
 };
 
 // Featured Hero Card Component
-function FeaturedHeroCard({ post }: { post: BlogPost }) {
+function FeaturedHeroCard({ post }: { post: Post }) {
   return (
     <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden group cursor-pointer">
       <Link href={`/blog/${post.slug}`}>
         <Image
-          src={post.featuredImage}
+          src={post.image || "/images/blog/default.jpg"}
           alt={post.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -49,11 +51,11 @@ function FeaturedHeroCard({ post }: { post: BlogPost }) {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              <span>{post.readingTime}</span>
+              <span>{post.readingTime} min read</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              <span>{new Date(post.publishDate).toLocaleDateString()}</span>
+              <span>{new Date(post.date).toLocaleDateString()}</span>
             </div>
           </div>
           <Button className="bg-white text-black hover:bg-gray-100 font-semibold">
@@ -67,13 +69,13 @@ function FeaturedHeroCard({ post }: { post: BlogPost }) {
 }
 
 // Article Card Component
-function ArticleCard({ post }: { post: BlogPost }) {
+function ArticleCard({ post }: { post: Post }) {
   return (
     <article className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
       <Link href={`/blog/${post.slug}`} className="block">
         <div className="aspect-[16/10] relative overflow-hidden">
           <Image
-            src={post.featuredImage}
+            src={post.image || "/images/blog/default.jpg"}
             alt={post.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -102,10 +104,10 @@ function ArticleCard({ post }: { post: BlogPost }) {
               </div>
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>{post.readingTime}</span>
+                <span>{post.readingTime} min</span>
               </div>
             </div>
-            <span>{new Date(post.publishDate).toLocaleDateString()}</span>
+            <span>{new Date(post.date).toLocaleDateString()}</span>
           </div>
           
           <Button variant="outline" className="w-full group-hover:bg-purple-50 group-hover:border-purple-200">
@@ -119,7 +121,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
 }
 
 // Sidebar Component
-function BlogSidebar({ categories, selectedCategory, totalPosts }: { categories: string[], selectedCategory?: string, totalPosts: number }) {
+function BlogSidebar({ grouped, selectedCategory }: { grouped: Record<string, Post[]>, selectedCategory?: string }) {
   return (
     <div className="space-y-8">
       {/* Search */}
@@ -142,19 +144,17 @@ function BlogSidebar({ categories, selectedCategory, totalPosts }: { categories:
           <h3 className="text-lg font-semibold">Popular Categories</h3>
         </div>
         <div className="space-y-2">
-          <Link 
-            href="/blog" 
-            className={`block px-3 py-2 rounded-lg transition-colors ${!selectedCategory ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
-          >
-            All Articles ({totalPosts})
-          </Link>
-          {categories.slice(0, 6).map((category) => (
+          {CATEGORIES.map((category) => (
             <Link 
               key={category}
-              href={`/blog?category=${encodeURIComponent(category)}`}
-              className={`block px-3 py-2 rounded-lg transition-colors ${selectedCategory === category ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+              href={category === "All Articles" ? "/blog" : `/blog?category=${encodeURIComponent(category)}`}
+              className={`block px-3 py-2 rounded-lg transition-colors ${
+                (category === "All Articles" && !selectedCategory) || selectedCategory === category 
+                  ? 'bg-purple-100 text-purple-700' 
+                  : 'hover:bg-gray-100'
+              }`}
             >
-              {category}
+              {category} ({grouped[category]?.length || 0})
             </Link>
           ))}
         </div>
@@ -208,40 +208,36 @@ function NewsletterSection() {
 
 export default async function BlogPage({ params, searchParams }: Props) {
   const { locale } = await params;
-  const { category, tag, search, page = '1' } = await searchParams;
+  const { category, search, page = '1' } = await searchParams;
   setRequestLocale(locale);
 
   try {
-    const [allPosts, categories, featuredPosts] = await Promise.all([
-      getAllPosts(locale),
-      getAllCategories(locale),
-      getFeaturedPosts(locale)
-    ]);
+    const posts = getAllPosts(); // server-side using new loader
+    const featured = posts.find(p => p.featured) ?? posts[0] ?? null;
 
-    // Ensure we have valid data
-    const safePosts = allPosts || [];
-    const safeCategories = categories || [];
-    const safeFeaturedPosts = featuredPosts || [];
+    // server filtered groups for SSR clarity - FIX for "All Articles (0)" bug
+    const grouped = Object.fromEntries(
+      CATEGORIES.map(cat => [
+        cat,
+        cat === "All Articles" ? posts : posts.filter(p => p.category === cat),
+      ])
+    );
 
-    // Filter posts based on search params
-    let filteredPosts = safePosts;
+    // Filter posts based on search params - FIXED LOGIC
+    let filteredPosts = posts;
     
-    if (category && category !== 'all') {
-      filteredPosts = filteredPosts.filter(post => post.category === category);
-    }
-    
-    if (tag) {
-      filteredPosts = filteredPosts.filter(post => 
-        post.tags && Array.isArray(post.tags) && post.tags.includes(tag)
-      );
+    if (category && category !== "All Articles") {
+      filteredPosts = grouped[category] || [];
+    } else {
+      filteredPosts = grouped["All Articles"]; // Always show all posts for "All Articles"
     }
 
     if (search) {
       const searchLower = search.toLowerCase();
       filteredPosts = filteredPosts.filter(post => 
         post.title.toLowerCase().includes(searchLower) ||
-        post.description.toLowerCase().includes(searchLower) ||
-        post.author.toLowerCase().includes(searchLower)
+        (post.description?.toLowerCase() || '').includes(searchLower) ||
+        (post.author?.toLowerCase() || '').includes(searchLower)
       );
     }
 
@@ -255,7 +251,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
     );
 
     // Get featured post for hero
-    const heroPost = safeFeaturedPosts[0] || safePosts[0];
+    const heroPost = featured;
 
     return (
       <div className="min-h-screen bg-gray-50">
@@ -287,9 +283,8 @@ export default async function BlogPage({ params, searchParams }: Props) {
             <div className="lg:col-span-1 order-2 lg:order-1">
               <div className="sticky top-8">
                 <BlogSidebar 
-                  categories={safeCategories}
+                  grouped={grouped}
                   selectedCategory={category}
-                  totalPosts={safePosts.length}
                 />
               </div>
             </div>

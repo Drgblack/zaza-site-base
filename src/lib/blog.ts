@@ -1,0 +1,76 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+export type Post = {
+  title: string;
+  slug: string;
+  description?: string;
+  date: string;
+  author?: string;
+  category?: string;
+  readingTime?: number;
+  featured?: boolean;
+  image?: string;
+  content: string;
+};
+
+const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+
+export function getAllPosts(): Post[] {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+  const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith(".md") || f.endsWith(".mdx"));
+  return files
+    .map(file => {
+      const fp = path.join(BLOG_DIR, file);
+      const raw = fs.readFileSync(fp, "utf8");
+      const { data, content } = matter(raw);
+      const slug = (data.slug || file.replace(/\.mdx?$/, "")).toString();
+      
+      // Normalize category names to match expected categories
+      let category = data.category ?? "General";
+      if (typeof category === 'string') {
+        // Map various category formats to standard ones
+        const lowerCategory = category.toLowerCase();
+        if (lowerCategory.includes('ai') && lowerCategory.includes('tool')) category = "Teacher Tips";
+        else if (lowerCategory.includes('communication')) category = "Parent Communication";
+        else if (lowerCategory.includes('productivity') || lowerCategory.includes('time')) category = "Productivity";
+        else if (lowerCategory.includes('classroom') || lowerCategory.includes('management')) category = "Teacher Tips";
+        else if (lowerCategory.includes('wellbeing') || lowerCategory.includes('wellness')) category = "Wellbeing";
+        else if (lowerCategory === "ai tools" || lowerCategory === "ai-tools") category = "Teacher Tips";
+      }
+      
+      // Handle different reading time formats
+      let readingTime = 4; // default
+      if (data.readingTime) {
+        const match = data.readingTime.toString().match(/(\d+)/);
+        readingTime = match ? parseInt(match[1]) : 4;
+      } else if (data.readTime) {
+        const match = data.readTime.toString().match(/(\d+)/);
+        readingTime = match ? parseInt(match[1]) : 4;
+      } else {
+        // Estimate reading time: ~200 words per minute
+        const wordCount = content.split(/\s+/).length;
+        readingTime = Math.max(1, Math.ceil(wordCount / 200));
+      }
+      
+      return {
+        title: data.title ?? slug,
+        slug,
+        description: data.description ?? data.excerpt ?? "",
+        date: data.date ?? data.publishDate ?? "1970-01-01",
+        author: data.author ?? "Zaza Team",
+        category,
+        readingTime,
+        featured: Boolean(data.featured ?? false),
+        image: data.image ?? data.featuredImage ?? data.ogImage ?? "/images/blog/default.jpg",
+        content,
+      } as Post;
+    })
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export function getPostBySlug(slug: string): Post | null {
+  const posts = getAllPosts();
+  return posts.find(p => p.slug === slug) ?? null;
+}

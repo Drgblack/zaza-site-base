@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/blog-mdx';
+import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { BlogPost } from '@/components/blog/blog-post';
 import { RelatedPosts } from '@/components/blog/related-posts';
 import { BlogNavigation } from '@/components/blog/blog-navigation';
@@ -11,25 +11,15 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  // Generate paths for all locales
-  const locales = ['en', 'de', 'fr', 'es', 'it'];
-  const allParams = [];
-  
-  for (const locale of locales) {
-    const posts = await getAllPosts(locale);
-    const params = posts.map((post) => ({
-      locale,
-      slug: post.slug,
-    }));
-    allParams.push(...params);
-  }
-  
-  return allParams;
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const post = await getPostBySlug(slug, locale);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   
   if (!post) {
     return {
@@ -40,21 +30,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} - Zaza Promptly Blog`,
     description: post.description,
-    keywords: post.seoKeywords,
-    authors: [{ name: post.author }],
+    authors: [{ name: post.author || "Zaza Team" }],
     openGraph: {
       title: post.title,
       description: post.description,
-      images: [post.featuredImage],
+      images: [post.image || "/images/blog/default.jpg"],
       type: 'article',
-      publishedTime: post.publishDate,
-      authors: [post.author],
+      publishedTime: post.date,
+      authors: [post.author || "Zaza Team"],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [post.featuredImage],
+      images: [post.image || "/images/blog/default.jpg"],
     },
   };
 }
@@ -63,16 +52,18 @@ export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const post = await getPostBySlug(slug, locale);
+  const post = getPostBySlug(slug);
   
   if (!post) {
     notFound();
   }
 
-  const [relatedPosts, allPosts] = await Promise.all([
-    getRelatedPosts(slug, 3, locale),
-    getAllPosts(locale)
-  ]);
+  const allPosts = getAllPosts();
+
+  // Get related posts (same category)
+  const relatedPosts = allPosts
+    .filter(p => p.slug !== slug && p.category === post.category)
+    .slice(0, 3);
 
   // Find current post position for navigation
   const currentIndex = allPosts.findIndex(p => p.slug === slug);
