@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { BlogPost } from '@/lib/blog-mdx';
+import { Post } from '@/lib/blog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, User, BookOpen, ArrowRight } from 'lucide-react';
 
 interface RelatedPostsProps {
-  posts: BlogPost[];
+  posts: Post[];
 }
 
 export function RelatedPosts({ posts }: RelatedPostsProps) {
@@ -33,7 +33,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
               <Link href={`/blog/${post.slug}`} className="block">
                 <div className="aspect-[16/10] relative overflow-hidden">
                   <Image
-                    src={post.featuredImage}
+                    src={post.image || '/images/blog/default.jpg'}
                     alt={post.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -47,7 +47,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
                     </Badge>
                     <div className="flex items-center gap-1">
                       <Clock className="h-4 w-4" />
-                      <span>{post.readingTime}</span>
+                      <span>{post.readingTime} min</span>
                     </div>
                   </div>
                   

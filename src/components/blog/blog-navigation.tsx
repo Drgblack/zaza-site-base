@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { BlogPost } from '@/lib/blog-mdx';
+import { Post } from '@/lib/blog';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface BlogNavigationProps {
-  previousPost?: BlogPost | null;
-  nextPost?: BlogPost | null;
+  previousPost?: Post | null;
+  nextPost?: Post | null;
 }
 
 export function BlogNavigation({ previousPost, nextPost }: BlogNavigationProps) {
@@ -29,7 +29,7 @@ export function BlogNavigation({ previousPost, nextPost }: BlogNavigationProps) 
                       {previousPost.title}
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                      {new Date(previousPost.publishDate).toLocaleDateString()}
+                      {new Date(previousPost.date).toLocaleDateString()}
                     </p>
                   </div>
                 </Link>
@@ -51,7 +51,7 @@ export function BlogNavigation({ previousPost, nextPost }: BlogNavigationProps) 
                       {nextPost.title}
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                      {new Date(nextPost.publishDate).toLocaleDateString()}
+                      {new Date(nextPost.date).toLocaleDateString()}
                     </p>
                   </div>
                 </Link>

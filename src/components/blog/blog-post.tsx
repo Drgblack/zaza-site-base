@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BlogPost as BlogPostType } from '@/lib/blog-mdx';
+import { Post as BlogPostType } from '@/lib/blog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -38,7 +38,7 @@ export function BlogPost({ post }: BlogPostProps) {
       {/* Hero Section with Featured Image */}
       <section className="relative h-[60vh] overflow-hidden">
         <Image
-          src={post.featuredImage}
+          src={post.image || '/images/blog/default.jpg'}
           alt={post.title}
           fill
           className="object-cover"
@@ -69,7 +69,7 @@ export function BlogPost({ post }: BlogPostProps) {
               <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  {new Date(post.publishDate).toLocaleDateString('en-US', {
+                  {new Date(post.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
@@ -97,7 +97,7 @@ export function BlogPost({ post }: BlogPostProps) {
             </p>
 
             {/* Tags */}
-            {post.tags.length > 0 && (
+            {false && (
               <div className="flex items-center gap-2 flex-wrap">
                 <Tag className="w-4 h-4 text-gray-500" />
                 {post.tags.map((tag) => (
@@ -124,9 +124,10 @@ export function BlogPost({ post }: BlogPostProps) {
         <div className="max-w-3xl mx-auto px-4">
           <div 
             className="prose prose-lg prose-purple max-w-none dark:prose-invert leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: post.content
-            }}
+          >
+            {post.content}
+          </div>
+          <div style={{display: 'none'}}
           />
         </div>
       </section>
@@ -143,7 +144,7 @@ export function BlogPost({ post }: BlogPostProps) {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">About {post.author}</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    {post.authorBio || `${post.author} is an educator and contributor to the Zaza Promptly blog, sharing insights from the classroom and practical strategies for using AI in education.`}
+                    {`${post.author} is an educator and contributor to the Zaza Promptly blog, sharing insights from the classroom and practical strategies for using AI in education.`}
                   </p>
                   <Button variant="outline" size="sm">
                     <User className="w-4 h-4 mr-2" />
@@ -162,11 +163,9 @@ export function BlogPost({ post }: BlogPostProps) {
         data={{
           title: post.title,
           description: post.description,
-          featuredImage: post.featuredImage,
+          featuredImage: post.image,
           author: post.author,
-          authorBio: post.authorBio,
-          publishDate: post.publishDate,
-          seoKeywords: post.seoKeywords,
+          publishDate: post.date,
           category: post.category,
           url: typeof window !== 'undefined' ? window.location.href : ''
         }} 
