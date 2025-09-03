@@ -13,6 +13,8 @@ export type Post = {
   featured?: boolean;
   image?: string;
   content: string;
+  views?: number;
+  isEditorsPick?: boolean;
 };
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
@@ -75,6 +77,8 @@ export function getAllPosts(): Post[] {
         featured: Boolean(data.featured ?? false),
         image: data.image ?? data.featuredImage ?? data.ogImage ?? "/images/blog/default.jpg",
         content,
+        views: data.views ?? 0,
+        isEditorsPick: Boolean(data.isEditorsPick ?? data.featured ?? false),
       } as Post;
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -83,4 +87,44 @@ export function getAllPosts(): Post[] {
 export function getPostBySlug(slug: string): Post | null {
   const posts = getAllPosts();
   return posts.find(p => p.slug === slug) ?? null;
+}
+
+// Helper functions for organizing posts
+export function getFeaturedPost(): Post | null {
+  const posts = getAllPosts();
+  return posts.find(p => p.featured) ?? posts[0] ?? null;
+}
+
+export function getPostsByCategory(category: string): Post[] {
+  const posts = getAllPosts();
+  if (category === "All Articles") return posts;
+  return posts.filter(p => p.category === category);
+}
+
+export function getRecentPosts(days: number = 14): Post[] {
+  const posts = getAllPosts();
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - days);
+  
+  return posts.filter(p => {
+    const postDate = new Date(p.date);
+    return postDate >= cutoff;
+  }).slice(0, 10);
+}
+
+export function getPopularPosts(): Post[] {
+  const posts = getAllPosts();
+  return posts
+    .sort((a, b) => {
+      // Sort by views (if available) then by featured status, then by date
+      const aScore = (a.views || 0) + (a.featured ? 1000 : 0) + (a.isEditorsPick ? 500 : 0);
+      const bScore = (b.views || 0) + (b.featured ? 1000 : 0) + (b.isEditorsPick ? 500 : 0);
+      return bScore - aScore;
+    })
+    .slice(0, 10);
+}
+
+export function getEditorsPicks(): Post[] {
+  const posts = getAllPosts();
+  return posts.filter(p => p.isEditorsPick || p.featured).slice(0, 10);
 }

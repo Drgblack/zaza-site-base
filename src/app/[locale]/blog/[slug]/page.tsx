@@ -27,17 +27,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const { locale } = await params;
+  
   return {
     title: `${post.title} - Zaza Promptly Blog`,
     description: post.description,
     authors: [{ name: post.author || "Zaza Team" }],
+    alternates: {
+      canonical: `https://zazapromptly.com/${locale}/blog/${post.slug}`
+    },
     openGraph: {
       title: post.title,
       description: post.description,
-      images: [post.image || "/images/blog/default.jpg"],
+      images: [{
+        url: post.image || "/images/blog/default.jpg",
+        width: 1200,
+        height: 630,
+        alt: post.title
+      }],
       type: 'article',
       publishedTime: post.date,
       authors: [post.author || "Zaza Team"],
+      url: `https://zazapromptly.com/${locale}/blog/${post.slug}`
     },
     twitter: {
       card: 'summary_large_image',
@@ -94,7 +105,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Article Not Available</h1>
           <p className="text-gray-600 mb-4">We're having trouble loading this article.</p>
-          <a href="/blog" className="text-purple-600 hover:underline">← Back to Blog</a>
+          <a href={`/${locale}/blog`} className="text-purple-600 hover:underline">← Back to Blog</a>
         </div>
       </div>
     );
