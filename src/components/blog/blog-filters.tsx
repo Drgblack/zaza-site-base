@@ -103,7 +103,7 @@ export function BlogFilters({
               placeholder="Search stories, topics, authors..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
               className="pl-10 bg-gray-900 border-gray-700 text-white placeholder-gray-400 focus:border-red-500 netflix-smooth"
             />
             {searchQuery && (
