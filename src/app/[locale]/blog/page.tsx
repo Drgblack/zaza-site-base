@@ -1,5 +1,13 @@
 import { setRequestLocale } from 'next-intl/server';
 import BlogPageClient from '@/components/blog/BlogPageClient';
+import { 
+  getAllPosts, 
+  getFeaturedPost, 
+  getPostsByCategory, 
+  getRecentPosts, 
+  getPopularPosts, 
+  getEditorsPicks 
+} from '@/lib/blog';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -30,11 +38,37 @@ export default async function BlogPage({ params, searchParams }: Props) {
   
   setRequestLocale(locale);
 
+  // Fetch all data on the server
+  const allPosts = getAllPosts();
+  const featuredPost = getFeaturedPost();
+  
+  // Organize posts into rows (server-side)
+  const editorsPicks = getEditorsPicks().filter(p => p.slug !== featuredPost?.slug);
+  const recent = getRecentPosts(14).filter(p => p.slug !== featuredPost?.slug);
+  const popular = getPopularPosts().filter(p => p.slug !== featuredPost?.slug);
+  const teacherTips = getPostsByCategory("Teacher Tips").filter(p => p.slug !== featuredPost?.slug);
+  const productivity = getPostsByCategory("Productivity").filter(p => p.slug !== featuredPost?.slug);
+  const parentCommunication = getPostsByCategory("Parent Communication").filter(p => p.slug !== featuredPost?.slug);
+  const wellbeing = getPostsByCategory("Wellbeing").filter(p => p.slug !== featuredPost?.slug);
+
+  const rows = [
+    { title: "Editor's Picks", posts: editorsPicks },
+    { title: "New This Week", posts: recent },
+    { title: "Teacher Tips", posts: teacherTips },
+    { title: "Productivity", posts: productivity },
+    { title: "Parent Communication", posts: parentCommunication },
+    { title: "Wellbeing", posts: wellbeing },
+    { title: "Most Popular", posts: popular },
+  ].filter(row => row.posts.length > 0);
+
   return (
     <BlogPageClient 
       locale={locale}
       initialCategory={category}
       initialSearch={search}
+      allPosts={allPosts}
+      featuredPost={featuredPost}
+      rows={rows}
     />
   );
 }

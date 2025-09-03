@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import { 
-  getAllPosts, 
-  getFeaturedPost, 
-  getPostsByCategory, 
-  getRecentPosts, 
-  getPopularPosts, 
-  getEditorsPicks 
-} from '@/lib/blog';
+import type { Post } from '@/lib/blog';
 import HeroSection from './HeroSection';
 import Row from './Row';
 import SearchAndFilter from './SearchAndFilter';
@@ -23,29 +16,35 @@ const CATEGORIES = [
   "AI Tools"
 ];
 
+// Helper function to get posts by category (client-side)
+function getPostsByCategory(posts: Post[], category: string): Post[] {
+  if (category === "All Articles") return posts;
+  return posts.filter(p => p.category === category);
+}
+
 interface BlogPageClientProps {
   locale: string;
   initialCategory?: string;
   initialSearch?: string;
+  allPosts: Post[];
+  featuredPost: Post | null;
+  rows: { title: string; posts: Post[] }[];
 }
 
 export default function BlogPageClient({ 
   locale, 
   initialCategory, 
-  initialSearch 
+  initialSearch,
+  allPosts,
+  featuredPost,
+  rows
 }: BlogPageClientProps) {
   const [searchQuery, setSearchQuery] = useState(initialSearch || "");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "All Articles");
   
-  // Get all posts and organize them
-  const allPosts = useMemo(() => getAllPosts(), []);
-  const featuredPost = useMemo(() => getFeaturedPost(), []);
-  
   // Filter posts based on search and category
   const filteredPosts = useMemo(() => {
-    let posts = selectedCategory === "All Articles" 
-      ? allPosts 
-      : getPostsByCategory(selectedCategory);
+    let posts = getPostsByCategory(allPosts, selectedCategory);
     
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -59,27 +58,6 @@ export default function BlogPageClient({
     
     return posts;
   }, [allPosts, searchQuery, selectedCategory]);
-
-  // Organize posts into Netflix-style rows
-  const rows = useMemo(() => {
-    const editorsPicks = getEditorsPicks().filter(p => p.slug !== featuredPost?.slug);
-    const recent = getRecentPosts(14).filter(p => p.slug !== featuredPost?.slug);
-    const popular = getPopularPosts().filter(p => p.slug !== featuredPost?.slug);
-    const teacherTips = getPostsByCategory("Teacher Tips").filter(p => p.slug !== featuredPost?.slug);
-    const productivity = getPostsByCategory("Productivity").filter(p => p.slug !== featuredPost?.slug);
-    const parentCommunication = getPostsByCategory("Parent Communication").filter(p => p.slug !== featuredPost?.slug);
-    const wellbeing = getPostsByCategory("Wellbeing").filter(p => p.slug !== featuredPost?.slug);
-
-    return [
-      { title: "Editor's Picks", posts: editorsPicks },
-      { title: "New This Week", posts: recent },
-      { title: "Teacher Tips", posts: teacherTips },
-      { title: "Productivity", posts: productivity },
-      { title: "Parent Communication", posts: parentCommunication },
-      { title: "Wellbeing", posts: wellbeing },
-      { title: "Most Popular", posts: popular },
-    ].filter(row => row.posts.length > 0);
-  }, [allPosts, featuredPost]);
 
   return (
     <div className="min-h-screen bg-gray-50">
