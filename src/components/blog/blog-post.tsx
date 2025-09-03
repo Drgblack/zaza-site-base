@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareButton } from '@/components/site/share-button';
-import { StructuredData } from '@/components/seo/structured-data';
+// import { StructuredData } from '@/components/seo/structured-data';
 import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
 
 interface BlogPostProps {
@@ -125,7 +125,7 @@ export function BlogPost({ post }: BlogPostProps) {
           <div 
             className="prose prose-lg prose-purple max-w-none dark:prose-invert leading-relaxed"
           >
-            {post.content}
+            <pre className="whitespace-pre-wrap">{post.content}</pre>
           </div>
           <div style={{display: 'none'}}
           />
@@ -157,19 +157,7 @@ export function BlogPost({ post }: BlogPostProps) {
         </div>
       </section>
       
-      {/* Structured Data for SEO */}
-      <StructuredData 
-        type="article" 
-        data={{
-          title: post.title,
-          description: post.description,
-          featuredImage: post.image,
-          author: post.author,
-          publishDate: post.date,
-          category: post.category,
-          url: typeof window !== 'undefined' ? window.location.href : ''
-        }} 
-      />
+      {/* Structured Data for SEO - temporarily disabled */}
     </article>
   );
 }

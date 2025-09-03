@@ -52,11 +52,12 @@ export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const post = getPostBySlug(slug);
-  
-  if (!post) {
-    notFound();
-  }
+  try {
+    const post = getPostBySlug(slug);
+    
+    if (!post) {
+      notFound();
+    }
 
   const allPosts = getAllPosts();
 
@@ -70,20 +71,32 @@ export default async function BlogPostPage({ params }: Props) {
   const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <BlogPost post={post} />
-      
-      {(previousPost || nextPost) && (
-        <BlogNavigation 
-          previousPost={previousPost}
-          nextPost={nextPost}
-        />
-      )}
-      
-      {relatedPosts.length > 0 && (
-        <RelatedPosts posts={relatedPosts} />
-      )}
-    </div>
-  );
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <BlogPost post={post} />
+        
+        {(previousPost || nextPost) && (
+          <BlogNavigation 
+            previousPost={previousPost}
+            nextPost={nextPost}
+          />
+        )}
+        
+        {relatedPosts.length > 0 && (
+          <RelatedPosts posts={relatedPosts} />
+        )}
+      </div>
+    );
+  } catch (error) {
+    console.error('Error in BlogPostPage:', error);
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Article Not Available</h1>
+          <p className="text-gray-600 mb-4">We're having trouble loading this article.</p>
+          <a href="/blog" className="text-purple-600 hover:underline">← Back to Blog</a>
+        </div>
+      </div>
+    );
+  }
 }
