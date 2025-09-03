@@ -4,6 +4,7 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { resolveImage } from "@/lib/image-url";
 
 export type Post = {
   title: string;
@@ -19,28 +20,6 @@ export type Post = {
 };
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
-
-// Helper function to normalize and sanitize image paths
-function normalizeImage(src?: string): string {
-  if (!src) return "/images/blog/default.svg";
-  try {
-    // Undo accidental double-encoding like "%2F"
-    const decoded = decodeURIComponent(src);
-    // If external URL: return as-is (Next config must allow host)
-    if (/^https?:\/\//i.test(decoded)) return decoded;
-    // Normalize local paths: strip leading "/public", ensure "/"
-    const local = decoded.replace(/^\/?public\//, "");
-    return local.startsWith("/") ? local : `/${local}`;
-  } catch {
-    return "/images/blog/default.svg";
-  }
-}
-
-function ensureLocalOrFallback(p: string): string {
-  if (/^https?:\/\//.test(p)) return p;
-  const disk = path.join(process.cwd(), "public", p);
-  return fs.existsSync(disk) ? p : "/images/blog/default.svg";
-}
 
 function toExcerpt(md: string, words = 28): string {
   const txt = md.replace(/[`*_>#\-!\[\]\(\)]/g, " ").replace(/\s+/g, " ").trim();
@@ -61,7 +40,7 @@ function getImagePath(data: any, slug?: string): string {
   
   for (const imageField of imageFields) {
     if (imageField && typeof imageField === 'string' && imageField.trim()) {
-      return ensureLocalOrFallback(normalizeImage(imageField.trim()));
+      return resolveImage(imageField.trim());
     }
   }
   
@@ -87,14 +66,14 @@ function getImagePath(data: any, slug?: string): string {
     }
   }
   
-  // Fallback to default image
-  return "/images/blog/default.svg";
+  // Fallback to default image using unified resolver
+  return resolveImage();
 }
 
 function readAll(): Post[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(f => /\.mdx?$/.test(f));
-  return files.map(file => {
+  const posts = files.map(file => {
     const fp = path.join(BLOG_DIR, file);
     const raw = fs.readFileSync(fp, "utf8");
     const { data, content } = matter(raw);
@@ -158,6 +137,19 @@ function readAll(): Post[] {
       content,
     };
   }).sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  // Build-time diagnostics for missing images
+  if (process.env.NODE_ENV === "production") {
+    const missing = posts
+      .filter(p => !/^https?:\/\//.test(p.image))
+      .filter(p => !fs.existsSync(path.join(process.cwd(), "public", p.image)))
+      .map(p => `${p.slug} -> ${p.image}`);
+    if (missing.length) {
+      console.warn("[blog] Missing local images:\n" + missing.join("\n"));
+    }
+  }
+
+  return posts;
 }
 
 export function getAllPosts(): Post[] {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, ArrowRight } from "lucide-react";
+import { clientImage } from "@/lib/image-url-client";
 
 type Post = {
   title: string;
@@ -29,7 +30,7 @@ export default function HeroSection({ post, locale }: HeroSectionProps) {
     <section className="relative mb-12">
       <div className="relative aspect-[21/9] rounded-2xl overflow-hidden group">
         <Image
-          src={post.image || "/images/blog/default.svg"}
+          src={clientImage(post.image)}
           alt={post.title}
           fill
           className="object-cover"
@@ -37,8 +38,8 @@ export default function HeroSection({ post, locale }: HeroSectionProps) {
           sizes="100vw"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            if (target.src !== '/images/blog/default.svg') {
-              target.src = '/images/blog/default.svg';
+            if (target.src !== '/images/blog/default.jpg') {
+              target.src = '/images/blog/default.jpg';
             }
           }}
         />

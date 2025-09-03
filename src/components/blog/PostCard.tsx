@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock } from "lucide-react";
+import { clientImage } from "@/lib/image-url-client";
 
 type Post = {
   title: string;
@@ -31,22 +32,24 @@ export default function PostCard({ post, locale = "en" }: PostCardProps) {
     >
       <div className="relative aspect-[16/9] bg-neutral-200 overflow-hidden">
         <Image
-          src={post.image || "/images/blog/default.svg"}
+          src={clientImage(post.image)}
           alt={post.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, 300px"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            console.log('Image failed to load:', target.src);
-            if (target.src !== '/images/blog/default.svg') {
-              target.src = '/images/blog/default.svg';
+            if (target.src !== '/images/blog/default.jpg') {
+              target.src = '/images/blog/default.jpg';
             }
           }}
-          onLoad={() => {
-            // console.log('Image loaded successfully:', post.image);
-          }}
         />
+        {/* Dev overlay for fallback detection */}
+        {process.env.NODE_ENV !== 'production' && post.image === '/images/blog/default.jpg' && (
+          <div className="absolute top-1 right-1 bg-yellow-400 text-black text-xs px-1 rounded">
+            FALLBACK
+          </div>
+        )}
         <span className="absolute left-3 top-3 text-xs px-2 py-1 rounded-full bg-black/80 text-white font-medium">
           {post.category || "General"}
         </span>
