@@ -32,7 +32,19 @@ export function canonicalSlug(fileBase: string, fmSlug?: string): string {
 export function resolveImage(img?: string): string {
   if (!img) return "/images/blog/default.jpg";
   try {
-    const u = decodeURIComponent(img).replace(/^public\//, "");
+    let u = decodeURIComponent(img).replace(/^public\//, "");
+    
+    // Fix malformed URLs like /https://...
+    if (u.startsWith("/https://") || u.startsWith("/http://")) {
+      u = u.substring(1); // Remove leading slash
+    }
+    
+    // Return external URLs as-is
+    if (u.startsWith("https://") || u.startsWith("http://")) {
+      return u;
+    }
+    
+    // For local paths, ensure leading slash
     return u.startsWith("/") ? u : "/" + u;
   } catch { 
     return "/images/blog/default.jpg"; 
@@ -95,14 +107,16 @@ function readAllBlog2Posts(): Blog2Post[] {
     };
   }).sort((a, b) => (a.date < b.date ? 1 : -1));
 
-  // Audit missing images
-  const missingImages = posts
-    .filter(p => !/^https?:\/\//.test(p.image))
-    .filter(p => !fs.existsSync(path.join(process.cwd(), "public", p.image)))
-    .map(p => `${p.slug} -> ${p.image}`);
-  
-  if (missingImages.length) {
-    console.warn("[blog2] Missing local images:\n" + missingImages.join("\n"));
+  // Audit missing images (only in development)
+  if (process.env.NODE_ENV === 'development') {
+    const missingImages = posts
+      .filter(p => !/^https?:\/\//.test(p.image))
+      .filter(p => !fs.existsSync(path.join(process.cwd(), "public", p.image)))
+      .map(p => `${p.slug} -> ${p.image}`);
+    
+    if (missingImages.length) {
+      console.warn("[blog2] Missing local images:\n" + missingImages.join("\n"));
+    }
   }
 
   return posts;
