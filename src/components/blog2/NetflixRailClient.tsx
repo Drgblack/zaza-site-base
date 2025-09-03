@@ -7,9 +7,10 @@ interface NetflixRailClientProps {
   title: string;
   posts: any[];
   railId: string;
+  basePath?: string;
 }
 
-export default function NetflixRailClient({ title, posts, railId }: NetflixRailClientProps) {
+export default function NetflixRailClient({ title, posts, railId, basePath = "blog" }: NetflixRailClientProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -75,7 +76,7 @@ export default function NetflixRailClient({ title, posts, railId }: NetflixRailC
           } as any}
         >
           {posts.map((post) => (
-            <PostCard2 key={post.slug} post={post} />
+            <PostCard2 key={post.slug} post={post} basePath={basePath} />
           ))}
         </div>
         {/* Edge fades */}

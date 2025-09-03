@@ -6,10 +6,11 @@ import type { Blog2Post } from "@/lib/blog2.server";
 interface PostCard2Props {
   post: Blog2Post;
   locale?: string;
+  basePath?: string;
 }
 
-export default function PostCard2({ post, locale = "en" }: PostCard2Props) {
-  const href = `/${locale}/blog/${post.slug}`;
+export default function PostCard2({ post, locale = "en", basePath = "blog" }: PostCard2Props) {
+  const href = `/${locale}/${basePath}/${post.slug}`;
   
   return (
     <Link 
