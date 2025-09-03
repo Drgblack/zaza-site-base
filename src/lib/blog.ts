@@ -54,12 +54,22 @@ export function getAllPosts(): Post[] {
         readingTime = Math.max(1, Math.ceil(wordCount / 200));
       }
       
+      // Handle author field - could be string or object
+      let authorName = "Zaza Team";
+      if (data.author) {
+        if (typeof data.author === 'string') {
+          authorName = data.author;
+        } else if (typeof data.author === 'object' && data.author.name) {
+          authorName = data.author.name;
+        }
+      }
+      
       return {
         title: data.title ?? slug,
         slug,
         description: data.description ?? data.excerpt ?? "",
         date: data.date ?? data.publishDate ?? "1970-01-01",
-        author: data.author ?? "Zaza Team",
+        author: authorName,
         category,
         readingTime,
         featured: Boolean(data.featured ?? false),
