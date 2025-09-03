@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
+    "audit:blog": "ts-node --transpile-only scripts/audit-blog-images.ts",
     "postbuild": "echo 'Build completed successfully!'"
   },
   "dependencies": {

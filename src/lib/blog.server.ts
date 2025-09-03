@@ -21,9 +21,9 @@ export type Post = {
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
-function toExcerpt(md: string, words = 28): string {
+function toExcerpt(md: string, n=28) {
   const txt = md.replace(/[`*_>#\-!\[\]\(\)]/g, " ").replace(/\s+/g, " ").trim();
-  return txt.split(" ").slice(0, words).join(" ") + "…";
+  return txt.split(" ").slice(0,n).join(" ") + "…";
 }
 
 // Helper function to get the correct image path
@@ -41,28 +41,6 @@ function getImagePath(data: any, slug?: string): string {
   for (const imageField of imageFields) {
     if (imageField && typeof imageField === 'string' && imageField.trim()) {
       return resolveImage(imageField.trim());
-    }
-  }
-  
-  // If no image found in frontmatter, try to match by slug
-  if (slug) {
-    const imageMap: { [key: string]: string } = {
-      'best-ai-tools-for-teachers-2025': '/images/blog/ai-tools-teachers.svg',
-      'ai-tools-for-teachers': '/images/blog/ai-tools-teachers.svg',
-      'parent-teacher-communication-ai': '/images/blog/parent-communication-ai.svg',
-      'parent-communication': '/images/blog/parent-communication-ai.svg',
-      'ai-parent-communication': '/images/blog/parent-communication-ai.svg',
-    };
-    
-    if (imageMap[slug]) {
-      return imageMap[slug];
-    }
-    
-    // Try partial matches
-    for (const [key, image] of Object.entries(imageMap)) {
-      if (slug.includes(key.split('-')[0]) || key.includes(slug.split('-')[0])) {
-        return image;
-      }
     }
   }
   
@@ -127,7 +105,7 @@ function readAll(): Post[] {
     return {
       title: data.title ?? slug,
       slug,
-      description: data.description?.trim() || toExcerpt(content),
+      description: (data.description?.trim() || toExcerpt(content)),
       date: postDate,
       author: authorName,
       category: categoryName,

@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getAllPosts } from "@/lib/blog.server";
 import BlogPageClient from "@/components/blog/BlogPageClient";
+import BuildStamp from "@/components/BuildStamp";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -55,13 +56,16 @@ export default async function BlogPage({ params, searchParams }: Props) {
   ].filter(row => row.posts.length > 0);
 
   return (
-    <BlogPageClient
-      locale={locale}
-      featured={featured}
-      allPosts={posts}
-      rows={rows}
-      initialCategory={category}
-      initialSearch={search}
-    />
+    <>
+      <BlogPageClient
+        locale={locale}
+        featured={featured}
+        allPosts={posts}
+        rows={rows}
+        initialCategory={category}
+        initialSearch={search}
+      />
+      <div className="max-w-6xl mx-auto px-4"><BuildStamp /></div>
+    </>
   );
 }

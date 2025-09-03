@@ -103,7 +103,7 @@ export default function Row({ title, posts, locale = "en" }: RowProps) {
         {/* Scrolling container with peek hint */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 pl-4 pr-8 [&::-webkit-scrollbar]:hidden"
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 pl-4 pr-6 [&::-webkit-scrollbar]:hidden"
           role="list"
           aria-label={`${title} articles`}
           style={{
@@ -130,7 +130,7 @@ export default function Row({ title, posts, locale = "en" }: RowProps) {
             </div>
           ))}
           {/* Spacer to show peek of next item */}
-          <div className="shrink-0 w-5" />
+          <div className="shrink-0 w-4" />
         </div>
       </div>
     </section>
