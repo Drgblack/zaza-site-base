@@ -61,11 +61,17 @@ export default async function PostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   
+  console.log("[article] rendering from app/[locale]/blog/[slug]/page.tsx");
+  
   const post = getPostBySlug(slug);
   if (!post) return notFound();
   
   return (
     <div className="min-h-screen bg-white">
+      {/* TEMP DEBUG: remove after verification */}
+      <div data-route="ACTIVE: app/[locale]/blog/[slug]/page.tsx" className="text-[11px] opacity-60 px-4 pt-2">
+        route: app/[locale]/blog/[slug]/page.tsx
+      </div>
       <ArticleLayout post={post}>
         {/* Render markdown content as HTML */}
         <div 

@@ -11,7 +11,7 @@ export default function ArticleLayout({ post, children }:{
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <main data-article-layout="v1">
       {/* Hero */}
       <section className="relative mx-auto max-w-6xl px-4">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl">
