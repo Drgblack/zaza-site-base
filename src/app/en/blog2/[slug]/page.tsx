@@ -1,7 +1,7 @@
 // Ensure Node runtime & server-only loader
 export const runtime = 'nodejs';
 export const dynamicParams = false;       // prebuild only
-export const revalidate = false as const; // fully static
+export const revalidate = false;          // fully static
 
 import 'server-only';
 import { notFound } from 'next/navigation';
