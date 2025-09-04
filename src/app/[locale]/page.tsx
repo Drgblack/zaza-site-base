@@ -3,12 +3,15 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Users } from 'lucide-react';
+import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Users, Calculator } from 'lucide-react';
 import { EnhancedSnippetToolV2 } from '@/components/site/enhanced-snippet-tool-v2';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { StructuredData } from '@/components/seo/structured-data';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
 import ZaraClient from '@/components/zara/ZaraClient';
+import { ROICalculator } from '@/components/site/roi-calculator';
+import { StickyCTA } from '@/components/site/sticky-cta';
+import { SecurityBadges } from '@/components/site/security-badges';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -40,13 +43,36 @@ export default async function HomePage({params}: Props) {
                 {/* Outcome-focused headline */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
                   Get back{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">5+ hours every week</span>{" "}
+                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">5+ hours every week</span>{" "}
                   writing parent messages, report cards, student feedback, and staff notes
                 </h1>
                 
-                {/* Clear outcome promise */}
+                {/* Social proof - Above the fold */}
+                <div className="flex flex-col sm:flex-row items-center gap-4 text-slate-600 dark:text-slate-300 mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center text-white text-xs font-bold">T</div>
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">M</div>
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-violet-500 flex items-center justify-center text-white text-xs font-bold">S</div>
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-amber-500 flex items-center justify-center text-white text-xs font-bold">+</div>
+                    </div>
+                    <span className="font-medium">12,000+ teachers already saving time</span>
+                  </div>
+                  <div className="hidden sm:block text-slate-400">•</div>
+                  <div className="flex items-center gap-1">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="w-4 h-4 text-yellow-400 fill-current">★</div>
+                      ))}
+                    </div>
+                    <span className="font-medium">4.9/5 rating</span>
+                  </div>
+                </div>
+                
+                {/* Clear outcome promise with pain points */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  Write professional parent emails, report cards, student feedback, and staff notes in seconds — not hours.
+                  End the <strong className="text-slate-800 dark:text-slate-200">Sunday night email panic</strong> and <strong className="text-slate-800 dark:text-slate-200">report card deadline stress</strong>. 
+                  Write professional messages in seconds — not hours.
                 </p>
                 
                 {/* Specific value proposition */}
@@ -253,13 +279,14 @@ export default async function HomePage({params}: Props) {
                     <Zap className="w-5 h-5 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">✨ AI makes it perfect</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">✨ Unlimited perfect messages</h3>
                 <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-                  Professional tone, perfect grammar, respectful language — automatically crafted in seconds
+                  <strong>Tone matching:</strong> Professional, friendly, encouraging, or direct — always sounds like YOU.<br/>
+                  <strong>Unlimited:</strong> Write as many messages as you need, when you need them.
                 </p>
-                <div className="pt-4">
+                <div className="pt-4 space-y-2">
                   <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sky-100 to-blue-100 dark:from-sky-900/40 dark:to-blue-900/40 text-sm font-bold text-sky-800 dark:text-sky-200 border border-sky-200 dark:border-sky-700/50">
-                    🤖 Instant magic
+                    🎯 Perfect tone every time
                   </div>
                 </div>
               </div>
@@ -290,6 +317,25 @@ export default async function HomePage({params}: Props) {
 
       {/* 3.5. Interactive Demo - Snippet Tool */}
       <EnhancedSnippetToolV2 />
+      
+      {/* 3.6. ROI Calculator */}
+      <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/30 dark:via-emerald-950/30 dark:to-teal-950/30">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/40 dark:to-emerald-900/40 border border-green-200 dark:border-green-700/50 text-sm font-medium text-green-700 dark:text-green-300 mb-6">
+              <Calculator className="w-4 h-4 mr-2" />
+              Calculate Your Savings
+            </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-900 dark:text-white mb-6">
+              See your exact time & money savings
+            </h2>
+            <p className="text-xl text-slate-700 dark:text-slate-200 max-w-2xl mx-auto">
+              Every teacher's situation is different. See how much Promptly saves YOU specifically.
+            </p>
+          </div>
+          <ROICalculator />
+        </div>
+      </section>
 
       {/* 4. Social Proof - Improved readability */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
@@ -822,9 +868,15 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
       
+      {/* Security Badges */}
+      <SecurityBadges />
+      
       {/* Structured Data for SEO */}
       <StructuredData type="website" data={{}} />
       <StructuredData type="organization" data={{}} />
+      
+      {/* Sticky CTA */}
+      <StickyCTA />
       
       {/* Zara Assistant Launcher */}
       <ZaraClient />
