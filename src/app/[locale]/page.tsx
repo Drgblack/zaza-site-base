@@ -220,26 +220,30 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 3. Solution / How It Works - Modern design */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-blue-50/50 to-slate-50 dark:from-purple-950/30 dark:via-blue-950/20 dark:to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.06),transparent_50%)]" />
+      {/* 3. Solution / How It Works - Vibrant design with Anthony Pierri framework */}
+      <section className="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-950/40 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(16,185,129,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(6,182,212,0.12),transparent_50%)]" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-r from-green-300/30 to-emerald-300/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="mx-auto max-w-5xl">
             <div className="text-center space-y-6 mb-20">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 text-sm font-medium text-green-700 dark:text-green-300">
-                <Zap className="w-4 h-4 mr-2" />
-                Simple solution, powerful results
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40 border-2 border-emerald-200 dark:border-emerald-700/50 text-sm font-bold text-emerald-800 dark:text-emerald-200 shadow-lg">
+                <Zap className="w-5 h-5 mr-2" />
+                ✨ The teacher's time-saving secret
               </div>
               
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-slate-900 dark:text-white">
-                From 15 minutes to 30 seconds:<br />
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">How Promptly works</span>
+                Transform parent communication<br />
+                <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">from 15 minutes to 30 seconds</span>
               </h2>
               
-              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Perfect for behavior updates, progress reports, assignment concerns, celebration messages, and parent conferences
+              <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto font-medium">
+                <strong>What:</strong> AI-powered message generator for teachers<br />
+                <strong>Who:</strong> Busy educators drowning in parent communication<br />
+                <strong>Why:</strong> Get your evenings and weekends back while improving parent relationships
               </p>
             </div>
             
@@ -275,65 +279,62 @@ export default async function HomePage({params}: Props) {
             </div>
             
             <div className="grid gap-12 md:grid-cols-3">
-              <div className="group text-center space-y-6 p-8 rounded-3xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-purple-100 dark:border-purple-900/30 hover:border-purple-200 dark:hover:border-purple-800/50 transition-all duration-500 hover:shadow-lg hover:-translate-y-2">
+              <div className="group text-center space-y-6 p-8 rounded-3xl bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-950/50 dark:to-rose-950/50 backdrop-blur-sm border-2 border-pink-200 dark:border-pink-700/50 hover:border-pink-300 dark:hover:border-pink-600/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-3 hover:rotate-1">
                 <div className="relative">
-                  <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/50 dark:to-purple-800/50 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl font-bold text-purple-600 dark:text-purple-400">1</span>
+                  <div className="w-24 h-24 bg-gradient-to-br from-pink-200 via-rose-200 to-pink-300 dark:from-pink-800/70 dark:via-rose-800/70 dark:to-pink-700/70 rounded-3xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <span className="text-4xl font-black text-pink-700 dark:text-pink-200">1</span>
                   </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
-                    <Check className="w-4 h-4 text-white" />
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center shadow-lg">
+                    <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">Type the basics</h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Add a quick note or bullet points about what you want to communicate.
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">📝 Just type what happened</h3>
+                <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                  "Emma had a great day in reading" or "Jake needs to work on listening" — that's it!
                 </p>
                 <div className="pt-4">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-sm text-purple-700 dark:text-purple-300">
-                    <MessageCircle className="w-4 h-4 mr-1" />
-                    Quick input
+                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-sm font-bold text-pink-800 dark:text-pink-200 border border-pink-200 dark:border-pink-700/50">
+                    ⚡ 10 seconds max
                   </div>
                 </div>
               </div>
               
-              <div className="group text-center space-y-6 p-8 rounded-3xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-blue-100 dark:border-blue-900/30 hover:border-blue-200 dark:hover:border-blue-800/50 transition-all duration-500 hover:shadow-lg hover:-translate-y-2">
+              <div className="group text-center space-y-6 p-8 rounded-3xl bg-gradient-to-br from-sky-50 to-blue-100 dark:from-sky-950/50 dark:to-blue-950/50 backdrop-blur-sm border-2 border-sky-200 dark:border-sky-700/50 hover:border-sky-300 dark:hover:border-sky-600/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-3 hover:-rotate-1">
                 <div className="relative">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">2</span>
+                  <div className="w-24 h-24 bg-gradient-to-br from-sky-200 via-blue-200 to-sky-300 dark:from-sky-800/70 dark:via-blue-800/70 dark:to-sky-700/70 rounded-3xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <span className="text-4xl font-black text-sky-700 dark:text-sky-200">2</span>
                   </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <Zap className="w-4 h-4 text-white" />
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-sky-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Zap className="w-5 h-5 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">AI crafts your message</h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Professional messages generated instantly, with the perfect tone and structure.
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">✨ AI makes it perfect</h3>
+                <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                  Professional tone, perfect grammar, respectful language — automatically crafted in seconds
                 </p>
                 <div className="pt-4">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-sm text-blue-700 dark:text-blue-300">
-                    <Clock className="w-4 h-4 mr-1" />
-                    Instant results
+                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sky-100 to-blue-100 dark:from-sky-900/40 dark:to-blue-900/40 text-sm font-bold text-sky-800 dark:text-sky-200 border border-sky-200 dark:border-sky-700/50">
+                    🤖 Instant magic
                   </div>
                 </div>
               </div>
               
-              <div className="group text-center space-y-6 p-8 rounded-3xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-green-100 dark:border-green-900/30 hover:border-green-200 dark:hover:border-green-800/50 transition-all duration-500 hover:shadow-lg hover:-translate-y-2">
+              <div className="group text-center space-y-6 p-8 rounded-3xl bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-950/50 dark:to-green-950/50 backdrop-blur-sm border-2 border-emerald-200 dark:border-emerald-700/50 hover:border-emerald-300 dark:hover:border-emerald-600/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-3 hover:rotate-1">
                 <div className="relative">
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/50 dark:to-green-800/50 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl font-bold text-green-600 dark:text-green-400">3</span>
+                  <div className="w-24 h-24 bg-gradient-to-br from-emerald-200 via-green-200 to-emerald-300 dark:from-emerald-800/70 dark:via-green-800/70 dark:to-emerald-700/70 rounded-3xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <span className="text-4xl font-black text-emerald-700 dark:text-emerald-200">3</span>
                   </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full flex items-center justify-center shadow-lg">
                     <Heart className="w-4 h-4 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">You save precious hours</h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Copy, customize, and send. Your Sunday evenings are finally free.
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">🎉 Copy, send, done!</h3>
+                <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                  Perfect message ready to copy-paste into email, text, or parent app — get your life back!
                 </p>
                 <div className="pt-4">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-sm text-green-700 dark:text-green-300">
-                    <GraduationCap className="w-4 h-4 mr-1" />
-                    Time freedom
+                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900/40 dark:to-green-900/40 text-sm font-bold text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-700/50">
+                    ⏰ Hours saved weekly
                   </div>
                 </div>
               </div>
@@ -521,97 +522,113 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 5. Pricing CTA - Enhanced design */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-blue-50/50 to-slate-50 dark:from-purple-950/30 dark:via-blue-950/20 dark:to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.06),transparent_50%)]" />
+      {/* 5. Pricing CTA - Vibrant design with Anthony Pierri framework */}
+      <section className="py-24 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-950/40 dark:via-amber-950/30 dark:to-yellow-950/40 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(251,146,60,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(245,158,11,0.12),transparent_50%)]" />
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-gradient-to-r from-orange-300/20 to-amber-300/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-gradient-to-r from-yellow-300/25 to-orange-300/25 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="mx-auto max-w-5xl">
             <div className="text-center space-y-6 mb-16">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 text-sm font-medium text-purple-700 dark:text-purple-300">
-                <Heart className="w-4 h-4 mr-2" />
-                Affordable for every teacher
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 border-2 border-orange-200 dark:border-orange-700/50 text-sm font-bold text-orange-800 dark:text-orange-200 shadow-lg">
+                <Heart className="w-5 h-5 mr-2" />
+                💝 Made for teacher budgets
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-                Simple pricing for every teacher
+                Start free, stay affordable
               </h2>
-              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                Start free, upgrade when you're ready. No hidden costs, no surprises.
+              <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto font-medium">
+                <strong>What:</strong> Teacher-friendly pricing that actually makes sense<br />
+                <strong>Who:</strong> Budget-conscious educators (that's everyone!)<br />  
+                <strong>Why:</strong> Because teachers shouldn't have to choose between great tools and groceries
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
-              <Card className="border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <Card className="border-2 border-green-200 dark:border-green-700/50 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 backdrop-blur-sm hover:shadow-xl hover:-translate-y-2 hover:rotate-1 transition-all duration-300">
                 <CardHeader className="pb-6">
-                  <CardTitle className="text-slate-900 dark:text-white">Free Plan</CardTitle>
-                  <CardDescription className="text-slate-600 dark:text-slate-400">Perfect to get started</CardDescription>
+                  <CardTitle className="text-2xl text-green-800 dark:text-green-200 flex items-center gap-2">
+                    🌱 Free Forever
+                  </CardTitle>
+                  <CardDescription className="text-green-700 dark:text-green-300 font-medium">Perfect for trying it out</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="text-4xl font-bold text-slate-900 dark:text-white">Free</div>
+                  <div className="text-5xl font-black text-green-600 dark:text-green-400">€0</div>
                   <div className="space-y-3">
-                    <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                      5 messages per month
+                    <p className="text-sm text-green-700 dark:text-green-300 font-bold bg-green-100 dark:bg-green-900/30 px-3 py-2 rounded-full text-center">
+                      5 perfect messages/month
                     </p>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-green-500" />
-                        <span className="text-slate-700 dark:text-slate-300">Basic tone options</span>
+                    <ul className="space-y-3 text-sm">
+                      <li className="flex items-center gap-3">
+                        <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">✨ AI magic included</span>
                       </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-green-500" />
-                        <span className="text-slate-700 dark:text-slate-300">Email & text format</span>
+                      <li className="flex items-center gap-3">
+                        <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">📧 Email & text ready</span>
                       </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-green-500" />
-                        <span className="text-slate-700 dark:text-slate-300">Community support</span>
+                      <li className="flex items-center gap-3">
+                        <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">👥 Community support</span>
                       </li>
                     </ul>
                   </div>
-                  <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white">Start Free</Button>
+                  <Button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 shadow-lg">🚀 Start Free Now</Button>
                 </CardContent>
               </Card>
               
-              <Card className="border-purple-300 dark:border-purple-600 bg-white dark:bg-slate-800 relative shadow-lg scale-105 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1.5 text-sm font-semibold">
-                  Most Popular
+              <Card className="border-3 border-orange-300 dark:border-orange-500/70 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-950/60 dark:via-amber-950/60 dark:to-yellow-950/60 relative shadow-2xl scale-105 hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 transition-all duration-500">
+                <Badge className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white px-6 py-2 text-sm font-black shadow-lg animate-pulse">
+                  🔥 TEACHER FAVORITE! 
                 </Badge>
                 <CardHeader className="pb-6 pt-8">
-                  <CardTitle className="text-slate-900 dark:text-white">Starter</CardTitle>
-                  <CardDescription className="text-slate-600 dark:text-slate-400">For active teachers</CardDescription>
+                  <CardTitle className="text-2xl text-orange-800 dark:text-orange-200 flex items-center gap-2">
+                    💪 Pro Teacher
+                  </CardTitle>
+                  <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">For busy educators who want it all</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="space-y-1">
-                    <div className="text-4xl font-bold text-slate-900 dark:text-white">€99<span className="text-lg font-normal text-slate-600 dark:text-slate-400">/year</span></div>
-                    <p className="text-sm text-slate-500 dark:text-slate-500">Only €8.25/month</p>
+                  <div className="space-y-2">
+                    <div className="text-5xl font-black text-orange-600 dark:text-orange-400">€99<span className="text-2xl font-bold text-orange-700 dark:text-orange-300">/year</span></div>
+                    <div className="bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 px-3 py-2 rounded-full">
+                      <p className="text-sm font-bold text-orange-800 dark:text-orange-200 text-center">Only €8.25/month! ☕</p>
+                    </div>
                   </div>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-4 text-sm">
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Unlimited messages</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🚀 UNLIMITED messages</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Advanced tone tutor</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🎯 Perfect tone every time</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Multi-language support</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🌍 Multi-language support</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Zara Assistant access</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🤖 Zara AI Assistant</span>
                     </li>
                   </ul>
                   <Button 
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg" 
+                    className="w-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:via-amber-600 hover:to-orange-700 text-white font-bold py-4 shadow-xl text-lg transform hover:scale-105 transition-all duration-300" 
                     asChild
                   >
                     <a 
@@ -619,49 +636,53 @@ export default async function HomePage({params}: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Choose Starter
+                      🎯 Get Pro Power!
                     </a>
                   </Button>
                 </CardContent>
               </Card>
               
-              <Card className="border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <Card className="border-3 border-purple-300 dark:border-purple-500/70 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 dark:from-purple-950/60 dark:via-violet-950/60 dark:to-indigo-950/60 backdrop-blur-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 transition-all duration-500">
                 <CardHeader className="pb-6">
-                  <CardTitle className="text-slate-900 dark:text-white">Pro</CardTitle>
-                  <CardDescription className="text-slate-600 dark:text-slate-400">Complete teaching solution</CardDescription>
+                  <CardTitle className="text-2xl text-purple-800 dark:text-purple-200 flex items-center gap-2">
+                    👑 Teacher Elite
+                  </CardTitle>
+                  <CardDescription className="text-purple-700 dark:text-purple-300 font-medium">For education leaders & master teachers</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="space-y-1">
-                    <div className="text-4xl font-bold text-slate-900 dark:text-white">€149<span className="text-lg font-normal text-slate-600 dark:text-slate-400">/year</span></div>
-                    <p className="text-sm text-slate-500 dark:text-slate-500">Only €12.42/month</p>
+                  <div className="space-y-2">
+                    <div className="text-5xl font-black text-purple-600 dark:text-purple-400">€149<span className="text-2xl font-bold text-purple-700 dark:text-purple-300">/year</span></div>
+                    <div className="bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/40 dark:to-violet-900/40 px-3 py-2 rounded-full">
+                      <p className="text-sm font-bold text-purple-800 dark:text-purple-200 text-center">Only €12.42/month! 👑</p>
+                    </div>
                   </div>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-4 text-sm">
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Everything in Starter</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🎯 Everything in Pro Teacher</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Advanced AI features</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">📊 Advanced analytics & insights</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Priority support</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">⚡ Priority support & training</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                        <Check className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
+                        <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-700 dark:text-slate-300 font-medium">Analytics & insights</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">🏫 School-wide collaboration tools</span>
                     </li>
                   </ul>
-                  <Button variant="outline" className="w-full border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">Choose Pro</Button>
+                  <Button className="w-full bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-600 hover:from-purple-600 hover:via-violet-600 hover:to-indigo-700 text-white font-bold py-3 shadow-lg">👑 Go Elite!</Button>
                 </CardContent>
               </Card>
             </div>

@@ -377,18 +377,27 @@ Overall, this represents excellent progress in your learning journey. I'm please
   const selectedTonePreset = tonePresets.find(preset => preset.value === tone);
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50/50 via-white to-purple-50/30 dark:from-gray-800/50 dark:via-gray-900 dark:to-purple-900/20">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-24 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 dark:from-cyan-950/60 dark:via-blue-950/60 dark:to-indigo-950/60 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(6,182,212,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(6,182,212,0.05),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.1),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.05),transparent_50%)]" />
+      
+      <div className="max-w-7xl mx-auto px-4 relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            Try Promptly Now
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-cyan-100 to-blue-100 dark:from-cyan-950/50 dark:to-blue-950/50 border border-cyan-200 dark:border-cyan-800/50 text-sm font-medium text-cyan-700 dark:text-cyan-300 mb-6">
+            <Sparkles className="w-4 h-4 mr-2" />
+            Interactive Demo
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            ✨ Try Promptly Now
           </h2>
-          <p className="mt-4 text-gray-600 md:text-xl dark:text-gray-300">
-            Type a topic, get instant professional comments — save time, reduce stress
+          <p className="mt-4 text-slate-700 md:text-xl dark:text-slate-200 font-medium">
+            🚀 Type a topic, get instant professional messages — save 15 minutes every time!
           </p>
-          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-2xl mx-auto">
-            <p className="text-blue-800 dark:text-blue-200 font-medium">
-              ✨ Try the advanced features: History saves your messages, Favorites lets you star the best ones, and 6 tone presets help you match any situation.
+          <div className="mt-6 bg-gradient-to-r from-cyan-100 via-blue-100 to-indigo-100 dark:from-cyan-950/40 dark:via-blue-950/40 dark:to-indigo-950/40 border-2 border-cyan-200 dark:border-cyan-700/50 rounded-xl p-6 max-w-3xl mx-auto shadow-lg">
+            <p className="text-cyan-800 dark:text-cyan-200 font-bold text-lg">
+              🎯 <strong>What:</strong> AI message generator that writes like you<br />
+              👩‍🏫 <strong>Who:</strong> Teachers tired of spending hours on parent communication<br />
+              ⚡ <strong>Why:</strong> Get perfect messages in 30 seconds, not 15 minutes!
             </p>
           </div>
         </div>
@@ -421,11 +430,13 @@ Overall, this represents excellent progress in your learning journey. I'm please
             </TabsList>
 
             <TabsContent value="generator">
-              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-lg">
+              <Card className="bg-gradient-to-br from-white via-cyan-50/30 to-blue-50/30 dark:from-gray-900/90 dark:via-cyan-950/20 dark:to-blue-950/20 border-2 border-cyan-200 dark:border-cyan-700/50 shadow-2xl backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-900 dark:text-gray-100">AI Message Generator</CardTitle>
-                  <CardDescription className="text-gray-600 dark:text-gray-400">
-                    Create professional parent communication messages with advanced AI
+                  <CardTitle className="text-2xl bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent flex items-center gap-2">
+                    🤖 AI Message Generator
+                  </CardTitle>
+                  <CardDescription className="text-slate-700 dark:text-slate-200 font-medium text-lg">
+                    ✨ Create professional parent communication messages with advanced AI
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -508,7 +519,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
                         <Button 
                           onClick={handleGenerate} 
                           disabled={!input.trim() || isLoading}
-                          className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                          className="flex-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-600 hover:via-blue-600 hover:to-indigo-700 text-white font-bold py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
                         >
                           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                           <Sparkles className="mr-2 h-4 w-4" />
@@ -627,10 +638,10 @@ Overall, this represents excellent progress in your learning journey. I'm please
                               onClick={() => setShowTrustModal(true)}
                               variant="ghost"
                               size="sm"
-                              className="text-purple-600 hover:text-purple-700 hover:bg-purple-50 dark:text-purple-400 dark:hover:text-purple-300"
+                              className="text-cyan-600 hover:text-cyan-700 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 dark:text-cyan-400 dark:hover:text-cyan-300 dark:hover:bg-gradient-to-r dark:hover:from-cyan-950/20 dark:hover:to-blue-950/20 font-medium"
                             >
                               <Shield className="h-4 w-4 mr-2" />
-                              How Zara wrote this
+                              ✨ How Zara wrote this
                             </Button>
                           </div>
                         </div>
