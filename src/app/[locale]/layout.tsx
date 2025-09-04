@@ -9,6 +9,7 @@ import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { ReferralBanner } from "@/components/site/referral-banner";
 import { ProgressTracker } from "@/components/site/progress-tracker";
+import { CookieBanner } from "@/components/site/cookie-banner";
 import { AuthProvider } from "@/contexts/auth-context";
 import { UnifiedAuthProvider } from "@/contexts/unified-auth-context";
 import { Toaster } from "sonner";
@@ -95,6 +96,7 @@ export default async function LocaleLayout({
                 <Footer />
                 <ReferralBanner />
                 <ProgressTracker />
+                <CookieBanner />
                 <Toaster 
                   position="bottom-right" 
                   richColors 

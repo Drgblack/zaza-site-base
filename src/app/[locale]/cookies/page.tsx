@@ -326,9 +326,9 @@ export default async function CookiePage({params}: Props) {
                 <p>If you have questions about our use of cookies or this Cookie Policy, please contact us:</p>
                 <div className="bg-purple-50 p-4 rounded-lg">
                   <p><strong>Zaza Technologies</strong></p>
-                  <p><strong>Email:</strong> privacy@zaza.ai</p>
+                  <p><strong>Email:</strong> greg@zazatechnologies.com</p>
                   <p><strong>Subject Line:</strong> Cookie Policy Inquiry</p>
-                  <p><strong>Address:</strong> Brisbane, Queensland, Australia</p>
+                  <p><strong>Address:</strong><br />Zaza Technologies UG (haftungsbeschränkt)<br />Gumbertstraße 150<br />40229 Düsseldorf<br />Germany</p>
                 </div>
                 <p className="text-sm">
                   You can also manage your cookie preferences through your browser settings or by using the cookie consent controls on our website.

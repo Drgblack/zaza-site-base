@@ -294,9 +294,9 @@ export default async function PrivacyPage({params}: Props) {
               <CardContent className="space-y-4 text-gray-700">
                 <p>For privacy-related questions or to exercise your rights:</p>
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <p><strong>Privacy Officer:</strong> Greg Broadbent</p>
-                  <p><strong>Email:</strong> privacy@zaza.ai</p>
-                  <p><strong>Address:</strong> Zaza Technologies, Brisbane, Australia</p>
+                  <p><strong>Privacy Officer:</strong> Dr. Greg Blackburn</p>
+                  <p><strong>Email:</strong> greg@zazatechnologies.com</p>
+                  <p><strong>Address:</strong><br />Zaza Technologies UG (haftungsbeschränkt)<br />Gumbertstraße 150<br />40229 Düsseldorf<br />Germany</p>
                   <p><strong>Response Time:</strong> Within 30 days of receipt</p>
                 </div>
                 <p className="text-sm">

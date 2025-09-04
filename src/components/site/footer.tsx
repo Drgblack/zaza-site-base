@@ -29,14 +29,22 @@ export function Footer() {
     {
       title: 'Legal',
       links: [
-        { name: 'Privacy Policy', href: '/privacy' },
-        { name: 'Terms of Service', href: '/terms' },
-        { name: 'Cookie Policy', href: '/cookies' },
+        { name: 'Privacy Policy (EN)', href: '/privacy' },
+        { name: 'Datenschutz (DE)', href: '/datenschutz' },
+        { name: 'Política de Privacidad (ES)', href: '/politica-de-privacidad' },
+        { name: 'Politique de Confidentialité (FR)', href: '/politique-de-confidentialite' },
+        { name: 'Informativa Privacy (IT)', href: '/informativa-sulla-privacy' },
+        { name: 'Terms of Service (EN)', href: '/terms' },
+        { name: 'AGB (DE)', href: '/agb' },
+        { name: 'Términos y Condiciones (ES)', href: '/condiciones' },
+        { name: 'Conditions Générales (FR)', href: '/conditions-generales' },
+        { name: 'Termini di Servizio (IT)', href: '/termini' },
         { name: 'Impressum (DE)', href: '/impressum' },
         { name: 'Legal Notice (EN)', href: '/legal-notice' },
         { name: 'Aviso Legal (ES)', href: '/aviso-legal' },
         { name: 'Mentions Légales (FR)', href: '/mentions-legales' },
         { name: 'Informazioni Legali (IT)', href: '/informazioni-legali' },
+        { name: 'Cookie Policy', href: '/cookies' },
       ]
     },
     {
