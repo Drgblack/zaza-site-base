@@ -386,10 +386,10 @@ export default async function HomePage({params}: Props) {
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;Promptly cut my Sunday admin from 4 hours to 2. I actually have weekends with my family again!&rdquo;
+                    &ldquo;Promptly handles all my communication - parent emails, report cards, student feedback. Cut my Sunday admin from 4 hours to 1!&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <div className="text-xs text-green-600 dark:text-green-400 font-semibold">Saves 6 hrs/week</div>
+                    <div className="text-xs text-green-600 dark:text-green-400 font-semibold">All communication types</div>
                   </div>
                 </CardContent>
               </Card>
@@ -407,10 +407,10 @@ export default async function HomePage({params}: Props) {
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;No more writer's block with difficult parent conversations. Perfect tone every time.&rdquo;
+                    &ldquo;From report card comments to staff updates - Promptly gets the tone right every time. No more staring at blank screens.&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <div className="text-xs text-blue-600 dark:text-blue-400 font-semibold">120+ messages sent</div>
+                    <div className="text-xs text-blue-600 dark:text-blue-400 font-semibold">Uses for everything</div>
                   </div>
                 </CardContent>
               </Card>
@@ -428,10 +428,10 @@ export default async function HomePage({params}: Props) {
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;Parents love the clear, caring messages. I feel confident hitting 'send' every time.&rdquo;
+                    &ldquo;Whether it's parent messages, student feedback, or staff notes - the responses are always professional and caring.&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <div className="text-xs text-purple-600 dark:text-purple-400 font-semibold">Zero complaints</div>
+                    <div className="text-xs text-purple-600 dark:text-purple-400 font-semibold">Perfect every time</div>
                   </div>
                 </CardContent>
               </Card>
@@ -449,10 +449,10 @@ export default async function HomePage({params}: Props) {
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;Finally - an AI that understands education. It knows exactly what teachers need to say.&rdquo;
+                    &ldquo;From term reports to quick behavior notes - it understands every type of teacher communication. Saves me hours weekly.&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <div className="text-xs text-orange-600 dark:text-orange-400 font-semibold">Daily user since launch</div>
+                    <div className="text-xs text-orange-600 dark:text-orange-400 font-semibold">5+ hours saved weekly</div>
                   </div>
                 </CardContent>
               </Card>
@@ -713,7 +713,7 @@ export default async function HomePage({params}: Props) {
                 Promptly vs. Other Solutions
               </h2>
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Unlike generic AI tools, Promptly was built specifically for educational communication
+                Unlike generic AI tools, Promptly was built specifically for all types of teacher communication - from parent emails to report cards
               </p>
             </div>
             
@@ -810,6 +810,21 @@ export default async function HomePage({params}: Props) {
                     <div className="w-5 h-5 mx-auto text-green-500">✓</div>
                   </div>
                 </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
+                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
+                    <div className="font-medium text-slate-900 dark:text-white">Handles all communication types</div>
+                  </div>
+                  <div className="p-6 text-center">
+                    <div className="w-5 h-5 mx-auto text-red-500">✗</div>
+                  </div>
+                  <div className="p-6 text-center">
+                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
+                  </div>
+                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
+                    <div className="text-sm text-green-600 dark:text-green-400 font-semibold">Parent emails, reports, feedback, staff notes</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -841,12 +856,12 @@ export default async function HomePage({params}: Props) {
             {/* Emotional storytelling headline */}
             <div className="space-y-6">
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
-                Imagine Sunday afternoons <span className="italic">free.</span>
+                Imagine 5+ hours weekly <span className="italic">back in your life.</span>
               </h2>
               <p className="text-xl md:text-2xl opacity-95 leading-relaxed max-w-4xl mx-auto">
-                Evenings with family, not admin. More energy for your students, and more joy in your teaching. 
+                No more Sunday afternoons writing reports. No more late nights crafting parent emails. No more stress over student feedback.
                 <br className="hidden md:block" />
-                That&apos;s what Promptly gives back.
+                Promptly handles all your teaching communication - so you can focus on teaching.
               </p>
             </div>
             
@@ -872,7 +887,7 @@ export default async function HomePage({params}: Props) {
             
             {/* Social proof tagline */}
             <p className="text-lg opacity-75 italic">
-              Join thousands of teachers who&apos;ve reclaimed their evenings
+              Join 12,000+ teachers who&apos;ve transformed their communication workflow
             </p>
           </div>
         </div>
