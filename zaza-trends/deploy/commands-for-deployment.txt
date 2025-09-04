@@ -1,0 +1,79 @@
+DEPLOYMENT COMMANDS FOR ZAZA-TRENDS-DEV
+=======================================
+Project: zaza-trends-dev
+Region: europe-west4 (within eur3 multi-region)
+Schedule: Mon/Wed/Fri at 06:00 CET
+
+STEP 1: Set project and navigate to directory
+---------------------------------------------
+gcloud config set project zaza-trends-dev
+cd zaza-trends
+
+STEP 2: Run deployment script
+-----------------------------
+chmod +x deploy/deploy-europe-west4.sh
+./deploy/deploy-europe-west4.sh
+
+The script will:
+✅ Enable all required APIs
+✅ Create service account with Firestore permissions
+✅ Create placeholder secrets in Secret Manager
+✅ Deploy to Cloud Run in europe-west4
+✅ Create Cloud Scheduler job (Mon/Wed/Fri 06:00 CET)
+✅ Output the service URL and test commands
+
+STEP 3: Test the deployment
+---------------------------
+After deployment completes, you'll see output like:
+Service URL: https://zaza-trends-xxxxx-ew.a.run.app
+
+Run the health check:
+curl https://zaza-trends-xxxxx-ew.a.run.app/health
+
+STEP 4: Create sample data
+--------------------------
+The deployment script will show a command like:
+curl 'https://zaza-trends-xxxxx-ew.a.run.app/cron/ingest?token=YOUR_TOKEN'
+
+This will:
+- Fetch RSS feeds from EdSurge, Education Week, TeachThought
+- Process with NLP (sentiment analysis, topic extraction)
+- Store 10-15 raw_items and trend_signals in Firestore
+
+STEP 5: Verify Firestore data
+-----------------------------
+1. Go to: https://console.cloud.google.com/firestore/data?project=zaza-trends-dev
+2. You should see two collections:
+   - raw_items: RSS feed articles with content, engagement metrics
+   - trend_signals: Analyzed trends with topics, sentiment, volume
+
+STEP 6: Check Cloud Scheduler
+-----------------------------
+gcloud scheduler jobs describe zaza-trends-ingest --location=europe-west4
+
+Should show:
+- Schedule: 0 6 * * 1,3,5
+- Time Zone: Europe/Berlin
+- State: ENABLED
+
+ALTERNATIVE: Direct deployment commands
+---------------------------------------
+If the script has issues, run these commands directly:
+
+# Deploy
+gcloud run deploy zaza-trends \
+  --source . \
+  --region europe-west4 \
+  --memory 1Gi \
+  --timeout 1800 \
+  --allow-unauthenticated
+
+# Get URL
+SERVICE_URL=$(gcloud run services describe zaza-trends --region=europe-west4 --format="value(status.url)")
+
+# Create scheduler
+gcloud scheduler jobs create http zaza-trends-ingest \
+  --location=europe-west4 \
+  --schedule="0 6 * * 1,3,5" \
+  --uri="$SERVICE_URL/cron/ingest?token=test-token" \
+  --time-zone="Europe/Berlin"

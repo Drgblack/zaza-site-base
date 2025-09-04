@@ -1,0 +1,76 @@
+MANUAL DEPLOYMENT COMMANDS FOR ZAZA TRENDS WORKER
+=================================================
+
+Project: zaza-trends-dev
+Region: europe-west1
+Timezone: Europe/Berlin
+
+STEP 1: Configure Project
+--------------------------
+gcloud config set project zaza-trends-dev
+
+STEP 2: Enable Required Services
+---------------------------------
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com cloudscheduler.googleapis.com firestore.googleapis.com secretmanager.googleapis.com logging.googleapis.com
+
+STEP 3: Create Placeholder Secrets
+-----------------------------------
+echo "placeholder-reddit-client-id" | gcloud secrets create reddit-client-id --data-file=-
+echo "placeholder-reddit-client-secret" | gcloud secrets create reddit-client-secret --data-file=-
+echo "placeholder-twitter-bearer-token" | gcloud secrets create twitter-bearer-token --data-file=-
+echo "placeholder-facebook-app-id" | gcloud secrets create facebook-app-id --data-file=-
+echo "placeholder-facebook-app-secret" | gcloud secrets create facebook-app-secret --data-file=-
+echo "placeholder-reddit-username" | gcloud secrets create reddit-username --data-file=-
+echo "placeholder-reddit-password" | gcloud secrets create reddit-password --data-file=-
+openssl rand -hex 32 | gcloud secrets create cron-token --data-file=-
+
+STEP 4: Create Service Account
+------------------------------
+gcloud iam service-accounts create zaza-trends-sa --description="Service account for Zaza Trends Worker" --display-name="Zaza Trends Service Account"
+
+gcloud projects add-iam-policy-binding zaza-trends-dev --member="serviceAccount:zaza-trends-sa@zaza-trends-dev.iam.gserviceaccount.com" --role="roles/datastore.user"
+
+STEP 5: Deploy to Cloud Run
+----------------------------
+cd zaza-trends
+
+gcloud run deploy zaza-trends --source . --region europe-west1 --service-account zaza-trends-sa@zaza-trends-dev.iam.gserviceaccount.com --set-env-vars GOOGLE_CLOUD_PROJECT_ID=zaza-trends-dev --set-secrets=REDDIT_CLIENT_ID=reddit-client-id:latest,REDDIT_CLIENT_SECRET=reddit-client-secret:latest,REDDIT_USERNAME=reddit-username:latest,REDDIT_PASSWORD=reddit-password:latest,TWITTER_BEARER_TOKEN=twitter-bearer-token:latest,FACEBOOK_APP_ID=facebook-app-id:latest,FACEBOOK_APP_SECRET=facebook-app-secret:latest,CRON_TOKEN=cron-token:latest --allow-unauthenticated --memory 1Gi --cpu 1 --timeout 1800 --max-instances 10
+
+STEP 6: Get Service URL
+-----------------------
+SERVICE_URL=$(gcloud run services describe zaza-trends --region europe-west1 --format="value(status.url)")
+echo "Service URL: $SERVICE_URL"
+
+STEP 7: Create Cloud Scheduler Job
+-----------------------------------
+CRON_TOKEN=$(gcloud secrets versions access latest --secret="cron-token")
+
+gcloud scheduler jobs create http zaza-trends-ingest --location=europe-west1 --schedule="0 6 * * 1,3,5" --uri="$SERVICE_URL/cron/ingest?token=$CRON_TOKEN" --http-method=GET --time-zone="Europe/Berlin" --max-retry-attempts=3 --description="Scheduled trend ingestion for Zaza AI"
+
+STEP 8: Test Deployment
+-----------------------
+# Health check
+curl "$SERVICE_URL/health"
+
+# Manual ingestion test (will use placeholder secrets, RSS feeds should work)
+curl "$SERVICE_URL/cron/ingest?token=$CRON_TOKEN"
+
+# Check trends
+curl "$SERVICE_URL/debug/trends"
+
+STEP 9: Verify Logs
+-------------------
+gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="zaza-trends"' --limit=20 --format="table(timestamp,severity,textPayload)"
+
+STEP 10: Update Real API Credentials (Later)
+---------------------------------------------
+# Replace placeholders with real values:
+echo "real-reddit-client-id" | gcloud secrets versions add reddit-client-id --data-file=-
+echo "real-reddit-client-secret" | gcloud secrets versions add reddit-client-secret --data-file=-
+# etc...
+
+=== EXPECTED RESULTS ===
+✅ Cloud Run service healthy at: https://zaza-trends-xxxxx-ew.a.run.app
+✅ Firestore collections created: raw_items, trend_signals  
+✅ Scheduler job: zaza-trends-ingest (Mon/Wed/Fri 06:00 CET)
+✅ RSS feeds working (Reddit/Twitter will use placeholders initially)

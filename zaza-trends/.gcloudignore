@@ -1,0 +1,30 @@
+# Ignore common files and directories for Cloud Build
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.env.local
+.env.*.local
+
+# Ignore TypeScript build artifacts (we build in Docker)
+dist/
+build/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore git files
+.git/
+.gitignore
+
+# Ignore documentation that's not needed for deployment
+README.md
+deploy/manual-deploy.txt
+deploy/setup-secrets.sh

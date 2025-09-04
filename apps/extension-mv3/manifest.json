@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "RealtyClose",
+  "version": "0.1.0",
+  "description": "Gmail sidebar assistant for real estate communications.",
+  "permissions": ["offscreen", "clipboardWrite", "storage"],
+  "host_permissions": ["https://mail.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "panel/*",
+        "panel/assets/*",
+        "offscreen.html",
+        "offscreen.js"
+      ],
+      "matches": ["https://mail.google.com/*"]
+    }
+  ],
+  "action": {
+    "default_title": "RealtyClose"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
