@@ -65,9 +65,13 @@ export default function SnippetToolV2Enhanced() {
           <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Try AI Comment Generation Right Now
           </h3>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-4">
             See how Promptly transforms your thoughts into professional, pedagogically-sound communication in seconds
           </p>
+          <div className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+            Powered by Zara - adapts tone and structure for any teacher message
+          </div>
         </div>
 
         {/* Example Selector */}
