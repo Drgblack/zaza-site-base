@@ -112,8 +112,8 @@ export default async function HomePage({params}: Props) {
                   {/* Main image container */}
                   <div className="relative aspect-square rounded-3xl shadow-2xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
                     <Image
-                      src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=600&fit=crop&crop=faces"
-                      alt="Smiling teacher in classroom with blackboard background"
+                      src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=600&h=600&fit=crop&crop=faces"
+                      alt="Happy teacher surrounded by engaged students in classroom"
                       width={600}
                       height={600}
                       priority
