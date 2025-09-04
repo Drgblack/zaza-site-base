@@ -6,7 +6,7 @@
 set -e
 
 PROJECT_ID=${1:-"your-project-id"}
-REGION="europe-west1"
+REGION=${2:-"europe-west1"}
 SERVICE_NAME="zaza-trends"
 IMAGE_NAME="gcr.io/$PROJECT_ID/$SERVICE_NAME"
 

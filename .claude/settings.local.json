@@ -75,7 +75,11 @@
       "Bash(npx ts-node:*)",
       "Bash(pnpm add:*)",
       "Bash(npx tsx:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(gcloud config set:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

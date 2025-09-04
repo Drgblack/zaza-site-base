@@ -344,11 +344,11 @@ export default async function TermsPage({params}: Props) {
               <CardContent className="space-y-4 text-gray-700">
                 <div>
                   <h4 className="font-semibold mb-2">Governing Law</h4>
-                  <p>These Terms are governed by the laws of Queensland, Australia, without regard to its conflict of law provisions.</p>
+                  <p>These Terms are governed by the laws of Germany, without regard to its conflict of law provisions.</p>
                 </div>
                 <div>
                   <h4 className="font-semibold mb-2">Dispute Resolution</h4>
-                  <p>We encourage resolving disputes through direct communication. For formal disputes, you may contact us at legal@zaza.ai or pursue resolution through appropriate legal channels in Queensland, Australia.</p>
+                  <p>We encourage resolving disputes through direct communication. For formal disputes, you may contact us at greg@zazatechnologies.com or pursue resolution through appropriate legal channels in Düsseldorf, Germany.</p>
                 </div>
               </CardContent>
             </Card>
@@ -375,10 +375,10 @@ export default async function TermsPage({params}: Props) {
               <CardContent className="space-y-4 text-gray-700">
                 <p>Questions about these Terms of Service should be sent to:</p>
                 <div className="bg-purple-50 p-4 rounded-lg">
-                  <p><strong>Zaza Technologies</strong></p>
-                  <p><strong>Email:</strong> legal@zaza.ai</p>
-                  <p><strong>Support:</strong> support@zaza.ai</p>
-                  <p><strong>Address:</strong> Brisbane, Queensland, Australia</p>
+                  <p><strong>Zaza Technologies UG (haftungsbeschränkt)</strong></p>
+                  <p><strong>Email:</strong> greg@zazatechnologies.com</p>
+                  <p><strong>Support:</strong> greg@zazatechnologies.com</p>
+                  <p><strong>Address:</strong><br />Gumbertstraße 150<br />40229 Düsseldorf<br />Germany</p>
                 </div>
               </CardContent>
             </Card>

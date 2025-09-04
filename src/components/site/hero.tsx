@@ -41,10 +41,10 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-3xl blur-3xl opacity-30 animate-pulse" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  alt="Zaza Promptly Dashboard"
+                  alt="Smiling teacher in classroom with blackboard"
                   className="object-cover"
                   height="400"
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                  src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
                   width="600"
                 />
               </div>
