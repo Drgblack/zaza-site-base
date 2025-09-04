@@ -8,6 +8,7 @@ import { SnippetTool } from '@/components/site/snippet-tool';
 import { ZaraAssistant } from '@/components/site/zara-assistant';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { StructuredData } from '@/components/seo/structured-data';
+import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -109,20 +110,8 @@ export default async function HomePage({params}: Props) {
                   {/* Glow effect */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 rounded-3xl blur-2xl opacity-20" />
                   
-                  {/* Main image container */}
-                  <div className="relative aspect-square rounded-3xl shadow-2xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
-                    <Image
-                      src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=600&fit=crop&crop=faces"
-                      alt="Happy teacher with students in classroom"
-                      width={600}
-                      height={600}
-                      priority
-                      className="w-full h-full object-cover"
-                    />
-                    
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                  </div>
+                  {/* Main image container with rotating images */}
+                  <RotatingHeroImage />
                   
                   {/* Floating stats cards */}
                   <div className="absolute -top-4 -left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
