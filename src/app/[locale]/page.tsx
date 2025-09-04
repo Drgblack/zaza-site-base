@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Users } from 'lucide-react';
-import { SnippetTool } from '@/components/site/snippet-tool';
+import { EnhancedSnippetToolV2 } from '@/components/site/enhanced-snippet-tool-v2';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { StructuredData } from '@/components/seo/structured-data';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
@@ -289,7 +289,7 @@ export default async function HomePage({params}: Props) {
       </section>
 
       {/* 3.5. Interactive Demo - Snippet Tool */}
-      <SnippetTool />
+      <EnhancedSnippetToolV2 />
 
       {/* 4. Social Proof - Improved readability */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
