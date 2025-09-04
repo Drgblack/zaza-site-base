@@ -4,38 +4,31 @@ import { useState } from 'react'
 
 const examples = [
   {
-    id: 'report',
-    label: 'Report Card',
-    studentContext: 'Emma, Year 5, showing strong progress in mathematics',
-    generatedComment: 'Emma has demonstrated exceptional growth in mathematics this term. Her problem-solving skills have developed significantly, and she consistently approaches challenging concepts with confidence and curiosity. Emma actively participates in group work and often supports her peers\' learning. I recommend continuing to provide extension opportunities to further develop her mathematical thinking.',
-    tone: 'Celebratory'
-  },
-  {
-    id: 'feedback',
-    label: 'Student Feedback',
-    studentContext: 'Sarah, essay needs improvement in structure and evidence',
-    generatedComment: 'Sarah, you\'ve chosen a fascinating topic and your passion for the subject really comes through in your writing. To strengthen your essay, focus on creating clearer topic sentences for each paragraph and adding specific examples to support your main points. Your conclusion shows deep thinking - let\'s work on connecting it more clearly to your introduction. Great effort!',
+    id: 'behavior',
+    label: 'Behavior Feedback',
+    studentContext: 'Jake, Year 9, has been disrupting class discussions',
+    generatedComment: 'Jake has shown some challenges with maintaining focus during class discussions this term. While he demonstrates good understanding of the material when engaged, his tendency to interrupt others has been impacting both his learning and that of his peers. Moving forward, we will work together on developing better listening skills and finding appropriate times to share his thoughts.',
     tone: 'Constructive'
   },
   {
-    id: 'parent',
-    label: 'Parent Message',
-    studentContext: 'Jake, Year 9, needs to discuss classroom behavior with parents',
-    generatedComment: 'Dear Mr. and Mrs. Thompson,\n\nI wanted to update you on Jake\'s participation in our English class. While Jake demonstrates strong comprehension of our literature units, he\'s been having some difficulty with our discussion protocols.\n\nI\'d love to chat about some strategies we can use both at school and home to help Jake channel his enthusiasm more effectively. Would you be available for a brief call this week?\n\nBest regards,',
-    tone: 'Professional'
+    id: 'achievement',
+    label: 'Academic Progress',
+    studentContext: 'Emma, Year 5, exceeding expectations in mathematics',
+    generatedComment: 'Emma continues to excel in mathematics, consistently demonstrating advanced problem-solving skills beyond her year level. Her enthusiasm for numerical challenges is evident in her willingness to tackle extension activities. She often helps peers understand concepts, showing both mastery and leadership. I recommend continuing to nurture this talent with additional enrichment opportunities.',
+    tone: 'Celebratory'
   },
   {
-    id: 'staff',
-    label: 'Staff Note',
-    studentContext: 'Update coordinator about student requiring additional learning support',
-    generatedComment: 'Hi Lisa,\n\nFollowing our discussion about additional learning support, I\'ve observed that Alex would benefit from extended time on assessments and simplified instructions for multi-step tasks. They\'re making good progress with the current interventions but may need some adjustments to fully access the curriculum.\n\nI\'d appreciate your thoughts on next steps when you have a chance.\n\nThanks,',
+    id: 'parent',
+    label: 'Parent Email',
+    studentContext: 'Parent concerned about homework load for their Year 7 child',
+    generatedComment: 'Dear Mr. and Mrs. Thompson,\n\nThank you for reaching out about your concerns regarding homework. I understand balancing multiple subjects can be challenging for Year 7 students. Our current homework is designed to reinforce key concepts covered in class, typically requiring 30-45 minutes per evening.\n\nI\'m happy to discuss strategies to help your child manage their workload more effectively. Would you be available for a brief meeting next week?\n\nBest regards,',
     tone: 'Professional'
   }
 ]
 
 const toneOptions = ['Warm', 'Professional', 'Constructive', 'Celebratory', 'Supportive']
 
-export default function SnippetToolV2Enhanced() {
+export function EnhancedSnippetTool() {
   const [activeExample, setActiveExample] = useState(examples[0])
   const [customContext, setCustomContext] = useState('')
   const [selectedTone, setSelectedTone] = useState('Professional')
@@ -46,7 +39,7 @@ export default function SnippetToolV2Enhanced() {
     setIsGenerating(true)
     // Simulate AI generation
     setTimeout(() => {
-      setCustomResult(`Based on your input about "${customContext}" with a ${selectedTone.toLowerCase()} tone, here\'s a professional comment that maintains your authentic teacher voice while saving you time...`)
+      setCustomResult(`Based on your input about "${customContext}" with a ${selectedTone.toLowerCase()} tone, here's a professional comment that maintains your authentic teacher voice while saving you time...`)
       setIsGenerating(false)
     }, 1500)
   }

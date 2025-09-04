@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap } from 'lucide-react';
+import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Users } from 'lucide-react';
 import { SnippetTool } from '@/components/site/snippet-tool';
 import { ZaraAssistant } from '@/components/site/zara-assistant';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
@@ -41,28 +41,32 @@ export default async function HomePage({params}: Props) {
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
                   Get back{" "}
                   <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">5+ hours every week</span>{" "}
-                  writing parent messages and reports
+                  writing parent messages, report cards, student feedback, and staff notes
                 </h1>
                 
                 {/* Clear outcome promise */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  Promptly writes professional parent messages in seconds, not hours. Created by a PhD educator who understands what teachers actually need.
+                  Promptly transforms all your teaching communication — parent emails, report card comments, student feedback notes, and staff messages — from hours to seconds. Created by a PhD educator who understands what teachers actually need.
                 </p>
                 
                 {/* Specific value proposition */}
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 rounded-2xl p-6 border border-green-200/50 dark:border-green-800/30">
-                  <div className="flex items-center justify-center lg:justify-start gap-8 text-sm font-semibold">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-semibold">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">15 min</div>
-                      <div className="text-slate-600 dark:text-slate-400">to 30 seconds</div>
+                      <div className="text-lg font-bold text-green-600 dark:text-green-400">Parent emails</div>
+                      <div className="text-slate-600 dark:text-slate-400">15 min → 30 sec</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">5+ hrs</div>
-                      <div className="text-slate-600 dark:text-slate-400">saved weekly</div>
+                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">Report comments</div>
+                      <div className="text-slate-600 dark:text-slate-400">10 min → 20 sec</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">2,000+</div>
-                      <div className="text-slate-600 dark:text-slate-400">teachers</div>
+                      <div className="text-lg font-bold text-purple-600 dark:text-purple-400">Student feedback</div>
+                      <div className="text-slate-600 dark:text-slate-400">8 min → 15 sec</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-orange-600 dark:text-orange-400">Staff notes</div>
+                      <div className="text-slate-600 dark:text-slate-400">12 min → 25 sec</div>
                     </div>
                   </div>
                 </div>
@@ -157,24 +161,24 @@ export default async function HomePage({params}: Props) {
               </div>
               
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-slate-900 dark:text-white">
-                Writing one parent email takes{" "}
-                <span className="text-red-600 dark:text-red-400">15+ minutes.</span>{" "}
-                You send 20+ per week.
+                Writing communication takes{" "}
+                <span className="text-red-600 dark:text-red-400">8+ hours weekly.</span>{" "}
+                You send 50+ messages per week across all channels.
               </h2>
               
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                That's 5+ hours weekly on messages alone - time stolen from lesson planning, grading, and your personal life.
+                That's time stolen from lesson planning, grading, and your personal life. Every parent email, report card comment, student feedback note, and staff message adds up to teacher burnout.
               </p>
               
               {/* Specific problem metrics */}
               <div className="bg-red-50/50 dark:bg-red-950/20 rounded-2xl p-6 border border-red-200/30 dark:border-red-800/30 max-w-3xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">5.3 hrs</div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">Average weekly time on parent communication</div>
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">8.2 hrs</div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400">Average weekly time on all communication</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">73%</div>
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">76%</div>
                     <div className="text-sm text-slate-600 dark:text-slate-400">Of teachers work evenings/weekends on admin</div>
                   </div>
                   <div>
@@ -185,29 +189,37 @@ export default async function HomePage({params}: Props) {
               </div>
             </div>
             
-            <div className="grid gap-8 md:grid-cols-3 mt-16">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-16">
               <div className="group text-center space-y-6 p-8 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-red-100 dark:border-red-900/30 hover:border-red-200 dark:hover:border-red-800/50 transition-all duration-300 hover:shadow-lg">
                 <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                   <Clock className="h-8 w-8 text-red-600 dark:text-red-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Drafting the right words takes too long.</h3>
-                <p className="text-slate-600 dark:text-slate-300">Every word matters when communicating with parents about their child's progress.</p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Student feedback never ends</h3>
+                <p className="text-slate-600 dark:text-slate-300">Providing meaningful, constructive feedback on assignments and behavior takes hours daily.</p>
               </div>
               
               <div className="group text-center space-y-6 p-8 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-orange-100 dark:border-orange-900/30 hover:border-orange-200 dark:hover:border-orange-800/50 transition-all duration-300 hover:shadow-lg">
                 <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                   <MessageCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">The tone has to be professional and caring.</h3>
-                <p className="text-slate-600 dark:text-slate-300">Balancing warmth with professionalism while maintaining clear communication.</p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Parent emails take forever</h3>
+                <p className="text-slate-600 dark:text-slate-300">15+ minutes per message, choosing every word carefully to sound professional yet caring.</p>
               </div>
               
               <div className="group text-center space-y-6 p-8 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-amber-100 dark:border-amber-900/30 hover:border-amber-200 dark:hover:border-amber-800/50 transition-all duration-300 hover:shadow-lg">
                 <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                   <Zap className="h-8 w-8 text-amber-600 dark:text-amber-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Mistakes cause stress and misunderstandings.</h3>
-                <p className="text-slate-600 dark:text-slate-300">One poorly worded message can create weeks of confusion and tension.</p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Report card comments drain energy</h3>
+                <p className="text-slate-600 dark:text-slate-300">Writing unique, meaningful comments for 25+ students while avoiding repetition.</p>
+              </div>
+              
+              <div className="group text-center space-y-6 p-8 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-purple-100 dark:border-purple-900/30 hover:border-purple-200 dark:hover:border-purple-800/50 transition-all duration-300 hover:shadow-lg">
+                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Staff communication overwhelms</h3>
+                <p className="text-slate-600 dark:text-slate-300">Updates to coordinators, principals, and support staff require precise, professional language.</p>
               </div>
             </div>
             
@@ -236,44 +248,40 @@ export default async function HomePage({params}: Props) {
               </div>
               
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-slate-900 dark:text-white">
-                Transform parent communication<br />
-                <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">from 15 minutes to 30 seconds</span>
+                Transform all your communication<br />
+                <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">from hours to seconds</span>
               </h2>
               
               <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto font-medium">
-                <strong>What:</strong> AI-powered message generator for teachers<br />
-                <strong>Who:</strong> Busy educators drowning in parent communication<br />
-                <strong>Why:</strong> Get your evenings and weekends back while improving parent relationships
+                <strong>What:</strong> AI-powered communication assistant for all teacher writing<br />
+                <strong>Who:</strong> Busy educators drowning in emails, reports, feedback, and notes<br />
+                <strong>Why:</strong> Get 5+ hours weekly back while improving all your professional communication
               </p>
             </div>
             
             {/* Use cases before steps */}
             <div className="mb-16">
-              <h3 className="text-2xl font-semibold text-center text-slate-900 dark:text-white mb-8">Works for every situation teachers face:</h3>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">📚 Academic Progress</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"Sarah showed great improvement in math this week..."</div>
+              <h3 className="text-2xl font-semibold text-center text-slate-900 dark:text-white mb-8">Perfect for all your teaching communication:</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 backdrop-blur-sm rounded-xl p-6 border border-blue-200/50 dark:border-blue-700/50 text-center">
+                  <div className="text-3xl mb-3">📧</div>
+                  <div className="text-lg font-bold text-blue-900 dark:text-blue-100">Parent Messages</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-300 mt-2">Behavior updates, progress reports, meeting requests</div>
                 </div>
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">⚠️ Behavior Concerns</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"I wanted to discuss Jake's classroom participation..."</div>
+                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/50 backdrop-blur-sm rounded-xl p-6 border border-emerald-200/50 dark:border-emerald-700/50 text-center">
+                  <div className="text-3xl mb-3">📝</div>
+                  <div className="text-lg font-bold text-emerald-900 dark:text-emerald-100">Report Cards</div>
+                  <div className="text-sm text-emerald-700 dark:text-emerald-300 mt-2">Term comments, progress summaries, achievement notes</div>
                 </div>
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">🎉 Celebrations</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"I'm excited to share Emma's leadership in group work..."</div>
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-200/50 dark:border-purple-700/50 text-center">
+                  <div className="text-3xl mb-3">💬</div>
+                  <div className="text-lg font-bold text-purple-900 dark:text-purple-100">Student Feedback</div>
+                  <div className="text-sm text-purple-700 dark:text-purple-300 mt-2">Assignment comments, behavior notes, encouragement</div>
                 </div>
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">📝 Assignment Issues</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"I noticed the homework wasn't submitted..."</div>
-                </div>
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">👥 Parent Conferences</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"I'd love to schedule a meeting to discuss..."</div>
-                </div>
-                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50">
-                  <div className="text-sm font-medium text-slate-900 dark:text-white">🔄 Follow-ups</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">"Following up on our previous conversation about..."</div>
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/50 dark:to-orange-900/50 backdrop-blur-sm rounded-xl p-6 border border-orange-200/50 dark:border-orange-700/50 text-center">
+                  <div className="text-3xl mb-3">👥</div>
+                  <div className="text-lg font-bold text-orange-900 dark:text-orange-100">Staff Notes</div>
+                  <div className="text-sm text-orange-700 dark:text-orange-300 mt-2">Updates to coordinators, IEP notes, meeting summaries</div>
                 </div>
               </div>
             </div>
