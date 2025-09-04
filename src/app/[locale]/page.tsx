@@ -590,6 +590,43 @@ export default async function HomePage({params}: Props) {
                 </CardContent>
               </Card>
             </div>
+            
+            {/* App Store Buttons */}
+            <div className="mt-16 text-center space-y-6">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 border border-orange-200 dark:border-orange-700/50 text-sm font-medium text-orange-700 dark:text-orange-300 mb-4">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Download the mobile app
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                Write messages on the go
+              </h3>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a 
+                  href="https://apps.apple.com/app/promptly-teacher-assistant/id6738104361" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center"
+                >
+                  <img 
+                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+                    alt="Download on the App Store" 
+                    className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+                  />
+                </a>
+                <a 
+                  href="https://play.google.com/store/apps/details?id=com.promptly.teacher" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center"
+                >
+                  <img 
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                    alt="Get it on Google Play" 
+                    className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
