@@ -32,7 +32,11 @@ export function Footer() {
         { name: 'Privacy Policy', href: '/privacy' },
         { name: 'Terms of Service', href: '/terms' },
         { name: 'Cookie Policy', href: '/cookies' },
-        { name: 'Imprint', href: '/imprint' },
+        { name: 'Impressum (DE)', href: '/impressum' },
+        { name: 'Legal Notice (EN)', href: '/legal-notice' },
+        { name: 'Aviso Legal (ES)', href: '/aviso-legal' },
+        { name: 'Mentions Légales (FR)', href: '/mentions-legales' },
+        { name: 'Informazioni Legali (IT)', href: '/informazioni-legali' },
       ]
     },
     {
