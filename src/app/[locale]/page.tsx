@@ -112,8 +112,8 @@ export default async function HomePage({params}: Props) {
                   {/* Main image container */}
                   <div className="relative aspect-square rounded-3xl shadow-2xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
                     <Image
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=600&fit=crop&crop=faces"
-                      alt="Smiling teacher in classroom with happy students and blackboard visible"
+                      src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=600&fit=crop&crop=faces"
+                      alt="Smiling teacher in classroom with blackboard background"
                       width={600}
                       height={600}
                       priority
@@ -375,9 +375,11 @@ export default async function HomePage({params}: Props) {
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1494790108755-2616b612b5e5?w=48&h=48&fit=crop&crop=face"
-                      alt="Sarah"
+                    <Image
+                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop&crop=face"
+                      alt="Sarah M."
+                      width={48}
+                      height={48}
                       className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
                     />
                     <div>
