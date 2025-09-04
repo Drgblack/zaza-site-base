@@ -582,7 +582,7 @@ export default async function HomePage({params}: Props) {
                     asChild
                   >
                     <a 
-                      href={process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_PROMPTLY_MONTHLY}
+                      href={process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_MONTHLY}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
