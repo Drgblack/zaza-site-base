@@ -8,9 +8,7 @@ import { SnippetTool } from '@/components/site/snippet-tool';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { StructuredData } from '@/components/seo/structured-data';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
-import dynamic from 'next/dynamic';
-
-const ZaraLauncher = dynamic(() => import('@/components/zara/ZaraLauncher'), { ssr: false });
+import ZaraClient from '@/components/zara/ZaraClient';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -792,7 +790,7 @@ export default async function HomePage({params}: Props) {
       <StructuredData type="organization" data={{}} />
       
       {/* Zara Assistant Launcher */}
-      <ZaraLauncher />
+      <ZaraClient />
     </div>
   );
 }
