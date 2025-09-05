@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/generated-blog-service';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 
 type Props = {
   params: Promise<{locale: string; slug: string}>;
@@ -59,6 +58,13 @@ export default async function BlogPostPage({ params }: Props) {
     return (
       <article className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-4 py-8">
+          {/* Debug Info */}
+          <div className="mb-4 p-4 bg-green-50 rounded">
+            <p className="text-green-800 text-sm">✅ Blog post loaded successfully</p>
+            <p className="text-green-800 text-sm">Slug: {slug}</p>
+            <p className="text-green-800 text-sm">Title: {post.title}</p>
+          </div>
+
           {/* Back Button */}
           <Link 
             href={`/${locale}/blog`}
@@ -121,9 +127,9 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           {/* Content */}
-          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-purple-600 prose-strong:text-gray-900">
+          <div className="prose prose-lg max-w-none">
             {post.fullContent ? (
-              <div className="whitespace-pre-wrap leading-relaxed">
+              <div className="leading-relaxed">
                 {post.fullContent.split('\n').map((line, index) => {
                   // Simple markdown-like rendering
                   if (line.startsWith('# ')) {
@@ -134,12 +140,6 @@ export default async function BlogPostPage({ params }: Props) {
                   }
                   if (line.startsWith('### ')) {
                     return <h3 key={index} className="text-xl font-medium mt-4 mb-2 text-gray-900">{line.substring(4)}</h3>;
-                  }
-                  if (line.startsWith('**') && line.endsWith('**')) {
-                    return <p key={index} className="font-bold text-gray-900 mt-4 mb-2">{line.slice(2, -2)}</p>;
-                  }
-                  if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**')) {
-                    return <p key={index} className="italic text-gray-600 mt-2 mb-2">{line.slice(1, -1)}</p>;
                   }
                   if (line.trim() === '') {
                     return <div key={index} className="h-4"></div>;
@@ -160,7 +160,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           {/* Tags */}
-          {post.tags.length > 0 && (
+          {post.tags && post.tags.length > 0 && (
             <div className="mt-8 pt-8 border-t">
               <h3 className="font-medium text-gray-900 mb-3">Tags:</h3>
               <div className="flex flex-wrap gap-2">
@@ -182,15 +182,20 @@ export default async function BlogPostPage({ params }: Props) {
     console.error('Blog post error:', error);
     return (
       <div className="min-h-screen bg-red-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Post Error</h1>
-          <p className="text-red-600">Unable to load blog post. Please try again later.</p>
+        <div className="text-center max-w-2xl mx-auto p-8">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Blog Post Error</h1>
+          <p className="text-red-600 mb-4">Unable to load blog post. This might be a temporary issue.</p>
           <Link href={`/${locale}/blog`} className="mt-4 inline-block text-purple-600 hover:text-purple-700">
             ← Back to Blog
           </Link>
-          <pre className="mt-4 text-xs bg-red-100 p-4 rounded text-left">
-            {String(error)}
-          </pre>
+          <div className="mt-6 text-left">
+            <details className="bg-red-100 p-4 rounded">
+              <summary className="cursor-pointer font-medium">Error Details</summary>
+              <pre className="mt-2 text-xs overflow-x-auto">
+                {String(error)}
+              </pre>
+            </details>
+          </div>
         </div>
       </div>
     );
