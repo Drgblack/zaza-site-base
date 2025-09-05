@@ -39,8 +39,8 @@ const resources: Resource[] = [
     description: 'A free PDF with polished, professional comment starters for any situation.',
     category: 'Parent Communication',
     type: 'PDF',
-    thumbnail: '/resources/parent-comment-bank.html',
-    downloadUrl: '/resources/parent-comment-bank.html',
+    thumbnail: '/resources/student-feedback-bank.pdf',
+    downloadUrl: '/resources/student-feedback-bank.pdf',
     size: '1.2 MB',
     downloads: 2847,
     featured: true
@@ -51,8 +51,8 @@ const resources: Resource[] = [
     description: 'Structured PDF teachers can adapt and fill out.',
     category: 'Report Writing',
     type: 'Template',
-    thumbnail: '/resources/report-writing-framework.html',
-    downloadUrl: '/resources/report-writing-framework.html',
+    thumbnail: '/resources/assessment-rubric-template.pdf',
+    downloadUrl: '/resources/assessment-rubric-template.pdf',
     size: '890 KB',
     downloads: 1934,
     featured: true
@@ -63,8 +63,8 @@ const resources: Resource[] = [
     description: 'Quick, practical tips to reduce burnout, supported by research.',
     category: 'Wellbeing',
     type: 'Guide',
-    thumbnail: '/resources/classroom-wellbeing-guide.html',
-    downloadUrl: '/resources/classroom-wellbeing-guide.html',
+    thumbnail: '/resources/teacher-self-care-guide.pdf',
+    downloadUrl: '/resources/teacher-self-care-guide.pdf',
     size: '2.1 MB',
     downloads: 1567,
     featured: true
@@ -75,8 +75,8 @@ const resources: Resource[] = [
     description: 'Checklist PDF for tone, clarity, and professionalism.',
     category: 'Parent Communication',
     type: 'Checklist',
-    thumbnail: '/resources/parent-email-checklist.html',
-    downloadUrl: '/resources/parent-email-checklist.html',
+    thumbnail: '/resources/ai-parent-comms.pdf',
+    downloadUrl: '/resources/ai-parent-comms.pdf',
     size: '745 KB',
     downloads: 3021,
     featured: true
@@ -163,12 +163,35 @@ export function ResourceLibrary() {
   });
 
   const handleDownload = (resource: Resource) => {
-    // Open the resource in a new tab
-    window.open(resource.downloadUrl, '_blank');
+    try {
+      // Create a download link element
+      const link = document.createElement('a');
+      link.href = resource.downloadUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      
+      // For PDF files, try to force download
+      if (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) {
+        const filename = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.pdf';
+        link.download = filename;
+      }
+      
+      // Append to body, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Track download (optional analytics)
+      console.log(`Downloaded: ${resource.title}`);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback: open in new tab
+      window.open(resource.downloadUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-800">
+    <section className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         {/* Search and Filters */}
         <div className="mb-8">
@@ -181,7 +204,7 @@ export function ResourceLibrary() {
                 placeholder="Search resources..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
             </div>
 
@@ -224,7 +247,7 @@ export function ResourceLibrary() {
         {/* Featured Resources */}
         {selectedCategory === 'All' && (
           <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6">Featured Resources</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Featured Resources</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {resources.filter(r => r.featured).map((resource, index) => (
                 <motion.div
@@ -233,10 +256,13 @@ export function ResourceLibrary() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 hover:-translate-y-1">
                     <div className="md:flex">
                       <div className="md:w-48 h-32 md:h-auto relative bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 flex items-center justify-center">
-                        <FileText className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+                        <div className="relative">
+                          <FileText className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+                          <span className="absolute -bottom-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">PDF</span>
+                        </div>
                         <Badge className="absolute top-2 right-2 bg-orange-500 text-white">
                           Featured
                         </Badge>
@@ -244,11 +270,11 @@ export function ResourceLibrary() {
                       <CardContent className="p-6 flex-1">
                         <div className="flex items-start justify-between mb-2">
                           <div>
-                            <h3 className="font-semibold text-lg group-hover:text-purple-600 transition-colors">
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                               {resource.title}
                             </h3>
                             <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-1">
-                              <Badge variant="secondary">{resource.category}</Badge>
+                              <Badge variant="secondary" className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">{resource.category}</Badge>
                               <span>•</span>
                               <span>{resource.size}</span>
                               <span>•</span>
@@ -259,9 +285,9 @@ export function ResourceLibrary() {
                         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                           {resource.description}
                         </p>
-                        <Button onClick={() => handleDownload(resource)} className="w-full">
+                        <Button onClick={() => handleDownload(resource)} className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
                           <Download className="h-4 w-4 mr-2" />
-                          Download Free
+                          Download PDF
                         </Button>
                       </CardContent>
                     </div>
@@ -274,17 +300,17 @@ export function ResourceLibrary() {
 
         {/* All Resources Grid */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
             {selectedCategory === 'All' ? 'All Resources' : selectedCategory}
           </h2>
           
           {filteredResources.length === 0 ? (
             <div className="text-center py-12">
-              <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
+              <FileText className="h-16 w-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
                 No resources found
               </h3>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Try adjusting your search or filter criteria.
               </p>
             </div>
@@ -300,10 +326,15 @@ export function ResourceLibrary() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group h-full">
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group h-full bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 hover:-translate-y-1">
                       {/* Thumbnail */}
                       <div className="h-40 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 relative flex items-center justify-center">
-                        <IconComponent className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+                        <div className="relative">
+                          <IconComponent className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+                          {(resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) && (
+                            <span className="absolute -bottom-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">PDF</span>
+                          )}
+                        </div>
                         {resource.featured && (
                           <Badge className="absolute top-2 right-2 bg-orange-500 text-white">
                             Featured
@@ -313,12 +344,12 @@ export function ResourceLibrary() {
                       
                       <CardContent className="p-6 flex flex-col flex-1">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
+                          <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
                             {resource.title}
                           </h3>
                           
                           <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                               {resource.category}
                             </Badge>
                             <span>•</span>
@@ -344,11 +375,11 @@ export function ResourceLibrary() {
                           
                           <Button 
                             onClick={() => handleDownload(resource)} 
-                            className="w-full"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                             size="sm"
                           >
                             <Download className="h-4 w-4 mr-2" />
-                            Download Free
+                            Download PDF
                           </Button>
                         </div>
                       </CardContent>

@@ -395,7 +395,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
           </p>
           <div className="mt-6 bg-gradient-to-r from-cyan-100 via-blue-100 to-indigo-100 dark:from-cyan-950/40 dark:via-blue-950/40 dark:to-indigo-950/40 border-2 border-cyan-200 dark:border-cyan-700/50 rounded-xl p-6 max-w-3xl mx-auto shadow-lg">
             <p className="text-cyan-800 dark:text-cyan-200 font-bold text-lg">
-              🎯 <strong>What:</strong> AI message generator that writes like you<br />
+              🎯 <strong>What:</strong> Professional writing assistant that matches your voice<br />
               👩‍🏫 <strong>Who:</strong> Teachers tired of spending hours on parent communication<br />
               ⚡ <strong>Why:</strong> Get perfect messages in 30 seconds, not 15 minutes!
             </p>
@@ -433,10 +433,10 @@ Overall, this represents excellent progress in your learning journey. I'm please
               <Card className="bg-gradient-to-br from-white via-cyan-50/30 to-blue-50/30 dark:from-gray-900/90 dark:via-cyan-950/20 dark:to-blue-950/20 border-2 border-cyan-200 dark:border-cyan-700/50 shadow-2xl backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="text-2xl bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent flex items-center gap-2">
-                    🤖 AI Message Generator
+                    ✨ Smart Message Writer
                   </CardTitle>
                   <CardDescription className="text-slate-700 dark:text-slate-200 font-medium text-lg">
-                    ✨ Create professional parent communication messages with advanced AI
+                    Transform your notes into professional parent communication — save 15 minutes every time
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -807,7 +807,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
 
       {/* Sign In Prompt Modal */}
       {showSignInPrompt && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100]">
           <Card className="max-w-md mx-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
