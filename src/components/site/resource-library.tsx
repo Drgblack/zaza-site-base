@@ -32,7 +32,7 @@ interface Resource {
 }
 
 const resources: Resource[] = [
-  // Featured Resources - Only resources with REAL content
+  // Featured HTML Resources with comprehensive content
   {
     id: '1',
     title: '50 Ready-to-Use Parent Comments',
@@ -49,7 +49,7 @@ const resources: Resource[] = [
     id: '2',
     title: 'The Stress-Free Report Card Template',
     description: 'Structured templates and frameworks teachers can adapt and customize for professional report writing.',
-    category: 'Report Writing',
+    category: 'Assessment',
     type: 'Template',
     thumbnail: '/resources/report-writing-framework.html',
     downloadUrl: '/resources/report-writing-framework.html',
@@ -80,10 +80,270 @@ const resources: Resource[] = [
     size: '745 KB',
     downloads: 3021,
     featured: true
+  },
+  {
+    id: '5',
+    title: 'Video Teaching Guide Series',
+    description: 'Comprehensive video-based guides for modern teaching techniques and classroom strategies.',
+    category: 'Best Practices',
+    type: 'Video',
+    thumbnail: '/resources/video-guide-series.html',
+    downloadUrl: '/resources/video-guide-series.html',
+    size: '3.5 MB',
+    downloads: 1234,
+    featured: true
+  },
+  // AI Tools Resources
+  {
+    id: '6',
+    title: 'AI Grading Prompts That Save Hours',
+    description: 'Ready-to-use AI prompts for faster, more consistent grading with personalized feedback.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-grading-prompts.pdf',
+    downloadUrl: '/resources/ai-grading-prompts.pdf',
+    size: '456 KB',
+    downloads: 4521
+  },
+  {
+    id: '7',
+    title: 'AI-Powered Parent Communication',
+    description: 'Transform parent emails and messages with AI assistance while maintaining your personal touch.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-parent-comms.pdf',
+    downloadUrl: '/resources/ai-parent-comms.pdf',
+    size: '523 KB',
+    downloads: 3892
+  },
+  {
+    id: '8',
+    title: 'AI Quiz Generator Guide',
+    description: 'Create differentiated quizzes and assessments in minutes using AI tools.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-quiz-generator-guide.pdf',
+    downloadUrl: '/resources/ai-quiz-generator-guide.pdf',
+    size: '678 KB',
+    downloads: 2156
+  },
+  {
+    id: '9',
+    title: 'AI Student Support Strategies',
+    description: 'Leverage AI to provide personalized support and interventions for every learner.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-student-support.pdf',
+    downloadUrl: '/resources/ai-student-support.pdf',
+    size: '892 KB',
+    downloads: 1823
+  },
+  {
+    id: '10',
+    title: 'The Ultimate AI Time-Saving Guide',
+    description: 'Cut your planning time in half with these AI-powered shortcuts and workflows.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/ai-time-saving-guide.pdf',
+    downloadUrl: '/resources/ai-time-saving-guide.pdf',
+    size: '1.1 MB',
+    downloads: 5234
+  },
+  {
+    id: '11',
+    title: 'Complete Teacher AI Toolkit',
+    description: 'Everything you need to integrate AI into your teaching practice effectively and ethically.',
+    category: 'AI Tools',
+    type: 'PDF',
+    thumbnail: '/resources/teacher-ai-toolkit.pdf',
+    downloadUrl: '/resources/teacher-ai-toolkit.pdf',
+    size: '2.3 MB',
+    downloads: 6789
+  },
+  // Lesson Planning Resources
+  {
+    id: '12',
+    title: 'Primary School Lesson Plan Template',
+    description: 'Comprehensive lesson planning template designed specifically for elementary educators.',
+    category: 'Lesson Tools',
+    type: 'Template',
+    thumbnail: '/resources/lesson-plan-template-primary.pdf',
+    downloadUrl: '/resources/lesson-plan-template-primary.pdf',
+    size: '234 KB',
+    downloads: 3456
+  },
+  {
+    id: '13',
+    title: 'Secondary School Lesson Plan Template',
+    description: 'Advanced lesson planning framework for middle and high school teachers.',
+    category: 'Lesson Tools',
+    type: 'Template',
+    thumbnail: '/resources/lesson-plan-template-secondary.pdf',
+    downloadUrl: '/resources/lesson-plan-template-secondary.pdf',
+    size: '256 KB',
+    downloads: 2890
+  },
+  {
+    id: '14',
+    title: 'Weekly Lesson Planner',
+    description: 'Organize your entire week with this comprehensive planning template.',
+    category: 'Lesson Tools',
+    type: 'Template',
+    thumbnail: '/resources/weekly-lesson-planner.pdf',
+    downloadUrl: '/resources/weekly-lesson-planner.pdf',
+    size: '189 KB',
+    downloads: 4123
+  },
+  {
+    id: '15',
+    title: 'Project-Based Learning Planner',
+    description: 'Step-by-step framework for designing and implementing PBL in your classroom.',
+    category: 'Lesson Tools',
+    type: 'PDF',
+    thumbnail: '/resources/project-based-learning-planner.pdf',
+    downloadUrl: '/resources/project-based-learning-planner.pdf',
+    size: '567 KB',
+    downloads: 1678
+  },
+  {
+    id: '16',
+    title: 'Group Work Facilitation Tools',
+    description: 'Strategies and templates for effective collaborative learning experiences.',
+    category: 'Lesson Tools',
+    type: 'PDF',
+    thumbnail: '/resources/group-work-tools.pdf',
+    downloadUrl: '/resources/group-work-tools.pdf',
+    size: '445 KB',
+    downloads: 2234
+  },
+  // Assessment Resources
+  {
+    id: '17',
+    title: 'Assessment Rubric Templates',
+    description: 'Customizable rubrics for fair, transparent, and efficient grading.',
+    category: 'Assessment',
+    type: 'Template',
+    thumbnail: '/resources/assessment-rubric-template.pdf',
+    downloadUrl: '/resources/assessment-rubric-template.pdf',
+    size: '312 KB',
+    downloads: 3567
+  },
+  {
+    id: '18',
+    title: 'Formative Assessment Checklist',
+    description: 'Quick assessment tools to check understanding and guide instruction.',
+    category: 'Assessment',
+    type: 'Checklist',
+    thumbnail: '/resources/formative-assessment-checklist.pdf',
+    downloadUrl: '/resources/formative-assessment-checklist.pdf',
+    size: '278 KB',
+    downloads: 2901
+  },
+  {
+    id: '19',
+    title: 'Student Feedback Bank',
+    description: 'Hundreds of constructive feedback phrases for reports and assessments.',
+    category: 'Assessment',
+    type: 'PDF',
+    thumbnail: '/resources/student-feedback-bank.pdf',
+    downloadUrl: '/resources/student-feedback-bank.pdf',
+    size: '892 KB',
+    downloads: 4567
+  },
+  // Parent Communication Resources
+  {
+    id: '20',
+    title: 'Parent Meeting Preparation Checklist',
+    description: 'Everything you need for productive parent-teacher conferences.',
+    category: 'Parent Communication',
+    type: 'Checklist',
+    thumbnail: '/resources/parent-meeting-checklist.pdf',
+    downloadUrl: '/resources/parent-meeting-checklist.pdf',
+    size: '345 KB',
+    downloads: 3234
+  },
+  // Wellbeing Resources
+  {
+    id: '21',
+    title: 'Teacher Self-Care Guide',
+    description: 'Evidence-based strategies for maintaining your wellbeing throughout the school year.',
+    category: 'Wellbeing',
+    type: 'Guide',
+    thumbnail: '/resources/teacher-self-care-guide.pdf',
+    downloadUrl: '/resources/teacher-self-care-guide.pdf',
+    size: '1.4 MB',
+    downloads: 2789
+  },
+  {
+    id: '22',
+    title: 'Teacher Growth & Development Planner',
+    description: 'Set and track your professional development goals with this comprehensive planner.',
+    category: 'Wellbeing',
+    type: 'PDF',
+    thumbnail: '/resources/teacher-growth-planner.pdf',
+    downloadUrl: '/resources/teacher-growth-planner.pdf',
+    size: '678 KB',
+    downloads: 1923
+  },
+  {
+    id: '23',
+    title: 'Classroom Routines That Work',
+    description: 'Build a calm, productive classroom environment with these proven routines.',
+    category: 'Wellbeing',
+    type: 'PDF',
+    thumbnail: '/resources/classroom-routines.pdf',
+    downloadUrl: '/resources/classroom-routines.pdf',
+    size: '523 KB',
+    downloads: 3456
+  },
+  // Best Practices Resources
+  {
+    id: '24',
+    title: 'Behavior Management Strategies',
+    description: 'Positive behavior support techniques for every classroom situation.',
+    category: 'Best Practices',
+    type: 'PDF',
+    thumbnail: '/resources/behavior-strategies.pdf',
+    downloadUrl: '/resources/behavior-strategies.pdf',
+    size: '789 KB',
+    downloads: 4123
+  },
+  {
+    id: '25',
+    title: 'Teaching Best Practices Guide',
+    description: 'Research-backed strategies for effective instruction and student engagement.',
+    category: 'Best Practices',
+    type: 'Guide',
+    thumbnail: '/resources/best-practices-guide.pdf',
+    downloadUrl: '/resources/best-practices-guide.pdf',
+    size: '1.6 MB',
+    downloads: 5678
+  },
+  {
+    id: '26',
+    title: 'Educational Case Studies',
+    description: 'Real-world teaching scenarios with analysis and best practice solutions.',
+    category: 'Best Practices',
+    type: 'PDF',
+    thumbnail: '/resources/case-studies.pdf',
+    downloadUrl: '/resources/case-studies.pdf',
+    size: '934 KB',
+    downloads: 1456
+  },
+  {
+    id: '27',
+    title: 'The Future of Teaching',
+    description: 'Preparing for tomorrow\'s classroom: trends, technologies, and teaching methods.',
+    category: 'Best Practices',
+    type: 'PDF',
+    thumbnail: '/resources/future-of-teaching.pdf',
+    downloadUrl: '/resources/future-of-teaching.pdf',
+    size: '2.1 MB',
+    downloads: 2345
   }
 ];
 
-const categories = ['All', 'Lesson Tools', 'Assessment', 'Parent Communication', 'Wellbeing', 'AI Tools', 'Best Practices'];
+const categories = ['All', 'AI Tools', 'Lesson Tools', 'Assessment', 'Parent Communication', 'Wellbeing', 'Best Practices'];
 
 const typeIcons = {
   PDF: FileText,

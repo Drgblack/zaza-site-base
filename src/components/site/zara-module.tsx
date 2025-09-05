@@ -169,21 +169,40 @@ Would you like me to elaborate on any of these points or help you with something
 
 Would you like me to dive deeper into any particular aspect?`,
       
-      resources: `I can help you with "${userInput}"! Here are some specific recommendations:
+      resources: `I can help you find the perfect resource for "${userInput}"! We have **27 educational resources** available:
 
-**From Our Resource Library:**
-- **Parent Communication**: Use our 50 Ready-to-Use Parent Comments and Email Templates
-- **Report Writing**: Try our Stress-Free Report Card Template with the Celebrate-Navigate-Partner framework
-- **Teacher Wellbeing**: Check out our 10-minute daily practices guide for reducing burnout
+**🤖 AI Tools (6 resources):**
+- AI Grading Prompts That Save Hours
+- AI-Powered Parent Communication
+- Complete Teacher AI Toolkit
+- AI Time-Saving Guide
 
-**Quick Tips:**
-- Start with one resource and adapt it to your style
-- Use the templates as starting points, not rigid rules
-- All resources above can be viewed and saved as PDF
+**📚 Lesson Planning (5 resources):**
+- Primary & Secondary Lesson Plan Templates
+- Weekly Lesson Planner
+- Project-Based Learning Planner
 
-**Need something specific?** Try asking: "Help me with parent emails about behavior" or "I need report writing phrases for math progress"
+**📝 Assessment Tools (3 resources):**
+- Stress-Free Report Card Template
+- Assessment Rubric Templates
+- Student Feedback Bank
 
-Which resource interests you most?`,
+**👨‍👩‍👧‍👦 Parent Communication (3 resources):**
+- 50 Ready-to-Use Parent Comments
+- Never Send a Stressful Parent Email Again
+- Parent Meeting Checklist
+
+**🌟 Teacher Wellbeing (4 resources):**
+- Teacher Wellbeing in 10 Minutes a Day
+- Self-Care Guide
+- Classroom Routines That Work
+
+**✨ Best Practices (6 resources):**
+- Behavior Management Strategies
+- Teaching Best Practices Guide
+- Educational Case Studies
+
+**Browse by category above or tell me what specific challenge you're facing!**`,
       
       pricing: `Thanks for asking about "${userInput}"! This is exactly the kind of challenge Zaza is designed to help with:
 
