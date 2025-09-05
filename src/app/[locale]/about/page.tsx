@@ -242,7 +242,7 @@ export default async function AboutPage({params}: Props) {
                   <span className="text-white font-bold">G</span>
                 </div>
                 <div className="text-left">
-                  <cite className="text-gray-800 dark:text-gray-200 font-semibold not-italic">Greg Johnson</cite>
+                  <cite className="text-gray-800 dark:text-gray-200 font-semibold not-italic">Dr. Greg Blackburn</cite>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">Founder & CEO</div>
                 </div>
               </footer>
