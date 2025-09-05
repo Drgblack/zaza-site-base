@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getAllSimpleBlogPosts } from '@/lib/blog/working-service';
+import { getAllSimpleBlogPosts } from '@/lib/blog/static-service';
 
 export const metadata: Metadata = {
   title: 'Blog | Zaza Promptly',
