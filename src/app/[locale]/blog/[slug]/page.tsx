@@ -1,8 +1,9 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/service';
+import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/generated-blog-service';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 type Props = {
   params: Promise<{locale: string; slug: string}>;
@@ -60,7 +61,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Back Button */}
           <Link 
-            href="/blog"
+            href={`/${locale}/blog`}
             className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-8"
           >
             ← Back to Blog
@@ -85,27 +86,51 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Meta Information */}
           <div className="flex flex-wrap items-center gap-6 text-gray-500 mb-8 pb-8 border-b">
-            <div>By {post.author.name}</div>
-            <div>{post.readingTime} min read</div>
-            <div>{post.wordCount} words</div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+              <span>By {post.author.name}</span>
+            </div>
+            <div>⏱️ {post.readingTime} min read</div>
+            <div>📅 {new Date(post.publishedAt).toLocaleDateString()}</div>
           </div>
 
-          {/* Content - Simple rendering without MDX for now */}
-          <div className="prose prose-lg max-w-none">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <p className="text-gray-700 mb-4">
-                <strong>Content Preview:</strong> This is a simplified view of the blog post. 
-                The full MDX rendering is being debugged.
-              </p>
-              <details className="mt-4">
-                <summary className="cursor-pointer font-medium text-gray-900 mb-2">
-                  Show Raw Content (Debug)
-                </summary>
-                <pre className="text-xs bg-white p-4 rounded border overflow-x-auto whitespace-pre-wrap">
-                  {post.content.slice(0, 1000)}...
-                </pre>
-              </details>
-            </div>
+          {/* Content */}
+          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-purple-600 prose-strong:text-gray-900">
+            {post.fullContent ? (
+              <div className="whitespace-pre-wrap leading-relaxed">
+                {post.fullContent.split('\n').map((line, index) => {
+                  // Simple markdown-like rendering
+                  if (line.startsWith('# ')) {
+                    return <h1 key={index} className="text-3xl font-bold mt-8 mb-4 text-gray-900">{line.substring(2)}</h1>;
+                  }
+                  if (line.startsWith('## ')) {
+                    return <h2 key={index} className="text-2xl font-semibold mt-6 mb-3 text-gray-900">{line.substring(3)}</h2>;
+                  }
+                  if (line.startsWith('### ')) {
+                    return <h3 key={index} className="text-xl font-medium mt-4 mb-2 text-gray-900">{line.substring(4)}</h3>;
+                  }
+                  if (line.startsWith('**') && line.endsWith('**')) {
+                    return <p key={index} className="font-bold text-gray-900 mt-4 mb-2">{line.slice(2, -2)}</p>;
+                  }
+                  if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**')) {
+                    return <p key={index} className="italic text-gray-600 mt-2 mb-2">{line.slice(1, -1)}</p>;
+                  }
+                  if (line.trim() === '') {
+                    return <div key={index} className="h-4"></div>;
+                  }
+                  if (line.startsWith('- ') || line.startsWith('* ')) {
+                    return <li key={index} className="ml-4 mb-1 text-gray-700">{line.substring(2)}</li>;
+                  }
+                  return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{line}</p>;
+                })}
+              </div>
+            ) : (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <p className="text-yellow-800">
+                  Content is being processed. Please check back soon!
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Tags */}
@@ -134,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Post Error</h1>
           <p className="text-red-600">Unable to load blog post. Please try again later.</p>
-          <Link href="/blog" className="mt-4 inline-block text-purple-600 hover:text-purple-700">
+          <Link href={`/${locale}/blog`} className="mt-4 inline-block text-purple-600 hover:text-purple-700">
             ← Back to Blog
           </Link>
           <pre className="mt-4 text-xs bg-red-100 p-4 rounded text-left">
