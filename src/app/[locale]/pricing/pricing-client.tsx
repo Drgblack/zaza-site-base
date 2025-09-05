@@ -32,11 +32,17 @@ export function PricingPageClient() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 relative">
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Choose the plan that saves you time every week
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white">
+              Choose the plan that saves you{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">time every week</span>
             </h1>
             <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Annual plans give teachers the best value. Monthly is available if you prefer.
@@ -88,7 +94,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Zaza Pass</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Zaza Pass</h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
               Annual is the best value for teachers
             </p>
@@ -115,7 +121,7 @@ export function PricingPageClient() {
           {/* Footnotes */}
           <div className="text-center mt-8 space-y-1">
             {pricingConfig.footnotes.map((footnote, index) => (
-              <p key={index} className="text-sm text-gray-500">
+              <p key={index} className="text-sm text-gray-500 dark:text-gray-400">
                 {footnote}
               </p>
             ))}
@@ -145,7 +151,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">See the Difference</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">See the Difference</h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg">
               Before and after examples of parent communication
             </p>
@@ -216,7 +222,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Join Thousands of Happy Teachers</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Join Thousands of Happy Teachers</h2>
             <div className="flex items-center justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <div className="flex">
