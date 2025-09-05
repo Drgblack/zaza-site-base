@@ -32,15 +32,15 @@ interface Resource {
 }
 
 const resources: Resource[] = [
-  // Featured Resources - The 4 main ones from your spec
+  // Featured Resources - The 4 main ones with rich HTML content
   {
     id: '1',
     title: '50 Ready-to-Use Parent Comments',
-    description: 'A free PDF with polished, professional comment starters for any situation.',
+    description: 'A comprehensive collection of professional comment starters for every situation, organized by category with usage guidelines.',
     category: 'Parent Communication',
-    type: 'PDF',
-    thumbnail: '/resources/student-feedback-bank.pdf',
-    downloadUrl: '/resources/student-feedback-bank.pdf',
+    type: 'Guide',
+    thumbnail: '/resources/parent-comment-bank.html',
+    downloadUrl: '/resources/parent-comment-bank.html',
     size: '1.2 MB',
     downloads: 2847,
     featured: true
@@ -48,11 +48,11 @@ const resources: Resource[] = [
   {
     id: '2',
     title: 'The Stress-Free Report Card Template',
-    description: 'Structured PDF teachers can adapt and fill out.',
+    description: 'Structured templates and frameworks teachers can adapt and customize for professional report writing.',
     category: 'Report Writing',
     type: 'Template',
-    thumbnail: '/resources/assessment-rubric-template.pdf',
-    downloadUrl: '/resources/assessment-rubric-template.pdf',
+    thumbnail: '/resources/report-writing-framework.html',
+    downloadUrl: '/resources/report-writing-framework.html',
     size: '890 KB',
     downloads: 1934,
     featured: true
@@ -60,11 +60,11 @@ const resources: Resource[] = [
   {
     id: '3',
     title: 'Teacher Wellbeing in 10 Minutes a Day',
-    description: 'Quick, practical tips to reduce burnout, supported by research.',
+    description: 'Research-backed strategies to reduce burnout and reclaim your joy in teaching with daily 10-minute practices.',
     category: 'Wellbeing',
     type: 'Guide',
-    thumbnail: '/resources/teacher-self-care-guide.pdf',
-    downloadUrl: '/resources/teacher-self-care-guide.pdf',
+    thumbnail: '/resources/classroom-wellbeing-guide.html',
+    downloadUrl: '/resources/classroom-wellbeing-guide.html',
     size: '2.1 MB',
     downloads: 1567,
     featured: true
@@ -72,11 +72,11 @@ const resources: Resource[] = [
   {
     id: '4',
     title: 'Never Send a Stressful Parent Email Again',
-    description: 'Checklist PDF for tone, clarity, and professionalism.',
+    description: 'Complete checklist and templates for professional, empathetic parent communication with tone guidelines.',
     category: 'Parent Communication',
     type: 'Checklist',
-    thumbnail: '/resources/ai-parent-comms.pdf',
-    downloadUrl: '/resources/ai-parent-comms.pdf',
+    thumbnail: '/resources/parent-email-checklist.html',
+    downloadUrl: '/resources/parent-email-checklist.html',
     size: '745 KB',
     downloads: 3021,
     featured: true
@@ -164,27 +164,37 @@ export function ResourceLibrary() {
 
   const handleDownload = (resource: Resource) => {
     try {
-      // Create a download link element
+      // Create a link element
       const link = document.createElement('a');
       link.href = resource.downloadUrl;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       
-      // For PDF files, try to force download
-      if (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) {
+      // For HTML resources, open in new tab to display content
+      if (resource.downloadUrl.endsWith('.html')) {
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      // For PDF files, try to trigger download
+      else if (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) {
         const filename = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.pdf';
         link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      // Default: open in new tab
+      else {
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
       
-      // Append to body, click, and remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // Track download (optional analytics)
-      console.log(`Downloaded: ${resource.title}`);
+      // Track access
+      console.log(`Accessed resource: ${resource.title}`);
     } catch (error) {
-      console.error('Download failed:', error);
+      console.error('Resource access failed:', error);
       // Fallback: open in new tab
       window.open(resource.downloadUrl, '_blank', 'noopener,noreferrer');
     }
@@ -261,7 +271,7 @@ export function ResourceLibrary() {
                       <div className="md:w-48 h-32 md:h-auto relative bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 flex items-center justify-center">
                         <div className="relative">
                           <FileText className="h-12 w-12 text-purple-600 dark:text-purple-400" />
-                          <span className="absolute -bottom-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">PDF</span>
+                          <span className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">HTML</span>
                         </div>
                         <Badge className="absolute top-2 right-2 bg-orange-500 text-white">
                           Featured
@@ -286,8 +296,17 @@ export function ResourceLibrary() {
                           {resource.description}
                         </p>
                         <Button onClick={() => handleDownload(resource)} className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download PDF
+                          {resource.downloadUrl.endsWith('.html') ? (
+                            <>
+                              <FileText className="h-4 w-4 mr-2" />
+                              View Resource
+                            </>
+                          ) : (
+                            <>
+                              <Download className="h-4 w-4 mr-2" />
+                              Download PDF
+                            </>
+                          )}
                         </Button>
                       </CardContent>
                     </div>
@@ -331,7 +350,9 @@ export function ResourceLibrary() {
                       <div className="h-40 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 relative flex items-center justify-center">
                         <div className="relative">
                           <IconComponent className="h-12 w-12 text-purple-600 dark:text-purple-400" />
-                          {(resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) && (
+                          {resource.downloadUrl.endsWith('.html') ? (
+                            <span className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">HTML</span>
+                          ) : (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) && (
                             <span className="absolute -bottom-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded text-[10px] font-bold">PDF</span>
                           )}
                         </div>
@@ -378,8 +399,17 @@ export function ResourceLibrary() {
                             className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                             size="sm"
                           >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download PDF
+                            {resource.downloadUrl.endsWith('.html') ? (
+                              <>
+                                <FileText className="h-4 w-4 mr-2" />
+                                View Resource
+                              </>
+                            ) : (
+                              <>
+                                <Download className="h-4 w-4 mr-2" />
+                                Download PDF
+                              </>
+                            )}
                           </Button>
                         </div>
                       </CardContent>
