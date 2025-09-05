@@ -32,11 +32,17 @@ export function PricingPageClient() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 relative">
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Choose the plan that saves you time every week
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white">
+              Choose the plan that saves you{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">time every week</span>
             </h1>
             <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Annual plans give teachers the best value. Monthly is available if you prefer.
@@ -69,13 +75,21 @@ export function PricingPageClient() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             {pricingConfig.benefits.map((benefit, index) => (
-              <div key={index} className="space-y-2">
+              <div 
+                key={index} 
+                className="group space-y-4 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 bg-white dark:bg-gray-800"
+                style={{
+                  animationDelay: `${index * 100}ms`
+                }}
+              >
                 <div className="flex justify-center">
-                  {index === 0 && <Clock className="h-8 w-8 text-purple-600" />}
-                  {index === 1 && <FileText className="h-8 w-8 text-purple-600" />}
-                  {index === 2 && <Database className="h-8 w-8 text-purple-600" />}
+                  <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors duration-300">
+                    {index === 0 && <Clock className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                    {index === 1 && <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                    {index === 2 && <Database className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                   {benefit}
                 </h3>
               </div>
@@ -88,7 +102,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Zaza Pass</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Zaza Pass</h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
               Annual is the best value for teachers
             </p>
@@ -112,10 +126,47 @@ export function PricingPageClient() {
             ))}
           </div>
           
+          {/* App Store Buttons */}
+          <div className="text-center mt-12">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 border border-purple-200 dark:border-purple-700/50 text-sm font-medium text-purple-700 dark:text-purple-300 mb-6">
+              <Download className="w-4 h-4 mr-2" />
+              Download the mobile app
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+              Take Zaza with you anywhere
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a 
+                href="https://apps.apple.com/app/promptly-teacher-assistant/id6738104361" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
+              >
+                <img 
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+                  alt="Download on the App Store" 
+                  className="h-16 w-48 object-contain"
+                />
+              </a>
+              <a 
+                href="https://play.google.com/store/apps/details?id=com.promptly.teacher" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
+              >
+                <img 
+                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                  alt="Get it on Google Play" 
+                  className="h-16 w-48 object-contain"
+                />
+              </a>
+            </div>
+          </div>
+          
           {/* Footnotes */}
           <div className="text-center mt-8 space-y-1">
             {pricingConfig.footnotes.map((footnote, index) => (
-              <p key={index} className="text-sm text-gray-500">
+              <p key={index} className="text-sm text-gray-500 dark:text-gray-400">
                 {footnote}
               </p>
             ))}
@@ -145,7 +196,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">See the Difference</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">See the Difference</h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg">
               Before and after examples of parent communication
             </p>
@@ -182,9 +233,14 @@ export function PricingPageClient() {
 
           {/* Stats */}
           <div className="text-center">
-            <div className="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg max-w-md mx-auto">
-              <h3 className="text-2xl font-bold text-purple-600 mb-2">Teachers saved 2,847 minutes this week</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+            <div className="bg-white dark:bg-gray-900 rounded-xl p-8 shadow-xl max-w-md mx-auto border-2 border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 hover:shadow-2xl group">
+              <div className="mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto group-hover:rotate-12 transition-transform duration-300">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2 group-hover:scale-110 transition-transform duration-300">Teachers saved 2,847 minutes this week</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 That's over 47 hours of time back in teachers' hands
               </p>
             </div>
@@ -216,7 +272,7 @@ export function PricingPageClient() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Join Thousands of Happy Teachers</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Join Thousands of Happy Teachers</h2>
             <div className="flex items-center justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <div className="flex">

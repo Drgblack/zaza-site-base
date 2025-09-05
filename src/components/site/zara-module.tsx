@@ -70,32 +70,12 @@ export function ZaraModule({
     setIsKnowledgeEnhanced(false);
     
     try {
-      // First, apply safety filtering
-      const safetyResult = await aiServices.safety.scanContent(input);
+      // Simulate thinking time
+      await new Promise(resolve => setTimeout(resolve, 800));
       
-      let processedInput = input;
-      if (!safetyResult.isApproved) {
-        processedInput = await aiServices.safety.neutralizeSensitiveContent(input);
-      }
-      
-      // Generate enhanced response if KnowledgeCore is active
-      let enhancedResponse = '';
-      if (knowledgeCoreActive) {
-        try {
-          // This would use actual user knowledge in production
-          enhancedResponse = await generateKnowledgeEnhancedResponse(processedInput, context);
-          setIsKnowledgeEnhanced(true);
-        } catch (error) {
-          console.error('KnowledgeCore enhancement failed:', error);
-        }
-      }
-      
-      // Fallback to standard responses if enhancement fails or KC is inactive
-      if (!enhancedResponse) {
-        enhancedResponse = getStandardResponse(processedInput, context);
-      }
-      
-      setResponse(enhancedResponse);
+      // Generate response based on context
+      const response = getStandardResponse(input.trim(), context);
+      setResponse(response);
       
     } catch (error) {
       console.error('Zara response error:', error);
@@ -169,19 +149,25 @@ Would you like me to elaborate on any of these points or help you with something
 
 Would you like me to dive deeper into any particular aspect?`,
       
-      resources: `I can definitely help you with "${userInput}"! Here are some resources and approaches:
+      resources: `I can help you find the perfect resource for "${userInput}"! We have **10 high-quality educational resources** with verified content:
 
-**Immediate Solutions:**
-- Quick templates and frameworks you can use today
-- Step-by-step guides for implementation
-- Common pitfalls to avoid
+**🌟 Featured Interactive Resources (5 HTML guides):**
+- 50 Ready-to-Use Parent Comments
+- Stress-Free Report Card Template  
+- Teacher Wellbeing in 10 Minutes a Day
+- Never Send a Stressful Parent Email Again
+- Video Teaching Guide Series
 
-**Long-term Strategies:**
-- Building sustainable practices
-- Creating systems that work for your specific context
-- Measuring and improving over time
+**📖 Professional PDF Resources (5 proven tools):**
+- 10 AI Prompts for Parent Communication
+- Essential AI Prompt Toolkit for Teachers
+- Primary School Lesson Plan Template
+- Teacher Self-Care Guide: Quick Wins
+- 10 Classroom Routines That Save Time
 
-Let me know if you'd like me to focus on any specific area!`,
+**All resources contain real, actionable content** created by educators for educators. Each can be viewed online and saved as PDF.
+
+**What's your biggest teaching challenge right now?** I can recommend the perfect resource!`,
       
       pricing: `Thanks for asking about "${userInput}"! This is exactly the kind of challenge Zaza is designed to help with:
 
@@ -227,18 +213,33 @@ Ready to transform your teaching workflow?`
               placeholder={placeholder}
               className="flex-1"
             />
-            <Button type="submit" disabled={isLoading} size="sm">
+            <Button type="submit" disabled={isLoading} size="sm" className="min-w-[60px]">
               {isLoading ? (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="flex items-center gap-1">
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                  <span className="text-xs">...</span>
+                </div>
               ) : (
                 <Send className="h-4 w-4" />
               )}
             </Button>
           </form>
           
+          {isLoading && (
+            <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 dark:border-blue-400"></div>
+                <span>Zara is thinking about your question...</span>
+              </div>
+            </div>
+          )}
+          
           {response && (
-            <div className="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
-              <p className="text-sm text-gray-700 dark:text-gray-300">{response}</p>
+            <div className="mt-3 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-start gap-2">
+                <Bot className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{response}</div>
+              </div>
             </div>
           )}
         </CardContent>

@@ -18,10 +18,10 @@ export function ZazaTierCard({ tier, isAnnual, onSelect }: ZazaTierCardProps) {
   const effectiveMonthly = isAnnual ? tier.annualEffectiveMonthly : null;
 
   return (
-    <Card className={`relative overflow-hidden ${
+    <Card className={`relative overflow-hidden transition-all duration-300 ${
       tier.popular 
-        ? 'border-purple-200 dark:border-purple-800 shadow-xl transform scale-105' 
-        : 'border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow'
+        ? 'border-purple-200 dark:border-purple-800 shadow-xl transform scale-105 hover:scale-110' 
+        : 'border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 hover:border-purple-300 dark:hover:border-purple-600'
     }`}>
       {tier.badge && (
         <div className="absolute top-0 left-0 right-0">
@@ -36,7 +36,7 @@ export function ZazaTierCard({ tier, isAnnual, onSelect }: ZazaTierCardProps) {
       )}
       
       <CardHeader className={tier.badge ? 'pt-16' : 'pt-8'}>
-        <CardTitle className="text-xl">{tier.name}</CardTitle>
+        <CardTitle className="text-xl text-gray-900 dark:text-white">{tier.name}</CardTitle>
         <CardDescription className="text-gray-600 dark:text-gray-400">
           {isAnnual ? `€${effectiveMonthly}/mo billed yearly` : `or €${tier.monthlyPrice}/mo`}
         </CardDescription>
@@ -50,7 +50,7 @@ export function ZazaTierCard({ tier, isAnnual, onSelect }: ZazaTierCardProps) {
             </span>
           </div>
           {isAnnual && (
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Billed annually
             </p>
           )}
