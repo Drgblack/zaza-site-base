@@ -281,14 +281,14 @@ export default async function AboutPage({params}: Props) {
                   <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-r ${value.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
                     <div className={`absolute inset-0 bg-gradient-to-r ${value.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 animate-pulse`}></div>
-                    <value.icon className={`h-8 w-8 bg-gradient-to-r ${value.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`} />
+                    <value.icon className={`h-8 w-8 text-gray-700 dark:text-gray-300 group-hover:scale-110 transition-transform duration-300`} />
                   </div>
-                  <CardTitle className="text-xl group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
+                  <CardTitle className="text-xl text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                     {value.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
+                  <CardDescription className="text-base leading-relaxed text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
                     {value.description}
                   </CardDescription>
                 </CardContent>
@@ -302,41 +302,57 @@ export default async function AboutPage({params}: Props) {
       </section>
 
       {/* Journey Timeline Section */}
-      <section className="py-24 bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-20 w-64 h-64 bg-gradient-to-r from-green-400/10 to-emerald-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-20 w-80 h-80 bg-gradient-to-r from-emerald-400/10 to-green-400/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 md:px-6 relative">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/40 dark:to-emerald-900/40 border border-green-200 dark:border-green-700/50 text-sm font-medium text-green-700 dark:text-green-300 mb-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/40 dark:to-emerald-900/40 border border-green-200 dark:border-green-700/50 text-sm font-medium text-green-700 dark:text-green-300 mb-6 animate-in fade-in slide-in-from-bottom-5 duration-1000">
               <TrendingUp className="w-4 h-4 mr-2" />
               Our Journey
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-200">
               How We Got Here
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-400">
               From classroom challenges to AI-powered solutions
             </p>
           </div>
           
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-green-400 to-emerald-600"></div>
+            {/* Animated Timeline line */}
+            <div className="absolute left-1/2 transform -translate-x-0.5 w-0.5 h-full overflow-hidden">
+              <div className="h-full bg-gradient-to-b from-green-400 to-emerald-600 animate-in slide-in-from-top-full duration-2000 delay-600"></div>
+            </div>
             
             <div className="space-y-12">
               {milestones.map((milestone, index) => (
                 <div 
                   key={index}
-                  className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} group`}
+                  className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} group animate-in fade-in ${index % 2 === 0 ? 'slide-in-from-left-10' : 'slide-in-from-right-10'} duration-1000`}
+                  style={{
+                    animationDelay: `${800 + index * 200}ms`,
+                    animationFillMode: 'backwards'
+                  }}
                 >
                   <div className={`flex-1 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
-                    <Card className="bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border-2 border-green-200/50 dark:border-green-700/30 shadow-lg hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2">
+                    <Card className="relative bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 border-2 border-green-200/50 dark:border-green-700/30 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105 overflow-hidden">
+                      {/* Animated gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-emerald-500/5 to-green-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                      
                       <CardHeader>
                         <div className="flex items-center gap-4">
-                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                          <div className="relative flex-shrink-0 w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
                             <milestone.icon className="w-6 h-6 text-white" />
+                            <div className="absolute inset-0 bg-white rounded-full opacity-0 group-hover:opacity-20 group-hover:animate-ping"></div>
                           </div>
                           <div>
-                            <div className="text-2xl font-bold text-green-600 dark:text-green-400">{milestone.year}</div>
-                            <CardTitle className="text-lg">{milestone.title}</CardTitle>
+                            <div className="text-2xl font-bold text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform duration-300 origin-left">{milestone.year}</div>
+                            <CardTitle className="text-lg text-gray-800 dark:text-gray-200">{milestone.title}</CardTitle>
                           </div>
                         </div>
                       </CardHeader>
@@ -346,8 +362,15 @@ export default async function AboutPage({params}: Props) {
                     </Card>
                   </div>
                   
-                  {/* Timeline dot */}
-                  <div className="relative flex-shrink-0 w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full border-4 border-white dark:border-slate-900 shadow-lg group-hover:scale-150 transition-transform duration-300"></div>
+                  {/* Enhanced Timeline dot */}
+                  <div className="relative flex-shrink-0">
+                    <div className="relative w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full border-4 border-white dark:border-slate-900 shadow-lg group-hover:scale-150 transition-transform duration-300">
+                      {/* Pulsing ring */}
+                      <div className="absolute inset-[-8px] rounded-full border-2 border-green-400 opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
+                    </div>
+                    {/* Connection lines */}
+                    <div className={`absolute top-1/2 ${index % 2 === 0 ? 'left-full' : 'right-full'} w-8 h-0.5 bg-gradient-to-r from-green-400 to-transparent transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  </div>
                   
                   <div className="flex-1"></div>
                 </div>
@@ -409,7 +432,7 @@ export default async function AboutPage({params}: Props) {
           <div className="text-center mt-16">
             <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl hover:shadow-3xl transition-shadow duration-500">
               <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
-              <p className="text-lg mb-6 text-purple-100">
+              <p className="text-lg mb-6 text-white/90">
                 Join thousands of teachers who have already transformed their workflow
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
