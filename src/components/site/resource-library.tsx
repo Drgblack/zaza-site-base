@@ -366,6 +366,15 @@ export function ResourceLibrary() {
       }
       // For PDF files, try to trigger download
       else if (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) {
+        // Check if this is a featured resource with HTML equivalent
+        const hasHtmlVersion = ['1', '2', '3', '4'].includes(resource.id);
+        if (hasHtmlVersion) {
+          // Redirect to HTML version for better content
+          const htmlUrl = resource.downloadUrl.replace('.pdf', '.html');
+          window.open(htmlUrl, '_blank', 'noopener,noreferrer');
+          return;
+        }
+        
         const filename = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.pdf';
         link.download = filename;
         document.body.appendChild(link);
@@ -493,10 +502,15 @@ export function ResourceLibrary() {
                             ) : (
                               <>
                                 <Download className="h-4 w-4 mr-2" />
-                                Download PDF
+                                {['1', '2', '3', '4'].includes(resource.id) ? 'View Full Content' : 'Download PDF'}
                               </>
                             )}
                           </Button>
+                          {!resource.downloadUrl.endsWith('.html') && !['1', '2', '3', '4'].includes(resource.id) && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                              📝 Full content coming soon! Currently contains resource outline.
+                            </p>
+                          )}
                           {resource.downloadUrl.endsWith('.html') && (
                             <Button 
                               onClick={() => {
@@ -617,28 +631,54 @@ export function ResourceLibrary() {
                               ) : (
                                 <>
                                   <Download className="h-4 w-4 mr-2" />
-                                  Download PDF
+                                  {['1', '2', '3', '4'].includes(resource.id) ? 'View Full Content' : 'Download PDF'}
                                 </>
                               )}
                             </Button>
+                            {!resource.downloadUrl.endsWith('.html') && !['1', '2', '3', '4'].includes(resource.id) && (
+                              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                                📝 Full content coming soon!
+                              </p>
+                            )}
                             {resource.downloadUrl.endsWith('.html') && (
-                              <Button 
-                                onClick={() => {
-                                  const link = document.createElement('a');
-                                  link.href = resource.downloadUrl;
-                                  link.download = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.html';
-                                  link.target = '_blank';
-                                  document.body.appendChild(link);
-                                  link.click();
-                                  document.body.removeChild(link);
-                                }}
-                                variant="outline" 
-                                className="w-full border-purple-200 dark:border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950"
-                                size="sm"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download HTML
-                              </Button>
+                              <div className="grid grid-cols-2 gap-2">
+                                <Button 
+                                  onClick={() => {
+                                    const link = document.createElement('a');
+                                    link.href = resource.downloadUrl;
+                                    link.download = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.html';
+                                    link.target = '_blank';
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                  }}
+                                  variant="outline" 
+                                  className="border-purple-200 dark:border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950"
+                                  size="sm"
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  HTML
+                                </Button>
+                                <Button 
+                                  onClick={() => {
+                                    // Open print dialog which allows saving as PDF
+                                    const printWindow = window.open(resource.downloadUrl, '_blank');
+                                    if (printWindow) {
+                                      printWindow.onload = () => {
+                                        setTimeout(() => {
+                                          printWindow.print();
+                                        }, 500);
+                                      };
+                                    }
+                                  }}
+                                  variant="outline" 
+                                  className="border-red-200 dark:border-red-600 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950"
+                                  size="sm"
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  PDF
+                                </Button>
+                              </div>
                             )}
                           </div>
                         </div>
