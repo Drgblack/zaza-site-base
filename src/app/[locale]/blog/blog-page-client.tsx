@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { type BlogPost } from '@/lib/blog/final-blog-service';
+import { type BlogPost } from '@/lib/blog/mdx-blog-service';
 import Link from 'next/link';
 import { Search, Clock, Filter, Bookmark, TrendingUp } from 'lucide-react';
 

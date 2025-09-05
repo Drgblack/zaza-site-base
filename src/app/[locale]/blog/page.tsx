@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getAllBlogPosts, getAllCategories } from '@/lib/blog/final-blog-service';
+import { getAllBlogPosts, getAllCategories } from '@/lib/blog/mdx-blog-service';
 import BlogPageClient from './blog-page-client';
 
 export const metadata: Metadata = {
