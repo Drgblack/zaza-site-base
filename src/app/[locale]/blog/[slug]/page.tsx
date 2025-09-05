@@ -49,9 +49,12 @@ export default async function BlogPostPage({ params }: Props) {
   setRequestLocale(locale);
 
   try {
+    console.log(`Attempting to get blog post with slug: ${slug}`);
     const post = await getBlogPostBySlug(slug);
+    console.log(`Blog post found:`, post ? 'Yes' : 'No');
 
     if (!post) {
+      console.log(`No post found for slug: ${slug}`);
       notFound();
     }
 

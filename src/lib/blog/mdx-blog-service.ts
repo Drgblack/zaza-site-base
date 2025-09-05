@@ -136,14 +136,27 @@ function createSlugFromFilename(filename: string): string {
 
 function parseBlogPost(filePath: string, fileName: string, index: number): BlogPost | null {
   try {
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const { data: frontmatter, content } = matter(fileContent);
-
-    // Skip if no title
-    if (!frontmatter.title) {
+    if (!fs.existsSync(filePath)) {
+      console.error(`File does not exist: ${filePath}`);
       return null;
     }
 
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    
+    if (!fileContent || fileContent.trim().length === 0) {
+      console.error(`File is empty: ${fileName}`);
+      return null;
+    }
+
+    const { data: frontmatter, content } = matter(fileContent);
+
+    // Skip if no title
+    if (!frontmatter.title && !fileName.includes('sample')) {
+      console.warn(`No title found in ${fileName}, skipping`);
+      return null;
+    }
+
+    const title = frontmatter.title || fileName.replace(/\.(md|mdx)$/, '').replace(/-/g, ' ');
     const slug = frontmatter.slug || createSlugFromFilename(fileName);
     const category = getCategoryInfo(frontmatter.category);
 
@@ -151,13 +164,16 @@ function parseBlogPost(filePath: string, fileName: string, index: number): BlogP
     const wordCount = content.trim().split(/\s+/).length;
     const readingTime = Math.max(1, Math.ceil(wordCount / 250));
 
+    // Ensure content exists
+    const safeContent = content || 'Content coming soon...';
+
     const post: BlogPost = {
       id: slug,
       slug,
-      title: frontmatter.title,
-      description: frontmatter.description || 'Educational insights for teachers',
-      content: content.substring(0, 300) + '...',
-      fullContent: content,
+      title,
+      description: frontmatter.description || `Educational insights about ${title.toLowerCase()}`,
+      content: safeContent.substring(0, 300) + (safeContent.length > 300 ? '...' : ''),
+      fullContent: safeContent,
       publishedAt: frontmatter.date || frontmatter.publishDate || new Date().toISOString(),
       author: {
         name: frontmatter.author || 'Zaza Education Team',
@@ -175,6 +191,11 @@ function parseBlogPost(filePath: string, fileName: string, index: number): BlogP
     return post;
   } catch (error) {
     console.error(`Error parsing ${fileName}:`, error);
+    console.error(`File path: ${filePath}`);
+    if (error instanceof Error) {
+      console.error(`Error message: ${error.message}`);
+      console.error(`Error stack: ${error.stack}`);
+    }
     return null;
   }
 }
@@ -182,23 +203,47 @@ function parseBlogPost(filePath: string, fileName: string, index: number): BlogP
 // Get all blog posts
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
-    if (!fs.existsSync(BLOG_CONTENT_PATH)) {
-      console.warn('Blog content directory does not exist');
+    // Check multiple possible paths for serverless environments
+    const possiblePaths = [
+      BLOG_CONTENT_PATH,
+      path.join(process.cwd(), 'content/blog'),
+      path.join('/var/task', 'content', 'blog'),
+      path.join(__dirname, '../../../content/blog')
+    ];
+
+    let contentPath: string | null = null;
+    for (const checkPath of possiblePaths) {
+      if (fs.existsSync(checkPath)) {
+        contentPath = checkPath;
+        break;
+      }
+    }
+
+    if (!contentPath) {
+      console.error('Blog content directory not found in any expected location');
+      console.error('Checked paths:', possiblePaths);
+      console.error('Current working directory:', process.cwd());
       return [];
     }
 
-    const files = fs.readdirSync(BLOG_CONTENT_PATH);
+    console.log('Found blog content at:', contentPath);
+
+    const files = fs.readdirSync(contentPath);
     const blogFiles = files.filter(file => file.endsWith('.md') || file.endsWith('.mdx'));
+
+    console.log(`Found ${blogFiles.length} blog files:`, blogFiles.slice(0, 5));
 
     const posts: BlogPost[] = [];
 
     blogFiles.forEach((fileName, index) => {
-      const filePath = path.join(BLOG_CONTENT_PATH, fileName);
+      const filePath = path.join(contentPath!, fileName);
       const post = parseBlogPost(filePath, fileName, index);
       if (post) {
         posts.push(post);
       }
     });
+
+    console.log(`Successfully parsed ${posts.length} blog posts`);
 
     // Sort by date (newest first)
     posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
@@ -206,6 +251,8 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
     return posts;
   } catch (error) {
     console.error('Error getting blog posts:', error);
+    console.error('Error details:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('Stack:', error instanceof Error ? error.stack : 'No stack');
     return [];
   }
 }
