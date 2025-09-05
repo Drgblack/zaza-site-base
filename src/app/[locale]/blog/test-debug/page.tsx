@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/blog/simple-blog-service';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/blog/final-blog-service';
 
 type Props = {
   params: Promise<{locale: string}>;

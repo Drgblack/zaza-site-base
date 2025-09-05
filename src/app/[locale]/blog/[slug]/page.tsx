@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/simple-blog-service';
+import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/final-blog-service';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
