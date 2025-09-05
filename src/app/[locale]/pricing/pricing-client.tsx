@@ -75,13 +75,21 @@ export function PricingPageClient() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             {pricingConfig.benefits.map((benefit, index) => (
-              <div key={index} className="space-y-2">
+              <div 
+                key={index} 
+                className="group space-y-4 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 bg-white dark:bg-gray-800"
+                style={{
+                  animationDelay: `${index * 100}ms`
+                }}
+              >
                 <div className="flex justify-center">
-                  {index === 0 && <Clock className="h-8 w-8 text-purple-600" />}
-                  {index === 1 && <FileText className="h-8 w-8 text-purple-600" />}
-                  {index === 2 && <Database className="h-8 w-8 text-purple-600" />}
+                  <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors duration-300">
+                    {index === 0 && <Clock className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                    {index === 1 && <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                    {index === 2 && <Database className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                   {benefit}
                 </h3>
               </div>
@@ -188,9 +196,14 @@ export function PricingPageClient() {
 
           {/* Stats */}
           <div className="text-center">
-            <div className="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg max-w-md mx-auto">
-              <h3 className="text-2xl font-bold text-purple-600 mb-2">Teachers saved 2,847 minutes this week</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+            <div className="bg-white dark:bg-gray-900 rounded-xl p-8 shadow-xl max-w-md mx-auto border-2 border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 hover:shadow-2xl group">
+              <div className="mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto group-hover:rotate-12 transition-transform duration-300">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2 group-hover:scale-110 transition-transform duration-300">Teachers saved 2,847 minutes this week</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 That's over 47 hours of time back in teachers' hands
               </p>
             </div>
