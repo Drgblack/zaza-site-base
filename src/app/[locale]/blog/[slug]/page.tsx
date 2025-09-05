@@ -1,203 +1,101 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/final-blog-service';
-import Link from 'next/link';
-import type { Metadata } from 'next';
 
 type Props = {
   params: Promise<{locale: string; slug: string}>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  
-  try {
-    const post = await getBlogPostBySlug(slug);
-    
-    if (!post) {
-      return {
-        title: 'Post Not Found | Zaza Blog'
-      };
-    }
-
-    return {
-      title: post.title,
-      description: post.description,
-    };
-  } catch (error) {
-    return {
-      title: 'Blog Post | Zaza Blog'
-    };
+// Hardcoded blog data to avoid any import issues
+const samplePosts = [
+  {
+    slug: 'how-i-won-back-sunday-afternoons',
+    title: 'How I Won Back My Sunday Afternoons',
+    description: 'Three months ago, I spent every Sunday afternoon hunched over my laptop, writing progress reports.',
+    content: 'This is a sample blog post about reclaiming time through AI tools...',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&fit=crop'
+  },
+  {
+    slug: 'best-ai-tools-teachers-2025',
+    title: 'Best AI Tools for Teachers 2025: Complete Guide',
+    description: 'Discover the most effective AI tools that are transforming education.',
+    content: 'This comprehensive guide explores the top AI tools for educators...',
+    image: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&h=400&fit=crop'
+  },
+  {
+    slug: '5-minute-ai-wins',
+    title: '5-Minute AI Wins for Busy Teachers',
+    description: 'Quick, practical AI solutions that take minutes to implement.',
+    content: 'Teaching is demanding enough without spending hours learning new technology...',
+    image: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&h=400&fit=crop'
   }
-}
+];
 
 export async function generateStaticParams() {
-  try {
-    const posts = await getAllBlogPosts();
-    
-    return posts.map((post) => ({
-      slug: post.slug,
-    }));
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
-  }
+  return samplePosts.map(post => ({
+    slug: post.slug
+  }));
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  try {
-    const post = await getBlogPostBySlug(slug);
+  // Find the post
+  const post = samplePosts.find(p => p.slug === slug);
 
-    if (!post) {
-      notFound();
-    }
+  if (!post) {
+    notFound();
+  }
 
-    return (
-      <article className="min-h-screen bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          {/* Debug Info */}
-          <div className="mb-4 p-4 bg-green-50 rounded">
-            <p className="text-green-800 text-sm">✅ Blog post loaded successfully</p>
-            <p className="text-green-800 text-sm">Slug: {slug}</p>
-            <p className="text-green-800 text-sm">Title: {post.title}</p>
-          </div>
-
-          {/* Back Button */}
-          <Link 
-            href={`/${locale}/blog`}
-            className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-8"
-          >
-            ← Back to Blog
-          </Link>
-
-          {/* Hero Image */}
-          {post.image && (
-            <div className="relative mb-8 rounded-xl overflow-hidden">
-              <img 
-                src={post.image} 
-                alt={post.title}
-                className="w-full h-64 md:h-96 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-6 left-6">
-                <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${post.category.color} mr-3`}>
-                  <span className="mr-1">{post.category.icon}</span>
-                  {post.category.name}
-                </span>
-                {post.featured && (
-                  <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    ⭐ Featured
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Category Badge (fallback if no image) */}
-          {!post.image && (
-            <div className="mb-4">
-              <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${post.category.color}`}>
-                <span className="mr-1">{post.category.icon}</span>
-                {post.category.name}
-              </span>
-            </div>
-          )}
-
-          {/* Title */}
-          <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
-            {post.title}
-          </h1>
-
-          {/* Description */}
-          <p className="text-xl text-gray-600 mb-6">
-            {post.description}
-          </p>
-
-          {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-gray-500 mb-8 pb-8 border-b">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <span>By {post.author.name}</span>
-            </div>
-            <div>⏱️ {post.readingTime} min read</div>
-            <div>📅 {new Date(post.publishedAt).toLocaleDateString()}</div>
-          </div>
-
-          {/* Content */}
-          <div className="prose prose-lg max-w-none">
-            {post.fullContent ? (
-              <div className="leading-relaxed">
-                {post.fullContent.split('\n').map((line, index) => {
-                  // Simple markdown-like rendering
-                  if (line.startsWith('# ')) {
-                    return <h1 key={index} className="text-3xl font-bold mt-8 mb-4 text-gray-900">{line.substring(2)}</h1>;
-                  }
-                  if (line.startsWith('## ')) {
-                    return <h2 key={index} className="text-2xl font-semibold mt-6 mb-3 text-gray-900">{line.substring(3)}</h2>;
-                  }
-                  if (line.startsWith('### ')) {
-                    return <h3 key={index} className="text-xl font-medium mt-4 mb-2 text-gray-900">{line.substring(4)}</h3>;
-                  }
-                  if (line.trim() === '') {
-                    return <div key={index} className="h-4"></div>;
-                  }
-                  if (line.startsWith('- ') || line.startsWith('* ')) {
-                    return <li key={index} className="ml-4 mb-1 text-gray-700">{line.substring(2)}</li>;
-                  }
-                  return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{line}</p>;
-                })}
-              </div>
-            ) : (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-                <p className="text-yellow-800">
-                  Content is being processed. Please check back soon!
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-8 pt-8 border-t">
-              <h3 className="font-medium text-gray-900 mb-3">Tags:</h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+  return (
+    <article className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Debug Info */}
+        <div className="mb-4 p-4 bg-green-50 rounded">
+          <p className="text-green-800 text-sm">✅ Blog post page loaded successfully!</p>
+          <p className="text-green-800 text-sm">Slug: {slug}</p>
+          <p className="text-green-800 text-sm">Post found: {post ? 'Yes' : 'No'}</p>
         </div>
-      </article>
-    );
-  } catch (error) {
-    console.error('Blog post error:', error);
-    return (
-      <div className="min-h-screen bg-red-50 flex items-center justify-center">
-        <div className="text-center max-w-2xl mx-auto p-8">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Blog Post Error</h1>
-          <p className="text-red-600 mb-4">Unable to load blog post. This might be a temporary issue.</p>
-          <Link href={`/${locale}/blog`} className="mt-4 inline-block text-purple-600 hover:text-purple-700">
-            ← Back to Blog
-          </Link>
-          <div className="mt-6 text-left">
-            <details className="bg-red-100 p-4 rounded">
-              <summary className="cursor-pointer font-medium">Error Details</summary>
-              <pre className="mt-2 text-xs overflow-x-auto">
-                {String(error)}
-              </pre>
-            </details>
+
+        {/* Hero Image */}
+        <div className="mb-6">
+          <img 
+            src={post.image}
+            alt={post.title}
+            className="w-full h-64 object-cover rounded-lg"
+          />
+        </div>
+
+        {/* Content */}
+        <div>
+          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          <p className="text-xl text-gray-600 mb-6">{post.description}</p>
+          
+          <div className="prose max-w-none">
+            <p>{post.content}</p>
+            
+            <h2>Sample Content</h2>
+            <p>This is a simplified version of the blog post to test if the page works at all.</p>
+            
+            <h3>Key Points:</h3>
+            <ul>
+              <li>AI tools save time</li>
+              <li>Better work-life balance</li>
+              <li>Improved teaching quality</li>
+              <li>Professional growth</li>
+            </ul>
+            
+            <p>If you can see this content, the blog post page is working correctly.</p>
           </div>
+        </div>
+
+        {/* Back Link */}
+        <div className="mt-8 pt-8 border-t">
+          <a href={`/${locale}/blog`} className="text-blue-600 hover:text-blue-700">
+            ← Back to Blog
+          </a>
         </div>
       </div>
-    );
-  }
+    </article>
+  );
 }
