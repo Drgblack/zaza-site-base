@@ -37,6 +37,35 @@ interface CommunityResourceCardProps {
 }
 
 export function CommunityResourceCard({ resource }: CommunityResourceCardProps) {
+  const handleDownload = () => {
+    if (resource.price !== null) {
+      // Handle purchase logic
+      console.log('Purchasing resource:', resource.id);
+      alert(`Redirecting to purchase ${resource.title} for €${resource.price}`);
+    } else {
+      // Handle free download
+      console.log('Downloading resource:', resource.id);
+      alert(`Downloading ${resource.title}`);
+    }
+  };
+
+  const handleLike = () => {
+    console.log('Liked resource:', resource.id);
+    // Add like functionality
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: resource.title,
+        text: resource.description,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { 
@@ -148,14 +177,39 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
           </div>
           
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0 hover:bg-pink-100 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-all duration-200"
+              onClick={handleLike}
+              title="Like this resource"
+            >
               <Heart className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0 hover:bg-blue-100 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all duration-200"
+              onClick={handleShare}
+              title="Share this resource"
+            >
               <Share2 className="h-4 w-4" />
             </Button>
-            <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-              {resource.price !== null ? 'Purchase' : 'Download'}
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-md hover:shadow-lg transition-all duration-200 font-semibold"
+              onClick={handleDownload}
+            >
+              {resource.price !== null ? (
+                <>
+                  €{resource.price} Purchase
+                </>
+              ) : (
+                <>
+                  <Download className="h-3 w-3 mr-1" />
+                  Download
+                </>
+              )}
             </Button>
           </div>
         </div>

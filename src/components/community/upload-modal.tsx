@@ -76,7 +76,7 @@ export function ResourceUploadModal({ isOpen, onClose }: ResourceUploadModalProp
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-900 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5 text-purple-600" />
@@ -214,10 +214,10 @@ export function ResourceUploadModal({ isOpen, onClose }: ResourceUploadModalProp
 
           {/* File Upload */}
           <div>
-            <Label htmlFor="file">Resource File</Label>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-              <FileText className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-              <p className="text-sm text-gray-600 mb-2">
+            <Label htmlFor="file" className="text-slate-700 dark:text-slate-200">Resource File</Label>
+            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+              <FileText className="h-8 w-8 text-gray-400 dark:text-gray-500 mx-auto mb-2" />
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                 Upload your resource file (PDF, DOC, or text)
               </p>
               <Input
@@ -243,12 +243,12 @@ export function ResourceUploadModal({ isOpen, onClose }: ResourceUploadModalProp
           </div>
 
           {/* Guidelines */}
-          <div className="bg-blue-50 p-4 rounded-lg">
+          <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800/30">
             <div className="flex items-start gap-2">
-              <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+              <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
               <div>
-                <h4 className="font-medium text-blue-900 mb-1">Upload Guidelines</h4>
-                <ul className="text-sm text-blue-800 space-y-1">
+                <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Upload Guidelines</h4>
+                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
                   <li>• Ensure your resource is original or properly attributed</li>
                   <li>• Include clear instructions for use</li>
                   <li>• Tag appropriately for easy discovery</li>

@@ -186,19 +186,23 @@ export function CommunityHub() {
                     placeholder="Search resources..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm hover:shadow-md transition-all duration-200"
                   />
                 </div>
               </div>
               
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-44 bg-white dark:bg-slate-800 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm hover:shadow-md transition-all duration-200">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white dark:bg-slate-800 border-gray-200 dark:border-gray-700 shadow-xl">
                     {categories.map(category => (
-                      <SelectItem key={category} value={category}>
+                      <SelectItem 
+                        key={category} 
+                        value={category}
+                        className="hover:bg-purple-50 dark:hover:bg-purple-900/20 focus:bg-purple-100 dark:focus:bg-purple-900/30"
+                      >
                         {category.charAt(0).toUpperCase() + category.slice(1)}
                       </SelectItem>
                     ))}
@@ -206,12 +210,16 @@ export function CommunityHub() {
                 </Select>
                 
                 <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-44 bg-white dark:bg-slate-800 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm hover:shadow-md transition-all duration-200">
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white dark:bg-slate-800 border-gray-200 dark:border-gray-700 shadow-xl">
                     {types.map(type => (
-                      <SelectItem key={type} value={type}>
+                      <SelectItem 
+                        key={type} 
+                        value={type}
+                        className="hover:bg-purple-50 dark:hover:bg-purple-900/20 focus:bg-purple-100 dark:focus:bg-purple-900/30"
+                      >
                         {type.charAt(0).toUpperCase() + type.slice(1)}
                       </SelectItem>
                     ))}
@@ -219,12 +227,16 @@ export function CommunityHub() {
                 </Select>
                 
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-44 bg-white dark:bg-slate-800 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm hover:shadow-md transition-all duration-200">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white dark:bg-slate-800 border-gray-200 dark:border-gray-700 shadow-xl">
                     {sortOptions.map(option => (
-                      <SelectItem key={option.value} value={option.value}>
+                      <SelectItem 
+                        key={option.value} 
+                        value={option.value}
+                        className="hover:bg-purple-50 dark:hover:bg-purple-900/20 focus:bg-purple-100 dark:focus:bg-purple-900/30"
+                      >
                         {option.label}
                       </SelectItem>
                     ))}

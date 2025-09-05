@@ -70,21 +70,29 @@ export function CommunityStats() {
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {stats.map((stat, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+            <Card 
+              key={index} 
+              className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group netflix-card-hover border-gradient animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <CardContent className="p-6">
                 <div className="flex justify-center mb-3">
-                  <stat.icon className="h-8 w-8 text-purple-600" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <stat.icon className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors" />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+                <div className="text-3xl font-black text-gray-900 dark:text-white mb-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-600 mb-2">
+                <div className="text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">
                   {stat.label}
                 </div>
-                <div className={`text-xs font-medium ${
-                  stat.changeType === 'positive' ? 'text-green-600' : 'text-red-600'
+                <div className={`text-xs font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${
+                  stat.changeType === 'positive' 
+                    ? 'text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30' 
+                    : 'text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-900/30'
                 }`}>
-                  <TrendingUp className="h-3 w-3 inline mr-1" />
+                  <TrendingUp className="h-3 w-3" />
                   {stat.change} this month
                 </div>
               </CardContent>
@@ -128,10 +136,14 @@ export function CommunityStats() {
                 avatar: 'ER'
               }
             ].map((contributor, index) => (
-              <Card key={index} className="text-center">
+              <Card 
+                key={index} 
+                className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group netflix-card-hover animate-fade-in"
+                style={{ animationDelay: `${(index + 6) * 0.1}s` }}
+              >
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-purple-600">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg ring-4 ring-purple-50 dark:ring-purple-900/20">
+                    <span className="text-xl font-bold text-purple-600 dark:text-purple-400">
                       {contributor.avatar}
                     </span>
                   </div>
