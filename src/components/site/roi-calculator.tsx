@@ -35,7 +35,7 @@ export function ROICalculator() {
       <CardContent className="space-y-8">
         {/* Input Controls */}
         <div className="space-y-6">
-          <div className="space-y-3">
+          <div className="space-y-3 pb-6 border-b border-green-200 dark:border-green-700">
             <label className="text-sm font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
               <span>Students in your class: {classSize[0]}</span>
             </label>
@@ -53,7 +53,7 @@ export function ROICalculator() {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 pb-6 border-b border-green-200 dark:border-green-700">
             <label className="text-sm font-semibold text-gray-900 dark:text-gray-100">
               Parent messages per week: {messagesPerWeek[0]}
             </label>
