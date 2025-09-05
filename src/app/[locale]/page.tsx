@@ -12,6 +12,9 @@ import ZaraClient from '@/components/zara/ZaraClient';
 import { ROICalculator } from '@/components/site/roi-calculator';
 import { StickyCTA } from '@/components/site/sticky-cta';
 import { SecurityBadges } from '@/components/site/security-badges';
+import { SocialProofCounter } from '@/components/cro/social-proof-counter';
+import { UrgencyBanner } from '@/components/cro/urgency-banner';
+import { ExitIntentModal } from '@/components/cro/exit-intent-modal';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -880,6 +883,11 @@ export default async function HomePage({params}: Props) {
       
       {/* Zara Assistant Launcher */}
       <ZaraClient />
+      
+      {/* CRO Elements */}
+      <SocialProofCounter />
+      <UrgencyBanner />
+      <ExitIntentModal />
     </div>
   );
 }
