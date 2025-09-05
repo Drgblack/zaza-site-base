@@ -107,17 +107,9 @@ export function ResourceLibrary() {
 
   const handleDownload = (resource: Resource) => {
     try {
-      // Create a link element
-      const link = document.createElement('a');
-      link.href = resource.downloadUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      
       // For HTML resources, open in new tab to display content
       if (resource.downloadUrl.endsWith('.html')) {
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open(resource.downloadUrl, '_blank', 'noopener,noreferrer');
       }
       // For PDF files, try to trigger download
       else if (resource.type === 'PDF' || resource.downloadUrl.endsWith('.pdf')) {
@@ -130,6 +122,11 @@ export function ResourceLibrary() {
           return;
         }
         
+        // Create download link for actual PDF files
+        const link = document.createElement('a');
+        link.href = resource.downloadUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
         const filename = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.pdf';
         link.download = filename;
         document.body.appendChild(link);
@@ -138,9 +135,7 @@ export function ResourceLibrary() {
       }
       // Default: open in new tab
       else {
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open(resource.downloadUrl, '_blank', 'noopener,noreferrer');
       }
       
       // Track access
@@ -149,6 +144,22 @@ export function ResourceLibrary() {
       console.error('Resource access failed:', error);
       // Fallback: open in new tab
       window.open(resource.downloadUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handlePrintToPDF = (resource: Resource) => {
+    try {
+      // Open print dialog for PDF conversion - no additional window opening
+      const printWindow = window.open(resource.downloadUrl, '_blank', 'width=800,height=600');
+      if (printWindow) {
+        printWindow.onload = () => {
+          setTimeout(() => {
+            printWindow.print();
+          }, 500);
+        };
+      }
+    } catch (error) {
+      console.error('Print to PDF failed:', error);
     }
   };
 
@@ -268,16 +279,7 @@ export function ResourceLibrary() {
                           )}
                           {resource.downloadUrl.endsWith('.html') && (
                             <Button 
-                              onClick={() => {
-                                const printWindow = window.open(resource.downloadUrl, '_blank');
-                                if (printWindow) {
-                                  printWindow.onload = () => {
-                                    setTimeout(() => {
-                                      printWindow.print();
-                                    }, 500);
-                                  };
-                                }
-                              }}
+                              onClick={() => handlePrintToPDF(resource)}
                               variant="outline" 
                               className="w-full border-green-200 dark:border-green-600 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950"
                               size="sm"
@@ -398,16 +400,7 @@ export function ResourceLibrary() {
                             )}
                             {resource.downloadUrl.endsWith('.html') && (
                               <Button 
-                                onClick={() => {
-                                  const printWindow = window.open(resource.downloadUrl, '_blank');
-                                  if (printWindow) {
-                                    printWindow.onload = () => {
-                                      setTimeout(() => {
-                                        printWindow.print();
-                                      }, 500);
-                                    }
-                                  }
-                                }}
+                                onClick={() => handlePrintToPDF(resource)}
                                 variant="outline" 
                                 className="w-full border-green-200 dark:border-green-600 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950"
                                 size="sm"
