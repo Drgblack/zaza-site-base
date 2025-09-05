@@ -32,7 +32,7 @@ interface Resource {
 }
 
 const resources: Resource[] = [
-  // Featured Resources - The 4 main ones with rich HTML content
+  // Featured Resources - Only resources with REAL content
   {
     id: '1',
     title: '50 Ready-to-Use Parent Comments',
@@ -80,251 +80,6 @@ const resources: Resource[] = [
     size: '745 KB',
     downloads: 3021,
     featured: true
-  },
-
-  // Additional Resources
-  {
-    id: '5',
-    title: 'AI Grading & Feedback Prompts',
-    description: 'Complete collection of prompts for generating personalized student feedback using AI tools.',
-    category: 'Lesson Tools',
-    type: 'PDF',
-    thumbnail: '/resources/ai-grading-prompts.pdf',
-    downloadUrl: '/resources/ai-grading-prompts.pdf',
-    size: '2.4 MB',
-    downloads: 1247
-  },
-  {
-    id: '6',
-    title: 'AI Quiz Generator Guide',
-    description: 'Step-by-step guide to creating engaging quizzes and assessments with AI.',
-    category: 'Lesson Tools',
-    type: 'Guide',
-    thumbnail: '/resources/ai-quiz-generator-guide.pdf',
-    downloadUrl: '/resources/ai-quiz-generator-guide.pdf',
-    size: '3.2 MB',
-    downloads: 673
-  },
-  {
-    id: '7',
-    title: 'Teacher Time-Saving Checklist',
-    description: 'Daily and weekly checklist to maximize your efficiency with AI tools.',
-    category: 'Wellbeing',
-    type: 'Checklist',
-    thumbnail: '/resources/ai-time-saving-guide.pdf',
-    downloadUrl: '/resources/ai-time-saving-guide.pdf',
-    size: '1.2 MB',
-    downloads: 1089
-  },
-  {
-    id: '8',
-    title: 'Assessment Rubric Builder',
-    description: 'Customizable templates for creating comprehensive assessment rubrics.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/assessment-rubric-template.pdf',
-    downloadUrl: '/resources/assessment-rubric-template.pdf',
-    size: '2.1 MB',
-    downloads: 756
-  },
-  {
-    id: '9',
-    title: 'Classroom Behavior Management',
-    description: 'Proven strategies for managing classroom behavior with positive reinforcement.',
-    category: 'Lesson Tools',
-    type: 'Guide',
-    thumbnail: '/resources/behavior-strategies.pdf',
-    downloadUrl: '/resources/behavior-strategies.pdf',
-    size: '2.8 MB',
-    downloads: 534
-  },
-
-  // Lesson Planning & Templates
-  {
-    id: '10',
-    title: 'Primary School Lesson Plan Template',
-    description: 'Customizable lesson plan template designed for elementary educators with guided sections.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/lesson-plan-template-primary.pdf',
-    downloadUrl: '/resources/lesson-plan-template-primary.pdf',
-    size: '1.8 MB',
-    downloads: 892
-  },
-  {
-    id: '11',
-    title: 'Secondary Lesson Plan Template',
-    description: 'Professional lesson planning template for middle and high school teachers.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/lesson-plan-template-secondary.pdf',
-    downloadUrl: '/resources/lesson-plan-template-secondary.pdf',
-    size: '2.0 MB',
-    downloads: 743
-  },
-  {
-    id: '12',
-    title: 'Weekly Lesson Planner Template',
-    description: 'Organize your week with this comprehensive planning template and time management guide.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/weekly-lesson-planner.pdf',
-    downloadUrl: '/resources/weekly-lesson-planner.pdf',
-    size: '1.5 MB',
-    downloads: 1234
-  },
-  {
-    id: '13',
-    title: 'Project-Based Learning Planning Toolkit',
-    description: 'Complete toolkit for designing and managing PBL experiences with student engagement strategies.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/project-based-learning-planner.pdf',
-    downloadUrl: '/resources/project-based-learning-planner.pdf',
-    size: '3.1 MB',
-    downloads: 567
-  },
-
-  // Assessment & Feedback
-  {
-    id: '14',
-    title: 'Formative Assessment Strategies Checklist',
-    description: 'Practical checklist of formative assessment techniques for daily classroom use.',
-    category: 'Assessment',
-    type: 'Checklist',
-    thumbnail: '/resources/formative-assessment-checklist.pdf',
-    downloadUrl: '/resources/formative-assessment-checklist.pdf',
-    size: '1.3 MB',
-    downloads: 945
-  },
-  {
-    id: '15',
-    title: '100 Student Feedback Comments Bank',
-    description: 'Bank of constructive feedback comments to save time and improve quality of student responses.',
-    category: 'Assessment',
-    type: 'PDF',
-    thumbnail: '/resources/student-feedback-bank.pdf',
-    downloadUrl: '/resources/student-feedback-bank.pdf',
-    size: '2.2 MB',
-    downloads: 1456
-  },
-
-  // Classroom Management
-  {
-    id: '16',
-    title: '10 Time-Saving Classroom Routines',
-    description: 'Proven routines to streamline your classroom management and maximize learning time.',
-    category: 'Lesson Tools',
-    type: 'Guide',
-    thumbnail: '/resources/classroom-routines.pdf',
-    downloadUrl: '/resources/classroom-routines.pdf',
-    size: '1.7 MB',
-    downloads: 1123
-  },
-  {
-    id: '17',
-    title: 'Group Work & Collaboration Templates',
-    description: 'Ready-to-use templates for managing effective group activities and cooperative learning.',
-    category: 'Lesson Tools',
-    type: 'Template',
-    thumbnail: '/resources/group-work-tools.pdf',
-    downloadUrl: '/resources/group-work-tools.pdf',
-    size: '1.9 MB',
-    downloads: 687
-  },
-  {
-    id: '18',
-    title: 'Parent Meeting & Conference Checklist',
-    description: 'Comprehensive checklist to ensure productive parent conferences and documentation.',
-    category: 'Parent Communication',
-    type: 'Checklist',
-    thumbnail: '/resources/parent-meeting-checklist.pdf',
-    downloadUrl: '/resources/parent-meeting-checklist.pdf',
-    size: '1.1 MB',
-    downloads: 834
-  },
-
-  // Teacher Wellbeing & Growth
-  {
-    id: '19',
-    title: 'Teacher Self-Care Quick Wins Guide',
-    description: 'Practical self-care strategies that fit into a busy teacher schedule with actionable tips.',
-    category: 'Wellbeing',
-    type: 'Guide',
-    thumbnail: '/resources/teacher-self-care-guide.pdf',
-    downloadUrl: '/resources/teacher-self-care-guide.pdf',
-    size: '1.8 MB',
-    downloads: 1567
-  },
-  {
-    id: '20',
-    title: 'Professional Growth & Reflection Planner',
-    description: 'Tools for planning and tracking your professional development journey throughout the year.',
-    category: 'Wellbeing',
-    type: 'Template',
-    thumbnail: '/resources/teacher-growth-planner.pdf',
-    downloadUrl: '/resources/teacher-growth-planner.pdf',
-    size: '2.0 MB',
-    downloads: 445
-  },
-
-  // AI & Technology Integration
-  {
-    id: '21',
-    title: 'Essential AI Toolkit for Teachers',
-    description: 'Complete collection of AI prompts and tools for lesson planning, grading, and communication.',
-    category: 'AI Tools',
-    type: 'PDF',
-    thumbnail: '/resources/teacher-ai-toolkit.pdf',
-    downloadUrl: '/resources/teacher-ai-toolkit.pdf',
-    size: '3.5 MB',
-    downloads: 2134
-  },
-  {
-    id: '22',
-    title: 'AI for Differentiated Student Support',
-    description: 'Strategies and prompts for using AI to support diverse learning needs and accommodation planning.',
-    category: 'AI Tools',
-    type: 'Guide',
-    thumbnail: '/resources/ai-student-support.pdf',
-    downloadUrl: '/resources/ai-student-support.pdf',
-    size: '2.7 MB',
-    downloads: 789
-  },
-  {
-    id: '23',
-    title: 'Future of Teaching in an AI World',
-    description: 'Insights and predictions for how AI will transform education and classroom practice.',
-    category: 'AI Tools',
-    type: 'Guide',
-    thumbnail: '/resources/future-of-teaching.pdf',
-    downloadUrl: '/resources/future-of-teaching.pdf',
-    size: '2.3 MB',
-    downloads: 623
-  },
-
-  // Best Practices & Case Studies
-  {
-    id: '24',
-    title: 'Teaching Best Practices Compendium',
-    description: 'Comprehensive collection of research-backed teaching strategies and implementation guides.',
-    category: 'Best Practices',
-    type: 'PDF',
-    thumbnail: '/resources/best-practices-guide.pdf',
-    downloadUrl: '/resources/best-practices-guide.pdf',
-    size: '4.1 MB',
-    downloads: 1045
-  },
-  {
-    id: '25',
-    title: 'Classroom Success Case Studies',
-    description: 'Real classroom examples and case studies showing effective teaching strategies in action.',
-    category: 'Best Practices',
-    type: 'PDF',
-    thumbnail: '/resources/case-studies.pdf',
-    downloadUrl: '/resources/case-studies.pdf',
-    size: '3.8 MB',
-    downloads: 567
   }
 ];
 
@@ -514,20 +269,21 @@ export function ResourceLibrary() {
                           {resource.downloadUrl.endsWith('.html') && (
                             <Button 
                               onClick={() => {
-                                const link = document.createElement('a');
-                                link.href = resource.downloadUrl;
-                                link.download = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.html';
-                                link.target = '_blank';
-                                document.body.appendChild(link);
-                                link.click();
-                                document.body.removeChild(link);
+                                const printWindow = window.open(resource.downloadUrl, '_blank');
+                                if (printWindow) {
+                                  printWindow.onload = () => {
+                                    setTimeout(() => {
+                                      printWindow.print();
+                                    }, 500);
+                                  };
+                                }
                               }}
                               variant="outline" 
-                              className="w-full border-purple-200 dark:border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950"
+                              className="w-full border-green-200 dark:border-green-600 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950"
                               size="sm"
                             >
                               <Download className="h-4 w-4 mr-2" />
-                              Download HTML
+                              Save as PDF
                             </Button>
                           )}
                         </div>
@@ -641,44 +397,24 @@ export function ResourceLibrary() {
                               </p>
                             )}
                             {resource.downloadUrl.endsWith('.html') && (
-                              <div className="grid grid-cols-2 gap-2">
-                                <Button 
-                                  onClick={() => {
-                                    const link = document.createElement('a');
-                                    link.href = resource.downloadUrl;
-                                    link.download = resource.title.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '_').toLowerCase() + '.html';
-                                    link.target = '_blank';
-                                    document.body.appendChild(link);
-                                    link.click();
-                                    document.body.removeChild(link);
-                                  }}
-                                  variant="outline" 
-                                  className="border-purple-200 dark:border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950"
-                                  size="sm"
-                                >
-                                  <Download className="h-4 w-4 mr-2" />
-                                  HTML
-                                </Button>
-                                <Button 
-                                  onClick={() => {
-                                    // Open print dialog which allows saving as PDF
-                                    const printWindow = window.open(resource.downloadUrl, '_blank');
-                                    if (printWindow) {
-                                      printWindow.onload = () => {
-                                        setTimeout(() => {
-                                          printWindow.print();
-                                        }, 500);
-                                      };
+                              <Button 
+                                onClick={() => {
+                                  const printWindow = window.open(resource.downloadUrl, '_blank');
+                                  if (printWindow) {
+                                    printWindow.onload = () => {
+                                      setTimeout(() => {
+                                        printWindow.print();
+                                      }, 500);
                                     }
-                                  }}
-                                  variant="outline" 
-                                  className="border-red-200 dark:border-red-600 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950"
-                                  size="sm"
-                                >
-                                  <Download className="h-4 w-4 mr-2" />
-                                  PDF
-                                </Button>
-                              </div>
+                                  }
+                                }}
+                                variant="outline" 
+                                className="w-full border-green-200 dark:border-green-600 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950"
+                                size="sm"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Save as PDF
+                              </Button>
                             )}
                           </div>
                         </div>

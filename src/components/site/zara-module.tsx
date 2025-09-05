@@ -169,19 +169,21 @@ Would you like me to elaborate on any of these points or help you with something
 
 Would you like me to dive deeper into any particular aspect?`,
       
-      resources: `I can definitely help you with "${userInput}"! Here are some resources and approaches:
+      resources: `I can help you with "${userInput}"! Here are some specific recommendations:
 
-**Immediate Solutions:**
-- Quick templates and frameworks you can use today
-- Step-by-step guides for implementation
-- Common pitfalls to avoid
+**From Our Resource Library:**
+- **Parent Communication**: Use our 50 Ready-to-Use Parent Comments and Email Templates
+- **Report Writing**: Try our Stress-Free Report Card Template with the Celebrate-Navigate-Partner framework
+- **Teacher Wellbeing**: Check out our 10-minute daily practices guide for reducing burnout
 
-**Long-term Strategies:**
-- Building sustainable practices
-- Creating systems that work for your specific context
-- Measuring and improving over time
+**Quick Tips:**
+- Start with one resource and adapt it to your style
+- Use the templates as starting points, not rigid rules
+- All resources above can be viewed and saved as PDF
 
-Let me know if you'd like me to focus on any specific area!`,
+**Need something specific?** Try asking: "Help me with parent emails about behavior" or "I need report writing phrases for math progress"
+
+Which resource interests you most?`,
       
       pricing: `Thanks for asking about "${userInput}"! This is exactly the kind of challenge Zaza is designed to help with:
 
@@ -227,18 +229,33 @@ Ready to transform your teaching workflow?`
               placeholder={placeholder}
               className="flex-1"
             />
-            <Button type="submit" disabled={isLoading} size="sm">
+            <Button type="submit" disabled={isLoading} size="sm" className="min-w-[60px]">
               {isLoading ? (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="flex items-center gap-1">
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                  <span className="text-xs">...</span>
+                </div>
               ) : (
                 <Send className="h-4 w-4" />
               )}
             </Button>
           </form>
           
+          {isLoading && (
+            <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 dark:border-blue-400"></div>
+                <span>Zara is thinking about your question...</span>
+              </div>
+            </div>
+          )}
+          
           {response && (
-            <div className="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
-              <p className="text-sm text-gray-700 dark:text-gray-300">{response}</p>
+            <div className="mt-3 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-start gap-2">
+                <Bot className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{response}</div>
+              </div>
             </div>
           )}
         </CardContent>
