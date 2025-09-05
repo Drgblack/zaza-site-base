@@ -48,7 +48,7 @@ export function Header() {
 
   const navigation = [
     { name: t('home'), href: '/' },
-    // { name: t('blog'), href: '/blog' }, // HIDDEN: Blog paused for maintenance
+    { name: t('blog'), href: '/blog' },
     { name: t('resources'), href: '/resources' },
     { name: 'Community', href: '/community' },
     { name: t('pricing'), href: '/pricing' },

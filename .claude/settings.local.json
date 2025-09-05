@@ -82,7 +82,11 @@
       "Bash(git checkout:*)",
       "Bash(git merge:*)",
       "Bash(git pull:*)",
-      "Bash(head:*)"
+      "Bash(head:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh pr:*)",
+      "Bash(gcloud run deploy:*)"
     ],
     "deny": []
   }

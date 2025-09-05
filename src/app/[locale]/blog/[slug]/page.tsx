@@ -1,134 +1,93 @@
-import { getAllBlog2Posts, getBlog2PostBySlug } from "@/lib/blog2.server";
-import { notFound } from "next/navigation";
-import ArticleLayout2 from "@/components/blog2/ArticleLayout2";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { mdxComponents } from "@/components/blog2/mdx-components";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import type { Metadata } from "next";
+import { setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog/service';
+import { getRelatedPosts } from '@/lib/blog/utils';
+import BlogPostHeader from '@/components/blog/BlogPostHeader';
+import BlogPostContent from '@/components/blog/BlogPostContent';
+import BlogPostFooter from '@/components/blog/BlogPostFooter';
+import RelatedPosts from '@/components/blog/RelatedPosts';
+import type { Metadata } from 'next';
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{locale: string; slug: string}>;
 };
-
-export async function generateStaticParams() {
-  const posts = getAllBlog2Posts();
-  return posts.map(post => ({
-    slug: post.slug,
-  }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlog2PostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   
   if (!post) {
     return {
-      title: 'Post Not Found',
+      title: 'Post Not Found | Zaza Blog'
     };
   }
 
   return {
-    title: `${post.title} - Zaza AI Teaching Blog`,
-    description: post.description,
-    authors: [{ name: post.author }],
-    alternates: {
-      canonical: `https://zazapromptly.com/en/blog2/${post.slug}`
-    },
+    title: post.seo.metaTitle,
+    description: post.seo.metaDescription,
+    keywords: post.seo.keywords,
+    authors: [{ name: post.author.name }],
     openGraph: {
-      title: post.title,
-      description: post.description,
-      images: [{
-        url: post.image,
-        width: 1200,
-        height: 630,
-        alt: post.title
-      }],
+      title: post.seo.metaTitle,
+      description: post.seo.metaDescription,
       type: 'article',
-      publishedTime: post.date,
-      authors: [post.author],
-      url: `https://zazapromptly.com/en/blog2/${post.slug}`
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author.name],
+      tags: post.tags,
+      images: post.seo.ogImage ? [post.seo.ogImage] : undefined
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.description,
-      images: [post.image],
-    },
+      title: post.seo.metaTitle,
+      description: post.seo.metaDescription,
+      images: post.seo.ogImage ? [post.seo.ogImage] : undefined
+    }
   };
 }
 
-export default async function Blog2PostPage({ params }: Props) {
-  const { slug } = await params;
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts();
   
-  console.log("[blog2] rendering article:", slug);
-  
-  const post = getBlog2PostBySlug(slug);
-  if (!post) return notFound();
-  
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function BlogPostPage({ params }: Props) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const [post, allPosts] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getAllBlogPosts()
+  ]);
+
+  if (!post) {
+    notFound();
+  }
+
+  const relatedPosts = getRelatedPosts(post, allPosts, 3);
+
   return (
-    <div className="min-h-screen bg-white">
-      <ArticleLayout2 post={post}>
-        <MDXRemote
-          source={post.content}
-          components={mdxComponents}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [
-                rehypeSlug,
-                [
-                  rehypeAutolinkHeadings,
-                  {
-                    behavior: 'wrap',
-                    properties: {
-                      className: ['anchor-link'],
-                    },
-                  },
-                ],
-              ],
-            },
-          }}
-        />
-      </ArticleLayout2>
-      
-      {/* JSON-LD for Article */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": post.description,
-            "image": post.image,
-            "author": {
-              "@type": "Person",
-              "name": post.author
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Zaza Technologies",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://zazapromptly.com/images/zaza-logo.png"
-              }
-            },
-            "datePublished": post.date,
-            "dateModified": post.date,
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://zazapromptly.com/en/blog2/${post.slug}`
-            },
-            "articleSection": post.category,
-            "about": {
-              "@type": "Thing",
-              "name": "AI in Education"
-            }
-          })
-        }}
-      />
-    </div>
+    <article className="min-h-screen bg-white">
+      {/* Post Header */}
+      <BlogPostHeader post={post} />
+
+      {/* Post Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <BlogPostContent post={post} />
+        
+        {/* Post Footer with sharing, etc. */}
+        <BlogPostFooter post={post} />
+        
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <div className="mt-16 pt-16 border-t border-gray-200">
+            <RelatedPosts posts={relatedPosts} />
+          </div>
+        )}
+      </div>
+    </article>
   );
 }

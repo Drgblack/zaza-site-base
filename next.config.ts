@@ -47,8 +47,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // EMERGENCY: Redirect all blog URLs to safe page
-      { source: '/:locale(en|de|fr)/blog/:slug*', destination: '/:locale/resources', permanent: false },
       {
         source: '/blog/:slug*',
         destination: '/en/blog/:slug*',
