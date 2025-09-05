@@ -43,15 +43,23 @@ export default async function BlogPage({ params, searchParams }: Props) {
   return (
     <>
       <div className="min-h-screen bg-white">
-        {/* Preview new blog banner */}
-        <div className="bg-blue-50 border-b border-blue-100">
-          <div className="max-w-6xl mx-auto px-4 py-3 text-center">
-            <a 
-              href="/en/blog2" 
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-2"
-            >
-              Preview new blog experience →
-            </a>
+        {/* Enhanced blog banner */}
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+          <div className="max-w-6xl mx-auto px-4 py-4 text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                  <span className="text-lg">✨</span>
+                </div>
+                <span className="font-semibold">New Enhanced Blog Experience!</span>
+              </div>
+              <a 
+                href="/en/blog/enhanced" 
+                className="inline-flex items-center gap-2 bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors"
+              >
+                Try it now →
+              </a>
+            </div>
           </div>
         </div>
         
