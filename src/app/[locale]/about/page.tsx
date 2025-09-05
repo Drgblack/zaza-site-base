@@ -102,33 +102,27 @@ export default async function AboutPage({params}: Props) {
 
   const milestones = [
     {
-      year: "2019",
-      title: "The Classroom Challenge",
-      description: "Greg, a PhD in Professional Education, noticed teachers spending 60% of their time on admin work instead of teaching.",
+      year: "2019–2021",
+      title: "The Realisation",
+      description: "Greg, a PhD in Professional Education with 20+ years of experience in learning and development, saw a familiar pattern: whether in classrooms or companies, teachers and trainers were spending more time on admin than on people. Family members who were teachers brought home the same story - endless hours lost to planning, marking, and paperwork.",
       icon: Target
     },
     {
-      year: "2020",
-      title: "First Prototype",
-      description: "Built the first AI writing assistant specifically for parent communication during remote learning chaos.",
+      year: "2022–2023",
+      title: "Research & Thought Leadership",
+      description: "Years of publishing and teaching thousands of organisational staff had already made one thing clear: learning flourishes when educators are free to focus on their craft. As AI tools became more accessible, the idea of building something purpose-built for teachers started to take shape.",
       icon: Lightbulb
     },
     {
-      year: "2022",
-      title: "Teacher Beta",
-      description: "500 teachers tested our MVP and saved an average of 4.5 hours per week on communication.",
+      year: "2024",
+      title: "Founding Zaza",
+      description: "Zaza Technologies was created to turn decades of insight into practical, teacher-friendly tools. Our focus: build AI that saves time without cutting corners, grounded in pedagogy, empathy, and real classroom needs.",
       icon: Users
     },
     {
-      year: "2023",
-      title: "Platform Launch",
-      description: "Launched Promptly with multi-language support and advanced tone matching for diverse classrooms.",
-      icon: Globe
-    },
-    {
-      year: "2024",
-      title: "AI Revolution",
-      description: "12,000+ teachers now use our platform, saving over 60,000 hours weekly with Zara AI Assistant.",
+      year: "2025",
+      title: "Launch Year",
+      description: "We launched our first apps - Zaza Teach and Zaza Promptly — giving teachers AI-powered lesson planning and parent communication support. What started as research and lived experience is now a reality: tools designed to help teachers thrive by reclaiming their time and energy.",
       icon: Zap
     }
   ];
@@ -136,7 +130,7 @@ export default async function AboutPage({params}: Props) {
   return (
     <div className="min-h-screen">
       {/* Animated Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/20 dark:via-slate-900 dark:to-pink-950/20 py-20 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-purple-100 via-gray-50 to-pink-100 dark:from-purple-950/20 dark:via-slate-900 dark:to-pink-950/20 py-20 lg:py-32 overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse"></div>
@@ -187,7 +181,7 @@ export default async function AboutPage({params}: Props) {
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" className="border-purple-200 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-950/50 transition-all duration-300" asChild>
+                <Button variant="outline" size="lg" className="border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/50 hover:text-purple-800 dark:hover:text-purple-200 transition-all duration-300" asChild>
                   <a href="#mission">Learn Our Mission</a>
                 </Button>
               </div>
@@ -319,7 +313,7 @@ export default async function AboutPage({params}: Props) {
               How We Got Here
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-400">
-              From classroom challenges to AI-powered solutions
+              From lifelong research to teacher-first AI
             </p>
           </div>
           
