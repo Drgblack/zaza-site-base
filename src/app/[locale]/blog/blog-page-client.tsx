@@ -1,18 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { type BlogPost } from '@/lib/blog/generated-blog-service';
+import { type SimpleBlogPost } from '@/lib/blog/simple-blog-service';
 import Link from 'next/link';
 import { Search, Clock, Filter, Bookmark, TrendingUp } from 'lucide-react';
 
 interface BlogPageClientProps {
-  posts: BlogPost[];
-  categories: Array<{ category: BlogPost['category'], count: number }>;
+  posts: SimpleBlogPost[];
+  categories: Array<{ category: SimpleBlogPost['category'], count: number }>;
   locale: string;
 }
 
 export default function BlogPageClient({ posts, categories, locale }: BlogPageClientProps) {
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(posts);
+  const [filteredPosts, setFilteredPosts] = useState<SimpleBlogPost[]>(posts);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedPosts, setSavedPosts] = useState<string[]>([]);
