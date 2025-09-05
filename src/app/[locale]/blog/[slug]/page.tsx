@@ -67,12 +67,38 @@ export default async function BlogPostPage({ params }: Props) {
             ← Back to Blog
           </Link>
 
-          {/* Category Badge */}
-          <div className="mb-4">
-            <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${post.category.color}`}>
-              {post.category.name}
-            </span>
-          </div>
+          {/* Hero Image */}
+          {post.image && (
+            <div className="relative mb-8 rounded-xl overflow-hidden">
+              <img 
+                src={post.image} 
+                alt={post.title}
+                className="w-full h-64 md:h-96 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div className="absolute bottom-6 left-6">
+                <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${post.category.color} mr-3`}>
+                  <span className="mr-1">{post.category.icon}</span>
+                  {post.category.name}
+                </span>
+                {post.featured && (
+                  <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    ⭐ Featured
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Category Badge (fallback if no image) */}
+          {!post.image && (
+            <div className="mb-4">
+              <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${post.category.color}`}>
+                <span className="mr-1">{post.category.icon}</span>
+                {post.category.name}
+              </span>
+            </div>
+          )}
 
           {/* Title */}
           <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">

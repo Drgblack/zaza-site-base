@@ -1,44 +1,8 @@
-// Generated blog service using build-time data
-import blogData from './blog-data.json';
+// Generated blog service using TypeScript data
+import { allBlogPosts, type BlogPost } from './blog-data';
 
-export interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  content: string;
-  fullContent: string;
-  publishedAt: string;
-  author: {
-    name: string;
-    bio: string;
-    avatar: string;
-    role: string;
-  };
-  readingTime: number;
-  category: {
-    name: string;
-    slug: string;
-    color: string;
-    icon: string;
-    description: string;
-  };
-  tags: string[];
-  gradeLevels: string[];
-  featured: boolean;
-  image: string | null;
-  seo: {
-    metaTitle?: string;
-    metaDescription?: string;
-    keywords?: string[];
-  };
-  difficulty: string;
-  isVideo: boolean;
-  videoUrl: string | null;
-}
-
-// Type the imported data
-const typedBlogData = blogData as BlogPost[];
+// Use the TypeScript data instead of JSON import
+const typedBlogData = allBlogPosts;
 
 // Get all blog posts
 export async function getAllBlogPosts(): Promise<BlogPost[]> {

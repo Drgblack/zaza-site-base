@@ -141,18 +141,41 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
               key={post.id}
               className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group"
             >
-              {/* Card Image/Category Header */}
-              <div className={`h-3 ${post.category.color}`}></div>
+              {/* Hero Image */}
+              {post.image && (
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-white text-xs font-medium ${post.category.color}`}>
+                    <span className="mr-1">{post.category.icon}</span>
+                    {post.category.name}
+                  </div>
+                  {post.featured && (
+                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                      ⭐ Featured
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {/* Category Header (fallback if no image) */}
+              {!post.image && <div className={`h-3 ${post.category.color}`}></div>}
               
               <div className="p-6">
                 {/* Category & Save Button */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{post.category.icon}</span>
-                    <span className="text-sm font-medium text-gray-600">
-                      {post.category.name}
-                    </span>
-                  </div>
+                  {!post.image && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">{post.category.icon}</span>
+                      <span className="text-sm font-medium text-gray-600">
+                        {post.category.name}
+                      </span>
+                    </div>
+                  )}
+                  {post.image && <div></div>} {/* Spacer when image is present */}
                   
                   <button
                     onClick={() => toggleSavePost(post.id)}
