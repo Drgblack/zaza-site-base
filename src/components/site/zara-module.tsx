@@ -70,32 +70,12 @@ export function ZaraModule({
     setIsKnowledgeEnhanced(false);
     
     try {
-      // First, apply safety filtering
-      const safetyResult = await aiServices.safety.scanContent(input);
+      // Simulate thinking time
+      await new Promise(resolve => setTimeout(resolve, 800));
       
-      let processedInput = input;
-      if (!safetyResult.isApproved) {
-        processedInput = await aiServices.safety.neutralizeSensitiveContent(input);
-      }
-      
-      // Generate enhanced response if KnowledgeCore is active
-      let enhancedResponse = '';
-      if (knowledgeCoreActive) {
-        try {
-          // This would use actual user knowledge in production
-          enhancedResponse = await generateKnowledgeEnhancedResponse(processedInput, context);
-          setIsKnowledgeEnhanced(true);
-        } catch (error) {
-          console.error('KnowledgeCore enhancement failed:', error);
-        }
-      }
-      
-      // Fallback to standard responses if enhancement fails or KC is inactive
-      if (!enhancedResponse) {
-        enhancedResponse = getStandardResponse(processedInput, context);
-      }
-      
-      setResponse(enhancedResponse);
+      // Generate response based on context
+      const response = getStandardResponse(input.trim(), context);
+      setResponse(response);
       
     } catch (error) {
       console.error('Zara response error:', error);
@@ -169,40 +149,25 @@ Would you like me to elaborate on any of these points or help you with something
 
 Would you like me to dive deeper into any particular aspect?`,
       
-      resources: `I can help you find the perfect resource for "${userInput}"! We have **27 educational resources** available:
+      resources: `I can help you find the perfect resource for "${userInput}"! We have **10 high-quality educational resources** with verified content:
 
-**🤖 AI Tools (6 resources):**
-- AI Grading Prompts That Save Hours
-- AI-Powered Parent Communication
-- Complete Teacher AI Toolkit
-- AI Time-Saving Guide
-
-**📚 Lesson Planning (5 resources):**
-- Primary & Secondary Lesson Plan Templates
-- Weekly Lesson Planner
-- Project-Based Learning Planner
-
-**📝 Assessment Tools (3 resources):**
-- Stress-Free Report Card Template
-- Assessment Rubric Templates
-- Student Feedback Bank
-
-**👨‍👩‍👧‍👦 Parent Communication (3 resources):**
+**🌟 Featured Interactive Resources (5 HTML guides):**
 - 50 Ready-to-Use Parent Comments
-- Never Send a Stressful Parent Email Again
-- Parent Meeting Checklist
-
-**🌟 Teacher Wellbeing (4 resources):**
+- Stress-Free Report Card Template  
 - Teacher Wellbeing in 10 Minutes a Day
-- Self-Care Guide
-- Classroom Routines That Work
+- Never Send a Stressful Parent Email Again
+- Video Teaching Guide Series
 
-**✨ Best Practices (6 resources):**
-- Behavior Management Strategies
-- Teaching Best Practices Guide
-- Educational Case Studies
+**📖 Professional PDF Resources (5 proven tools):**
+- 10 AI Prompts for Parent Communication
+- Essential AI Prompt Toolkit for Teachers
+- Primary School Lesson Plan Template
+- Teacher Self-Care Guide: Quick Wins
+- 10 Classroom Routines That Save Time
 
-**Browse by category above or tell me what specific challenge you're facing!**`,
+**All resources contain real, actionable content** created by educators for educators. Each can be viewed online and saved as PDF.
+
+**What's your biggest teaching challenge right now?** I can recommend the perfect resource!`,
       
       pricing: `Thanks for asking about "${userInput}"! This is exactly the kind of challenge Zaza is designed to help with:
 
