@@ -52,21 +52,6 @@ const nextConfig: NextConfig = {
         destination: '/en/blog/:slug*',
         permanent: true,
       },
-      {
-        source: '/blog/critical-thinking',
-        destination: '/en/blog/critical-thinking-in-ai-classroom',
-        permanent: true,
-      },
-      {
-        source: '/blog/phd-insights',
-        destination: '/en/blog/phd-insights-ai-pedagogy',
-        permanent: true,
-      },
-      {
-        source: '/blog/future-classroom',
-        destination: '/en/blog/future-classroom-ai-tools',
-        permanent: true,
-      },
     ];
   },
 };
