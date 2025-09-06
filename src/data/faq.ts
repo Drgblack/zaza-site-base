@@ -51,15 +51,15 @@ export const faqData: FAQItem[] = [
     id: 'getting-started-what-is-promptly',
     category: 'getting-started',
     question: 'What is Zaza Promptly?',
-    answer: 'Zaza Promptly is a teacher-friendly writing assistant that helps you draft clear, caring parent messages in minutes. It suggests phrasing, tone, translations, and helpful closing lines so you can spend less time writing and more time teaching.',
-    keywords: ['zaza promptly', 'writing assistant', 'teacher tool', 'parent messages', 'what is promptly']
+    answer: 'Zaza Promptly is a teacher-friendly communication assistant for schools. It helps you draft clear, caring messages for parents and caregivers, students, colleagues, and your wider school community. Use it for quick replies, sensitive updates, report comments, newsletters, staff notes, and announcements - with tone, translation, and guardrails that fit education.',
+    keywords: ['promptly overview', 'what is promptly', 'teacher communication', 'education ai assistant', 'parent messages', 'student messages', 'staff announcements', 'newsletters']
   },
   {
     id: 'getting-started-who-for',
     category: 'getting-started',
     question: 'Who is Promptly for?',
-    answer: 'Teachers and school staff who write to parents and caregivers. It\'s perfect for quick replies, sensitive updates, reminders, and report comments.',
-    keywords: ['teachers', 'school staff', 'parents', 'caregivers', 'who can use']
+    answer: 'Teachers and school staff who need to communicate with parents and caregivers, students, colleagues, and community partners. It is great for everyday replies, reminders, sensitive topics, report comments, class updates, newsletters, meeting notes, and policy-aligned announcements.',
+    keywords: ['teachers', 'school staff', 'parents', 'students', 'colleagues', 'community', 'communication use cases']
   },
   {
     id: 'getting-started-sign-up',
@@ -137,8 +137,8 @@ export const faqData: FAQItem[] = [
     id: 'writing-features-vs-chatgpt',
     category: 'writing-features',
     question: 'Why not just use ChatGPT?',
-    answer: 'ChatGPT is general-purpose. Promptly is built for teacher-to-parent messages, so it is faster and safer for your workflow. You get classroom-ready templates, sensitive-topic guidance, tone presets that sound like a caring teacher, parent-friendly translations, policy reminders, a reusable message library, and guardrails that avoid made-up details. The result - fewer prompts, quicker drafts, and messages that match school expectations and privacy needs.',
-    keywords: ['ChatGPT comparison', 'teacher-specific', 'classroom-ready', 'templates', 'policy reminders', 'privacy needs', 'school expectations']
+    answer: 'ChatGPT is general-purpose. Promptly is tuned for education workflows - not just teacher-to-parent. You get classroom-ready templates for parents, students, staff, and community updates, sensitive-topic guidance, tone presets that sound like a caring teacher, parent-friendly translations, policy reminders, a reusable message library, and guardrails that avoid made-up details. Result - fewer prompts, quicker drafts, and consistent messages that fit school expectations and privacy needs.',
+    keywords: ['chatgpt vs promptly', 'ai for teachers', 'education workflows', 'guardrails', 'templates']
   },
 
   // Classroom & Pedagogy
@@ -168,7 +168,7 @@ export const faqData: FAQItem[] = [
     category: 'classroom-pedagogy',
     question: 'Is using Promptly "cheating"?',
     answer: 'No. Promptly is a professional writing assistant for teachers - like a translator, style guide, or spell-check. You provide the facts, judgment, and intent. Promptly helps with clarity, tone, and translations, but you review and decide what to send. Follow your school\'s policy. If disclosure is required, add a short note like "Drafted with AI assistance." Avoid sharing more personal data than needed and keep messages factual and respectful.',
-    keywords: ['cheating', 'professional writing assistant', 'translator', 'style guide', 'facts', 'judgment', 'school policy', 'AI assistance', 'disclosure']
+    keywords: ['ai ethics', 'academic integrity', 'school policy', 'disclosure', 'ai assistance']
   },
 
   // Accounts & Billing
