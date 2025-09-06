@@ -65,8 +65,8 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
   };
 
   // Get subject and grade styling
-  const primarySubject = post.subjects[0];
-  const primaryGrade = post.gradeBands[0];
+  const primarySubject = post.subjects?.[0] || 'general';
+  const primaryGrade = post.gradeBands?.[0] || 'k-2';
   
   const subjectColors: Record<string, string> = {
     'math': 'bg-blue-500',
@@ -211,13 +211,13 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
                   <Users className="w-5 h-5 text-purple-600" />
                   <div>
                     <div className="text-sm text-gray-600">Grade Bands</div>
-                    <div className="font-medium">{post.gradeBands.join(', ').toUpperCase()}</div>
+                    <div className="font-medium">{post.gradeBands?.join(', ').toUpperCase() || 'K-2'}</div>
                   </div>
                 </div>
               </div>
 
               {/* Quick Actions */}
-              {post.downloads.length > 0 && (
+              {post.downloads && post.downloads.length > 0 && (
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <h4 className="font-medium text-gray-900 mb-3">Quick Actions</h4>
                   <div className="space-y-2">
@@ -268,7 +268,7 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
             </div>
 
             {/* Key Takeaways */}
-            {post.keyTakeaways.length > 0 && (
+            {post.keyTakeaways && post.keyTakeaways.length > 0 && (
               <div className="bg-green-50 rounded-xl p-6 border border-green-200">
                 <div className="flex items-center gap-2 mb-4">
                   <CheckCircle className="w-5 h-5 text-green-600" />
@@ -286,7 +286,7 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
             )}
 
             {/* Materials Needed */}
-            {post.materials.length > 0 && (
+            {post.materials && post.materials.length > 0 && (
               <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                 <h3 className="font-bold text-gray-900 mb-4">📋 Materials Needed</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -305,7 +305,7 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
             )}
 
             {/* Standards */}
-            {post.standards.length > 0 && (
+            {post.standards && post.standards.length > 0 && (
               <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                 <h3 className="font-bold text-gray-900 mb-4">📚 Standards Alignment</h3>
                 <div className="flex flex-wrap gap-2">
@@ -356,7 +356,7 @@ export default function TeacherBlogPostPage({ post, locale }: TeacherBlogPostPag
             </div>
 
             {/* Tags */}
-            {post.tags.length > 0 && (
+            {post.tags && post.tags.length > 0 && (
               <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                 <h3 className="font-medium text-gray-900 mb-3">🏷️ Tags</h3>
                 <div className="flex flex-wrap gap-2">

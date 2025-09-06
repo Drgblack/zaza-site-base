@@ -46,8 +46,8 @@ export default function TeacherBlogCard({
   };
 
   // Get primary subject and grade band for display
-  const primarySubject = post.subjects[0];
-  const primaryGrade = post.gradeBands[0];
+  const primarySubject = post.subjects?.[0] || 'general';
+  const primaryGrade = post.gradeBands?.[0] || 'k-2';
   
   // Content type styling
   const contentTypeStyles = {
@@ -145,7 +145,7 @@ export default function TeacherBlogCard({
         </h2>
         
         {/* Key Takeaways Preview */}
-        {post.keyTakeaways.length > 0 && (
+        {post.keyTakeaways && post.keyTakeaways.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center gap-1 text-sm font-medium text-gray-600 mb-2">
               <CheckCircle className="w-4 h-4 text-green-500" />
@@ -192,14 +192,14 @@ export default function TeacherBlogCard({
               {post.readingTime} min read
             </span>
             
-            {post.materials.length > 0 && (
+            {post.materials && post.materials.length > 0 && (
               <span className="flex items-center gap-1">
                 <BookOpen className="w-4 h-4" />
                 {post.materials.length} materials
               </span>
             )}
             
-            {post.downloads.length > 0 && (
+            {post.downloads && post.downloads.length > 0 && (
               <span className="flex items-center gap-1 text-green-600">
                 <Download className="w-4 h-4" />
                 Downloads
@@ -213,7 +213,7 @@ export default function TeacherBlogCard({
         </div>
         
         {/* Standards Tags */}
-        {post.standards.length > 0 && (
+        {post.standards && post.standards.length > 0 && (
           <div className="mb-4">
             <div className="text-xs font-medium text-gray-600 mb-2">Standards:</div>
             <div className="flex flex-wrap gap-1">
@@ -235,7 +235,7 @@ export default function TeacherBlogCard({
         )}
         
         {/* Tags */}
-        {post.tags.length > 0 && (
+        {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {post.tags.slice(0, 4).map((tag) => (
               <span

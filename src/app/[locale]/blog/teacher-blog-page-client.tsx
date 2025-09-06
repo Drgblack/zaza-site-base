@@ -1,24 +1,28 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BlogFilter } from '@/lib/blog/teacher-blog-types';
-import { getAllTeacherBlogPosts, getFilterOptions } from '@/lib/blog/teacher-blog-service';
+import { BlogFilter, TeacherBlogPost } from '@/lib/blog/teacher-blog-types';
 import TeacherBlogCard from '@/components/blog/teacher-blog-card';
 import TeacherBlogFilters from '@/components/blog/teacher-blog-filters';
 import { Star, TrendingUp, BookOpen, Clock } from 'lucide-react';
 
 interface TeacherBlogPageClientProps {
   locale: string;
+  initialPosts: TeacherBlogPost[];
+  availableFilters: {
+    subjects: Array<{ value: any; label: string; count: number }>;
+    gradeBands: Array<{ value: any; label: string; count: number }>;
+    contentTypes: Array<{ value: any; label: string; count: number }>;
+  };
 }
 
-export default function TeacherBlogPageClient({ locale }: TeacherBlogPageClientProps) {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<any[]>([]);
-  const [availableFilters, setAvailableFilters] = useState<any>({
-    subjects: [],
-    gradeBands: [],
-    contentTypes: []
-  });
+export default function TeacherBlogPageClient({ 
+  locale, 
+  initialPosts, 
+  availableFilters 
+}: TeacherBlogPageClientProps) {
+  const [posts] = useState<TeacherBlogPost[]>(initialPosts);
+  const [filteredPosts, setFilteredPosts] = useState<TeacherBlogPost[]>(initialPosts);
   const [currentFilter, setCurrentFilter] = useState<BlogFilter>({
     subjects: [],
     gradeBands: [],
@@ -26,32 +30,8 @@ export default function TeacherBlogPageClient({ locale }: TeacherBlogPageClientP
     readingTime: []
   });
   const [savedPosts, setSavedPosts] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Load data
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const [allPosts, filterOptions] = await Promise.all([
-          getAllTeacherBlogPosts(),
-          getFilterOptions()
-        ]);
-        
-        setPosts(allPosts);
-        setFilteredPosts(allPosts);
-        setAvailableFilters(filterOptions);
-      } catch (err) {
-        console.error('Error loading blog data:', err);
-        setError('Failed to load blog posts. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
+  const [loading] = useState(false);
+  const [error] = useState<string | null>(null);
 
   // Load saved posts from localStorage
   useEffect(() => {
@@ -61,19 +41,57 @@ export default function TeacherBlogPageClient({ locale }: TeacherBlogPageClientP
     }
   }, []);
 
-  // Apply filters
+  // Apply filters client-side
   useEffect(() => {
-    const applyFilters = async () => {
-      try {
-        const filtered = await getAllTeacherBlogPosts(currentFilter);
-        setFilteredPosts(filtered);
-      } catch (err) {
-        console.error('Error applying filters:', err);
-      }
-    };
+    let filtered = posts;
+    
+    if (currentFilter.subjects.length > 0) {
+      filtered = filtered.filter(post => 
+        post.subjects.some(subject => currentFilter.subjects.includes(subject))
+      );
+    }
+    
+    if (currentFilter.gradeBands.length > 0) {
+      filtered = filtered.filter(post => 
+        post.gradeBands.some(grade => currentFilter.gradeBands.includes(grade))
+      );
+    }
+    
+    if (currentFilter.contentTypes.length > 0) {
+      filtered = filtered.filter(post => 
+        currentFilter.contentTypes.includes(post.contentType)
+      );
+    }
+    
+    if (currentFilter.readingTime.length > 0) {
+      filtered = filtered.filter(post => 
+        currentFilter.readingTime.includes(post.readingTimeCategory)
+      );
+    }
+    
+    if (currentFilter.hasDownloads) {
+      filtered = filtered.filter(post => post.downloads.length > 0);
+    }
+    
+    if (currentFilter.searchQuery) {
+      const query = currentFilter.searchQuery.toLowerCase();
+      filtered = filtered.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.description.toLowerCase().includes(query) ||
+        post.tags.some(tag => tag.toLowerCase().includes(query)) ||
+        post.keyTakeaways.some(takeaway => takeaway.toLowerCase().includes(query))
+      );
+    }
 
-    applyFilters();
-  }, [currentFilter]);
+    // Sort by featured first, then by date (newest first)
+    filtered.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
+
+    setFilteredPosts(filtered);
+  }, [currentFilter, posts]);
 
   const handleFilterChange = (filter: BlogFilter) => {
     setCurrentFilter(filter);
@@ -150,11 +168,11 @@ export default function TeacherBlogPageClient({ locale }: TeacherBlogPageClientP
                 <div className="text-sm opacity-75">Resources</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">{availableFilters.subjects.length}</div>
+                <div className="text-2xl font-bold">{availableFilters?.subjects?.length || 0}</div>
                 <div className="text-sm opacity-75">Subjects</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">{availableFilters.gradeBands.length}</div>
+                <div className="text-2xl font-bold">{availableFilters?.gradeBands?.length || 0}</div>
                 <div className="text-sm opacity-75">Grade Bands</div>
               </div>
               <div className="text-center">

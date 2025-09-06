@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { getAllTeacherBlogPosts, getFilterOptions } from '@/lib/blog/teacher-blog-service';
 import TeacherBlogPageClient from './teacher-blog-page-client';
 
 export const metadata: Metadata = {
@@ -15,5 +16,17 @@ export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <TeacherBlogPageClient locale={locale} />;
+  // Fetch data server-side
+  const [posts, availableFilters] = await Promise.all([
+    getAllTeacherBlogPosts(),
+    getFilterOptions()
+  ]);
+
+  return (
+    <TeacherBlogPageClient 
+      locale={locale}
+      initialPosts={posts}
+      availableFilters={availableFilters}
+    />
+  );
 }
