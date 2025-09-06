@@ -1,34 +1,10 @@
-import { setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import type { Metadata } from 'next';
 
-type Props = {
-  params: Promise<{locale: string; slug: string}>;
-};
-
-const BLOG_POSTS = {
+const BLOG_POSTS: Record<string, any> = {
   "5-minute-ai-wins-busy-teachers": {
     title: "5 Minute AI Wins for Busy Teachers",
     description: "Quick AI tools that save time and boost productivity in the classroom",
-    content: `As educators, we're always looking for ways to work smarter, not harder. These 5-minute AI implementations can dramatically improve your daily workflow:
-
-**1. Instant Lesson Plan Generation**
-Use AI to create structured lesson plans by simply providing your topic and grade level. Get complete outlines with objectives, activities, and assessments in minutes.
-
-**2. Automated Feedback on Student Work**
-Generate personalized, constructive feedback on student essays and assignments. AI can identify strengths and areas for improvement while maintaining an encouraging tone.
-
-**3. Quick Quiz Creation**
-Transform any text or lesson content into engaging quizzes with multiple question types. Perfect for formative assessment and review sessions.
-
-**4. Email Response Templates**
-Create professional email templates for common parent communications, meeting requests, and administrative responses.
-
-**5. Differentiation Made Easy**
-Quickly adapt content for different learning levels and styles. Generate alternative explanations, simplified vocabulary, or extension activities.
-
-The Bottom Line: These tools aren't replacing your teaching expertise—they're amplifying it. Start with one tool, master it in a week, then add another. Your future self will thank you!`,
+    content: "As educators, we're always looking for ways to work smarter, not harder. These AI tools can save you hours of work each week.",
     image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=630&fit=crop",
     readingTime: "4 min read",
     publishDate: "December 15, 2024"
@@ -36,74 +12,28 @@ The Bottom Line: These tools aren't replacing your teaching expertise—they're 
   "ai-tools-for-teachers": {
     title: "Essential AI Tools Every Teacher Should Know",
     description: "A comprehensive guide to the most useful AI tools for educators",
-    content: `The landscape of education technology is evolving rapidly, and AI tools are at the forefront of this transformation. Here's your guide to the most impactful AI tools that can revolutionize your teaching practice.
-
-**Content Creation Powerhouses**
-
-ChatGPT for Education: Perfect for generating discussion questions, creating rubrics, and brainstorming creative project ideas. The key is learning effective prompting techniques.
-
-Canva AI: Create stunning visual materials with AI-powered design suggestions. From infographics to presentation slides, Canva's AI makes design accessible to every teacher.
-
-**Assessment & Feedback Tools**
-
-Grammarly for Educators: Provide detailed writing feedback instantly. The education version offers advanced suggestions for academic writing improvement.
-
-Socrative AI: Generate quiz questions automatically from your content. Great for creating formative assessments that truly measure understanding.
-
-**Classroom Management Solutions**
-
-ClassDojo AI Insights: Analyze classroom behavior patterns and get personalized suggestions for improving student engagement and participation.
-
-Remind AI Translate: Communicate with multilingual families effortlessly. Break down language barriers with real-time translation features.
-
-**Getting Started: A Practical Approach**
-
-1. Start Small: Choose one tool and use it consistently for two weeks
-2. Learn the Basics: Watch official tutorials and join educator communities  
-3. Experiment Safely: Test tools with low-stakes activities first
-4. Share & Learn: Connect with other teachers using these tools
-
-Remember: AI tools are meant to enhance, not replace, your professional judgment and creativity. Use them to handle routine tasks so you can focus on what matters most—inspiring and educating your students.`,
+    content: "The landscape of education technology is evolving rapidly, and AI tools are at the forefront of this transformation.",
     image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=1200&h=630&fit=crop",
-    readingTime: "6 min read", 
+    readingTime: "6 min read",
     publishDate: "December 10, 2024"
   }
 };
 
-export async function generateStaticParams() {
-  return [
-    { slug: "5-minute-ai-wins-busy-teachers" },
-    { slug: "ai-tools-for-teachers" }
-  ];
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = BLOG_POSTS[slug as keyof typeof BLOG_POSTS];
-  
-  if (!post) {
-    return { title: 'Post Not Found | Promptly Blog' };
-  }
-
-  return {
-    title: `${post.title} | Promptly Blog`,
-    description: post.description,
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      images: [post.image],
-    }
-  };
-}
-
-export default async function BlogPostPage({ params }: Props) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-
-  const post = BLOG_POSTS[slug as keyof typeof BLOG_POSTS];
+export default function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
+  const { locale, slug } = params;
+  const post = BLOG_POSTS[slug];
 
   if (!post) {
-    notFound();
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
+          <Link href={`/${locale}/blog`} className="text-indigo-600 hover:text-indigo-700">
+            ← Back to Blog
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -111,7 +41,7 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Link 
           href={`/${locale}/blog`}
-          className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium mb-8 transition-colors"
+          className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium mb-8"
         >
           ← Back to Blog
         </Link>
@@ -122,7 +52,6 @@ export default async function BlogPostPage({ params }: Props) {
             alt={post.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         </div>
 
         <div className="bg-white rounded-xl p-8 shadow-sm">
@@ -136,38 +65,30 @@ export default async function BlogPostPage({ params }: Props) {
             {post.title}
           </h1>
           
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-xl text-gray-600 mb-8">
             {post.description}
           </p>
           
           <div className="prose prose-lg max-w-none">
-            {post.content.split('\n\n').map((paragraph, index) => (
-              <div key={index} className="mb-4">
-                {paragraph.startsWith('**') && paragraph.endsWith('**') ? (
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    {paragraph.slice(2, -2)}
-                  </h3>
-                ) : (
-                  <p className="text-gray-700 leading-relaxed">
-                    {paragraph.split('**').map((part, i) => 
-                      i % 2 === 0 ? part : <strong key={i} className="font-semibold">{part}</strong>
-                    )}
-                  </p>
-                )}
-              </div>
-            ))}
+            <p className="text-gray-700 leading-relaxed mb-6">
+              {post.content}
+            </p>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              This is a simplified version of our blog system. We're working to restore full functionality while ensuring reliable performance.
+            </p>
           </div>
           
-          <div className="mt-12 p-6 bg-indigo-50 rounded-lg border border-indigo-100">
+          <div className="mt-12 p-6 bg-indigo-50 rounded-lg">
             <h3 className="font-semibold text-indigo-900 mb-3 text-lg">
               Ready to Transform Your Teaching?
             </h3>
             <p className="text-indigo-700 mb-4">
-              Join thousands of educators already using AI to save time and enhance their impact in the classroom.
+              Join thousands of educators already using AI to enhance their classroom impact.
             </p>
             <Link 
               href={`/${locale}/signup`}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700"
             >
               Get Started Today →
             </Link>
