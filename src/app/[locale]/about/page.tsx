@@ -149,25 +149,26 @@ export default async function AboutPage({params}: Props) {
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 bg-clip-text text-transparent animate-in fade-in slide-in-from-left-5 duration-1000 delay-200">
-                We help teachers{" "}
+                AI tools that{" "}
                 <span className="relative">
-                  thrive
+                  empower
                   <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-in slide-in-from-left-full duration-1000 delay-1000"></div>
                 </span>
               </h1>
               
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed animate-in fade-in slide-in-from-left-5 duration-1000 delay-400">
-                At Zaza Technologies, we believe every teacher deserves tools that amplify their impact 
-                and reclaim their time. Our AI-powered platform helps educators save{" "}
+                Zaza Technologies builds AI-powered tools for teachers AND other busy professionals. 
+                We understand that whether you're in the classroom, boardroom, or anywhere in between, 
+                thoughtful communication takes time. Our solutions help you save{" "}
                 <span className="font-bold text-purple-600 dark:text-purple-400">5+ hours per week</span>{" "}
-                while providing better, more personalized feedback to students.
+                on administrative tasks while maintaining the personal touch that matters.
               </p>
               
               <div className="space-y-4 animate-in fade-in slide-in-from-left-5 duration-1000 delay-600">
                 {[
-                  "Founded by educators who understand classroom challenges",
-                  "Trusted by 12,000+ teachers worldwide", 
-                  "Committed to student privacy and data protection"
+                  "Founded by educators who understand professional communication",
+                  "Trusted by 12,000+ users worldwide", 
+                  "Committed to privacy and data protection"
                 ].map((item, index) => (
                   <div key={index} className="flex items-center space-x-3 group">
                     <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
@@ -179,7 +180,7 @@ export default async function AboutPage({params}: Props) {
               <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-left-5 duration-1000 delay-800">
                 <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 group" asChild>
                   <a href="/about/greg">
-                    Meet Our Founder
+                    Meet the Founder
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </a>
                 </Button>
