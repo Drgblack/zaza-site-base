@@ -12,7 +12,7 @@ export default async function BlogPage({ params }: Props) {
   setRequestLocale(locale);
 
   const featuredPosts = getFeaturedPosts().slice(0, 3);
-  const regularPosts = getRecentPosts(12).filter(post => !post.featured);
+  const regularPosts = getRecentPosts(50).filter(post => !post.featured);
   const categories = getAllCategories();
 
   return (

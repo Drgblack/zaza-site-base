@@ -167,8 +167,8 @@ export const blogPosts: BlogPost[] = [
     author: "Zaza Team",
     category: "Teacher Tips",
     readingTime: 6,
-    image: "/images/blog/default.jpg",
-    imageAlt: "Teacher working late on administrative tasks"
+    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&h=400&fit=crop",
+    imageAlt: "Teacher working productively with modern technology"
   },
   {
     id: "doctoral-research-ai-assessment",
@@ -535,8 +535,8 @@ export const blogPosts: BlogPost[] = [
     author: "Zaza Team",
     category: "Parent Communication",
     readingTime: 5,
-    image: "/images/blog/default.jpg",
-    imageAlt: "Parent and teacher collaboration"
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    imageAlt: "Parent and teacher having positive communication"
   },
   {
     id: "parent-teacher-communication-ai",
