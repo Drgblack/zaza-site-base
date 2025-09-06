@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getAllTeacherBlogPosts, getFilterOptions } from '@/lib/blog/static-teacher-blog-service';
+import { getAllTeacherBlogPosts, getFilterOptions } from '@/lib/blog/fallback-blog-service';
 import TeacherBlogPageClient from './teacher-blog-page-client';
 
 export const metadata: Metadata = {

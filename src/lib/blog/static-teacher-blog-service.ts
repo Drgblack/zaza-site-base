@@ -1,10 +1,36 @@
 // Static teacher blog service that uses pre-generated data
 import { TeacherBlogPost, BlogFilter } from './teacher-blog-types';
-import blogData from './generated-blog-data.json';
+import fs from 'fs';
+import path from 'path';
+
+// Cache for blog data
+let cachedBlogData: TeacherBlogPost[] | null = null;
+
+function loadBlogData(): TeacherBlogPost[] {
+  if (cachedBlogData) {
+    return cachedBlogData;
+  }
+
+  try {
+    const dataPath = path.join(process.cwd(), 'src', 'lib', 'blog', 'generated-blog-data.json');
+    
+    if (!fs.existsSync(dataPath)) {
+      console.error('Generated blog data not found, returning empty array');
+      return [];
+    }
+
+    const jsonData = fs.readFileSync(dataPath, 'utf-8');
+    cachedBlogData = JSON.parse(jsonData);
+    return cachedBlogData || [];
+  } catch (error) {
+    console.error('Error loading blog data:', error);
+    return [];
+  }
+}
 
 // Get all blog posts from static data
 export async function getAllTeacherBlogPosts(filter?: BlogFilter): Promise<TeacherBlogPost[]> {
-  let posts = blogData as TeacherBlogPost[];
+  let posts = loadBlogData();
   
   // Apply filters if provided
   if (filter) {
@@ -59,7 +85,7 @@ export async function getAllTeacherBlogPosts(filter?: BlogFilter): Promise<Teach
 
 // Get single blog post by slug from static data
 export async function getTeacherBlogPostBySlug(slug: string): Promise<TeacherBlogPost | null> {
-  const posts = blogData as TeacherBlogPost[];
+  const posts = loadBlogData();
   
   // Try exact match first
   let post = posts.find(p => p.slug === slug);
@@ -74,7 +100,7 @@ export async function getTeacherBlogPostBySlug(slug: string): Promise<TeacherBlo
 
 // Get available filter options from static data
 export async function getFilterOptions() {
-  const posts = blogData as TeacherBlogPost[];
+  const posts = loadBlogData();
   
   const subjects = new Map<string, number>();
   const gradeBands = new Map<string, number>();
