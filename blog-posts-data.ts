@@ -118,17 +118,21 @@ export const blogPosts: BlogPost[] = [
     title: "10 Time-Saving AI Tools for Teachers",
     description: "Discover the latest AI tools that can help you save hours every week in lesson planning and grading.",
     date: "2024-01-15",
-    publishDate: "2024-01-15",
     category: "AI Tools",
     author: {
       name: "Zaza Team",
-      bio: "Dedicated to empowering educators with AI technology"
+      bio: "Educational technology experts dedicated to empowering educators with AI innovation"
     },
     readingTime: "8 min read",
     featuredImage: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&fit=crop",
     featured: true,
     tags: ["AI Tools", "Teacher Productivity", "Time Management", "Education Technology"],
-    seoKeywords: ["AI tools for teachers", "teacher productivity", "educational technology", "time-saving tools"],
+    excerpt: "Discover 10 powerful AI tools that can save teachers hours every week. From lesson planning to grading, these educational technology solutions streamline your workflow and boost productivity.",
+    seo: {
+      title: "10 Time-Saving AI Tools for Teachers | Boost Productivity in 2025",
+      description: "Discover the top 10 AI tools that help teachers save hours weekly on lesson planning, grading, and administrative tasks. Boost your productivity with educational technology.",
+      keywords: ["AI tools for teachers", "teacher productivity", "educational technology", "time-saving tools", "lesson planning AI", "grading automation"]
+    },
     content: `# 10 Time-Saving AI Tools for Teachers
 
 As an educator, your time is precious. Between lesson planning, grading, parent communication, and actual teaching, the days feel like they're never long enough. That's where AI tools can be a game-changer.
@@ -179,10 +183,20 @@ Ready to get started? Try Zaza Promptly free for your first 10 comments and see 
     description: "Discover the best AI tools for teachers in 2025. Learn about hallucination-safe AI, reduce teacher workload by 3-5 hours/week, and compare AI vs ChatGPT for teachers.",
     date: "2025-01-20",
     featured: true,
-    category: "ai-tools",
+    category: "AI Tools",
     tags: ["best AI tools for teachers 2025", "AI tool for teachers", "safe AI for teachers", "teacher productivity apps"],
-    author: "Dr. Greg Blackburn",
-    readTime: "8 min",
+    author: {
+      name: "Dr. Greg Blackburn",
+      bio: "Founder of Zaza Technologies, PhD in Professional Education with 20+ years in learning and development"
+    },
+    featuredImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=400&fit=crop",
+    readingTime: "8 min read",
+    excerpt: "Discover the best AI tools for teachers in 2025. Learn about hallucination-safe AI, reduce teacher workload by 3-5 hours/week, and compare AI vs ChatGPT for education.",
+    seo: {
+      title: "Best AI Tools for Teachers 2025: Safe AI Guide | Zaza Promptly",
+      description: "Discover the top AI tools for teachers in 2025. Learn about safe, hallucination-free AI that reduces workload by 3-5 hours/week. Compare AI vs ChatGPT for education.",
+      keywords: ["best AI tools for teachers", "safe AI for education", "teacher AI tools 2025", "education technology", "AI for classroom management"]
+    },
     ogImage: "/blog/best-ai-tools-teachers-2025.jpg",
     content: `# Best AI Tools for Teachers 2025: The Complete Guide to Safe AI in Education
 
@@ -665,11 +679,19 @@ The future of educational assessment lies not in choosing between human expertis
     excerpt: "Step into tomorrow's classroom today. Discover how AI tutors, immersive technologies, and personalized learning will revolutionize education by 2030. Essential reading for forward-thinking educators.",
     date: "2024-01-15",
     category: "Future of Teaching & AI",
-    author: "Zaza Team",
-    image: "https://images.unsplash.com/photo-1496065187959-7f07b8353c55?w=800&h=400&fit=crop",
+    author: {
+      name: "Zaza Team",
+      bio: "Educational technology experts focused on AI innovation in classrooms"
+    },
+    featuredImage: "https://images.unsplash.com/photo-1496065187959-7f07b8353c55?w=800&h=400&fit=crop",
     slug: "future-classroom-2030",
-    readingTime: "10 min read",
+    readingTime: "15 min read",
     tags: ["Future of Education", "Educational Technology", "AI in Classrooms", "Teaching Trends", "2030 Predictions"],
+    seo: {
+      title: "Future Classroom 2030: How AI Will Transform Education",
+      description: "Explore the future of education by 2030. Discover how AI tutors, immersive VR/AR, and smart classrooms will revolutionize teaching and learning experiences.",
+      keywords: ["future classroom", "education 2030", "AI in education", "virtual reality learning", "smart classroom technology", "educational transformation"]
+    },
     content: `Imagine walking into a classroom in 2030. As you step through the doorway, the room's ambient lighting automatically adjusts to optimize learning conditions based on the time of day and the planned activities. Student desks reconfigure themselves as the AI teaching assistant recognizes today's collaborative science lesson. Holographic displays materialize in the air, showing a 3D model of the solar system that students can manipulate with simple gestures. This isn't science fiction—it's the reality that current technological developments are rapidly making possible.
 
 We stand at the threshold of the most dramatic transformation in education since the invention of the printing press. The classroom of 2030 will be a seamless blend of physical and digital spaces, where artificial intelligence, immersive technologies, and personalized learning converge to create educational experiences that are more engaging, more effective, and more equitable than anything we've known before.
@@ -950,13 +972,18 @@ The journey toward the 2030 classroom begins with the choices we make today. Eve
       name: "Sarah Mitchell",
       bio: "Elementary teacher turned AI productivity coach. Saved 500+ teachers 2000+ hours collectively."
     },
-    readingTime: "4 min",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format",
+    readingTime: "4 min read",
+    featuredImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format",
     imageAlt: "Teacher using laptop with coffee, looking productive and happy",
     ogImage: "/blog/5-minute-ai-wins.jpg",
     isPublished: true,
     locale: "en",
-    seoKeywords: ["AI for teachers", "teacher time savers", "education productivity", "quick AI wins"],
+    excerpt: "Transform your teaching day with 7 lightning-fast AI strategies that save 30+ minutes daily. Perfect for busy teachers who want results without learning complex new tools.",
+    seo: {
+      title: "5-Minute AI Wins for Busy Teachers | Save 30+ Minutes Daily",
+      description: "Discover 7 lightning-fast AI strategies that save teachers 30+ minutes daily. Quick wins for busy educators who want efficiency without complexity.",
+      keywords: ["AI for teachers", "teacher time savers", "education productivity", "quick AI wins", "teacher efficiency", "classroom AI tools"]
+    },
     content: `# 5-Minute AI Wins for Busy Teachers 🚀
 
 *Friend, I see you there at 9 PM, still grading papers. I've been there too. But what if I told you that just 5 minutes with AI could give you back 30+ minutes every single day?*
@@ -2263,6 +2290,7 @@ Remember: AI enhances your capabilities as an educator—it doesn't replace your
     tags: ["AI Tools", "Lesson Planning", "Curriculum Design", "Teacher Productivity", "EdTech"],
     category: "Lesson Planning",
     featuredImage: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=400&fit=crop",
+    readingTime: "18 min read",
     seo: {
       title: "AI Lesson Planning Guide 2025: Transform Your Teaching with AI",
       description: "Master AI-powered lesson planning with our comprehensive 2025 guide. Learn tools, strategies, and best practices for efficient curriculum design.",
@@ -3168,10 +3196,18 @@ Your Tuesday morning lessons will never feel the same.
     excerpt: "You don't need fancy analytics to measure classroom success. These three simple metrics help teachers track what really matters — engagement, progress, and feedback.",
     tags: ["teaching strategies", "classroom success", "metrics", "AI in education"],
     category: "Teaching Strategies",
-    author: "Zaza Team",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=400&fit=crop",
-    readingTime: "6 min read",
+    author: {
+      name: "Zaza Team",
+      bio: "Educational technology experts helping teachers optimize their classroom effectiveness"
+    },
+    featuredImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=400&fit=crop",
+    readingTime: "12 min read",
     slug: "classroom-success-metrics",
+    seo: {
+      title: "3 Simple Teaching Metrics to Track Classroom Success | Zaza Promptly",
+      description: "Discover 3 powerful yet simple metrics that help teachers measure classroom success without complex analytics dashboards. Track engagement, progress, and feedback quality.",
+      keywords: ["classroom metrics", "teaching effectiveness", "student engagement tracking", "teacher assessment tools", "classroom success measurement"]
+    },
     content: `Every Friday afternoon, Sarah sits at her desk wondering: "Is my teaching actually working?" She looks at her lesson plans, thinks about her students, and feels that familiar uncertainty that haunts so many dedicated educators. The truth is, you don't need expensive analytics software or complex dashboards to know if you're making a real difference. The most powerful metrics for measuring classroom success are surprisingly simple—and you probably already have everything you need to start tracking them today.
 
 ## Why Most Teaching Metrics Miss the Mark
