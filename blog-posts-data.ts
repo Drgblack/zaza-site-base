@@ -83,7 +83,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "7 min read",
     tags: ["AI", "Education", "Teaching", "Productivity", "Technology"],
     category: "AI in Education",
-    featuredImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=400&fit=crop",
     featured: true,
     seoKeywords: ["AI education tools", "teacher productivity", "educational technology", "Zaza Promptly"],
     isPublished: true,
@@ -124,7 +124,7 @@ export const blogPosts: BlogPost[] = [
       bio: "Dedicated to empowering educators with AI technology"
     },
     readingTime: "8 min read",
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&fit=crop",
     featured: true,
     tags: ["AI Tools", "Teacher Productivity", "Time Management", "Education Technology"],
     seoKeywords: ["AI tools for teachers", "teacher productivity", "educational technology", "time-saving tools"]
@@ -153,7 +153,7 @@ export const blogPosts: BlogPost[] = [
     },
     publishDate: "2024-12-01",
     readingTime: "8 min read",
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=400&fit=crop",
     featured: true,
     seoKeywords: ["AI parent communication", "teacher tools", "parent-teacher communication", "AI for teachers", "educational technology"],
     slug: "ai-parent-communication-guide",
@@ -167,28 +167,34 @@ export const blogPosts: BlogPost[] = [
     author: "Zaza Team",
     category: "Teacher Tips",
     readingTime: 6,
-    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop",
     imageAlt: "Teacher working productively with modern technology"
   },
   {
     id: "doctoral-research-ai-assessment",
     title: "Doctoral Research: AI in Educational Assessment",
     description: "Comprehensive analysis of how artificial intelligence is transforming educational assessment practices, based on cutting-edge doctoral research findings.",
+    excerpt: "Explore groundbreaking doctoral research revealing how AI is reshaping educational assessment. Learn about adaptive testing, automated scoring, and the future of student evaluation through evidence-based academic insights.",
     date: "2024-01-18",
     category: "PhD Insights",
     author: "Dr. Michael Rodriguez",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
-    slug: "doctoral-research-ai-assessment"
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
+    slug: "doctoral-research-ai-assessment",
+    readingTime: "12 min read",
+    tags: ["AI Assessment", "PhD Research", "Educational Technology", "Academic Research", "Assessment Innovation"]
   },
   {
     id: "future-classroom-2030",
     title: "The Future Classroom: What Teaching Will Look Like in 2030",
     description: "Exploring predictions and trends for how AI and technology will transform the classroom experience by 2030, based on current technological developments.",
+    excerpt: "Step into tomorrow's classroom today. Discover how AI tutors, immersive technologies, and personalized learning will revolutionize education by 2030. Essential reading for forward-thinking educators.",
     date: "2024-01-15",
     category: "Future of Teaching & AI",
     author: "Zaza Team",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=400&fit=crop",
-    slug: "future-classroom-2030"
+    image: "https://images.unsplash.com/photo-1496065187959-7f07b8353c55?w=800&h=400&fit=crop",
+    slug: "future-classroom-2030",
+    readingTime: "10 min read",
+    tags: ["Future of Education", "Educational Technology", "AI in Classrooms", "Teaching Trends", "2030 Predictions"]
   },
   {
     id: "5-minute-ai-wins-busy-teachers",
@@ -203,7 +209,7 @@ export const blogPosts: BlogPost[] = [
       bio: "Elementary teacher turned AI productivity coach. Saved 500+ teachers 2000+ hours collectively."
     },
     readingTime: "4 min",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&auto=format",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format",
     imageAlt: "Teacher using laptop with coffee, looking productive and happy",
     ogImage: "/blog/5-minute-ai-wins.jpg",
     isPublished: true,
@@ -217,7 +223,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-16",
     category: "PhD Insights",
     author: "Dr. Emily Watson",
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?w=800&h=400&fit=crop",
     slug: "academic-perspectives-educational-ai"
   },
   {
@@ -227,7 +233,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-10",
     category: "Future of Teaching & AI",
     author: "Prof. David Martinez",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
     slug: "adaptive-assessment-revolution"
   },
   {
@@ -237,7 +243,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-11",
     category: "Teacher Tips",
     author: "Dr. Sandra Mitchell",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
     slug: "ai-assessment-strategies-authentic"
   },
   {
@@ -271,7 +277,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-23",
     category: "Teacher Tips",
     author: "Mr. Robert Kim",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
     slug: "ai-grading-feedback-tools"
   },
   {
@@ -300,10 +306,11 @@ export const blogPosts: BlogPost[] = [
     id: "ai-powered-curriculum-design",
     title: "AI-Powered Curriculum Design: The Next Evolution",
     description: "How artificial intelligence is revolutionizing curriculum development, creating adaptive and responsive educational pathways that evolve with student needs.",
+    excerpt: "Transform your curriculum design with AI-powered insights. Learn how machine learning can create personalized learning pathways, predict student needs, and adapt content in real-time.",
     date: "2024-01-12",
     category: "Future of Teaching & AI",
     author: "Dr. Jennifer Kim",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=400&fit=crop",
     slug: "ai-powered-curriculum-design"
   },
   {
@@ -336,7 +343,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-07",
     category: "Teacher Tips",
     author: "Ms. Rebecca Foster",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
     slug: "ai-powered-study-techniques-students"
   },
   {
@@ -346,7 +353,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-15",
     category: "Teacher Tips",
     author: "Dr. Patricia Moore",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=800&h=400&fit=crop",
     slug: "ai-research-tools-students"
   },
   {
@@ -368,7 +375,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-25",
     category: "Teacher Tips",
     author: "Ms. Jennifer Adams",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=400&fit=crop",
     slug: "chatgpt-lesson-planning-guide"
   },
   {
@@ -378,7 +385,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-19",
     category: "Teacher Tips",
     author: "Mr. James Wilson",
-    image: "https://images.unsplash.com/photo-1581726690015-c9861fa5057f?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&h=400&fit=crop",
     slug: "classroom-management-ai-assistant"
   },
   {
@@ -427,43 +434,63 @@ export const blogPosts: BlogPost[] = [
   {
     id: "classroom-success-metrics",
     title: "3 Simple Metrics Every Teacher Can Track (No Dashboard Required)",
+    description: "Discover three powerful yet simple metrics that help teachers measure classroom success without complex analytics dashboards or expensive software.",
     date: "2025-09-02",
     excerpt: "You don't need fancy analytics to measure classroom success. These three simple metrics help teachers track what really matters — engagement, progress, and feedback.",
-    tags: ["teaching strategies", "classroom success", "metrics", "AI in education"]
+    tags: ["teaching strategies", "classroom success", "metrics", "AI in education"],
+    category: "Teaching Strategies",
+    author: "Zaza Team",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop",
+    readingTime: "6 min read",
+    slug: "classroom-success-metrics"
   },
   {
     id: "create-interactive-content-ai",
     title: "Creating Interactive Content with AI: Engage Every Student",
     description: "Learn how to use AI tools to create interactive lessons, games, and activities that boost student engagement and make learning more dynamic and fun.",
+    excerpt: "Turn passive learners into active participants. Explore AI-powered tools that create engaging quizzes, interactive simulations, and gamified learning experiences that students actually enjoy.",
     date: "2024-01-17",
     category: "Teacher Tips",
     author: "Ms. Ashley Chen",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&fit=crop",
     slug: "create-interactive-content-ai"
   },
   {
     id: "critical-thinking-in-ai-classroom",
     title: "Teaching Critical Thinking in the Age of AI",
+    description: "Essential strategies for developing critical thinking skills in students when AI can provide instant answers to almost any question.",
     date: "2025-09-03",
     excerpt: "With AI generating answers in seconds, teaching students how to think critically has never been more important. Here's how to foster questioning and reasoning in your classroom.",
-    tags: ["critical thinking", "AI in education", "teaching strategies"]
+    tags: ["critical thinking", "AI in education", "teaching strategies"],
+    category: "Teaching Strategies",
+    author: "Dr. Sarah Mitchell",
+    image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&h=400&fit=crop",
+    readingTime: "8 min read",
+    slug: "critical-thinking-in-ai-classroom"
   },
   {
     id: "differentiate-instruction-ai-tools",
     title: "Using AI Tools to Differentiate Instruction for Every Student",
     description: "Practical strategies for using artificial intelligence to create personalized learning experiences that meet diverse student needs in your classroom.",
+    excerpt: "Make differentiated instruction effortless with AI. Discover tools and strategies that automatically adapt content, assessments, and activities to match every student's learning style and pace.",
     date: "2024-01-21",
     category: "Teacher Tips",
     author: "Ms. Maria Santos",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
     slug: "differentiate-instruction-ai-tools"
   },
   {
     id: "future-classroom-ai-tools",
     title: "5 AI Tools That Will Shape the Future Classroom",
+    description: "Explore the five most promising AI tools that are set to transform teaching and learning in the coming years.",
     date: "2025-09-04",
     excerpt: "From lesson planning to student support, AI tools are reshaping the teacher's role. Here are five tools you'll want to know about.",
-    tags: ["AI tools", "future of teaching", "edtech"]
+    tags: ["AI tools", "future of teaching", "edtech"],
+    category: "AI Tools",
+    author: "Tech Education Team",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop",
+    readingTime: "7 min read",
+    slug: "future-classroom-ai-tools"
   },
   {
     id: "mark-less-teach-more-feedback-routines",
@@ -495,10 +522,11 @@ export const blogPosts: BlogPost[] = [
     id: "neuroeducation-ai-brain-research",
     title: "Neuroeducation Meets AI: How Brain Research is Shaping Future Learning",
     description: "Exploring the convergence of neuroscience, artificial intelligence, and education to create brain-based learning systems that optimize how we teach and learn.",
+    excerpt: "Discover how cutting-edge brain research is revolutionizing AI-powered education. Learn about neuroplasticity, cognitive load theory, and how AI can adapt to individual learning patterns based on neuroscience.",
     date: "2024-01-05",
     category: "Future of Teaching & AI",
     author: "Dr. Rachel Neurobiologist",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&h=400&fit=crop",
     slug: "neuroeducation-ai-brain-research"
   },
   {
@@ -535,7 +563,7 @@ export const blogPosts: BlogPost[] = [
     author: "Zaza Team",
     category: "Parent Communication",
     readingTime: 5,
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
     imageAlt: "Parent and teacher having positive communication"
   },
   {
@@ -571,7 +599,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-20",
     category: "PhD Insights",
     author: "Dr. Sarah Chen",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=400&fit=crop",
     slug: "phd-insights-ai-pedagogy"
   },
   {
@@ -595,10 +623,11 @@ export const blogPosts: BlogPost[] = [
     id: "professional-development-ai-integration",
     title: "Professional Development in the Age of AI: Staying Current and Effective",
     description: "Essential strategies for educators to continuously develop AI literacy, integrate new tools effectively, and maintain professional growth in rapidly evolving educational technology.",
+    excerpt: "Stay ahead of the AI revolution in education. Practical professional development strategies for teachers who want to integrate AI tools effectively while maintaining their teaching expertise.",
     date: "2024-01-09",
     category: "Teacher Tips",
     author: "Dr. Michael Thompson",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
     slug: "professional-development-ai-integration"
   },
   {
@@ -634,16 +663,25 @@ export const blogPosts: BlogPost[] = [
     id: "save-time-administrative-ai",
     title: "Save Time on Administrative Tasks with Smart AI Tools",
     description: "Discover AI-powered solutions for lesson planning, grading, communication, and data management that free up hours for actual teaching and student interaction.",
+    excerpt: "Cut administrative tasks by 50% with smart AI tools. From automated grading to intelligent lesson planning, learn which tools actually work and how to implement them effectively in your daily routine.",
     date: "2024-01-13",
     category: "Teacher Tips",
     author: "Mr. David Johnson",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=400&fit=crop",
     slug: "save-time-administrative-ai"
   },
   {
     id: "secret-confident-parent-reports",
     title: "The Secret to Confident Parent Reports",
-    date: "2024-11-15"
+    description: "Transform your parent reporting process with proven strategies that save time while building stronger school-home relationships.",
+    excerpt: "Discover the insider secrets that make parent reports more impactful and less stressful. Learn how to write with confidence and build trust with every communication.",
+    date: "2024-11-15",
+    category: "Parent Communication",
+    author: "Dr. Jennifer Walsh",
+    image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop",
+    readingTime: "9 min read",
+    tags: ["Parent Reports", "Communication Skills", "Professional Development", "Teacher Confidence"],
+    slug: "secret-confident-parent-reports"
   },
   {
     id: "teacher-guide-safe-use-of-ai",
@@ -683,7 +721,7 @@ export const blogPosts: BlogPost[] = [
     },
     date: "2024-11-28",
     readingTime: "6 min read",
-    featuredImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop",
     featured: false,
     seoKeywords: ["time management for teachers", "teacher productivity", "teaching efficiency", "teacher tips", "work-life balance"],
     slug: "time-saving-teacher-tips"
@@ -695,13 +733,24 @@ export const blogPosts: BlogPost[] = [
     date: "2024-01-08",
     category: "Future of Teaching & AI",
     author: "Dr. Lisa Thompson",
-    image: "https://images.unsplash.com/photo-1592478411213-6153e4ebc696?w=800&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=800&h=400&fit=crop",
     slug: "virtual-reality-education-2030"
   },
   {
     id: "won-back-sunday-afternoons",
     title: "How I Won Back My Sunday Afternoons",
-    date: "2024-12-01"
+    description: "A teacher's personal journey from weekend work marathons to work-life balance, using strategic time management and AI tools.",
+    excerpt: "Sunday afternoons used to mean grading papers and lesson planning. Here's exactly how I reclaimed my weekends without compromising my teaching quality.",
+    date: "2024-12-01",
+    category: "Teacher Wellness",
+    author: {
+      name: "Sarah Martinez",
+      bio: "High school English teacher who transformed her work-life balance through strategic use of AI and time management techniques."
+    },
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+    readingTime: "8 min read",
+    tags: ["Work-Life Balance", "Time Management", "Teacher Wellness", "Productivity", "Weekend Recovery"],
+    slug: "won-back-sunday-afternoons"
   }
 ];
 

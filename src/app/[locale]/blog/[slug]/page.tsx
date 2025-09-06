@@ -69,44 +69,55 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
           )}
           
           <div className="prose prose-lg max-w-none">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
-              <div className="flex">
-                <div className="ml-3">
-                  <p className="text-sm text-blue-700">
-                    <strong>Quick Overview:</strong> This comprehensive guide covers practical AI tools and strategies 
-                    that can save you hours of work each week while improving your teaching effectiveness.
-                  </p>
+            {post.excerpt && (
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+                <div className="flex">
+                  <div className="ml-3">
+                    <p className="text-sm text-blue-700">
+                      <strong>Quick Overview:</strong> {post.excerpt}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-3">What You'll Learn</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• Time-saving AI tools for everyday teaching</li>
-                  <li>• Practical implementation strategies</li>
-                  <li>• Best practices for classroom integration</li>
-                  <li>• Safety and privacy considerations</li>
-                </ul>
-              </div>
+            <div className="text-gray-700 leading-relaxed text-lg space-y-6">
+              <p>
+                {post.description || post.excerpt}
+              </p>
               
-              <div className="bg-indigo-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-indigo-900 mb-3">For Teachers Who Want</h3>
+              {post.category && (
+                <p>
+                  This comprehensive {post.category.toLowerCase()} guide provides practical strategies and proven methods 
+                  that you can implement immediately in your teaching practice.
+                </p>
+              )}
+              
+              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-indigo-900 mb-3 text-xl">
+                  Key Benefits for Educators:
+                </h3>
                 <ul className="space-y-2 text-indigo-700">
-                  <li>• More time for actual teaching</li>
-                  <li>• Streamlined administrative tasks</li>
-                  <li>• Enhanced student engagement</li>
-                  <li>• Professional development in AI</li>
+                  <li>• Practical, classroom-tested strategies</li>
+                  <li>• Step-by-step implementation guidance</li>
+                  <li>• Time-saving tools and resources</li>
+                  <li>• Professional development insights</li>
                 </ul>
               </div>
-            </div>
 
-            <p className="text-gray-700 leading-relaxed text-lg">
-              This resource is part of our comprehensive collection of {(post.category || 'educational')?.toLowerCase()} guides designed 
-              specifically for educators. Each guide is crafted by experienced teachers and education technology specialists 
-              to ensure practical, classroom-ready solutions.
-            </p>
+              <p>
+                Whether you're a new teacher looking to streamline your workflow or a veteran educator exploring innovative approaches, 
+                this guide offers valuable insights that can transform your teaching practice and help you achieve better work-life balance.
+              </p>
+
+              {post.seoKeywords && post.seoKeywords.length > 0 && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-600 text-sm">
+                    <strong>Related topics:</strong> {post.seoKeywords.join(', ')}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
           
           <div className="mt-12 p-6 bg-indigo-50 rounded-lg">
