@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Clock, MessageSquare, Users, Heart, Lightbulb, Shield, ArrowRight, Sparkles, Target, Zap, TrendingUp, CheckCircle, Globe } from 'lucide-react';
+import { Clock, MessageSquare, Users, Heart, Lightbulb, Shield, ArrowRight, Sparkles, Target, Zap, TrendingUp } from 'lucide-react';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { organizationSchema } from '@/components/seo/structured-data-schemas';
 import type { Metadata } from 'next';
@@ -388,7 +388,7 @@ export default async function AboutPage({params}: Props) {
               Our Impact
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Real results from real educators
+              Real results from professionals across industries
             </p>
           </div>
           
@@ -427,9 +427,9 @@ export default async function AboutPage({params}: Props) {
           {/* Call to Action */}
           <div className="text-center mt-16">
             <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl hover:shadow-3xl transition-shadow duration-500">
-              <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
+              <h3 className="text-2xl font-bold mb-4">Ready to Transform Your Workflow?</h3>
               <p className="text-lg mb-6 text-white/90">
-                Join thousands of teachers who have already transformed their workflow
+                Join thousands of professionals who have already transformed their workflow
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100 transition-all duration-300 group" asChild>

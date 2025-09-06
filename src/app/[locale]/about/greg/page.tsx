@@ -36,8 +36,8 @@ export default async function GregStoryPage({params}: Props) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop&crop=face"
-                alt="Greg Blackburn, PhD - Founder of Zaza Promptly"
+                src="/images/greg-founder-photo-v2.png"
+                alt="Dr. Greg Blackburn, Founder of Zaza Technologies"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />
             </div>
