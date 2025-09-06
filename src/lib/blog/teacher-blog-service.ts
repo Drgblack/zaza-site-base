@@ -1,4 +1,5 @@
 // Teacher-focused blog service with enhanced functionality
+'use server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';

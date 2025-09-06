@@ -44,16 +44,44 @@ export function ExitIntentModal() {
     e.preventDefault();
     if (!email.trim()) return;
 
-    // Handle email submission (integrate with your email service)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     try {
-      // Add your email capture logic here
-      console.log('Exit intent email captured:', email);
-      setIsVisible(false);
-      
-      // Show success message or redirect
-      alert('Thanks! Check your email for your free teaching resources.');
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.trim(),
+          source: 'exit_intent_modal',
+          tags: ['exit_intent', 'lead_magnet', 'free_resources'],
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data?.ok) {
+        setIsVisible(false);
+        // Show success message
+        alert('🎉 Success! Check your email for your free teaching resources.');
+        
+        // Track event if analytics available
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'email_capture', {
+            event_category: 'engagement',
+            event_label: 'exit_intent_modal',
+            value: 1,
+          });
+        }
+      } else {
+        alert(data?.error || 'Something went wrong. Please try again.');
+      }
     } catch (error) {
       console.error('Email capture failed:', error);
+      alert('Network error. Please check your connection and try again.');
     }
   };
 

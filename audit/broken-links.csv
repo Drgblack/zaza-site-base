@@ -1,0 +1,7 @@
+URL,Source Page,Status,Issue,Notes
+/resources,Header Navigation,NEEDS_VERIFICATION,Missing route,Referenced in header but route may not exist
+/pricing,Header Navigation,NEEDS_VERIFICATION,Missing route,Referenced in header but route may not exist  
+/meet-your-fellow-educator,Company Dropdown,NEEDS_VERIFICATION,Missing route,Unusual slug needs verification
+/press,Company Dropdown,NEEDS_VERIFICATION,Missing route,May not exist
+https://teach.zazatechnologies.com,CTA Button,EXTERNAL,External link,Needs verification
+/images/zaza-logo.png,Header Logo,NEEDS_VERIFICATION,Image asset,Check if file exists
