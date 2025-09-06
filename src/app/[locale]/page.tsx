@@ -67,10 +67,10 @@ export default async function HomePage({params}: Props) {
                   AI Communication Assistant for Teachers
                 </div>
                 
-                {/* Q&A Structure Headline - Following Master Prompt */}
+                {/* Anthony Pierri Framework Headline */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
-                  Write better parent messages in{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">minutes - not hours</span>
+                  Less time writing. More time{" "}
+                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">teaching — and living</span>
                 </h1>
                 
                 {/* Social proof - Above the fold */}
@@ -82,7 +82,7 @@ export default async function HomePage({params}: Props) {
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-violet-500 flex items-center justify-center text-white text-xs font-bold">S</div>
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-amber-500 flex items-center justify-center text-white text-xs font-bold">+</div>
                     </div>
-                    <span className="font-medium">12,000+ teachers already saving time</span>
+                    <span className="font-medium">Trusted by teachers who save hours every week — and finally reclaim their evenings</span>
                   </div>
                   <div className="hidden sm:block text-slate-400">•</div>
                   <div className="flex items-center gap-1">
@@ -95,10 +95,9 @@ export default async function HomePage({params}: Props) {
                   </div>
                 </div>
                 
-                {/* Q&A Supporting Copy */}
+                {/* Anthony Pierri Subheadline */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  Promptly helps teachers cut admin time so you can focus on teaching - with warmth, clarity, and confidence. 
-                  <strong className="text-slate-800 dark:text-slate-200">Save 5+ hours per week</strong> writing parent messages and reports.
+                  Promptly is the teacher-first AI assistant that helps you write parent messages, report comments, and everyday communication in minutes — with the right tone, translations, and built-in support.
                 </p>
                 
                 {/* Specific value proposition */}
@@ -136,8 +135,8 @@ export default async function HomePage({params}: Props) {
                   className="px-8 py-4 text-lg font-semibold rounded-xl border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300"
                   asChild
                 >
-                  <a href="/pricing">
-                    See Pricing →
+                  <a href="#snippet-tool">
+                    See How It Works
                   </a>
                 </Button>
               </div>
@@ -212,81 +211,45 @@ export default async function HomePage({params}: Props) {
             </div>
             
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-              How can Promptly help teachers?
+              How can Promptly actually help?
             </h2>
             
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Get answers to the most common questions teachers ask about AI communication assistance
-            </p>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">Save hours every week</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-700 dark:text-slate-300">
+                    Stop spending evenings and weekends drafting parent emails and reports. Get clear, professional drafts in minutes.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">Stress less about tone</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-700 dark:text-slate-300">
+                    Promptly suggests warm, professional wording that builds trust with parents — no more overthinking.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">Support for every teacher</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-700 dark:text-slate-300">
+                    Instant translations, rewrites, and closing lines make communication easier no matter the context.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
           
-          {/* FAQ Grid */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">Is it safe to use AI for parent messages?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Yes. Promptly is hallucination-safe and you always edit before sending. Your data stays private.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">Will parents know I used AI?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  No. Promptly writes in a warm, natural teacher voice. You stay in control.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">How much time can I save?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Teachers typically cut communication and report writing time by 60-80 percent.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">Do I need to be good with tech?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Not at all. If you can type, you can use Promptly.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">Is my data safe and GDPR compliant?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Yes. Promptly never trains on your data and all processing is GDPR compliant.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg text-slate-900 dark:text-white">How does Promptly compare to ChatGPT?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Unlike ChatGPT, Promptly is teacher-specific, hallucination-safe, GDPR-compliant, and tuned for parent-appropriate tone.
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
@@ -310,31 +273,34 @@ export default async function HomePage({params}: Props) {
                 Turn every message into <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">minutes saved</span>
               </h2>
               
+              <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto font-medium">
+                Every message you write with Promptly means more time back for you. Teachers save up to 5 hours per week.
+              </p>
+              
             </div>
             
-            {/* Use cases */}
+            {/* Time savings examples */}
             <div className="mb-16">
-              <h3 className="text-2xl font-semibold text-center text-slate-900 dark:text-white mb-8">Quick cards for every situation:</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
                 <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 backdrop-blur-sm rounded-xl p-6 border border-blue-200/50 dark:border-blue-700/50 text-center">
                   <div className="text-3xl mb-3">📧</div>
-                  <div className="text-lg font-bold text-blue-900 dark:text-blue-100">Parent Messages</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-300 mt-2">Behavior updates, progress reports, meeting requests</div>
+                  <div className="text-lg font-bold text-blue-900 dark:text-blue-100">Parent update email</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-300 mt-2">12 minutes saved</div>
                 </div>
                 <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/50 backdrop-blur-sm rounded-xl p-6 border border-emerald-200/50 dark:border-emerald-700/50 text-center">
                   <div className="text-3xl mb-3">📝</div>
-                  <div className="text-lg font-bold text-emerald-900 dark:text-emerald-100">Report Cards</div>
-                  <div className="text-sm text-emerald-700 dark:text-emerald-300 mt-2">Term comments, progress summaries, achievement notes</div>
+                  <div className="text-lg font-bold text-emerald-900 dark:text-emerald-100">Weekly report comment</div>
+                  <div className="text-sm text-emerald-700 dark:text-emerald-300 mt-2">18 minutes saved</div>
                 </div>
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-200/50 dark:border-purple-700/50 text-center">
                   <div className="text-3xl mb-3">💬</div>
-                  <div className="text-lg font-bold text-purple-900 dark:text-purple-100">Student Feedback</div>
-                  <div className="text-sm text-purple-700 dark:text-purple-300 mt-2">Assignment comments, behavior notes, encouragement</div>
+                  <div className="text-lg font-bold text-purple-900 dark:text-purple-100">Sensitive parent message</div>
+                  <div className="text-sm text-purple-700 dark:text-purple-300 mt-2">15 minutes saved</div>
                 </div>
                 <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/50 dark:to-orange-900/50 backdrop-blur-sm rounded-xl p-6 border border-orange-200/50 dark:border-orange-700/50 text-center">
-                  <div className="text-3xl mb-3">👥</div>
-                  <div className="text-lg font-bold text-orange-900 dark:text-orange-100">Staff Notes</div>
-                  <div className="text-sm text-orange-700 dark:text-orange-300 mt-2">Updates to coordinators, IEP notes, meeting summaries</div>
+                  <div className="text-3xl mb-3">📊</div>
+                  <div className="text-lg font-bold text-orange-900 dark:text-orange-100">End-of-term reports</div>
+                  <div className="text-sm text-orange-700 dark:text-orange-300 mt-2">2+ hours saved</div>
                 </div>
               </div>
             </div>
@@ -349,9 +315,9 @@ export default async function HomePage({params}: Props) {
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">📝 Just type what happened</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Your Smart Message Writer</h3>
                 <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-                  "Emma had a great day in reading" or "Jake needs to work on listening" — that's it!
+                  Built for teachers, not generic AI. Promptly makes writing faster, easier, and safer.
                 </p>
                 <div className="pt-4">
                   <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-sm font-bold text-pink-800 dark:text-pink-200 border border-pink-200 dark:border-pink-700/50">
@@ -369,10 +335,9 @@ export default async function HomePage({params}: Props) {
                     <Zap className="w-5 h-5 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">✨ Unlimited perfect messages</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Rewrite with the right tone</h3>
                 <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-                  <strong>Tone matching:</strong> Professional, friendly, encouraging, or direct — always sounds like YOU.<br/>
-                  <strong>Unlimited:</strong> Write as many messages as you need, when you need them.
+                  Make your messages sound warm, professional, and parent-friendly.
                 </p>
                 <div className="pt-4 space-y-2">
                   <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sky-100 to-blue-100 dark:from-sky-900/40 dark:to-blue-900/40 text-sm font-bold text-sky-800 dark:text-sky-200 border border-sky-200 dark:border-sky-700/50">
@@ -390,9 +355,9 @@ export default async function HomePage({params}: Props) {
                     <Heart className="w-4 h-4 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">🎉 Copy, send, done!</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Translate instantly</h3>
                 <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-                  Perfect message ready to copy-paste into email, text, or parent app — get your life back!
+                  Communicate clearly in over 20 languages, without mistakes. Finish with polished closings that save time and build rapport.
                 </p>
                 <div className="pt-4">
                   <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900/40 dark:to-green-900/40 text-sm font-bold text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-700/50">
@@ -420,7 +385,7 @@ export default async function HomePage({params}: Props) {
               See your exact time & money savings
             </h2>
             <p className="text-xl text-slate-700 dark:text-slate-200 max-w-2xl mx-auto">
-              Every teacher's situation is different. See how much Promptly saves YOU specifically.
+              Every minute matters. Here's how much you save using Promptly instead of writing from scratch.
             </p>
           </div>
           <ROICalculator />
@@ -441,6 +406,9 @@ export default async function HomePage({params}: Props) {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
                 Trusted by teachers who value their time
               </h2>
+              <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto">
+                From new teachers to seasoned educators, Promptly helps reclaim hours and reduce stress.
+              </p>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:-translate-y-1">
@@ -580,16 +548,14 @@ export default async function HomePage({params}: Props) {
                 Start free, stay affordable
               </h2>
               <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto font-medium">
-                <strong>What:</strong> Teacher-friendly pricing that actually makes sense<br />
-                <strong>Who:</strong> Budget-conscious educators (that's everyone!)<br />  
-                <strong>Why:</strong> Because teachers shouldn't have to choose between great tools and groceries
+                Every teacher deserves time back. Choose the plan that fits your needs.
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-3">
               <Card className="border-2 border-green-200 dark:border-green-700/50 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 backdrop-blur-sm hover:shadow-xl hover:-translate-y-2 hover:rotate-1 transition-all duration-300">
                 <CardHeader className="pb-6">
                   <CardTitle className="text-2xl text-green-800 dark:text-green-200 flex items-center gap-2">
-                    🌱 Free Forever
+                    Free Forever
                   </CardTitle>
                   <CardDescription className="text-green-700 dark:text-green-300 font-medium">Perfect for trying it out</CardDescription>
                 </CardHeader>
@@ -604,23 +570,23 @@ export default async function HomePage({params}: Props) {
                         <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                           <Check className="h-3 w-3 text-white" />
                         </div>
-                        <span className="text-slate-800 dark:text-slate-200 font-medium">✨ AI magic included</span>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">✓ 5 messages per month</span>
                       </li>
                       <li className="flex items-center gap-3">
                         <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                           <Check className="h-3 w-3 text-white" />
                         </div>
-                        <span className="text-slate-800 dark:text-slate-200 font-medium">📧 Email & text ready</span>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">✓ Access to core features</span>
                       </li>
                       <li className="flex items-center gap-3">
                         <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                           <Check className="h-3 w-3 text-white" />
                         </div>
-                        <span className="text-slate-800 dark:text-slate-200 font-medium">👥 Community support</span>
+                        <span className="text-slate-800 dark:text-slate-200 font-medium">✓ Always free</span>
                       </li>
                     </ul>
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 shadow-lg">🚀 Start Free Now</Button>
+                  <Button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 shadow-lg">Try Promptly Free</Button>
                 </CardContent>
               </Card>
               
@@ -630,41 +596,38 @@ export default async function HomePage({params}: Props) {
                 </Badge>
                 <CardHeader className="pb-6 pt-8">
                   <CardTitle className="text-2xl text-orange-800 dark:text-orange-200 flex items-center gap-2">
-                    💪 Pro Teacher
+                    Teacher Plan
                   </CardTitle>
-                  <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">For busy educators who want it all</CardDescription>
+                  <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">€9.99/month</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <div className="text-5xl font-black text-orange-600 dark:text-orange-400">€99<span className="text-2xl font-bold text-orange-700 dark:text-orange-300">/year</span></div>
-                    <div className="bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 px-3 py-2 rounded-full">
-                      <p className="text-sm font-bold text-orange-800 dark:text-orange-200 text-center">Only €8.25/month! ☕</p>
-                    </div>
+                    <div className="text-5xl font-black text-orange-600 dark:text-orange-400">€9.99<span className="text-2xl font-bold text-orange-700 dark:text-orange-300">/month</span></div>
                   </div>
                   <ul className="space-y-4 text-sm">
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
                         <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-800 dark:text-slate-200 font-bold">🚀 UNLIMITED messages</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">✓ Unlimited messages</span>
                     </li>
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
                         <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-800 dark:text-slate-200 font-bold">🎯 Perfect tone every time</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">✓ Translations included</span>
                     </li>
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
                         <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-800 dark:text-slate-200 font-bold">🌍 Multi-language support</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">✓ Tone and closing suggestions</span>
                     </li>
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-sm">
                         <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-800 dark:text-slate-200 font-bold">🤖 Zara AI Assistant</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">✓ Cancel anytime</span>
                     </li>
                   </ul>
                   <Button 
@@ -676,7 +639,7 @@ export default async function HomePage({params}: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      🎯 Get Pro Power!
+                      Try Promptly Free
                     </a>
                   </Button>
                 </CardContent>
@@ -685,23 +648,20 @@ export default async function HomePage({params}: Props) {
               <Card className="border-3 border-purple-300 dark:border-purple-500/70 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 dark:from-purple-950/60 dark:via-violet-950/60 dark:to-indigo-950/60 backdrop-blur-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 transition-all duration-500">
                 <CardHeader className="pb-6">
                   <CardTitle className="text-2xl text-purple-800 dark:text-purple-200 flex items-center gap-2">
-                    👑 Teacher Elite
+                    School Plan
                   </CardTitle>
-                  <CardDescription className="text-purple-700 dark:text-purple-300 font-medium">For education leaders & master teachers</CardDescription>
+                  <CardDescription className="text-purple-700 dark:text-purple-300 font-medium">€14.99/month per teacher</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <div className="text-5xl font-black text-purple-600 dark:text-purple-400">€149<span className="text-2xl font-bold text-purple-700 dark:text-purple-300">/year</span></div>
-                    <div className="bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/40 dark:to-violet-900/40 px-3 py-2 rounded-full">
-                      <p className="text-sm font-bold text-purple-800 dark:text-purple-200 text-center">Only €12.42/month! 👑</p>
-                    </div>
+                    <div className="text-5xl font-black text-purple-600 dark:text-purple-400">€14.99<span className="text-2xl font-bold text-purple-700 dark:text-purple-300">/month</span></div>
                   </div>
                   <ul className="space-y-4 text-sm">
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
                         <Check className="h-4 w-4 text-white font-bold" />
                       </div>
-                      <span className="text-slate-800 dark:text-slate-200 font-bold">🎯 Everything in Pro Teacher</span>
+                      <span className="text-slate-800 dark:text-slate-200 font-bold">✓ Everything in Teacher Plan</span>
                     </li>
                     <li className="flex items-center gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center shadow-sm">
@@ -796,7 +756,7 @@ export default async function HomePage({params}: Props) {
                 Imagine Sunday afternoons <span className="italic">free</span>
               </h2>
               <p className="text-xl md:text-2xl opacity-95 leading-relaxed max-w-4xl mx-auto">
-                Because every report, email, and note is done in minutes.
+                Release every hour, email, and parent update back to yourself. Promptly makes it possible.
               </p>
             </div>
             
@@ -822,7 +782,7 @@ export default async function HomePage({params}: Props) {
             
             {/* Social proof tagline */}
             <p className="text-lg opacity-75 italic">
-              Join 12,000+ teachers who&apos;ve transformed their communication workflow
+              Trusted by teachers who save hours every week — and finally reclaim their evenings.
             </p>
           </div>
         </div>
