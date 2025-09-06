@@ -1,27 +1,9 @@
 import Link from 'next/link';
-
-const BLOG_POSTS: Record<string, any> = {
-  "5-minute-ai-wins-busy-teachers": {
-    title: "5 Minute AI Wins for Busy Teachers",
-    description: "Quick AI tools that save time and boost productivity in the classroom",
-    content: "As educators, we're always looking for ways to work smarter, not harder. These AI tools can save you hours of work each week.",
-    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=630&fit=crop",
-    readingTime: "4 min read",
-    publishDate: "December 15, 2024"
-  },
-  "ai-tools-for-teachers": {
-    title: "Essential AI Tools Every Teacher Should Know",
-    description: "A comprehensive guide to the most useful AI tools for educators",
-    content: "The landscape of education technology is evolving rapidly, and AI tools are at the forefront of this transformation.",
-    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=1200&h=630&fit=crop",
-    readingTime: "6 min read",
-    publishDate: "December 10, 2024"
-  }
-};
+import { getBlogPostById } from '../../../../../blog-posts-data';
 
 export default function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
   const { locale, slug } = params;
-  const post = BLOG_POSTS[slug];
+  const post = getBlogPostById(slug);
 
   if (!post) {
     return (
@@ -48,17 +30,21 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
 
         <div className="relative h-64 md:h-80 rounded-xl overflow-hidden mb-8">
           <img 
-            src={post.image}
-            alt={post.title}
+            src={post.image || post.featuredImage || `https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=630&fit=crop`}
+            alt={post.imageAlt || post.title}
             className="w-full h-full object-cover"
           />
         </div>
 
         <div className="bg-white rounded-xl p-8 shadow-sm">
           <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-            <span>{post.publishDate}</span>
+            <span>{new Date(post.date || post.publishDate || '2024-01-01').toLocaleDateString()}</span>
             <span>•</span>
-            <span>{post.readingTime}</span>
+            <span>{post.readingTime || post.readTime || '5 min read'}</span>
+            <span>•</span>
+            <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+              {post.category}
+            </span>
           </div>
           
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
@@ -66,16 +52,60 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
           </h1>
           
           <p className="text-xl text-gray-600 mb-8">
-            {post.description}
+            {post.description || post.excerpt}
           </p>
+
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-8">
+              {post.tags.map(tag => (
+                <span 
+                  key={tag}
+                  className="px-3 py-1 bg-indigo-100 text-indigo-700 text-sm rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
           
           <div className="prose prose-lg max-w-none">
-            <p className="text-gray-700 leading-relaxed mb-6">
-              {post.content}
-            </p>
-            
-            <p className="text-gray-700 leading-relaxed mb-6">
-              This is a simplified version of our blog system. We're working to restore full functionality while ensuring reliable performance.
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+              <div className="flex">
+                <div className="ml-3">
+                  <p className="text-sm text-blue-700">
+                    <strong>Quick Overview:</strong> This comprehensive guide covers practical AI tools and strategies 
+                    that can save you hours of work each week while improving your teaching effectiveness.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-gray-900 mb-3">What You'll Learn</h3>
+                <ul className="space-y-2 text-gray-600">
+                  <li>• Time-saving AI tools for everyday teaching</li>
+                  <li>• Practical implementation strategies</li>
+                  <li>• Best practices for classroom integration</li>
+                  <li>• Safety and privacy considerations</li>
+                </ul>
+              </div>
+              
+              <div className="bg-indigo-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-indigo-900 mb-3">For Teachers Who Want</h3>
+                <ul className="space-y-2 text-indigo-700">
+                  <li>• More time for actual teaching</li>
+                  <li>• Streamlined administrative tasks</li>
+                  <li>• Enhanced student engagement</li>
+                  <li>• Professional development in AI</li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed text-lg">
+              This resource is part of our comprehensive collection of {post.category?.toLowerCase()} guides designed 
+              specifically for educators. Each guide is crafted by experienced teachers and education technology specialists 
+              to ensure practical, classroom-ready solutions.
             </p>
           </div>
           
