@@ -715,7 +715,7 @@ export const getFeaturedPosts = (): BlogPost[] => {
 };
 
 export const getPostsByCategory = (category: string): BlogPost[] => {
-  return blogPosts.filter(post => post.category.toLowerCase() === category.toLowerCase());
+  return blogPosts.filter(post => post.category?.toLowerCase() === category.toLowerCase());
 };
 
 export const getPostsByTag = (tag: string): BlogPost[] => {
@@ -724,6 +724,7 @@ export const getPostsByTag = (tag: string): BlogPost[] => {
 
 export const getPostsByAuthor = (authorName: string): BlogPost[] => {
   return blogPosts.filter(post => {
+    if (!post.author) return false;
     if (typeof post.author === 'string') {
       return post.author === authorName;
     }
@@ -738,7 +739,7 @@ export const getRecentPosts = (limit: number = 5): BlogPost[] => {
 };
 
 export const getAllCategories = (): string[] => {
-  const categories = blogPosts.map(post => post.category);
+  const categories = blogPosts.map(post => post.category || 'Uncategorized').filter(Boolean);
   return [...new Set(categories)].sort();
 };
 
@@ -749,11 +750,14 @@ export const getAllTags = (): string[] => {
 
 export const getAllAuthors = (): string[] => {
   const authors = blogPosts.map(post => {
+    if (!post.author) {
+      return 'Unknown Author';
+    }
     if (typeof post.author === 'string') {
       return post.author;
     }
-    return post.author.name;
-  });
+    return post.author?.name || 'Unknown Author';
+  }).filter(Boolean);
   return [...new Set(authors)].sort();
 };
 
@@ -765,11 +769,11 @@ export const blogPostsMetadata = {
   tags: getAllTags(),
   authors: getAllAuthors(),
   dateRange: {
-    earliest: blogPosts.reduce((earliest, post) => 
-      new Date(post.date) < new Date(earliest.date) ? post : earliest
-    ).date,
-    latest: blogPosts.reduce((latest, post) => 
-      new Date(post.date) > new Date(latest.date) ? post : latest
-    ).date
+    earliest: blogPosts.length > 0 ? blogPosts.reduce((earliest, post) => 
+      new Date(post.date || '2024-01-01') < new Date(earliest.date || '2024-01-01') ? post : earliest
+    ).date : '2024-01-01',
+    latest: blogPosts.length > 0 ? blogPosts.reduce((latest, post) => 
+      new Date(post.date || '2024-01-01') > new Date(latest.date || '2024-01-01') ? post : latest
+    ).date : '2024-01-01'
   }
 };

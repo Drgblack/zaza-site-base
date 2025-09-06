@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { Star, BookOpen, Clock, Users } from 'lucide-react';
-import { BLOG_POSTS, getFeaturedPosts, getRecentPosts, getAllCategories } from '../../../../blog-posts-data';
+import { blogPosts, getFeaturedPosts, getRecentPosts, getAllCategories } from '../../../../blog-posts-data';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -30,7 +30,7 @@ export default async function BlogPage({ params }: Props) {
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-2xl font-bold">{BLOG_POSTS.length}+</div>
+                <div className="text-2xl font-bold">{blogPosts.length}+</div>
                 <div className="text-sm opacity-75">Resources</div>
               </div>
               <div className="text-center">

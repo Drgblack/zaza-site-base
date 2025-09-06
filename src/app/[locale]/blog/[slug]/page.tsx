@@ -103,7 +103,7 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
             </div>
 
             <p className="text-gray-700 leading-relaxed text-lg">
-              This resource is part of our comprehensive collection of {post.category?.toLowerCase()} guides designed 
+              This resource is part of our comprehensive collection of {(post.category || 'educational')?.toLowerCase()} guides designed 
               specifically for educators. Each guide is crafted by experienced teachers and education technology specialists 
               to ensure practical, classroom-ready solutions.
             </p>
