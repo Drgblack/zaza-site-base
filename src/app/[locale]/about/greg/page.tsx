@@ -5,9 +5,9 @@ import { ArrowLeft, GraduationCap, Heart } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Meet Greg Blackburn - Founder & Creator | Zaza Promptly',
-  description: 'Learn about Greg Blackburn, PhD, the educator and researcher behind Zaza Promptly. From Tasmania classrooms to London research labs, discover the journey that led to creating AI tools specifically for teachers.',
-  keywords: ['Greg Blackburn', 'founder story', 'education PhD', 'teacher background', 'Zaza Promptly creator'],
+  title: 'Meet Dr. Greg Blackburn - Founder & Creator | Zaza Promptly',
+  description: 'Learn about Dr. Greg Blackburn, PhD, the educator and researcher behind Zaza Promptly. From Tasmania classrooms to London research labs, discover the journey that led to creating AI tools specifically for teachers.',
+  keywords: ['Dr. Greg Blackburn', 'founder story', 'education PhD', 'teacher background', 'Zaza Promptly creator'],
 };
 
 type Props = {
@@ -44,7 +44,7 @@ export default async function GregStoryPage({params}: Props) {
             <div className="order-1 lg:order-2 space-y-6">
               <div className="space-y-2">
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900 dark:text-gray-100">
-                  Greg Blackburn – My Journey
+                  Dr. Greg Blackburn – My Journey
                 </h1>
                 <p className="text-2xl text-purple-600 font-semibold">
                   From painter to PhD to tech entrepreneur
@@ -162,7 +162,7 @@ export default async function GregStoryPage({params}: Props) {
                 </p>
                 <div className="mt-6 text-right">
                   <p className="text-lg font-semibold text-purple-900 dark:text-purple-100">
-                    — Greg Blackburn
+                    — Dr. Greg Blackburn
                   </p>
                 </div>
               </div>

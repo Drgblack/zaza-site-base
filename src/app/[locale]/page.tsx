@@ -515,11 +515,11 @@ export default async function HomePage({params}: Props) {
               "This isn't about AI replacing teachers. It's about helping teachers thrive."
             </p>
             <p className="text-slate-700 dark:text-slate-300 font-semibold">
-              – Greg Blackburn, PhD
+              – Dr. Greg Blackburn
             </p>
           </div>
           
-          <p className="text-slate-600 dark:text-slate-300 mb-2">From painter to PhD in Professional Education, Greg built Promptly after 20+ years in education.</p>
+          <p className="text-slate-600 dark:text-slate-300 mb-2">From painter to PhD in Professional Education, Dr. Greg Blackburn built Promptly after 20+ years in education.</p>
           <p className="text-slate-600 dark:text-slate-300 mb-6">He's seen how admin work drains teachers' energy from what matters most: teaching and relationships.</p>
           
           <Button variant="outline" className="bg-white dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300" asChild>

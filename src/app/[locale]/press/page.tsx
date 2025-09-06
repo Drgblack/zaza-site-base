@@ -17,7 +17,7 @@ export default async function PressPage({params}: Props) {
     {
       title: "About Dr. Greg Blackburn, Founder of Zaza Technologies",
       date: "September 6, 2025",
-      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most - whether that's teaching students or closing deals. Greg's journey spans more than two decades in corporate learning and development, research, and leadership. After beginning his career at Telstra and completing an MBA at the University of Queensland, Greg earned a PhD in Professional Education from City, University of London, with a thesis on critical thinking and problem-solving in eLearning. He went on to publish widely, teach thousands of organisational staff, and serve as Chief Learning Officer at Communardo.",
+      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most - whether that's teaching students or closing deals. Dr. Greg Blackburn's journey spans more than two decades in corporate learning and development, research, and leadership. After beginning his career at Telstra and completing an MBA at the University of Queensland, Dr. Greg Blackburn earned a PhD in Professional Education from City, University of London, with a thesis on critical thinking and problem-solving in eLearning. He went on to publish widely, teach thousands of organisational staff, and serve as Chief Learning Officer at Communardo.",
       category: "Media Bio",
       link: "/about/greg",
       featured: true,
@@ -27,7 +27,7 @@ export default async function PressPage({params}: Props) {
     {
       title: "Australian Entrepreneur Builds Global AI Company from Saarbrücken Base",
       date: "September 6, 2025",
-      summary: "An Australian by birth, Dr. Greg Blackburn has called Saarland home for more than a decade. From his base in Saarbrücken, he founded Zaza Technologies, a company now building AI-powered tools used by teachers and professionals around the world. Greg's journey has been anything but ordinary. He began his working life as a painter and decorator in Tasmania before moving into corporate learning and development, completing an MBA at the University of Queensland and later earning a PhD in Professional Education from City, University of London. In Saarland, Greg saw the chance to build something new - blending his research expertise, corporate experience, and personal motivation as a father.",
+      summary: "An Australian by birth, Dr. Greg Blackburn has called Saarland home for more than a decade. From his base in Saarbrücken, he founded Zaza Technologies, a company now building AI-powered tools used by teachers and professionals around the world. Dr. Greg Blackburn's journey has been anything but ordinary. He began his working life as a painter and decorator in Tasmania before moving into corporate learning and development, completing an MBA at the University of Queensland and later earning a PhD in Professional Education from City, University of London. In Saarland, Dr. Greg Blackburn saw the chance to build something new - blending his research expertise, corporate experience, and personal motivation as a father.",
       category: "Local Story",
       link: "/about/greg",
       featured: true,
@@ -37,7 +37,7 @@ export default async function PressPage({params}: Props) {
     {
       title: "Quick Bio: Dr. Greg Blackburn, Zaza Technologies Founder",
       date: "September 6, 2025",
-      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most. With more than 20 years of experience in corporate learning and development, Greg has published widely, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. He holds a PhD in Professional Education from City, University of London, and an MBA from the University of Queensland. Based in Saarland, Germany for over a decade, Greg is building Zaza as both a global company and a lasting legacy for his daughters, Viola and Solara.",
+      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most. With more than 20 years of experience in corporate learning and development, Dr. Greg Blackburn has published widely, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. He holds a PhD in Professional Education from City, University of London, and an MBA from the University of Queensland. Based in Saarland, Germany for over a decade, Dr. Greg Blackburn is building Zaza as both a global company and a lasting legacy for his daughters, Viola and Solara.",
       category: "Press Bio",
       link: "/about/greg",
       featured: false,

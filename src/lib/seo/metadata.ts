@@ -48,7 +48,7 @@ export const seoMetadata = {
     about: {
       title: 'Built by a Learning Expert | About Dr. Greg Blackburn',
       description: 'Meet Dr. Greg Blackburn, PhD in Professional Education. 20+ years helping teachers succeed. Built Promptly to help teachers focus on what matters most.',
-      keywords: 'Greg Blackburn PhD, education expert, teacher advocate, AI education ethics',
+      keywords: 'Dr. Greg Blackburn PhD, education expert, teacher advocate, AI education ethics',
       openGraph: {
         title: 'Meet the Education Expert Behind Zaza Promptly',
         description: 'Dr. Greg Blackburn, PhD in Professional Education, built Promptly after seeing how admin work drains teachers.'
