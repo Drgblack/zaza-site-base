@@ -1,13 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { type BlogPost } from '@/lib/blog/mdx-blog-service';
+import { type BlogPost } from '../../../../blog-posts-data';
 import Link from 'next/link';
 import { Search, Clock, Filter, Bookmark, TrendingUp } from 'lucide-react';
 
+interface Category {
+  name: string;
+  slug: string;
+  color: string;
+  icon: string;
+}
+
 interface BlogPageClientProps {
   posts: BlogPost[];
-  categories: Array<{ category: BlogPost['category'], count: number }>;
+  categories: Array<{ category: Category, count: number }>;
   locale: string;
 }
 
@@ -30,14 +37,17 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
     let filtered = posts;
     
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(post => post.category.slug === selectedCategory);
+      filtered = filtered.filter(post => {
+        const category = typeof post.category === 'string' ? post.category : post.category?.slug || post.category?.name;
+        return category === selectedCategory;
+      });
     }
     
     if (searchQuery) {
       filtered = filtered.filter(post =>
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+        post.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     }
     
@@ -98,15 +108,15 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
             
             {categories.map(({ category, count }) => (
               <button
-                key={category.slug}
-                onClick={() => setSelectedCategory(category.slug)}
+                key={category.slug || category.name}
+                onClick={() => setSelectedCategory(category.slug || category.name)}
                 className={`px-6 py-2 rounded-full font-medium transition-all whitespace-nowrap flex items-center gap-2 ${
-                  selectedCategory === category.slug
-                    ? `${category.color} text-white`
+                  selectedCategory === (category.slug || category.name)
+                    ? `${category.color || 'bg-purple-600'} text-white`
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <span>{category.icon}</span>
+                <span>{category.icon || '📚'}</span>
                 {category.name} ({count})
               </button>
             ))}
@@ -121,7 +131,7 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
           <p className="text-gray-600">
             Showing {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
             {searchQuery && ` for "${searchQuery}"`}
-            {selectedCategory !== 'all' && ` in ${categories.find(c => c.category.slug === selectedCategory)?.category.name}`}
+            {selectedCategory !== 'all' && ` in ${categories.find(c => (c.category.slug || c.category.name) === selectedCategory)?.category.name || selectedCategory}`}
           </p>
           
           <div className="flex items-center gap-2">
@@ -149,9 +159,9 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-white text-xs font-medium ${post.category.color}`}>
-                    <span className="mr-1">{post.category.icon}</span>
-                    {post.category.name}
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-white text-xs font-medium bg-purple-600">
+                    <span className="mr-1">📚</span>
+                    {typeof post.category === 'string' ? post.category : post.category?.name || 'Blog'}
                   </div>
                   {post.featured && (
                     <div className="absolute top-4 right-4 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-medium">
@@ -162,16 +172,16 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
               )}
               
               {/* Category Header (fallback if no image) */}
-              {!post.image && <div className={`h-3 ${post.category.color}`}></div>}
+              {!post.image && <div className="h-3 bg-purple-600"></div>}
               
               <div className="p-6">
                 {/* Category & Save Button */}
                 <div className="flex items-center justify-between mb-4">
                   {!post.image && (
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl">{post.category.icon}</span>
+                      <span className="text-2xl">📚</span>
                       <span className="text-sm font-medium text-gray-600">
-                        {post.category.name}
+                        {typeof post.category === 'string' ? post.category : post.category?.name || 'Blog'}
                       </span>
                     </div>
                   )}
@@ -218,7 +228,7 @@ export default function BlogPageClient({ posts, categories, locale }: BlogPageCl
                 </div>
                 
                 {/* Tags */}
-                {post.tags.length > 0 && (
+                {post.tags && post.tags.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2">
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
