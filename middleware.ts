@@ -3,7 +3,11 @@ import type { NextRequest } from "next/server";
 
 export function middleware(_req: NextRequest) {
   const res = NextResponse.next();
-  res.headers.set("X-Commit", process.env.VERCEL_GIT_COMMIT_SHA || "dev");
+  // Safely handle commit SHA - only set if available
+  const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
+  if (commitSha) {
+    res.headers.set("X-Commit", commitSha);
+  }
   return res;
 }
 

@@ -86,7 +86,8 @@
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
       "Bash(gh pr:*)",
-      "Bash(gcloud run deploy:*)"
+      "Bash(gcloud run deploy:*)",
+      "Bash(del simple-page.tsx teacher-blog-post-page.tsx page-complex.tsx test.tsx)"
     ],
     "deny": []
   }
