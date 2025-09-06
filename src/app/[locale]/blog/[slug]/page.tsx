@@ -82,34 +82,82 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
             )}
 
             <div className="text-gray-700 leading-relaxed text-lg space-y-6">
-              <p>
+              {/* Main content description */}
+              <div className="text-xl leading-relaxed">
                 {post.description || post.excerpt}
-              </p>
-              
-              {post.category && (
-                <p>
-                  This comprehensive {post.category.toLowerCase()} guide provides practical strategies and proven methods 
-                  that you can implement immediately in your teaching practice.
-                </p>
-              )}
-              
-              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-indigo-900 mb-3 text-xl">
-                  Key Benefits for Educators:
-                </h3>
-                <ul className="space-y-2 text-indigo-700">
-                  <li>• Practical, classroom-tested strategies</li>
-                  <li>• Step-by-step implementation guidance</li>
-                  <li>• Time-saving tools and resources</li>
-                  <li>• Professional development insights</li>
-                </ul>
               </div>
+              
+              {/* Additional excerpt if different from description */}
+              {post.excerpt && post.excerpt !== post.description && (
+                <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                  <p className="text-blue-800 font-medium">{post.excerpt}</p>
+                </div>
+              )}
 
-              <p>
-                Whether you're a new teacher looking to streamline your workflow or a veteran educator exploring innovative approaches, 
-                this guide offers valuable insights that can transform your teaching practice and help you achieve better work-life balance.
-              </p>
+              {/* Category-specific content */}
+              {post.category === 'AI Tools' && (
+                <div className="bg-purple-50 p-6 rounded-lg">
+                  <h3 className="font-semibold text-purple-900 mb-3">What You'll Discover:</h3>
+                  <ul className="space-y-2 text-purple-700">
+                    <li>• Cutting-edge AI tools specifically designed for educators</li>
+                    <li>• Step-by-step implementation guides with screenshots</li>
+                    <li>• Time-saving automation techniques</li>
+                    <li>• Safety and privacy best practices for educational AI</li>
+                  </ul>
+                </div>
+              )}
 
+              {post.category === 'Parent Communication' && (
+                <div className="bg-green-50 p-6 rounded-lg">
+                  <h3 className="font-semibold text-green-900 mb-3">Communication Strategies Include:</h3>
+                  <ul className="space-y-2 text-green-700">
+                    <li>• Proven scripts for difficult conversations</li>
+                    <li>• Email templates that build trust and collaboration</li>
+                    <li>• De-escalation techniques for tense situations</li>
+                    <li>• Professional language that shows empathy and authority</li>
+                  </ul>
+                </div>
+              )}
+
+              {post.category === 'Teacher Tips' && (
+                <div className="bg-orange-50 p-6 rounded-lg">
+                  <h3 className="font-semibold text-orange-900 mb-3">Teaching Excellence Features:</h3>
+                  <ul className="space-y-2 text-orange-700">
+                    <li>• Classroom-tested strategies from experienced educators</li>
+                    <li>• Time management techniques that actually work</li>
+                    <li>• Student engagement methods with proven results</li>
+                    <li>• Work-life balance tips for sustainable teaching</li>
+                  </ul>
+                </div>
+              )}
+
+              {(!post.category || !['AI Tools', 'Parent Communication', 'Teacher Tips'].includes(post.category)) && (
+                <div className="bg-indigo-50 p-6 rounded-lg">
+                  <h3 className="font-semibold text-indigo-900 mb-3">Key Benefits:</h3>
+                  <ul className="space-y-2 text-indigo-700">
+                    <li>• Evidence-based educational strategies</li>
+                    <li>• Practical implementation guidance</li>
+                    <li>• Professional development insights</li>
+                    <li>• Real-world classroom applications</li>
+                  </ul>
+                </div>
+              )}
+
+              {/* Reading time and author info */}
+              {(post.readingTime || post.readTime) && (
+                <div className="bg-gray-100 p-4 rounded-lg text-center">
+                  <p className="text-gray-600">
+                    <strong>Estimated reading time:</strong> {post.readingTime || post.readTime}
+                  </p>
+                  {typeof post.author === 'object' && post.author.bio && (
+                    <p className="text-sm text-gray-500 mt-2">
+                      By {post.author.name} - {post.author.bio}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* SEO keywords */}
               {post.seoKeywords && post.seoKeywords.length > 0 && (
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-gray-600 text-sm">
