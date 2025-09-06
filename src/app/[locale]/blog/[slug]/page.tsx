@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getTeacherBlogPostBySlug, getAllTeacherBlogPosts } from '@/lib/blog/teacher-blog-service';
+import { getTeacherBlogPostBySlug, getAllTeacherBlogPosts } from '@/lib/blog/static-teacher-blog-service';
 import TeacherBlogPostPage from './teacher-blog-post-page';
 import type { Metadata } from 'next';
 
