@@ -51,6 +51,7 @@ export function Header() {
     { name: t('blog'), href: '/blog' },
     { name: t('resources'), href: '/resources' },
     { name: 'Community', href: '/community' },
+    { name: 'FAQ', href: '/faq' },
     { name: t('pricing'), href: '/pricing' },
   ];
 
@@ -100,7 +101,7 @@ export function Header() {
             aria-label="Main navigation"
           >
             {navigation.map((item) => {
-              if (item.href === '/' || item.href === '/blog' || item.href === '/resources' || item.href === '/community') {
+              if (item.href === '/' || item.href === '/blog' || item.href === '/resources' || item.href === '/community' || item.href === '/faq') {
                 return (
                   <Link
                     key={item.name}
@@ -199,7 +200,7 @@ export function Header() {
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
             <div className="py-4 space-y-1">
               {navigation.map((item) => {
-                if (item.href === '/' || item.href === '/blog' || item.href === '/resources') {
+                if (item.href === '/' || item.href === '/blog' || item.href === '/resources' || item.href === '/faq') {
                   return (
                     <Link
                       key={item.name}
