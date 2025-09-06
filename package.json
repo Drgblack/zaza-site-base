@@ -38,6 +38,7 @@
     "gray-matter": "^4.0.3",
     "html2canvas": "^1.4.1",
     "isomorphic-dompurify": "^2.26.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "next-auth": "^4.24.11",

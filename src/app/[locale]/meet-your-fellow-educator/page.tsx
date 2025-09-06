@@ -68,38 +68,125 @@ export default async function MeetYourFellowEducatorPage({params}: Props) {
 
             {/* Story Content */}
             <div className="lg:col-span-2">
-              <div className="prose prose-lg prose-purple max-w-none space-y-6">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I began my working life as a painter and decorator in Hobart, Tasmania. My father owned a paint factory, and I entered TAFE by default, completing a four-year apprenticeship at Cascade Brewery. But I knew I wanted more.
-                </p>
-                
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  After traveling overseas, I realized education was my path forward. I studied German in Germany, then returned to Australia to complete a degree in Administration, Information Systems, and German at the University of Tasmania.
-                </p>
-                
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I went on to earn First Class Honours in Information Systems, an MBA at the University of Queensland, and later a PhD in Professional Education in London, focusing on critical thinking and problem-solving in student-centred eLearning.
-                </p>
-                
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Along the way, I worked in tech, higher education, and leadership roles - but always came back to one mission: help teachers thrive.
-                </p>
-                
-                <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-2xl border-l-4 border-purple-500">
-                  <p className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                    That's why I built Zaza Promptly. To give back the time, energy, and confidence that teachers deserve.
+              <div className="prose prose-lg prose-purple max-w-none space-y-8">
+                {/* Early Years */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    I didn't begin in technology or education. My working life started with a paintbrush in hand, apprenticing as a painter and decorator in Hobart, Tasmania, while my father ran a small paint factory. After completing a pre-vocational course at TAFE, I found myself at Cascade Brewery, working through a four-year apprenticeship I quickly realised wasn't for me.
                   </p>
-                  <Button asChild size="lg" className="bg-purple-600 hover:bg-purple-700">
-                    <a
-                      href="https://linkedin.com/in/gregzahra"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                    >
-                      <LinkedinIcon className="h-5 w-5" />
-                      Follow my journey on LinkedIn →
-                    </a>
-                  </Button>
+                  
+                  <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 p-6 rounded-xl border-l-4 border-orange-500">
+                    <p className="text-lg font-medium text-gray-900 dark:text-gray-100 italic">
+                      "The work was tough, the environment tougher - but those years taught me resilience."
+                    </p>
+                  </div>
+                </div>
+
+                {/* Discovery and Growth */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Travel opened my eyes to what might be possible. I lived abroad, studied German, and eventually returned to Tasmania to pursue university studies in Administration, Information Systems, and German at UTas. Graduating with First Class Honours proved to me that I could excel academically despite early doubts and the family tensions that had left me questioning my path.
+                  </p>
+                  
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    My career then took me to Brisbane, where I spent six years at Telstra and completed an MBA at the University of Queensland. That MBA opened doors into management roles at UQ itself, where I became a Business Manager. At the same time, I began publishing research - exploring how people learn, solve problems, and think critically in their work.
+                  </p>
+                </div>
+
+                {/* Turning Point */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    It was also in Brisbane that my two daughters, Viola and Solara, were born. Fatherhood reframed everything. Success no longer meant climbing the next rung of the career ladder - it meant building a future where work left more time for people, for families, and for life. That desire to create something lasting, something I could one day hand to my daughters, began to crystallise.
+                  </p>
+                  
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border-l-4 border-blue-500">
+                    <p className="text-lg font-medium text-gray-900 dark:text-gray-100 italic">
+                      "Fatherhood reframed everything: success became about creating time for families and life."
+                    </p>
+                  </div>
+                </div>
+
+                {/* Academic Journey */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Driven by curiosity, I pursued a PhD by publication at City, University of London. My thesis focused on critical thinking and problem-solving in student-centred eLearning - themes that would quietly shape much of what came next. With my PhD in Professional Education, I built a reputation as a researcher and thought leader in learning and development. Over the years, I published widely, taught thousands of organisational staff, and grew into leadership as Chief Learning Officer at Communardo.
+                  </p>
+                  
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Yet alongside this professional journey, I was listening closely to the struggles of those around me - especially family members who were teachers. Their stories mirrored what I had seen in companies: endless hours consumed by admin, creativity drained by paperwork, and a profession meant to be about people reduced to process.
+                  </p>
+                </div>
+
+                {/* The Vision */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    That realisation planted a seed. As AI tools became more accessible, I began to imagine how they could be harnessed not as gimmicks, but as genuine supports - freeing professionals to focus on what they do best. By 2024, that seed had grown into Zaza Technologies.
+                  </p>
+                  
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Zaza was created to turn decades of insight into human-friendly, AI-powered tools. I drew on everything - my corporate career, my academic research, my family's lived experience in classrooms, and my own determination to build something meaningful.
+                  </p>
+                  
+                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-2xl border-l-4 border-purple-500">
+                    <p className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                      Zaza Technologies builds AI-powered tools that give people their time back.
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      Our mission is to free professionals from repetitive admin and communication so they can focus on what matters most - whether that's teaching students, closing deals, or making an impact in their field.
+                    </p>
+                  </div>
+                </div>
+
+                {/* The Mission */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    We operate on two pillars:
+                  </p>
+                  
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start">
+                      <span className="font-semibold text-purple-600 dark:text-purple-400 mr-2">For Educators:</span>
+                      The Zaza Teach suite empowers teachers to reclaim their time, reduce stress, and connect more deeply with students.
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-purple-600 dark:text-purple-400 mr-2">For Professionals:</span>
+                      The Close Suite helps real estate agents, lawyers, consultants, and other client-facing experts close more deals, respond faster, and scale relationships with ease.
+                    </li>
+                  </ul>
+                  
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Across industries, the problem is the same: repetitive communication steals time from high-value human work. Zaza gives that time back - whether the result is teachers gaining 5+ hours per week and reducing burnout, or professionals turning faster responses into higher revenue.
+                  </p>
+                </div>
+
+                {/* Legacy and Vision */}
+                <div className="space-y-4">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    What began as a personal journey - from an unhappy apprentice in a paint factory to the founder of a company building AI-powered assistants - has become something much bigger. Zaza Technologies is my way of proving the value of my hard-won experience, creating a legacy for my daughters, and showing the world that technology can be built with empathy, trust, and a deep understanding of how people learn and work.
+                  </p>
+                  
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border-l-4 border-green-500">
+                    <p className="text-lg font-medium text-gray-900 dark:text-gray-100 italic mb-4">
+                      "If there is one lesson I hope to pass on - it is the value of betting on yourself."
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      With perseverance, vision, and education, anything is possible.
+                    </p>
+                  </div>
+                  
+                  <div className="pt-6">
+                    <Button asChild size="lg" className="bg-purple-600 hover:bg-purple-700">
+                      <a
+                        href="https://linkedin.com/in/gregzahra"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2"
+                      >
+                        <LinkedinIcon className="h-5 w-5" />
+                        Follow my journey on LinkedIn →
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

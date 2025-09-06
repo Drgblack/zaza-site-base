@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DownloadButton } from "@/components/DownloadButton";
 import { Download, ExternalLink, Mail, Calendar, Users, Award, Newspaper, ImageIcon, FileText, Palette } from 'lucide-react';
 
 type Props = {
@@ -72,42 +73,48 @@ export default async function PressPage({params}: Props) {
       type: "ZIP", 
       size: "2.4 MB",
       description: "High-res logos in multiple formats (PNG, SVG, EPS)",
-      icon: Palette
+      icon: Palette,
+      downloadUrl: "/api/download?type=logos"
     },
     { 
       name: "Founder Headshots", 
       type: "ZIP", 
       size: "8.1 MB",
       description: "Professional photos of Dr. Greg Blackburn",
-      icon: ImageIcon
+      icon: ImageIcon,
+      downloadUrl: "/api/download?type=headshots"
     },
     { 
       name: "Product Screenshots", 
       type: "ZIP", 
       size: "5.7 MB",
       description: "App interface and feature demonstrations",
-      icon: ImageIcon
+      icon: ImageIcon,
+      downloadUrl: "/api/download?type=screenshots"
     },
     { 
       name: "Brand Guidelines", 
       type: "PDF", 
       size: "1.2 MB",
       description: "Complete brand identity and usage guidelines",
-      icon: FileText
+      icon: FileText,
+      downloadUrl: "/media-kit/brand-guidelines.pdf"
     },
     { 
       name: "Company Fact Sheet", 
       type: "PDF", 
       size: "0.8 MB",
       description: "Key statistics, timeline, and company overview",
-      icon: FileText
+      icon: FileText,
+      downloadUrl: "/media-kit/company-factsheet.pdf"
     },
     { 
       name: "Press Release Templates", 
       type: "DOCX", 
       size: "0.5 MB",
       description: "Ready-to-use press release formats",
-      icon: Newspaper
+      icon: Newspaper,
+      downloadUrl: "/media-kit/press-release-template.docx"
     }
   ];
 
@@ -186,12 +193,13 @@ export default async function PressPage({params}: Props) {
                     Contact Press Team
                   </a>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                  <a href="#media-kit">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Media Kit
-                  </a>
-                </Button>
+                <DownloadButton 
+                  href="/api/download?type=media-kit" 
+                  variant="outline" 
+                  size="lg"
+                >
+                  Download Media Kit
+                </DownloadButton>
               </div>
               
               <div className="mt-8 pt-6 border-t border-purple-200 dark:border-purple-700/50">
@@ -323,10 +331,9 @@ export default async function PressPage({params}: Props) {
                             <span className="text-xs text-slate-600 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
                               {item.type} • {item.size}
                             </span>
-                            <Button variant="outline" size="sm" className="hover:bg-purple-50 dark:hover:bg-purple-950/20 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
-                              <Download className="h-3 w-3 mr-1" />
+                            <DownloadButton href={item.downloadUrl}>
                               Download
-                            </Button>
+                            </DownloadButton>
                           </div>
                         </div>
                       </div>
@@ -421,12 +428,14 @@ export default async function PressPage({params}: Props) {
                   Contact Press Team
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 backdrop-blur font-semibold transition-all duration-300">
-                <a href="#media-kit" className="flex items-center">
-                  <Download className="w-5 h-5 mr-2" />
-                  Download Media Kit
-                </a>
-              </Button>
+              <DownloadButton 
+                href="/api/download?type=media-kit"
+                variant="outline" 
+                size="lg"
+                className="text-white border-white hover:bg-white/10 backdrop-blur font-semibold transition-all duration-300"
+              >
+                Download Media Kit
+              </DownloadButton>
             </div>
             
             <div className="pt-8">
