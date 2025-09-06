@@ -62,6 +62,15 @@ export const seoMetadata = {
         title: 'Free Teaching Resources & Communication Templates',
         description: 'Download professional templates and resources to save time on parent communication and reports.'
       }
+    },
+    faq: {
+      title: 'FAQ - Teacher Questions Answered | Zaza Promptly',
+      description: 'Get quick answers about Zaza Promptly. Learn how our AI assistant helps teachers communicate with parents, students, colleagues, and school community efficiently.',
+      keywords: 'teacher FAQ, AI assistant questions, school communication help, education AI answers, Promptly support',
+      openGraph: {
+        title: 'Frequently Asked Questions for Teachers | Zaza Promptly',
+        description: 'Quick answers for busy teachers. Learn how Promptly helps with all school communication - not just parent messages.'
+      }
     }
   },
 
@@ -93,6 +102,15 @@ export const seoMetadata = {
         title: 'KI-Lösungen für Lehrkräfte-Kommunikation',
         description: 'Reduzieren Sie Elternkommunikationszeit um 60-80%. Hallucinationssichere KI für Lehrkräfte.'
       }
+    },
+    faq: {
+      title: 'FAQ - Häufige Fragen beantwortet | Zaza Promptly',
+      description: 'Schnelle Antworten über Zaza Promptly. Erfahren Sie, wie unser KI-Assistent Lehrkräften bei der Kommunikation mit Eltern, Schülern und Kollegen hilft.',
+      keywords: 'Lehrer FAQ, KI-Assistent Fragen, Schulkommunikation Hilfe, Bildung KI Antworten, Promptly Support',
+      openGraph: {
+        title: 'Häufig gestellte Fragen für Lehrkräfte | Zaza Promptly',
+        description: 'Schnelle Antworten für viel beschäftigte Lehrkräfte. Lernen Sie, wie Promptly bei der gesamten Schulkommunikation hilft.'
+      }
     }
   },
 
@@ -114,6 +132,15 @@ export const seoMetadata = {
       openGraph: {
         title: 'Outils IA Abordables pour Enseignants | Tarifs',
         description: 'Tarifs adaptés aux enseignants dès gratuit. Fonctionnalités Pro à partir de €8,25/mois seulement.'
+      }
+    },
+    faq: {
+      title: 'FAQ - Questions Fréquentes | Zaza Promptly',
+      description: 'Réponses rapides sur Zaza Promptly. Découvrez comment notre assistant IA aide les enseignants à communiquer avec parents, élèves et collègues efficacement.',
+      keywords: 'FAQ enseignants, questions assistant IA, aide communication scolaire, réponses éducation IA, support Promptly',
+      openGraph: {
+        title: 'Questions Fréquentes pour Enseignants | Zaza Promptly',
+        description: 'Réponses rapides pour enseignants occupés. Découvrez comment Promptly aide pour toute communication scolaire.'
       }
     }
   },
@@ -137,6 +164,15 @@ export const seoMetadata = {
         title: 'Herramientas IA Accesibles para Docentes | Precios',
         description: 'Precios pensados para docentes desde gratis. Funciones Pro desde solo €8,25/mes.'
       }
+    },
+    faq: {
+      title: 'FAQ - Preguntas Frecuentes | Zaza Promptly',
+      description: 'Respuestas rápidas sobre Zaza Promptly. Descubra cómo nuestro asistente IA ayuda a docentes a comunicarse con familias, estudiantes y colegas eficientemente.',
+      keywords: 'FAQ docentes, preguntas asistente IA, ayuda comunicación escolar, respuestas educación IA, soporte Promptly',
+      openGraph: {
+        title: 'Preguntas Frecuentes para Docentes | Zaza Promptly',
+        description: 'Respuestas rápidas para docentes ocupados. Descubra cómo Promptly ayuda con toda la comunicación escolar.'
+      }
     }
   },
 
@@ -158,6 +194,15 @@ export const seoMetadata = {
       openGraph: {
         title: 'Strumenti IA Accessibili per Docenti | Prezzi',
         description: 'Prezzi pensati per docenti da gratis. Funzioni Pro da solo €8,25/mese.'
+      }
+    },
+    faq: {
+      title: 'FAQ - Domande Frequenti | Zaza Promptly',
+      description: 'Risposte rapide su Zaza Promptly. Scopri come il nostro assistente IA aiuta i docenti a comunicare con genitori, studenti e colleghi efficacemente.',
+      keywords: 'FAQ docenti, domande assistente IA, aiuto comunicazione scolastica, risposte educazione IA, supporto Promptly',
+      openGraph: {
+        title: 'Domande Frequenti per Docenti | Zaza Promptly',
+        description: 'Risposte rapide per docenti impegnati. Scopri come Promptly aiuta con tutta la comunicazione scolastica.'
       }
     }
   }
