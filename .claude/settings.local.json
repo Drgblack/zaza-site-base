@@ -88,7 +88,10 @@
       "Bash(gh pr:*)",
       "Bash(gcloud run deploy:*)",
       "Bash(del simple-page.tsx teacher-blog-post-page.tsx page-complex.tsx test.tsx)",
-      "Bash(del:*)"
+      "Bash(del:*)",
+      "Bash(wc:*)",
+      "Bash(awk:*)",
+      "Bash(powershell:*)"
     ],
     "deny": []
   }
