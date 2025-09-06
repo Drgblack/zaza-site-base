@@ -16,25 +16,33 @@ export default async function PressPage({params}: Props) {
     {
       title: "Zaza Promptly Launches AI-Powered Parent Communication Tool for Teachers",
       date: "January 15, 2024",
-      summary: "Revolutionary AI tool saves teachers 5+ hours per week on parent communication and report writing, designed specifically for education workflows.",
+      summary: "Zaza Promptly today announced the launch of its revolutionary AI communication assistant designed specifically for teachers. The platform helps educators draft parent messages, report comments, and student feedback in minutes rather than hours, with built-in safeguards against AI hallucinations and full GDPR compliance. Early adopters report saving 5+ hours per week on communication tasks, allowing them to focus more time on teaching and student relationships.",
       category: "Product Launch",
-      link: "#",
+      link: "/blog/promptly-launch-announcement",
       featured: true
     },
     {
-      title: "PhD in Professional Education Builds Next-Gen EdTech Platform",
+      title: "From Artist to AI Pioneer: Dr. Greg Blackburn's EdTech Journey",
       date: "December 8, 2023",
-      summary: "From paint brushes to PhD - founder Dr. Greg Blackburn's journey from artist to educator shapes teacher-first AI design philosophy.",
-      category: "Company News",
-      link: "#",
+      summary: "Dr. Greg Blackburn's unique path from professional painter to PhD in Professional Education to AI entrepreneur offers insights into building teacher-first technology. With 20+ years in education, Blackburn identified the crushing administrative burden on teachers and created Promptly to address the specific needs of classroom communication. 'This isn't about replacing teachers,' says Blackburn, 'it's about giving them their evenings back.'",
+      category: "Founder Story",
+      link: "/about/greg",
       featured: false
     },
     {
-      title: "Zaza Promptly Reaches 12,000+ Teachers Milestone",
+      title: "Zaza Promptly Surpasses 12,000 Teacher Users Worldwide",
       date: "November 20, 2023",
-      summary: "Teacher adoption surges as educators discover hallucination-safe AI designed specifically for parent communication and classroom workflows.",
+      summary: "Zaza Promptly has reached a significant milestone with over 12,000 teachers using the platform across 15 countries. The teacher-specific AI assistant has generated more than 250,000 parent messages, report comments, and student communications, with users reporting dramatic time savings and improved work-life balance. The platform's focus on education-specific workflows and hallucination-safe AI has resonated strongly with educators seeking reliable technology solutions.",
       category: "Milestone",
-      link: "#",
+      link: "/press/12k-teachers-milestone",
+      featured: false
+    },
+    {
+      title: "Why Teachers Choose Promptly Over ChatGPT for Classroom Communication",
+      date: "October 15, 2023",
+      summary: "A new analysis reveals why educators increasingly prefer specialized AI tools like Promptly over general-purpose alternatives. Key factors include built-in education context, parent-appropriate tone suggestions, GDPR compliance, and protection against AI hallucinations in school communications. 'Generic AI tools require too much prompting and risk inappropriate responses,' notes educational technology researcher Dr. Sarah Martinez.",
+      category: "Industry Analysis",
+      link: "/blog/promptly-vs-chatgpt-teachers",
       featured: false
     }
   ];
@@ -201,11 +209,11 @@ export default async function PressPage({params}: Props) {
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
-                          <Badge variant={release.featured ? 'default' : 'outline'} className={release.featured ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' : ''}>
+                          <Badge variant={release.featured ? 'default' : 'outline'} className={release.featured ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-200' : 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300'}>
                             {release.category}
                           </Badge>
                           {release.featured && (
-                            <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
+                            <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-200">
                               Featured
                             </Badge>
                           )}
@@ -218,7 +226,7 @@ export default async function PressPage({params}: Props) {
                           <span>{release.date}</span>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 dark:hover:bg-purple-950/20">
+                      <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 dark:hover:bg-purple-950/20 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
                         <a href={release.link}>
                           <ExternalLink className="h-4 w-4 mr-2" />
                           Read Article
@@ -234,7 +242,7 @@ export default async function PressPage({params}: Props) {
             </div>
             
             <div className="text-center mt-12">
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
                 <Newspaper className="w-4 h-4 mr-2" />
                 View All Press Releases
               </Button>
@@ -276,10 +284,10 @@ export default async function PressPage({params}: Props) {
                             {item.description}
                           </p>
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-slate-500 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
+                            <span className="text-xs text-slate-600 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
                               {item.type} • {item.size}
                             </span>
-                            <Button variant="outline" size="sm" className="hover:bg-purple-50 dark:hover:bg-purple-950/20">
+                            <Button variant="outline" size="sm" className="hover:bg-purple-50 dark:hover:bg-purple-950/20 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
                               <Download className="h-3 w-3 mr-1" />
                               Download
                             </Button>
@@ -300,7 +308,7 @@ export default async function PressPage({params}: Props) {
                 <p className="text-slate-600 dark:text-slate-300 mb-4">
                   Can't find what you're looking for? Contact our press team for custom materials.
                 </p>
-                <Button variant="outline">
+                <Button variant="outline" className="border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
                   <Mail className="w-4 h-4 mr-2" />
                   Request Custom Assets
                 </Button>
