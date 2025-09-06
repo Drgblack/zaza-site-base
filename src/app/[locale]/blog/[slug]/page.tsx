@@ -81,7 +81,46 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
               </div>
             )}
 
-            <div className="text-gray-700 leading-relaxed text-lg space-y-6">
+            {/* Display actual blog content if available */}
+            {post.content ? (
+              <div 
+                className="prose prose-lg prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-a:text-indigo-600 prose-code:text-indigo-600 prose-code:bg-indigo-50 prose-code:px-1 prose-code:rounded max-w-none"
+                dangerouslySetInnerHTML={{ 
+                  __html: post.content
+                    .split('\n')
+                    .map(line => {
+                      // Convert markdown headers
+                      if (line.startsWith('### ')) {
+                        return `<h3 class="text-xl font-semibold text-gray-900 mt-8 mb-4">${line.substring(4)}</h3>`;
+                      } else if (line.startsWith('## ')) {
+                        return `<h2 class="text-2xl font-semibold text-gray-900 mt-10 mb-6">${line.substring(3)}</h2>`;
+                      } else if (line.startsWith('# ')) {
+                        return `<h1 class="text-3xl font-bold text-gray-900 mt-12 mb-8">${line.substring(2)}</h1>`;
+                      }
+                      // Convert bold text
+                      else if (line.includes('**') && line.trim() !== '') {
+                        const boldConverted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>');
+                        return `<p class="text-gray-700 leading-relaxed mb-4">${boldConverted}</p>`;
+                      }
+                      // Convert list items
+                      else if (line.startsWith('- ')) {
+                        return `<li class="text-gray-700 mb-2">${line.substring(2)}</li>`;
+                      }
+                      // Regular paragraphs
+                      else if (line.trim() !== '') {
+                        return `<p class="text-gray-700 leading-relaxed mb-4">${line}</p>`;
+                      }
+                      // Empty lines
+                      else {
+                        return '<br />';
+                      }
+                    })
+                    .join('')
+                }}
+              />
+            ) : (
+              // Fallback to existing content structure if no full content available
+              <div className="text-gray-700 leading-relaxed text-lg space-y-6">
               {/* Main content description */}
               <div className="text-xl leading-relaxed">
                 {post.description || post.excerpt}
@@ -166,6 +205,7 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
                 </div>
               )}
             </div>
+            )}
           </div>
           
           <div className="mt-12 p-6 bg-indigo-50 rounded-lg">
