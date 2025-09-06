@@ -1,8 +1,9 @@
 import { setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Download, ExternalLink, Mail, Calendar, Users, Award, Newspaper, Image, FileText, Palette } from 'lucide-react';
+import { Download, ExternalLink, Mail, Calendar, Users, Award, Newspaper, ImageIcon, FileText, Palette } from 'lucide-react';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -19,7 +20,9 @@ export default async function PressPage({params}: Props) {
       summary: "Zaza Promptly today announced the launch of its revolutionary AI communication assistant designed specifically for teachers. The platform helps educators draft parent messages, report comments, and student feedback in minutes rather than hours, with built-in safeguards against AI hallucinations and full GDPR compliance. Early adopters report saving 5+ hours per week on communication tasks, allowing them to focus more time on teaching and student relationships.",
       category: "Product Launch",
       link: "/blog/promptly-launch-announcement",
-      featured: true
+      featured: true,
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop",
+      imageAlt: "Teachers using technology in classroom"
     },
     {
       title: "From Artist to AI Pioneer: Dr. Greg Blackburn's EdTech Journey",
@@ -27,7 +30,9 @@ export default async function PressPage({params}: Props) {
       summary: "Dr. Greg Blackburn's unique path from professional painter to PhD in Professional Education to AI entrepreneur offers insights into building teacher-first technology. With 20+ years in education, Blackburn identified the crushing administrative burden on teachers and created Promptly to address the specific needs of classroom communication. 'This isn't about replacing teachers,' says Blackburn, 'it's about giving them their evenings back.'",
       category: "Founder Story",
       link: "/about/greg",
-      featured: false
+      featured: false,
+      image: "/images/greg-founder-photo-v2.png",
+      imageAlt: "Dr. Greg Blackburn, Founder and CEO of Zaza Promptly"
     },
     {
       title: "Zaza Promptly Surpasses 12,000 Teacher Users Worldwide",
@@ -35,7 +40,9 @@ export default async function PressPage({params}: Props) {
       summary: "Zaza Promptly has reached a significant milestone with over 12,000 teachers using the platform across 15 countries. The teacher-specific AI assistant has generated more than 250,000 parent messages, report comments, and student communications, with users reporting dramatic time savings and improved work-life balance. The platform's focus on education-specific workflows and hallucination-safe AI has resonated strongly with educators seeking reliable technology solutions.",
       category: "Milestone",
       link: "/press/12k-teachers-milestone",
-      featured: false
+      featured: false,
+      image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=250&fit=crop",
+      imageAlt: "Global network of teachers and students"
     },
     {
       title: "Why Teachers Choose Promptly Over ChatGPT for Classroom Communication",
@@ -43,7 +50,9 @@ export default async function PressPage({params}: Props) {
       summary: "A new analysis reveals why educators increasingly prefer specialized AI tools like Promptly over general-purpose alternatives. Key factors include built-in education context, parent-appropriate tone suggestions, GDPR compliance, and protection against AI hallucinations in school communications. 'Generic AI tools require too much prompting and risk inappropriate responses,' notes educational technology researcher Dr. Sarah Martinez.",
       category: "Industry Analysis",
       link: "/blog/promptly-vs-chatgpt-teachers",
-      featured: false
+      featured: false,
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop",
+      imageAlt: "AI technology comparison analysis"
     }
   ];
 
@@ -60,14 +69,14 @@ export default async function PressPage({params}: Props) {
       type: "ZIP", 
       size: "8.1 MB",
       description: "Professional photos of Dr. Greg Blackburn",
-      icon: Image
+      icon: ImageIcon
     },
     { 
       name: "Product Screenshots", 
       type: "ZIP", 
       size: "5.7 MB",
       description: "App interface and feature demonstrations",
-      icon: Image
+      icon: ImageIcon
     },
     { 
       name: "Brand Guidelines", 
@@ -205,38 +214,55 @@ export default async function PressPage({params}: Props) {
             <div className="space-y-6">
               {pressReleases.map((release, index) => (
                 <Card key={index} className={`hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm ${release.featured ? 'ring-2 ring-purple-200 dark:ring-purple-800/50' : ''}`}>
-                  <CardHeader className="pb-4">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <Badge variant={release.featured ? 'default' : 'outline'} className={release.featured ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-200' : 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300'}>
-                            {release.category}
-                          </Badge>
-                          {release.featured && (
-                            <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-200">
-                              Featured
-                            </Badge>
-                          )}
-                        </div>
-                        <CardTitle className="text-xl mb-3 text-slate-900 dark:text-white leading-tight">
-                          {release.title}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-                          <Calendar className="w-4 h-4" />
-                          <span>{release.date}</span>
-                        </div>
+                  <div className="md:flex">
+                    {/* Image Section */}
+                    <div className="md:w-48 md:flex-shrink-0">
+                      <div className="relative h-48 md:h-full">
+                        <Image
+                          src={release.image}
+                          alt={release.imageAlt}
+                          fill
+                          className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
+                        />
                       </div>
-                      <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 dark:hover:bg-purple-950/20 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
-                        <a href={release.link}>
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Read Article
-                        </a>
-                      </Button>
                     </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{release.summary}</p>
-                  </CardContent>
+                    
+                    {/* Content Section */}
+                    <div className="flex-1">
+                      <CardHeader className="pb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-3">
+                              <Badge variant={release.featured ? 'default' : 'outline'} className={release.featured ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-200' : 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300'}>
+                                {release.category}
+                              </Badge>
+                              {release.featured && (
+                                <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-200">
+                                  Featured
+                                </Badge>
+                              )}
+                            </div>
+                            <CardTitle className="text-xl mb-3 text-slate-900 dark:text-white leading-tight">
+                              {release.title}
+                            </CardTitle>
+                            <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                              <Calendar className="w-4 h-4" />
+                              <span>{release.date}</span>
+                            </div>
+                          </div>
+                          <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 dark:hover:bg-purple-950/20 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
+                            <a href={release.link}>
+                              <ExternalLink className="h-4 w-4 mr-2" />
+                              Read Article
+                            </a>
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{release.summary}</p>
+                      </CardContent>
+                    </div>
+                  </div>
                 </Card>
               ))}
             </div>
