@@ -3,16 +3,18 @@ import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Clock, MessageSquare, Users, Heart, Lightbulb, Shield, ArrowRight, Sparkles, Target, Zap, TrendingUp, CheckCircle, Globe } from 'lucide-react';
+import { generatePageMetadata } from '@/lib/seo/metadata';
+import { organizationSchema } from '@/components/seo/structured-data-schemas';
 import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'About Us - Zaza Technologies',
-  description: 'Learn about our mission to empower educators with AI-powered tools that save time and enhance teaching effectiveness.',
-};
 
 type Props = {
   params: Promise<{locale: string}>;
 };
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+  const {locale} = await params;
+  return generatePageMetadata('about', locale as 'en' | 'de' | 'fr' | 'es' | 'it');
+}
 
 export default async function AboutPage({params}: Props) {
   const {locale} = await params;
@@ -444,6 +446,14 @@ export default async function AboutPage({params}: Props) {
           </div>
         </div>
       </section>
+      
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
     </div>
   );
 }

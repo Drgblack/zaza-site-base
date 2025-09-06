@@ -15,10 +15,34 @@ import { SecurityBadges } from '@/components/site/security-badges';
 import { SocialProofCounter } from '@/components/cro/social-proof-counter';
 import { UrgencyBanner } from '@/components/cro/urgency-banner';
 import { ExitIntentModal } from '@/components/cro/exit-intent-modal';
+import { generatePageMetadata } from '@/lib/seo/metadata';
+import { organizationSchema, softwareApplicationSchema, faqSchema } from '@/components/seo/structured-data-schemas';
+import { FAQComparisonTable } from '@/components/seo/faq-comparison-table';
+import { Metadata } from 'next';
 
 type Props = {
   params: Promise<{locale: string}>;
 };
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+  const {locale} = await params;
+  return generatePageMetadata(
+    'home', 
+    locale as 'en' | 'de' | 'fr' | 'es' | 'it', 
+    {
+      alternates: {
+        canonical: `https://zazapromptly.com/${locale === 'en' ? '' : locale}`,
+        languages: {
+          'en': 'https://zazapromptly.com',
+          'de': 'https://zazapromptly.com/de', 
+          'fr': 'https://zazapromptly.com/fr',
+          'es': 'https://zazapromptly.com/es',
+          'it': 'https://zazapromptly.com/it',
+        },
+      },
+    }
+  );
+}
 
 export default async function HomePage({params}: Props) {
   const {locale} = await params;
@@ -43,11 +67,10 @@ export default async function HomePage({params}: Props) {
                   AI Communication Assistant for Teachers
                 </div>
                 
-                {/* Outcome-focused headline */}
+                {/* Q&A Structure Headline - Following Master Prompt */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
-                  Get back{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">5+ hours every week</span>{" "}
-                  writing parent messages, report cards, student feedback, and staff notes
+                  Write better parent messages in{" "}
+                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">minutes - not hours</span>
                 </h1>
                 
                 {/* Social proof - Above the fold */}
@@ -72,10 +95,10 @@ export default async function HomePage({params}: Props) {
                   </div>
                 </div>
                 
-                {/* Clear outcome promise with pain points */}
+                {/* Q&A Supporting Copy */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  End the <strong className="text-slate-800 dark:text-slate-200">Sunday night email panic</strong> and <strong className="text-slate-800 dark:text-slate-200">report card deadline stress</strong>. 
-                  Write professional messages in seconds — not hours.
+                  Promptly helps teachers cut admin time so you can focus on teaching - with warmth, clarity, and confidence. 
+                  <strong className="text-slate-800 dark:text-slate-200">Save 5+ hours per week</strong> writing parent messages and reports.
                 </p>
                 
                 {/* Specific value proposition */}
@@ -177,29 +200,93 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 2. Problem / Pain - Modern design */}
+      {/* 2. FAQ Section - Q&A Structure as per Master Prompt */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.05),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.05),transparent_70%)]" />
         
-        <div className="max-w-4xl mx-auto px-4 relative">
-          <div className="text-center space-y-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 text-sm font-medium text-red-700 dark:text-red-300">
+        <div className="max-w-6xl mx-auto px-4 relative">
+          <div className="text-center space-y-8 mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 text-sm font-medium text-purple-700 dark:text-purple-300">
               <MessageCircle className="w-4 h-4 mr-2" />
-              The hidden cost of communication
+              Common Teacher Questions
             </div>
             
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-              Teachers spend <span className="text-red-600 dark:text-red-400">8+ hours weekly</span> writing messages
+              How can Promptly help teachers?
             </h2>
             
-            <div className="max-w-lg mx-auto">
-              <ul className="text-left text-lg text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• Parent emails: 15+ minutes each</li>
-                <li>• Report card comments: 10+ minutes per student</li>
-                <li>• Student feedback notes: 5+ minutes each</li>
-                <li>• Staff updates: 12+ minutes each</li>
-              </ul>
-            </div>
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+              Get answers to the most common questions teachers ask about AI communication assistance
+            </p>
+          </div>
+          
+          {/* FAQ Grid */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">Is it safe to use AI for parent messages?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  Yes. Promptly is hallucination-safe and you always edit before sending. Your data stays private.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">Will parents know I used AI?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  No. Promptly writes in a warm, natural teacher voice. You stay in control.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">How much time can I save?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  Teachers typically cut communication and report writing time by 60-80 percent.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">Do I need to be good with tech?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  Not at all. If you can type, you can use Promptly.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">Is my data safe and GDPR compliant?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  Yes. Promptly never trains on your data and all processing is GDPR compliant.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg text-slate-900 dark:text-white">How does Promptly compare to ChatGPT?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-700 dark:text-slate-300">
+                  Unlike ChatGPT, Promptly is teacher-specific, hallucination-safe, GDPR-compliant, and tuned for parent-appropriate tone.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -680,138 +767,8 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      {/* 6. Differentiation - Why Promptly vs alternatives */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.05),transparent_60%)]" />
-        
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center space-y-6 mb-16">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/50 text-sm font-medium text-blue-700 dark:text-blue-300">
-                <Zap className="w-4 h-4 mr-2" />
-                Why teachers choose Promptly
-              </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-                Promptly vs. Other Solutions
-              </h2>
-              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Unlike generic AI tools, Promptly was built specifically for all types of teacher communication - from parent emails to report cards
-              </p>
-            </div>
-            
-            {/* Comparison table */}
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-lg">
-              <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                  <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Solution</div>
-                </div>
-                <div className="p-6 text-center">
-                  <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Generic AI (ChatGPT, etc.)</div>
-                </div>
-                <div className="p-6 text-center">
-                  <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Writing from scratch</div>
-                </div>
-                <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                  <div className="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-2">Promptly</div>
-                </div>
-              </div>
-              
-              {/* Feature rows */}
-              <div className="divide-y divide-slate-200 dark:divide-slate-700">
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Understands education context</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-red-500">✗</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="w-5 h-5 mx-auto text-green-500">✓</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Time to create message</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="text-sm text-slate-600 dark:text-slate-400">5-8 minutes</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="text-sm text-slate-600 dark:text-slate-400">15+ minutes</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="text-sm text-green-600 dark:text-green-400 font-semibold">30 seconds</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Built by educators</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-red-500">✗</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="w-5 h-5 mx-auto text-green-500">✓</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Professional tone guaranteed</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="w-5 h-5 mx-auto text-green-500">✓</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Privacy & security for schools</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-red-500">✗</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-green-500">✓</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="w-5 h-5 mx-auto text-green-500">✓</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="font-medium text-slate-900 dark:text-white">Handles all communication types</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-red-500">✗</div>
-                  </div>
-                  <div className="p-6 text-center">
-                    <div className="w-5 h-5 mx-auto text-orange-500">~</div>
-                  </div>
-                  <div className="p-6 text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30">
-                    <div className="text-sm text-green-600 dark:text-green-400 font-semibold">Parent emails, reports, feedback, staff notes</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 6. FAQ Comparison Table - Promptly vs ChatGPT */}
+      <FAQComparisonTable />
 
 
       {/* 6.6. Cross-App CTA Banner */}
@@ -875,8 +832,24 @@ export default async function HomePage({params}: Props) {
       <SecurityBadges />
       
       {/* Structured Data for SEO */}
-      <StructuredData type="website" data={{}} />
-      <StructuredData type="organization" data={{}} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApplicationSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
       
       {/* Sticky CTA */}
       <StickyCTA />
