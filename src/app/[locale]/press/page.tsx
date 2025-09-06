@@ -1,7 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, ExternalLink } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Download, ExternalLink, Mail, Calendar, Users, Award, Newspaper, Image, FileText, Palette } from 'lucide-react';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -14,161 +15,383 @@ export default async function PressPage({params}: Props) {
   const pressReleases = [
     {
       title: "Zaza Promptly Launches AI-Powered Parent Communication Tool for Teachers",
-      date: "January 2024",
-      summary: "Revolutionary AI tool saves teachers 5+ hours per week on grading and parent communication.",
-      link: "#"
+      date: "January 15, 2024",
+      summary: "Revolutionary AI tool saves teachers 5+ hours per week on parent communication and report writing, designed specifically for education workflows.",
+      category: "Product Launch",
+      link: "#",
+      featured: true
     },
     {
       title: "PhD in Professional Education Builds Next-Gen EdTech Platform",
-      date: "December 2023",
-      summary: "From paint brushes to PhD - founder's journey shapes teacher-first AI design philosophy.",
-      link: "#"
+      date: "December 8, 2023",
+      summary: "From paint brushes to PhD - founder Dr. Greg Blackburn's journey from artist to educator shapes teacher-first AI design philosophy.",
+      category: "Company News",
+      link: "#",
+      featured: false
+    },
+    {
+      title: "Zaza Promptly Reaches 12,000+ Teachers Milestone",
+      date: "November 20, 2023",
+      summary: "Teacher adoption surges as educators discover hallucination-safe AI designed specifically for parent communication and classroom workflows.",
+      category: "Milestone",
+      link: "#",
+      featured: false
     }
   ];
 
   const mediaKit = [
-    { name: "Zaza Promptly Logo Package", type: "ZIP", size: "2.4 MB" },
-    { name: "Founder Headshots", type: "ZIP", size: "8.1 MB" },
-    { name: "Product Screenshots", type: "ZIP", size: "5.7 MB" },
-    { name: "Brand Guidelines", type: "PDF", size: "1.2 MB" },
+    { 
+      name: "Zaza Promptly Logo Package", 
+      type: "ZIP", 
+      size: "2.4 MB",
+      description: "High-res logos in multiple formats (PNG, SVG, EPS)",
+      icon: Palette
+    },
+    { 
+      name: "Founder Headshots", 
+      type: "ZIP", 
+      size: "8.1 MB",
+      description: "Professional photos of Dr. Greg Blackburn",
+      icon: Image
+    },
+    { 
+      name: "Product Screenshots", 
+      type: "ZIP", 
+      size: "5.7 MB",
+      description: "App interface and feature demonstrations",
+      icon: Image
+    },
+    { 
+      name: "Brand Guidelines", 
+      type: "PDF", 
+      size: "1.2 MB",
+      description: "Complete brand identity and usage guidelines",
+      icon: FileText
+    },
+    { 
+      name: "Company Fact Sheet", 
+      type: "PDF", 
+      size: "0.8 MB",
+      description: "Key statistics, timeline, and company overview",
+      icon: FileText
+    },
+    { 
+      name: "Press Release Templates", 
+      type: "DOCX", 
+      size: "0.5 MB",
+      description: "Ready-to-use press release formats",
+      icon: Newspaper
+    }
+  ];
+
+  const companyStats = [
+    { label: "Founded", value: "2023", icon: Calendar },
+    { label: "Teachers Helped", value: "12,000+", icon: Users },
+    { label: "Hours Saved Weekly", value: "5+", icon: Award },
+    { label: "Languages Supported", value: "20+", icon: FileText },
+    { label: "Messages Generated", value: "250K+", icon: Mail },
+    { label: "Countries", value: "15+", icon: Award }
   ];
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-pink-50/30 to-blue-50/30 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/10">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-purple-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900/20 relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(147,51,234,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(59,130,246,0.06),transparent_60%)]" />
+        
+        <div className="max-w-7xl mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-              Press & Media
+            {/* Badge */}
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 text-sm font-medium text-purple-700 dark:text-purple-300">
+              <Newspaper className="w-4 h-4 mr-2" />
+              Press & Media Center
+            </div>
+            
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-slate-900 dark:text-white leading-tight">
+              Telling the Story of{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Teacher Empowerment</span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Resources, news, and stories about Zaza Promptly's mission to empower educators.
+            
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              Resources, news, and stories about Zaza Promptly's mission to give teachers their time back through purpose-built AI.
             </p>
+            
+            {/* Quick stats */}
+            <div className="flex flex-wrap justify-center gap-8 pt-8 text-sm font-semibold">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <Users className="w-4 h-4 text-purple-600" />
+                <span>12,000+ Teachers</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <Award className="w-4 h-4 text-blue-600" />
+                <span>Founded by PhD Educator</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <FileText className="w-4 h-4 text-green-600" />
+                <span>250K+ Messages Generated</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Press Contact */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Media Inquiries</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
-              For press inquiries, interviews, or partnership opportunities, please get in touch.
-            </p>
-            <Button asChild size="lg">
-              <a href="mailto:press@zazatechnologies.com">
-                Contact Press Team
-              </a>
-            </Button>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 rounded-3xl p-8 md:p-12 text-center border border-purple-100 dark:border-purple-800/30">
+              <Mail className="w-12 h-12 mx-auto mb-6 text-purple-600 dark:text-purple-400" />
+              
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Media Inquiries
+              </h2>
+              
+              <p className="text-lg text-slate-700 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                For press inquiries, founder interviews, product demonstrations, or partnership opportunities, our press team is ready to help.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white">
+                  <a href="mailto:press@zazatechnologies.com">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Contact Press Team
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <a href="#media-kit">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Media Kit
+                  </a>
+                </Button>
+              </div>
+              
+              <div className="mt-8 pt-6 border-t border-purple-200 dark:border-purple-700/50">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <strong>Response time:</strong> Typically within 24 hours • <strong>Available for:</strong> Interviews, demos, quotes
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Press Releases */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-20 bg-slate-50 dark:bg-slate-800">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Latest News</h2>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/50 text-sm font-medium text-blue-700 dark:text-blue-300 mb-6">
+                <Newspaper className="w-4 h-4 mr-2" />
+                Latest News & Announcements
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Recent Press Coverage
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                Stay updated with our latest product launches, milestones, and company news.
+              </p>
+            </div>
             
             <div className="space-y-6">
               {pressReleases.map((release, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-xl mb-2">{release.title}</CardTitle>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{release.date}</p>
+                <Card key={index} className={`hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm ${release.featured ? 'ring-2 ring-purple-200 dark:ring-purple-800/50' : ''}`}>
+                  <CardHeader className="pb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <Badge variant={release.featured ? 'default' : 'outline'} className={release.featured ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' : ''}>
+                            {release.category}
+                          </Badge>
+                          {release.featured && (
+                            <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
+                              Featured
+                            </Badge>
+                          )}
+                        </div>
+                        <CardTitle className="text-xl mb-3 text-slate-900 dark:text-white leading-tight">
+                          {release.title}
+                        </CardTitle>
+                        <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                          <Calendar className="w-4 h-4" />
+                          <span>{release.date}</span>
+                        </div>
                       </div>
-                      <Button variant="outline" size="sm" asChild>
+                      <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 dark:hover:bg-purple-950/20">
                         <a href={release.link}>
                           <ExternalLink className="h-4 w-4 mr-2" />
-                          Read More
+                          Read Article
                         </a>
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 dark:text-gray-300">{release.summary}</p>
+                  <CardContent className="pt-0">
+                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{release.summary}</p>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+            
+            <div className="text-center mt-12">
+              <Button variant="outline" size="lg">
+                <Newspaper className="w-4 h-4 mr-2" />
+                View All Press Releases
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Media Kit */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section id="media-kit" className="py-20 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Media Kit</h2>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 text-sm font-medium text-green-700 dark:text-green-300 mb-6">
+                <Download className="w-4 h-4 mr-2" />
+                Download Resources
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Media Kit & Brand Assets
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                High-quality logos, photos, and brand materials for media coverage and partnerships.
+              </p>
+            </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-              {mediaKit.map((item, index) => (
-                <Card key={index}>
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h3 className="font-semibold mb-1">{item.name}</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {item.type} • {item.size}
-                        </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {mediaKit.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <Card key={index} className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:-translate-y-1">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-slate-900 dark:text-white mb-2 leading-tight">{item.name}</h3>
+                          <p className="text-sm text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+                            {item.description}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-slate-500 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
+                              {item.type} • {item.size}
+                            </span>
+                            <Button variant="outline" size="sm" className="hover:bg-purple-50 dark:hover:bg-purple-950/20">
+                              <Download className="h-3 w-3 mr-1" />
+                              Download
+                            </Button>
+                          </div>
+                        </div>
                       </div>
-                      <Button variant="outline" size="sm">
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+            
+            <div className="mt-12 text-center">
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                  Need something specific?
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-4">
+                  Can't find what you're looking for? Contact our press team for custom materials.
+                </p>
+                <Button variant="outline">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Request Custom Assets
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Company Facts */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-20 bg-slate-50 dark:bg-slate-800">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Company Facts</h2>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800/50 text-sm font-medium text-orange-700 dark:text-orange-300 mb-6">
+                <Award className="w-4 h-4 mr-2" />
+                Key Statistics
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Company at a Glance
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                Key facts and figures about Zaza Promptly's impact on education.
+              </p>
+            </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">2023</div>
-                <div className="text-gray-600 dark:text-gray-300">Founded</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">10K+</div>
-                <div className="text-gray-600 dark:text-gray-300">Teachers Helped</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">5+</div>
-                <div className="text-gray-600 dark:text-gray-300">Hours Saved Weekly</div>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+              {companyStats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div key={index} className="text-center p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-xl flex items-center justify-center">
+                      <IconComponent className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{stat.value}</div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-tight">{stat.label}</div>
+                  </div>
+                );
+              })}
+            </div>
+            
+            <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 rounded-3xl p-8 md:p-12 text-center border border-purple-100 dark:border-purple-800/30">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                Founded by Educators, for Educators
+              </h3>
+              <p className="text-lg text-slate-700 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Dr. Greg Blackburn, PhD in Professional Education, built Zaza Promptly after 20+ years in education. Having seen how administrative work drains teachers' energy from what matters most, he created AI that actually understands the teaching profession.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Want to Cover Our Story?
-          </h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            We're always happy to share insights about the intersection of AI and education.
-          </p>
-          <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100">
-            <a href="mailto:press@zazatechnologies.com">
-              Get in Touch
-            </a>
-          </Button>
+      <section className="py-24 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,255,255,0.05),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.05),transparent_50%)]" />
+        
+        <div className="max-w-7xl mx-auto px-4 text-center relative">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl leading-tight">
+              Ready to Tell Our Story?
+            </h2>
+            <p className="text-xl md:text-2xl opacity-95 leading-relaxed max-w-3xl mx-auto">
+              We're passionate about sharing insights on AI in education, teacher empowerment, and the future of classroom technology.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto pt-4">
+              <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-50 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                <a href="mailto:press@zazatechnologies.com" className="flex items-center">
+                  <Mail className="w-5 h-5 mr-2" />
+                  Contact Press Team
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 backdrop-blur font-semibold transition-all duration-300">
+                <a href="#media-kit" className="flex items-center">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Media Kit
+                </a>
+              </Button>
+            </div>
+            
+            <div className="pt-8">
+              <div className="w-24 h-1 bg-white/30 mx-auto rounded-full mb-6"></div>
+              <p className="text-lg opacity-75">
+                <strong>Available for:</strong> Interviews • Product Demos • Expert Commentary • Partnership Discussions
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
