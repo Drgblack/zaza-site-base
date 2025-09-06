@@ -1,42 +1,19 @@
 import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { Star, BookOpen, Clock, Users } from 'lucide-react';
+import { BLOG_POSTS, getFeaturedPosts, getRecentPosts, getAllCategories } from '../../../../blog-posts-data';
 
 type Props = {
   params: Promise<{locale: string}>;
 };
 
-const BLOG_POSTS = [
-  {
-    id: "5-minute-ai-wins-busy-teachers",
-    title: "5 Minute AI Wins for Busy Teachers",
-    description: "Quick AI tools that save time and boost productivity in the classroom",
-    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=300&fit=crop",
-    readingTime: "4 min read",
-    publishDate: "December 15, 2024",
-    featured: true,
-    tags: ["AI Tools", "Productivity", "Time Saving"],
-    subjects: ["General", "All Subjects"]
-  },
-  {
-    id: "ai-tools-for-teachers",
-    title: "Essential AI Tools Every Teacher Should Know",
-    description: "A comprehensive guide to the most useful AI tools for educators",
-    image: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=300&fit=crop",
-    readingTime: "6 min read",
-    publishDate: "December 10, 2024",
-    featured: false,
-    tags: ["AI Tools", "EdTech", "Teaching"],
-    subjects: ["General", "Technology"]
-  }
-];
-
 export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const featuredPosts = BLOG_POSTS.filter(post => post.featured);
-  const regularPosts = BLOG_POSTS.filter(post => !post.featured);
+  const featuredPosts = getFeaturedPosts().slice(0, 3);
+  const regularPosts = getRecentPosts(12).filter(post => !post.featured);
+  const categories = getAllCategories();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -57,12 +34,12 @@ export default async function BlogPage({ params }: Props) {
                 <div className="text-sm opacity-75">Resources</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">5</div>
-                <div className="text-sm opacity-75">Subjects</div>
+                <div className="text-2xl font-bold">{categories.length}</div>
+                <div className="text-sm opacity-75">Categories</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">3</div>
-                <div className="text-sm opacity-75">Grade Bands</div>
+                <div className="text-2xl font-bold">{featuredPosts.length}</div>
+                <div className="text-sm opacity-75">Featured</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold">0 sec</div>
@@ -90,8 +67,8 @@ export default async function BlogPage({ params }: Props) {
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
                 >
                   <img 
-                    src={post.image}
-                    alt={post.title}
+                    src={post.image || post.featuredImage || `https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=300&fit=crop`}
+                    alt={post.imageAlt || post.title}
                     className="w-full h-48 object-cover"
                   />
                   <div className="p-6">
@@ -99,16 +76,16 @@ export default async function BlogPage({ params }: Props) {
                       <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded">
                         Featured
                       </span>
-                      <span className="text-gray-500 text-sm">{post.readingTime}</span>
+                      <span className="text-gray-500 text-sm">{post.readingTime || post.readTime || '5 min read'}</span>
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       {post.title}
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      {post.description}
+                      {post.description || post.excerpt}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-500 text-sm">{post.publishDate}</span>
+                      <span className="text-gray-500 text-sm">{new Date(post.date || post.publishDate || '2024-01-01').toLocaleDateString()}</span>
                       <span className="text-indigo-600 font-medium hover:text-indigo-700">
                         Read more →
                       </span>
@@ -135,23 +112,23 @@ export default async function BlogPage({ params }: Props) {
                 className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
               >
                 <img 
-                  src={post.image}
-                  alt={post.title}
+                  src={post.image || post.featuredImage || `https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=300&fit=crop`}
+                  alt={post.imageAlt || post.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
                     <Clock className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-500 text-sm">{post.readingTime}</span>
+                    <span className="text-gray-500 text-sm">{post.readingTime || post.readTime || '5 min read'}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {post.title}
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    {post.description}
+                    {post.description || post.excerpt}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.slice(0, 2).map(tag => (
+                    {post.tags?.slice(0, 2).map(tag => (
                       <span 
                         key={tag}
                         className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded"
@@ -161,7 +138,7 @@ export default async function BlogPage({ params }: Props) {
                     ))}
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-500 text-sm">{post.publishDate}</span>
+                    <span className="text-gray-500 text-sm">{new Date(post.date || post.publishDate || '2024-01-01').toLocaleDateString()}</span>
                     <span className="text-indigo-600 font-medium hover:text-indigo-700">
                       Read more →
                     </span>
