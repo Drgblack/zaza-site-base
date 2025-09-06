@@ -27,7 +27,7 @@ export default async function PressPage({params}: Props) {
     {
       title: "Australian Entrepreneur Builds Global AI Company from Saarbrücken Base",
       date: "September 6, 2025",
-      summary: "An Australian by birth, Dr. Greg Blackburn has called Saarland home for more than a decade. From his base in Saarbrücken, he founded Zaza Technologies, a company now building AI-powered tools used by teachers and professionals around the world. Dr. Greg Blackburn's journey has been anything but ordinary. He began his working life as a painter and decorator in Tasmania before moving into corporate learning and development, completing an MBA at the University of Queensland and later earning a PhD in Professional Education from City, University of London. In Saarland, Dr. Greg Blackburn saw the chance to build something new - blending his research expertise, corporate experience, and personal motivation as a father.",
+      summary: "An Australian by birth, Dr. Greg Blackburn has called Saarland home for more than a decade. From his base in Saarbrücken, he founded Zaza Technologies, a company now building AI-powered tools used by teachers and professionals around the world. Dr. Greg Blackburn's journey has been anything but ordinary. He began his working life as a painter and decorator in Tasmania before moving into corporate learning and development, completing an MBA at the University of Queensland and later earning a PhD in Professional Education from City, University of London. Over the years, he published research, taught thousands of organisational staff, and became Chief Learning Officer at Communardo. In Saarland, Dr. Greg Blackburn saw the chance to build something new — blending his research expertise, corporate experience, and personal motivation as a father. His company, Zaza Technologies, operates on two pillars: Zaza Teach, which helps educators reclaim their time and reduce stress, and the Close Suite, which enables professionals such as real estate agents and consultants to close deals faster and scale client relationships with ease. For Dr. Greg Blackburn, Saarbrücken isn't just where he lives — it's the launchpad for a global vision. \"I'm building Zaza here in Saarland not only to help millions of people thrive in their work,\" he says, \"but also as a legacy I can one day hand to my daughters, Viola and Solara.\"",
       category: "Local Story",
       link: "/about/greg",
       featured: true,
@@ -35,34 +35,14 @@ export default async function PressPage({params}: Props) {
       imageAlt: "Dr. Greg Blackburn in Saarbrücken, Germany"
     },
     {
-      title: "Quick Bio: Dr. Greg Blackburn, Zaza Technologies Founder",
-      date: "September 6, 2025",
-      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most. With more than 20 years of experience in corporate learning and development, Dr. Greg Blackburn has published widely, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. He holds a PhD in Professional Education from City, University of London, and an MBA from the University of Queensland. Based in Saarland, Germany for over a decade, Dr. Greg Blackburn is building Zaza as both a global company and a lasting legacy for his daughters, Viola and Solara.",
-      category: "Press Bio",
-      link: "/about/greg",
-      featured: false,
-      image: "/images/greg-founder-photo-v2.png",
-      imageAlt: "Dr. Greg Blackburn, Founder of Zaza Technologies"
-    },
-    {
       title: "Zaza Promptly Launches AI-Powered Parent Communication Tool for Teachers",
-      date: "January 15, 2024",
-      summary: "Zaza Promptly today announced the launch of its revolutionary AI communication assistant designed specifically for teachers. The platform helps educators draft parent messages, report comments, and student feedback in minutes rather than hours, with built-in safeguards against AI hallucinations and full GDPR compliance. Early adopters report saving 5+ hours per week on communication tasks, allowing them to focus more time on teaching and student relationships.",
-      category: "Product Launch",
+      date: "January 10, 2025",
+      summary: "FOR IMMEDIATE RELEASE - Saarbrücken, Germany — Zaza Technologies has officially launched Zaza Promptly, an AI-powered tool designed to take the stress out of parent–teacher communication. The app helps teachers craft professional, empathetic, and time-saving messages to parents — reducing hours of after-school admin. Teachers often report that parent communication is one of the most emotionally draining and time-consuming aspects of their role. Zaza Promptly changes this by offering instant, personalized message suggestions that respect both the teacher's voice and the parent's perspective. \"Promptly is about giving teachers their evenings back,\" said Dr. Greg Blackburn, founder of Zaza Technologies. \"Instead of staring at a blank screen or agonizing over wording, teachers can generate clear, supportive, and professional messages in minutes.\" Early pilot users report saving 3–5 hours per week and experiencing lower stress when handling sensitive conversations. The tool includes tone adjustment, translation, and quick-reply features to ensure communication is culturally responsive and professional. Educator Sarah Martinez, one of the first beta testers, noted: \"I used to dread opening my inbox at night. With Promptly, I can respond to parents faster without feeling emotionally drained. It's a genuine game-changer.\" Zaza Promptly is available now for teachers worldwide, with free and premium plans.",
+      category: "Press Release",
       link: "/blog/promptly-launch-announcement",
-      featured: false,
+      featured: true,
       image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop",
       imageAlt: "Teachers using technology in classroom"
-    },
-    {
-      title: "From Painter to Tech Pioneer: Dr. Greg Blackburn's Entrepreneurial Journey",
-      date: "December 8, 2023",
-      summary: "Dr. Greg Blackburn's unique path from painter and decorator in Tasmania to PhD in Professional Education to AI entrepreneur offers insights into building purpose-driven technology. With 20+ years in corporate learning and development, Blackburn identified the crushing administrative burden on professionals and created Zaza Technologies to address communication challenges across industries. 'This isn't about replacing human connection,' says Blackburn, 'it's about giving people their time back to focus on what truly matters.'",
-      category: "Founder Story",
-      link: "/about/greg",
-      featured: false,
-      image: "/images/greg-founder-photo-v2.png",
-      imageAlt: "Dr. Greg Blackburn, Founder and CEO of Zaza Technologies"
     },
     {
       title: "Zaza Promptly Surpasses 12,000 Teacher Users Worldwide",
