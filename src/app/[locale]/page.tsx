@@ -249,8 +249,6 @@ export default async function HomePage({params}: Props) {
               </Card>
             </div>
           </div>
-          
-          </div>
         </div>
       </section>
 
