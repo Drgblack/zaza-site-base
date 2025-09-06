@@ -6,52 +6,34 @@ import { Check, X, AlertTriangle, Zap, Shield, Heart } from 'lucide-react';
 
 const comparisonData = [
   {
-    feature: "Built specifically for teachers",
+    feature: "Built for teachers",
     promptly: true,
     chatgpt: false,
     description: "Understanding of education context, parent communication norms, and teacher workflows"
   },
   {
-    feature: "Hallucination-safe AI",
-    promptly: true,
-    chatgpt: "limited",
-    description: "Designed to avoid made-up facts or inappropriate content in school communication"
-  },
-  {
-    feature: "GDPR compliant",
+    feature: "Tone suggestions",
     promptly: true,
     chatgpt: false,
-    description: "Full compliance with European data protection regulations for schools"
-  },
-  {
-    feature: "Never trains on your data",
-    promptly: true,
-    chatgpt: false,
-    description: "Your messages and student information stay completely private"
-  },
-  {
-    feature: "Teacher-appropriate tone",
-    promptly: true,
-    chatgpt: "limited",
     description: "Automatically matches professional, warm, and parent-friendly communication style"
   },
   {
-    feature: "Multiple communication types",
+    feature: "Parent-safe messaging",
     promptly: true,
-    chatgpt: "limited",
-    description: "Parent messages, report cards, student feedback, staff notes - all optimized"
+    chatgpt: "Risk of mistakes",
+    description: "Designed to avoid made-up facts or inappropriate content in school communication"
   },
   {
-    feature: "Time to create message",
-    promptly: "30 seconds",
-    chatgpt: "3-5 minutes",
-    description: "Including prompting, editing, and formatting for education use"
+    feature: "Translations",
+    promptly: true,
+    chatgpt: "Inconsistent",
+    description: "Reliable translations for parent communication across languages"
   },
   {
-    feature: "Setup complexity",
-    promptly: "Just type and go",
-    chatgpt: "Complex prompting",
-    description: "No need to write detailed prompts or provide context each time"
+    feature: "Privacy-safe",
+    promptly: true,
+    chatgpt: false,
+    description: "Your messages and student information stay completely private"
   }
 ];
 
@@ -73,8 +55,7 @@ export function FAQComparisonTable() {
           </h2>
           
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-            Both are AI tools, but only one was built by educators, for educators. 
-            See why 12,000+ teachers choose Promptly for their communication needs.
+            Generic AI isn't built for classrooms. Promptly is designed for the realities of teaching.
           </p>
         </div>
 

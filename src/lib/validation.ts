@@ -125,7 +125,7 @@ export class InputValidator {
   }
 
   static validatePhone(phone: string): ValidationResult {
-    const phonePattern = /^[\+]?[1-9][\d]{0,15}$/;
+    const phonePattern = /^[+]?[1-9][\d]{0,15}$/;
     return this.validateText(phone.replace(/\s/g, ''), {
       pattern: phonePattern,
       minLength: 10,
@@ -176,7 +176,7 @@ export const VALIDATION_RULES = {
     maxLength: 2048,
   },
   phone: {
-    pattern: /^[\+]?[1-9][\d]{0,15}$/,
+    pattern: /^[+]?[1-9][\d]{0,15}$/,
     minLength: 10,
     maxLength: 15,
   },
