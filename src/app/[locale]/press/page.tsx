@@ -15,29 +15,39 @@ export default async function PressPage({params}: Props) {
 
   const pressReleases = [
     {
+      title: "About Dr. Greg Blackburn, Founder of Zaza Technologies",
+      date: "September 6, 2025",
+      summary: "Dr. Greg Blackburn is the founder of Zaza Technologies, a company building AI-powered tools that free professionals from admin so they can focus on what matters most - whether that's teaching students or closing deals. Dr. Greg Blackburn's journey spans more than two decades in corporate learning and development, research, and leadership. After beginning his career at Telstra and completing an MBA at the University of Queensland, Dr. Greg Blackburn earned a PhD in Professional Education from City, University of London, with a thesis on critical thinking and problem-solving in eLearning. He went on to publish widely, teach thousands of organisational staff, and serve as Chief Learning Officer at Communardo.",
+      category: "Media Bio",
+      link: "/about/greg",
+      featured: true,
+      image: "/images/greg-founder-photo-v2.png",
+      imageAlt: "Dr. Greg Blackburn, Founder of Zaza Technologies"
+    },
+    {
+      title: "Australian Entrepreneur Builds Global AI Company from Saarbrücken Base",
+      date: "September 6, 2025",
+      summary: "An Australian by birth, Dr. Greg Blackburn has called Saarland home for more than a decade. From his base in Saarbrücken, he founded Zaza Technologies, a company now building AI-powered tools used by teachers and professionals around the world. Dr. Greg Blackburn's journey has been anything but ordinary. He began his working life as a painter and decorator in Tasmania before moving into corporate learning and development, completing an MBA at the University of Queensland and later earning a PhD in Professional Education from City, University of London. Over the years, he published research, taught thousands of organisational staff, and became Chief Learning Officer at Communardo. In Saarland, Dr. Greg Blackburn saw the chance to build something new — blending his research expertise, corporate experience, and personal motivation as a father. His company, Zaza Technologies, operates on two pillars: Zaza Teach, which helps educators reclaim their time and reduce stress, and the Close Suite, which enables professionals such as real estate agents and consultants to close deals faster and scale client relationships with ease. For Dr. Greg Blackburn, Saarbrücken isn't just where he lives — it's the launchpad for a global vision. \"I'm building Zaza here in Saarland not only to help millions of people thrive in their work,\" he says, \"but also as a legacy I can one day hand to my daughters, Viola and Solara.\"",
+      category: "Local Story",
+      link: "/about/greg",
+      featured: true,
+      image: "/images/greg-founder-photo-v2.png",
+      imageAlt: "Dr. Greg Blackburn in Saarbrücken, Germany"
+    },
+    {
       title: "Zaza Promptly Launches AI-Powered Parent Communication Tool for Teachers",
-      date: "January 15, 2024",
-      summary: "Zaza Promptly today announced the launch of its revolutionary AI communication assistant designed specifically for teachers. The platform helps educators draft parent messages, report comments, and student feedback in minutes rather than hours, with built-in safeguards against AI hallucinations and full GDPR compliance. Early adopters report saving 5+ hours per week on communication tasks, allowing them to focus more time on teaching and student relationships.",
-      category: "Product Launch",
+      date: "September 8, 2025",
+      summary: "FOR IMMEDIATE RELEASE - Saarbrücken, Germany – September 08, 2025 - Zaza Technologies has officially launched Zaza Promptly, an AI-powered tool designed to take the stress out of parent–teacher communication. The app helps teachers craft professional, empathetic, and time-saving messages to parents - reducing hours of after-school admin. Teachers often report that parent communication is one of the most emotionally draining and time-consuming aspects of their role. Zaza Promptly changes this by offering instant, personalized message suggestions that respect both the teacher's voice and the parent's perspective. \"Promptly is about giving teachers their evenings back,\" said Dr. Greg Blackburn, founder of Zaza Technologies. \"Instead of staring at a blank screen or agonizing over wording, teachers can generate clear, supportive, and professional messages in minutes.\" Early pilot users report saving 3–5 hours per week and experiencing lower stress when handling sensitive conversations. The tool includes tone adjustment, translation, and quick-reply features to ensure communication is culturally responsive and professional. Educator Sarah Martinez, one of the first beta testers, noted: \"I used to dread opening my inbox at night. With Promptly, I can respond to parents faster without feeling emotionally drained. It's a genuine game-changer.\" Zaza Promptly is available now for teachers worldwide, with free and premium plans. Learn more at zazapromptly.com",
+      category: "Press Release",
       link: "/blog/promptly-launch-announcement",
       featured: true,
       image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop",
       imageAlt: "Teachers using technology in classroom"
     },
     {
-      title: "From Artist to AI Pioneer: Dr. Greg Blackburn's EdTech Journey",
-      date: "December 8, 2023",
-      summary: "Dr. Greg Blackburn's unique path from professional painter to PhD in Professional Education to AI entrepreneur offers insights into building teacher-first technology. With 20+ years in education, Blackburn identified the crushing administrative burden on teachers and created Promptly to address the specific needs of classroom communication. 'This isn't about replacing teachers,' says Blackburn, 'it's about giving them their evenings back.'",
-      category: "Founder Story",
-      link: "/about/greg",
-      featured: false,
-      image: "/images/greg-founder-photo-v2.png",
-      imageAlt: "Dr. Greg Blackburn, Founder and CEO of Zaza Promptly"
-    },
-    {
       title: "Zaza Promptly Surpasses 12,000 Teacher Users Worldwide",
-      date: "November 20, 2023",
-      summary: "Zaza Promptly has reached a significant milestone with over 12,000 teachers using the platform across 15 countries. The teacher-specific AI assistant has generated more than 250,000 parent messages, report comments, and student communications, with users reporting dramatic time savings and improved work-life balance. The platform's focus on education-specific workflows and hallucination-safe AI has resonated strongly with educators seeking reliable technology solutions.",
+      date: "September 5, 2025",
+      summary: "FOR IMMEDIATE RELEASE - Saarbrücken, Germany – September 05, 2025 - Zaza Technologies announced today that Zaza Promptly has surpassed 12,000 teacher users worldwide, just weeks after launch. The milestone highlights the urgent demand for AI tools that support teacher wellbeing and efficiency. Built by educators for educators, Zaza Promptly helps teachers save time and reduce stress by generating thoughtful, professional parent messages in minutes. The app is particularly popular among teachers balancing large class sizes and heavy workloads. \"This milestone confirms what we've known all along - teachers are desperate for tools that respect their time and their craft,\" said Dr. Greg Blackburn, founder of Zaza Technologies. \"We're proud to see Promptly making a difference for thousands of educators, from Berlin to Brisbane.\" Teachers from over 15 countries are now using Promptly, with strong uptake in Germany, the United States, Australia, and the UK. The app's translation feature has also driven adoption in multilingual classrooms. Educator Mark Thompson from the UK explained: \"I've been teaching for 18 years and nothing has lifted the burden of admin like this. Promptly feels like a colleague who has my back.\" Try Promptly at zazapromptly.com",
       category: "Milestone",
       link: "/press/12k-teachers-milestone",
       featured: false,
@@ -46,8 +56,8 @@ export default async function PressPage({params}: Props) {
     },
     {
       title: "Why Teachers Choose Promptly Over ChatGPT for Classroom Communication",
-      date: "October 15, 2023",
-      summary: "A new analysis reveals why educators increasingly prefer specialized AI tools like Promptly over general-purpose alternatives. Key factors include built-in education context, parent-appropriate tone suggestions, GDPR compliance, and protection against AI hallucinations in school communications. 'Generic AI tools require too much prompting and risk inappropriate responses,' notes educational technology researcher Dr. Sarah Martinez.",
+      date: "August 20, 2025",
+      summary: "FOR IMMEDIATE RELEASE - Saarbrücken, Germany – August 20, 2025 - While ChatGPT has exploded in popularity, teachers are increasingly turning to Zaza Promptly as their trusted AI communication tool. Designed specifically for education, Promptly goes beyond generic AI writing by providing safe, empathetic, and context-aware support for teachers writing to parents. Unlike open-ended AI tools, Zaza Promptly is purpose-built for classrooms, with safeguards to prevent inappropriate outputs, memory features that respect teacher context, and tone adjustments that balance professionalism with empathy. \"Generic AI tools weren't designed for the emotional and professional demands of parent communication,\" said Dr. Greg Blackburn, founder of Zaza Technologies. \"Promptly ensures teachers get safe, relevant, and supportive suggestions - not just generic text.\" Educator Linda Chen from the United States shared her experience: \"I tried ChatGPT before, but it often gave me vague or inappropriate responses. With Promptly, I know the suggestions are teacher-safe and parent-appropriate.\" Key reasons teachers choose Promptly over ChatGPT include education-specific safeguards (no hallucinations, safe responses), time savings (generate messages in minutes, not hours), professional tone controls for sensitive situations, and integration with Zaza's broader teacher tools (lesson planning, grading support). Learn more at zazapromptly.com",
       category: "Industry Analysis",
       link: "/blog/promptly-vs-chatgpt-teachers",
       featured: false,
@@ -378,10 +388,10 @@ export default async function PressPage({params}: Props) {
             
             <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 rounded-3xl p-8 md:p-12 text-center border border-purple-100 dark:border-purple-800/30">
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-                Founded by Educators, for Educators
+                Founded by Professionals, for Professionals
               </h3>
               <p className="text-lg text-slate-700 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                Dr. Greg Blackburn, PhD in Professional Education, built Zaza Promptly after 20+ years in education. Having seen how administrative work drains teachers' energy from what matters most, he created AI that actually understands the teaching profession.
+                Dr. Greg Blackburn founded Zaza Technologies after recognizing that professionals across all industries face the same challenge: too much time on administrative tasks, not enough time for meaningful work. With 20+ years of experience in corporate learning and development, he built AI tools that understand the nuances of professional communication across different contexts.
               </p>
             </div>
           </div>
