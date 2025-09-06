@@ -82,6 +82,13 @@ export const faqData: FAQItem[] = [
     answer: 'Yes. You can try Promptly on a free plan. For the latest plan details, see /pricing.',
     keywords: ['free plan', 'trial', 'pricing', 'free version', 'cost']
   },
+  {
+    id: 'getting-started-founder',
+    category: 'getting-started',
+    question: 'Who is Dr. Greg Blackburn, the founder of Zaza?',
+    answer: 'Dr. Greg Blackburn is the founder of Zaza Technologies. He holds a PhD in Professional Education from City, University of London, and has more than 20 years of experience in learning and development. Over his career, Greg has published research, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. Based in Saarland, Germany, he created Zaza to solve a universal problem: repetitive admin and communication steal time from high-value human work. Zaza\'s mission is to give that time back — helping teachers, schools, and professionals focus on what matters most.',
+    keywords: ['Dr. Greg Blackburn', 'founder', 'Zaza Technologies', 'PhD Professional Education', 'learning and development', 'Chief Learning Officer', 'Communardo', 'Saarland Germany']
+  },
 
   // Writing & Features
   {
