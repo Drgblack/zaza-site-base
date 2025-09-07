@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { BlogPost } from '../../../blog-posts-data';
 
 interface BlogPageClientProps {
@@ -23,6 +24,7 @@ const categories = [
 ];
 
 export default function BlogPageClient({ posts, locale, featuredPost }: BlogPageClientProps) {
+  const blog = useTranslations('blog');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -109,7 +111,7 @@ export default function BlogPageClient({ posts, locale, featuredPost }: BlogPage
             </div>
             <input
               type="text"
-              placeholder="Search articles... (e.g., grading, lesson planning, AI tools)"
+              placeholder={blog('search_placeholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-2xl text-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
@@ -171,7 +173,7 @@ export default function BlogPageClient({ posts, locale, featuredPost }: BlogPage
                 className="flex-1 px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/20"
               />
               <button className="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
-                Subscribe Free
+                {blog('subscribe')}
               </button>
             </div>
           </section>

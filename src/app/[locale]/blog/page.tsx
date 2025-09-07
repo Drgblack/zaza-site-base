@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { blogPosts } from '../../../../blog-posts-data';
 import Link from 'next/link';
 import { BlogPost } from '../../../../blog-posts-data';
@@ -12,6 +12,7 @@ export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const blog = await getTranslations('blog');
   const posts = blogPosts || [];
   
   // Get featured post for hero section
@@ -27,18 +28,18 @@ export default async function BlogPage({ params }: Props) {
             {/* Left: Hero Content */}
             <div>
               <h1 className="text-6xl font-bold mb-6 leading-tight">
-                Transform Your Teaching with AI
+                {blog('title')}
               </h1>
               <p className="text-xl opacity-90 mb-8 leading-relaxed">
-                Join thousands of educators saving 10+ hours weekly with practical AI strategies, proven classroom techniques, and expert insights.
+                {blog('subtitle')}
               </p>
               <div className="flex gap-4">
                 <Link href={`/${locale}/blog/${featuredPost?.slug || featuredPost?.id}`} 
                       className="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-                  Read Latest Post →
+                  {blog('read_more')}
                 </Link>
                 <button className="border-2 border-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
-                  Subscribe Free
+                  {blog('subscribe')}
                 </button>
               </div>
             </div>
@@ -60,7 +61,7 @@ export default async function BlogPage({ params }: Props) {
                   </span>
                   <Link href={`/${locale}/blog/${featuredPost.slug || featuredPost.id}`} 
                         className="text-purple-600 font-semibold hover:text-purple-700">
-                    Read More →
+                    {blog('read_more')} →
                   </Link>
                 </div>
               </div>
