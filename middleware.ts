@@ -1,16 +1,20 @@
-﻿import createMiddleware from "next-intl/middleware";
+﻿import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export default createMiddleware({
-  locales: ["en","es","fr","de","it"],
-  defaultLocale: "en",
-  // Force explicit prefixes so /privacy -> /en/privacy (no ambiguity)
-  localePrefix: "always",
-  localeDetection: true
-});
+const LOCALES = ["en","es","de","fr","it"];
+const PUBLIC_FILE = /\.(?:.*)$/;
 
-export const config = {
-  matcher: [
-    // Run on everything that's not _next assets, images, or obvious files
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)"
-  ]
-};
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  if (pathname.startsWith("/_next") || pathname.startsWith("/api") || PUBLIC_FILE.test(pathname)) {
+    return NextResponse.next();
+  }
+  const hasLocale = new RegExp(`^/(${LOCALES.join("|")})(/|$)`).test(pathname);
+  if (!hasLocale) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/en${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(url);
+  }
+  return NextResponse.next();
+}
+export const config = { matcher: ["/((?!_next|api|.*\\..*).*)"] };
