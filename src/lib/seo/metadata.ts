@@ -46,12 +46,12 @@ export const seoMetadata = {
       }
     },
     about: {
-      title: 'Built by a Learning Expert | About Dr. Greg Blackburn',
-      description: 'Meet Dr. Greg Blackburn, PhD in Professional Education. 20+ years helping teachers succeed. Built Promptly to help teachers focus on what matters most.',
-      keywords: 'Dr. Greg Blackburn PhD, education expert, teacher advocate, AI education ethics',
+      title: 'About Zaza Technologies - AI for Teachers and Client-Facing Professionals',
+      description: 'Zaza Technologies builds AI tools that give people time back. Our two suites help teachers reduce admin and help professionals turn communication into revenue.',
+      keywords: 'Zaza Technologies, AI for teachers, AI for professionals, teacher productivity, client communication, AI tools',
       openGraph: {
-        title: 'Meet the Education Expert Behind Zaza Promptly',
-        description: 'Dr. Greg Blackburn, PhD in Professional Education, built Promptly after seeing how admin work drains teachers.'
+        title: 'About Zaza Technologies - AI Tools That Give Time Back',
+        description: 'Two AI suites: Zaza Teach for educators and Close Suite for client-facing professionals. Built to reduce admin and increase impact.'
       }
     },
     resources: {
