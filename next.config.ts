@@ -48,59 +48,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        has: [
-          {
-            type: 'header',
-            key: 'accept-language',
-            value: '(.*-DE.*)',
-          },
-        ],
-        destination: '/de',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'header',
-            key: 'accept-language', 
-            value: '(.*-FR.*)',
-          },
-        ],
-        destination: '/fr',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'header',
-            key: 'accept-language',
-            value: '(.*-ES.*)',
-          },
-        ],
-        destination: '/es',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'header',
-            key: 'accept-language',
-            value: '(.*-IT.*)',
-          },
-        ],
-        destination: '/it',
-        permanent: false,
-      },
-      {
-        source: '/',
-        destination: '/en',
-        permanent: false,
-      },
-      {
         source: '/blog/:slug*',
         destination: '/en/blog/:slug*',
         permanent: true,
