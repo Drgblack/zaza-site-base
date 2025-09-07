@@ -140,7 +140,7 @@ Small time savings add up quickly:
 
 ## Remember: You're Not Alone
 
-Efficient teaching isn't about doing everything perfectly—it's about doing the right things well. Start with one strategy, master it, then add another.
+Efficient teaching isn't about doing everything perfectly-it's about doing the right things well. Start with one strategy, master it, then add another.
 
 Your weekends, family time, and mental health are worth the investment in these systems.
 

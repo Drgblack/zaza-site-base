@@ -70,7 +70,7 @@ export default async function HomePage({params}: Props) {
                 {/* Anthony Pierri Framework Headline */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
                   Less time writing. More time{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">teaching — and living</span>
+                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">teaching - and living</span>
                 </h1>
                 
                 {/* Social proof - Above the fold */}
@@ -82,7 +82,7 @@ export default async function HomePage({params}: Props) {
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-violet-500 flex items-center justify-center text-white text-xs font-bold">S</div>
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-400 to-amber-500 flex items-center justify-center text-white text-xs font-bold">+</div>
                     </div>
-                    <span className="font-medium">Trusted by teachers who save hours every week — and finally reclaim their evenings</span>
+                    <span className="font-medium">Trusted by teachers who save hours every week - and finally reclaim their evenings</span>
                   </div>
                   <div className="hidden sm:block text-slate-400">•</div>
                   <div className="flex items-center gap-1">
@@ -97,7 +97,7 @@ export default async function HomePage({params}: Props) {
                 
                 {/* Anthony Pierri Subheadline */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  Promptly is the teacher-first AI assistant that helps you write parent messages, report comments, and everyday communication in minutes — with the right tone, translations, and built-in support.
+                  Promptly is the teacher-first AI assistant that helps you write parent messages, report comments, and everyday communication in minutes - with the right tone, translations, and built-in support.
                 </p>
                 
                 {/* Specific value proposition */}
@@ -232,7 +232,7 @@ export default async function HomePage({params}: Props) {
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-700 dark:text-slate-300">
-                    Promptly suggests warm, professional wording that builds trust with parents — no more overthinking.
+                    Promptly suggests warm, professional wording that builds trust with parents - no more overthinking.
                   </p>
                 </CardContent>
               </Card>
@@ -780,7 +780,7 @@ export default async function HomePage({params}: Props) {
             
             {/* Social proof tagline */}
             <p className="text-lg opacity-75 italic">
-              Trusted by teachers who save hours every week — and finally reclaim their evenings.
+              Trusted by teachers who save hours every week - and finally reclaim their evenings.
             </p>
           </div>
         </div>

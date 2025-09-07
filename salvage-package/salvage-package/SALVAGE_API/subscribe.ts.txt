@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     // Check if Brevo is configured
     if (!process.env.BREVO_API_KEY) {
-      console.warn("Brevo API key missing — subscription request logged but not processed")
+      console.warn("Brevo API key missing - subscription request logged but not processed")
       
       return NextResponse.json({
         success: true,
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         success: false, 
-        error: 'Something went wrong — please try again.' 
+        error: 'Something went wrong - please try again.' 
       },
       { status: 500 }
     )

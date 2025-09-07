@@ -21,7 +21,7 @@ export default async function MeetYourFellowEducatorPage({params}: Props) {
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
               Meet Your Fellow Educator
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent font-semibold max-w-3xl mx-auto">
               From paint brushes to PhD - a journey shaped by education.
             </p>
           </div>

@@ -86,7 +86,7 @@ export const faqData: FAQItem[] = [
     id: 'getting-started-founder',
     category: 'getting-started',
     question: 'Who is Dr. Greg Blackburn, the founder of Zaza?',
-    answer: 'Dr. Greg Blackburn is the founder of Zaza Technologies. He holds a PhD in Professional Education from City, University of London, and has more than 20 years of experience in learning and development. Over his career, Greg has published research, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. Based in Saarland, Germany, he created Zaza to solve a universal problem: repetitive admin and communication steal time from high-value human work. Zaza\'s mission is to give that time back — helping teachers, schools, and professionals focus on what matters most.',
+    answer: 'Dr. Greg Blackburn is the founder of Zaza Technologies. He holds a PhD in Professional Education from City, University of London, and has more than 20 years of experience in learning and development. Over his career, Greg has published research, taught thousands of organisational staff, and served as Chief Learning Officer at Communardo. Based in Saarland, Germany, he created Zaza to solve a universal problem: repetitive admin and communication steal time from high-value human work. Zaza\'s mission is to give that time back - helping teachers, schools, and professionals focus on what matters most.',
     keywords: ['founder', 'Dr. Greg Blackburn', 'Zaza Technologies', 'PhD', 'education', 'learning and development', 'Communardo', 'Germany', 'Saarland', 'mission', 'admin', 'communication', 'PhD Professional Education', 'Chief Learning Officer']
   },
 

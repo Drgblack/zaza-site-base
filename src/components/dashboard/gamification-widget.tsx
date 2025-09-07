@@ -203,7 +203,7 @@ export function GamificationWidget() {
               </div>
               <div>
                 <p className="text-2xl font-bold">
-                  #{leaderboard.find(entry => entry.uid === user?.uid)?.rank || '—'}
+                  #{leaderboard.find(entry => entry.uid === user?.uid)?.rank || '-'}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Global Rank</p>
               </div>

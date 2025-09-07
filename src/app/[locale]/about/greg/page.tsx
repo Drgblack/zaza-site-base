@@ -57,7 +57,7 @@ export default async function GregStoryPage({params}: Props) {
               </div>
               
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                "Every chapter of my journey — from apprenticing as a painter to leading corporate learning — shaped the skillset needed to build Zaza. I learned that across industries, admin steals time from human connection. Zaza gives that time back."
+                "Every chapter of my journey - from apprenticing as a painter to leading corporate learning - shaped the skillset needed to build Zaza. I learned that across industries, admin steals time from human connection. Zaza gives that time back."
               </p>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default async function GregStoryPage({params}: Props) {
                 The Early Years
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                I didn't start out in technology or education. My working life began with a paintbrush in hand, apprenticing as a painter and decorator in Hobart, Tasmania, while my father ran a small paint factory. After finishing a pre-vocational course at TAFE, I found myself working at Cascade Brewery, doing a four-year apprenticeship I quickly realized wasn't for me. The work was tough, the environment tougher. But those years taught me resilience — and the conviction that I wanted something different.
+                I didn't start out in technology or education. My working life began with a paintbrush in hand, apprenticing as a painter and decorator in Hobart, Tasmania, while my father ran a small paint factory. After finishing a pre-vocational course at TAFE, I found myself working at Cascade Brewery, doing a four-year apprenticeship I quickly realized wasn't for me. The work was tough, the environment tougher. But those years taught me resilience - and the conviction that I wanted something different.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 Travel opened my eyes to that possibility. I lived abroad, studied German, and eventually returned to Tasmania to pursue university studies in Administration, Information Systems, and German at UTas. I graduated with First Class Honours, proving to myself that I could excel academically despite early doubts and family tensions that had often left me questioning my path.
@@ -95,13 +95,13 @@ export default async function GregStoryPage({params}: Props) {
                 The Transformation
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                It was in Brisbane that my two daughters, Viola and Solara, were born. Becoming a father reframed everything for me — success was no longer just about building a career, it was about creating a future where work left more time for people, for families, and for life. That desire to build something lasting, something I could one day hand to my daughters, began to crystallize.
+                It was in Brisbane that my two daughters, Viola and Solara, were born. Becoming a father reframed everything for me - success was no longer just about building a career, it was about creating a future where work left more time for people, for families, and for life. That desire to build something lasting, something I could one day hand to my daughters, began to crystallize.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 At the same time, I was moving deeper into learning and development. My curiosity about how people learn and grow led me to publish research and teach thousands of organisational staff. Eventually, I pursued a PhD by publication at City, University of London, where my thesis focused on critical thinking and problem-solving in student-centred eLearning. With my PhD in Professional Education, I built a reputation as a researcher and thought leader in learning and development.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                By the time I became Chief Learning Officer at Communardo, I had spent more than 20 years in corporate L&D. But something else was happening in parallel: I was listening closely to the struggles of the people closest to me — family members who were teachers. Their stories echoed what I had seen in companies. Endless hours lost to admin. Creativity drained by repetitive communication. Whether in classrooms or boardrooms, the pattern was the same: admin was swallowing human connection.
+                By the time I became Chief Learning Officer at Communardo, I had spent more than 20 years in corporate L&D. But something else was happening in parallel: I was listening closely to the struggles of the people closest to me - family members who were teachers. Their stories echoed what I had seen in companies. Endless hours lost to admin. Creativity drained by repetitive communication. Whether in classrooms or boardrooms, the pattern was the same: admin was swallowing human connection.
               </p>
               <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 my-6">
                 <p className="text-green-800 dark:text-green-200 font-medium text-lg">
@@ -116,7 +116,7 @@ export default async function GregStoryPage({params}: Props) {
                 Zaza Technologies
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                Zaza Technologies builds AI-powered tools that free professionals from admin so they can focus on what matters most — whether that's teaching students or closing deals.
+                Zaza Technologies builds AI-powered tools that free professionals from admin so they can focus on what matters most - whether that's teaching students or closing deals.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 We operate on two pillars:
@@ -134,7 +134,7 @@ export default async function GregStoryPage({params}: Props) {
                 </div>
               </div>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                Across industries, the problem is the same: repetitive communication steals time from high-value human work. Zaza gives that time back — whether the result is teachers gaining 5+ hours per week and reducing burnout, or professionals turning faster responses into higher revenue.
+                Across industries, the problem is the same: repetitive communication steals time from high-value human work. Zaza gives that time back - whether the result is teachers gaining 5+ hours per week and reducing burnout, or professionals turning faster responses into higher revenue.
               </p>
             </div>
             
@@ -144,7 +144,7 @@ export default async function GregStoryPage({params}: Props) {
                 The Blend
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                Looking back, every chapter of my journey — from my apprenticeship in a factory, to corporate strategy at Telstra, to publishing research, teaching thousands of staff, and leading L&D at Communardo — has shaped the skillset needed to build Zaza. I learned resilience, technology, management, research, pedagogy, and the realities of work across industries.
+                Looking back, every chapter of my journey - from my apprenticeship in a factory, to corporate strategy at Telstra, to publishing research, teaching thousands of staff, and leading L&D at Communardo - has shaped the skillset needed to build Zaza. I learned resilience, technology, management, research, pedagogy, and the realities of work across industries.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 That unique blend allowed me to see the universal problem and design a universal solution: an ecosystem of AI assistants built to help humans thrive.
@@ -158,11 +158,11 @@ export default async function GregStoryPage({params}: Props) {
                   The Heart of It All
                 </h3>
                 <p className="text-lg text-purple-800 dark:text-purple-200 leading-relaxed mb-6">
-                  And at the heart of it all are my daughters. Zaza isn't just about helping millions of people thrive in their work today — it's about building a legacy I can one day pass on to Viola and Solara, showing them that persistence, vision, and courage can change lives.
+                  And at the heart of it all are my daughters. Zaza isn't just about helping millions of people thrive in their work today - it's about building a legacy I can one day pass on to Viola and Solara, showing them that persistence, vision, and courage can change lives.
                 </p>
                 <div className="mt-6 text-right">
                   <p className="text-lg font-semibold text-purple-900 dark:text-purple-100">
-                    — Dr. Greg Blackburn
+                    - Dr. Greg Blackburn
                   </p>
                 </div>
               </div>
