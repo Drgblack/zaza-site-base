@@ -1,12 +1,15 @@
 ---
-title: "Less Time Writing, More Time Living"
-description: "Reclaim your evenings and weekends with AI-powered tools that handle administrative tasks, so you can focus on what matters most in teaching."
+title: "Less Time Writing, More Time Living: Reclaim Your Teaching Life"
+description: "Discover how to reclaim your evenings and weekends with AI-powered tools that handle administrative tasks, so you can focus on what matters most in teaching and life."
 date: "2024-12-15"
-author: "Zaza Team"
+author: "Dr. Maria Santos"
+authorBio: "Former high school teacher turned education consultant, passionate about teacher well-being and work-life balance"
 category: "Teacher Tips"
-readingTime: 6
+readingTime: "8 min read"
 image: "/images/blog/default.jpg"
 imageAlt: "Teacher working late on administrative tasks"
+featured: true
+tags: ["Teacher Wellbeing", "Work-Life Balance", "AI Tools", "Teacher Productivity", "Administrative Tasks"]
 ---
 
 # Less Time Writing, More Time Living
@@ -135,6 +138,22 @@ The administrative tasks will get done – professionally, thoughtfully, efficie
 **You have one life. You chose to dedicate it to teaching.**
 
 Make sure you have time to live it too.
+
+---
+
+## The Time to Act is Now
+
+You have a choice to make. You can continue spending your evenings crafting perfect emails and reports, watching your personal time slip away. Or you can embrace tools that give you back your life while maintaining the professional standards you're proud of.
+
+**The question isn't whether you'll use AI tools eventually—it's whether you'll start reclaiming your time today.**
+
+Every evening you delay is another evening lost. Every weekend spent on administrative tasks is another weekend you can't get back.
+
+**Your students need you to be energized and passionate. Your family needs you to be present. You need to remember why you became a teacher in the first place.**
+
+Start tonight. Choose to live your life, not just manage your tasks.
+
+💡 Ready to save hours and focus on teaching? Try Zaza Promptly free today and see how AI can transform your workflow.
 
 ---
 
