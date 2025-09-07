@@ -144,6 +144,8 @@ Efficient teaching isn't about doing everything perfectly—it's about doing the
 
 Your weekends, family time, and mental health are worth the investment in these systems.
 
+💡 Ready to save hours and focus on teaching? Try Zaza Promptly free today and see how AI can transform your workflow.
+
 ---
 
 *Ready to reclaim your time? Try Zaza Promptly to automate your parent communication and save hours every week.*
