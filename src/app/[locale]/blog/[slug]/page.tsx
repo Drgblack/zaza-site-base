@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getBlogPostById, blogPosts } from '../../../../../blog-posts-data';
-import BlogArticlePage from '../../../../components/blog/BlogArticlePage';
+import ModernBlogTemplate from '../../../../components/blog/ModernBlogTemplate';
 
 export default function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
   const { locale, slug } = params;
@@ -38,7 +38,7 @@ export default function BlogPostPage({ params }: { params: { locale: string; slu
     .slice(0, 3);
 
   return (
-    <BlogArticlePage 
+    <ModernBlogTemplate 
       post={post} 
       relatedPosts={relatedPosts} 
       locale={locale} 
