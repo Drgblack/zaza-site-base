@@ -1,6 +1,7 @@
-﻿{
+{
+  "version": 2,
   "redirects": [
-    { "source": "/", "destination": "/en/resources", "permanent": false },
-    { "source": "/:locale(en|de|fr|es|it)", "destination": "/:locale/resources", "permanent": false }
+    { "source": "/", "destination": "/en/resources", "statusCode": 307 },
+    { "source": "/(en|de|fr|es|it)", "destination": "//resources", "statusCode": 307 }
   ]
 }
