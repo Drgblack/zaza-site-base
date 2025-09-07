@@ -1,6 +1,4 @@
-﻿export const dynamic = 'force-dynamic';
-import { redirect } from 'next/navigation';
-
-export default function Page() {
-  redirect('/en');
+﻿import { redirect } from "next/navigation";
+export default function Root() {
+  redirect("/en");
 }

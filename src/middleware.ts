@@ -1,44 +1,34 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 
-const locales = ["en", "es", "fr", "de", "it"]; // keep "en" at minimum
+const locales = ["en", "es", "fr", "de", "it"]; // keep at least "en"
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Skip Next internals & static assets
+  // Skip Next internals, API, and requests for files (e.g. .png, .js, .css)
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.startsWith("/static") ||
-    pathname.startsWith("/assets") ||
-    pathname === "/robots.txt" ||
-    pathname === "/sitemap.xml" ||
-    pathname === "/favicon.ico"
+    pathname.includes(".")
   ) {
     return NextResponse.next();
   }
 
-  // Redirect bare root to default locale
-  if (pathname === "/") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/en";
-    return NextResponse.redirect(url);
-  }
-
-  // If no supported locale segment, prefix with default
+  // Already localized?
   const hasLocale = locales.some(
     (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
   );
+  if (hasLocale) return NextResponse.next();
 
-  if (!hasLocale) {
-    const url = req.nextUrl.clone();
-    url.pathname = `/en${pathname}`;
-    return NextResponse.redirect(url);
-  }
-
-  return NextResponse.next();
+  // Prefix missing locale with default "en"
+  const url = req.nextUrl.clone();
+  url.pathname = `/en${pathname}`;
+  return NextResponse.redirect(url);
 }
 
+// Use the canonical Next.js matcher pattern
 export const config = {
-  matcher: ["/((?!_next/|api/|static/|assets/|robots.txt|sitemap.xml|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
+  ],
 };
