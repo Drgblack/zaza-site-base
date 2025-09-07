@@ -1,4 +1,4 @@
-﻿import {createSharedPathnamesNavigation} from "next-intl/navigation";
+﻿import {createLocalizedPathnamesNavigation} from "next-intl/navigation";
 
 export const locales = ["en","es","fr","de","it"] as const;
 export type Locale = typeof locales[number];
@@ -20,4 +20,5 @@ export const {
   usePathname,
   useParams,
   getPathname
-} = createSharedPathnamesNavigation({locales: locales as unknown as string[]});
+} = createLocalizedPathnamesNavigation({locales: locales as unknown as string[]});
+
