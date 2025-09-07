@@ -108,7 +108,7 @@ export default async function BlogPage({ params }: Props) {
               </div>
               
               {/* Horizontal Scrollable Tiles */}
-              <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+              <div className="flex gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {categoryPosts.slice(0, 8).map((post) => (
                   <article key={post.id} className="flex-none w-80 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
                     {/* Image */}
@@ -187,23 +187,6 @@ export default async function BlogPage({ params }: Props) {
           </div>
         </section>
       </div>
-      
-      {/* Add custom scrollbar styles */}
-      <style jsx global>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
     </div>
   );
 }
