@@ -417,7 +417,7 @@ export function SnippetGallery() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Sharing snippets helps build a stronger teaching community. Every snippet you post can save another teacher hours of time — and you'll earn recognition as a Top Contributor.
+                    Sharing snippets helps build a stronger teaching community. Every snippet you post can save another teacher hours of time - and you'll earn recognition as a Top Contributor.
                   </p>
                   <Button size="sm" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
                     <Link href="/#snippet-tool" className="flex items-center gap-2">

@@ -391,7 +391,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
             ✨ Try Promptly Now
           </h2>
           <p className="mt-4 text-slate-700 md:text-xl dark:text-slate-200 font-medium">
-            🚀 Type a topic, get instant professional messages — save 15 minutes every time!
+            🚀 Type a topic, get instant professional messages - save 15 minutes every time!
           </p>
           <div className="mt-6 bg-gradient-to-r from-cyan-100 via-blue-100 to-indigo-100 dark:from-cyan-950/40 dark:via-blue-950/40 dark:to-indigo-950/40 border-2 border-cyan-200 dark:border-cyan-700/50 rounded-xl p-6 max-w-3xl mx-auto shadow-lg">
             <p className="text-cyan-800 dark:text-cyan-200 font-bold text-lg">
@@ -436,7 +436,7 @@ Overall, this represents excellent progress in your learning journey. I'm please
                     ✨ Smart Message Writer
                   </CardTitle>
                   <CardDescription className="text-slate-700 dark:text-slate-200 font-medium text-lg">
-                    Transform your notes into professional parent communication — save 15 minutes every time
+                    Transform your notes into professional parent communication - save 15 minutes every time
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
