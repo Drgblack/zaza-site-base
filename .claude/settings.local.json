@@ -92,7 +92,8 @@
       "Bash(wc:*)",
       "Bash(awk:*)",
       "Bash(powershell:*)",
-      "Bash(timeout 15 npm run dev)"
+      "Bash(timeout 15 npm run dev)",
+      "Bash(timeout 60 npm run build)"
     ],
     "deny": []
   }

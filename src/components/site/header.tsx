@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { locales, localeNames, localeFlags, type Locale } from '@/../../i18n';
+import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
-import { locales, localeNames, localeFlags, type Locale } from '@/../../i18n';
+import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
 
 export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
