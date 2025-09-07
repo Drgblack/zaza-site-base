@@ -45,7 +45,7 @@ export function ROICalculator() {
               max={35}
               min={10}
               step={1}
-              className="w-full"
+              className="w-full [&_[role=slider]]:h-3 [&_[role=slider]]:bg-gray-300 dark:[&_[role=slider]]:bg-gray-600 [&_[role=slider]_span]:bg-green-500 [&_[role=slider]_span]:h-3"
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>10 students</span>
@@ -63,7 +63,7 @@ export function ROICalculator() {
               max={20}
               min={3}
               step={1}
-              className="w-full"
+              className="w-full [&_[role=slider]]:h-3 [&_[role=slider]]:bg-gray-300 dark:[&_[role=slider]]:bg-gray-600 [&_[role=slider]_span]:bg-blue-500 [&_[role=slider]_span]:h-3"
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>3 messages</span>
@@ -81,7 +81,7 @@ export function ROICalculator() {
               max={75}
               min={25}
               step={5}
-              className="w-full"
+              className="w-full [&_[role=slider]]:h-3 [&_[role=slider]]:bg-gray-300 dark:[&_[role=slider]]:bg-gray-600 [&_[role=slider]_span]:bg-purple-500 [&_[role=slider]_span]:h-3"
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>$25/hour</span>
