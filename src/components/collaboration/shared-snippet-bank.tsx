@@ -1,3 +1,4 @@
+﻿/* eslint-disable no-redeclare */
 'use client';
 
 import { useState, useEffect } from 'react';
