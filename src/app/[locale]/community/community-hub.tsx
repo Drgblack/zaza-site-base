@@ -15,82 +15,10 @@ import {
 import { CommunityResourceCard } from '@/components/community/resource-card';
 import { CommunityStats } from '@/components/community/community-stats';
 import { ResourceUploadModal } from '@/components/community/upload-modal';
+import { ZAZA_RESOURCES, ResourceMetadata } from '@/lib/resources';
 
-interface CommunityResource {
-  id: string;
-  title: string;
-  description: string;
-  author: {
-    name: string;
-    avatar: string;
-    rating: number;
-  };
-  category: string;
-  tags: string[];
-  downloads: number;
-  rating: number;
-  price: number | null; // null for free, number for paid
-  isPremium: boolean;
-  createdAt: string;
-  type: 'snippet' | 'template' | 'lesson' | 'assessment';
-}
-
-const mockResources: CommunityResource[] = [
-  {
-    id: '1',
-    title: 'Parent-Teacher Conference Scripts',
-    description: 'Professional scripts for various conference scenarios including academic concerns, behavioral issues, and positive feedback.',
-    author: {
-      name: 'Sarah Johnson',
-      avatar: '/images/avatars/sarah.jpg',
-      rating: 4.8
-    },
-    category: 'Communication',
-    tags: ['parent-teacher', 'conferences', 'professional'],
-    downloads: 1247,
-    rating: 4.9,
-    price: null,
-    isPremium: false,
-    createdAt: '2024-01-15',
-    type: 'template'
-  },
-  {
-    id: '2',
-    title: 'AI-Powered Progress Report Generator',
-    description: 'Advanced template that uses AI to generate personalized progress reports based on student data.',
-    author: {
-      name: 'Dr. Michael Chen',
-      avatar: '/images/avatars/michael.jpg',
-      rating: 4.9
-    },
-    category: 'Assessment',
-    tags: ['progress-reports', 'ai', 'personalized'],
-    downloads: 892,
-    rating: 4.7,
-    price: 9.99,
-    isPremium: true,
-    createdAt: '2024-01-10',
-    type: 'template'
-  },
-  {
-    id: '3',
-    title: 'Behavioral Intervention Strategies',
-    description: 'Comprehensive collection of communication strategies for addressing challenging behaviors.',
-    author: {
-      name: 'Emma Rodriguez',
-      avatar: '/images/avatars/emma.jpg',
-      rating: 4.6
-    },
-    category: 'Behavior',
-    tags: ['behavior', 'intervention', 'strategies'],
-    downloads: 567,
-    rating: 4.8,
-    price: null,
-    isPremium: false,
-    createdAt: '2024-01-08',
-    type: 'snippet'
-  }
-];
+// Using real resources from the resource service
+const availableResources: ResourceMetadata[] = ZAZA_RESOURCES;
 
 export function CommunityHub() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -123,7 +51,7 @@ export function CommunityHub() {
   ];
 
   const types = [
-    'all', 'snippet', 'template', 'lesson', 'assessment'
+    'all', 'pdf', 'template', 'guide'
   ];
 
   const sortOptions = [
@@ -133,7 +61,7 @@ export function CommunityHub() {
     { value: 'downloads', label: 'Most Downloaded' }
   ];
 
-  const filteredResources = mockResources.filter(resource => {
+  const filteredResources = availableResources.filter(resource => {
     const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          resource.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -147,13 +75,13 @@ export function CommunityHub() {
   const sortedResources = [...filteredResources].sort((a, b) => {
     switch (sortBy) {
       case 'popular':
-        return b.downloads - a.downloads;
+        return b.stats.downloads - a.stats.downloads;
       case 'recent':
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       case 'rating':
-        return b.rating - a.rating;
+        return b.stats.rating - a.stats.rating;
       case 'downloads':
-        return b.downloads - a.downloads;
+        return b.stats.downloads - a.stats.downloads;
       default:
         return 0;
     }
@@ -314,7 +242,7 @@ export function CommunityHub() {
               <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-600">
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                    Showing <span className="font-bold text-slate-900 dark:text-white">{sortedResources.length}</span> of <span className="font-bold text-slate-900 dark:text-white">{mockResources.length}</span> resources
+                    Showing <span className="font-bold text-slate-900 dark:text-white">{sortedResources.length}</span> of <span className="font-bold text-slate-900 dark:text-white">{availableResources.length}</span> resources
                   </p>
                   {(searchQuery || selectedCategory !== 'all' || selectedType !== 'all') && (
                     <Button 
