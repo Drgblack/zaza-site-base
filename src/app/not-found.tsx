@@ -1,4 +1,4 @@
-export default function NotFound() {
+﻿export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center space-y-6 p-8">
@@ -8,7 +8,7 @@ export default function NotFound() {
           Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
         <a 
-          href="/"
+          href="/en"
           className="inline-block px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg"
         >
           Go Home
