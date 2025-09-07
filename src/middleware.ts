@@ -1,10 +1,12 @@
-﻿import type { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-const locales = ['en', 'es', 'fr', 'de', 'it'];
+const locales = ['en', 'es', 'fr', 'de', 'it'] as const;
+const DEFAULT_LOCALE = 'en';
 
 export const config = {
-  matcher: ['/((?!_next|.*\\..*|api).*)'], // everything except Next internals/files/api
+  // everything except Next internals/files/api
+  matcher: ['/((?!_next|.*\\..*|api).*)'],
 };
 
 export function middleware(req: NextRequest) {
@@ -13,17 +15,15 @@ export function middleware(req: NextRequest) {
   // Root → default landing
   if (pathname === '/') {
     const url = req.nextUrl.clone();
-    url.pathname = '/en';
+    url.pathname = `/${DEFAULT_LOCALE}`;
     return NextResponse.redirect(url);
   }
 
-  // If path has no locale, redirect to default locale
-  const hasLocale = locales.some(
-    (l) => pathname === /{l} || pathname.startsWith(/{l}/)
-  );
+  // If path has no locale, redirect to default locale (preserve path)
+  const hasLocale = new RegExp(`^/(${locales.join('|')})(/|$)`).test(pathname);
   if (!hasLocale) {
     const url = req.nextUrl.clone();
-    url.pathname = '/en' + pathname;
+    url.pathname = `/${DEFAULT_LOCALE}${pathname}`;
     return NextResponse.redirect(url);
   }
 
