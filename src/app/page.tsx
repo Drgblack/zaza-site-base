@@ -1,2 +1,5 @@
 ﻿import { redirect } from "next/navigation";
-export default function Root(){ redirect("/en"); }
+
+export default function RootRedirect() {
+  redirect("/en/resources");
+}
