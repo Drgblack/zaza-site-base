@@ -203,7 +203,7 @@ export function CommunityStats() {
                 contributions: 47,
                 downloads: 1247,
                 rating: 4.9,
-                avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+                avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2088&q=80',
                 avatarFallback: 'SJ',
                 gradient: 'from-purple-400 to-pink-400',
                 testimonial: '"Zaza Promptly has revolutionized how I communicate with parents. What used to take me hours now takes minutes, and the quality has never been better."',
