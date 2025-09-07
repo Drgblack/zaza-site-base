@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Globe, ChevronDown } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
@@ -12,20 +12,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-const locales = [
-  { code: 'en', label: 'English' },
-  { code: 'de', label: 'Deutsch' },
-  { code: 'fr', label: 'Français' },
-  { code: 'es', label: 'Español' },
-  { code: 'it', label: 'Italiano' },
-];
+import { locales, localeNames, localeFlags, type Locale } from '@/../../i18n';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const t = useTranslations('navigation');
+  const hero = useTranslations('hero');
   const pathname = usePathname();
+  const locale = useLocale() as Locale;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,9 +51,9 @@ export function Header() {
   ];
 
   const companyLinks = [
-    { name: 'About', href: '/about' },
+    { name: t('about'), href: '/about' },
     { name: 'Meet Your Fellow Educator', href: '/meet-your-fellow-educator' },
-    { name: 'Press', href: '/press' },
+    { name: t('press'), href: '/press' },
   ];
 
   return (
@@ -89,7 +84,7 @@ export function Header() {
                 Zaza Promptly
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                AI for Educators
+                {hero('tagline')}
               </div>
             </div>
           </Link>
@@ -135,7 +130,7 @@ export function Header() {
             {/* Our Company Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center space-x-1 text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 text-gray-700 dark:text-gray-300">
-                <span>Our Company</span>
+                <span>{t('company')}</span>
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg dark:bg-gray-900/95 dark:border-gray-700">
@@ -162,11 +157,27 @@ export function Header() {
                   <Globe className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {locales.map((locale) => (
-                  <DropdownMenuItem key={locale.code} asChild>
-                    <Link href={pathname} locale={locale.code}>
-                      {locale.label}
+              <DropdownMenuContent align="end" className="w-48">
+                {locales.map((loc) => (
+                  <DropdownMenuItem key={loc} asChild>
+                    <Link 
+                      href={pathname} 
+                      locale={loc}
+                      className={`flex items-center w-full px-3 py-2 ${
+                        loc === locale 
+                          ? 'bg-purple-50 text-purple-700 font-semibold' 
+                          : 'text-gray-700'
+                      }`}
+                    >
+                      <span className="mr-3 text-lg">{localeFlags[loc]}</span>
+                      <span>{localeNames[loc]}</span>
+                      {loc === locale && (
+                        <span className="ml-auto">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      )}
                     </Link>
                   </DropdownMenuItem>
                 ))}
@@ -175,7 +186,7 @@ export function Header() {
 
             <Button asChild>
               <a href="https://teach.zazatechnologies.com">
-                Try Zaza Teach
+                {hero('cta_primary')}
               </a>
             </Button>
           </div>
@@ -227,7 +238,7 @@ export function Header() {
               <div className="pt-4">
                 <Button asChild className="w-full">
                   <a href="https://teach.zazatechnologies.com">
-                    Try Zaza Teach
+                    {hero('cta_primary')}
                   </a>
                 </Button>
               </div>

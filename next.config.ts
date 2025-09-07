@@ -2,7 +2,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const withMDX = createMDX({
   options: {
@@ -47,6 +47,59 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/',
+        has: [
+          {
+            type: 'header',
+            key: 'accept-language',
+            value: '(.*-DE.*)',
+          },
+        ],
+        destination: '/de',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'header',
+            key: 'accept-language', 
+            value: '(.*-FR.*)',
+          },
+        ],
+        destination: '/fr',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'header',
+            key: 'accept-language',
+            value: '(.*-ES.*)',
+          },
+        ],
+        destination: '/es',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'header',
+            key: 'accept-language',
+            value: '(.*-IT.*)',
+          },
+        ],
+        destination: '/it',
+        permanent: false,
+      },
+      {
+        source: '/',
+        destination: '/en',
+        permanent: false,
+      },
       {
         source: '/blog/:slug*',
         destination: '/en/blog/:slug*',

@@ -1,4 +1,4 @@
-import {setRequestLocale} from 'next-intl/server';
+import {setRequestLocale, getTranslations} from 'next-intl/server';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,6 +48,10 @@ export default async function HomePage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
 
+  const hero = await getTranslations('hero');
+  const features = await getTranslations('features');
+  const pricing = await getTranslations('pricing');
+
   return (
     <div className="flex flex-col">
       {/* 1. Hero / Headline */}
@@ -64,13 +68,12 @@ export default async function HomePage({params}: Props) {
                 {/* Category Definition - What is this? */}
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-purple-200/50 dark:border-purple-700/50 text-sm font-medium text-purple-700 dark:text-purple-300 mb-4">
                   <GraduationCap className="w-4 h-4 mr-2" />
-                  AI Communication Assistant for Teachers
+                  {hero('tagline')}
                 </div>
                 
                 {/* Anthony Pierri Framework Headline */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
-                  Less time writing. More time{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-black text-shadow">teaching - and living</span>
+                  {hero('title')}
                 </h1>
                 
                 {/* Social proof - Above the fold */}
@@ -97,7 +100,7 @@ export default async function HomePage({params}: Props) {
                 
                 {/* Anthony Pierri Subheadline */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
-                  Promptly is the teacher-first AI assistant that helps you write parent messages, report comments, and everyday communication in minutes - with the right tone, translations, and built-in support.
+                  {hero('subtitle')}
                 </p>
                 
                 {/* Specific value proposition */}
@@ -126,7 +129,7 @@ export default async function HomePage({params}: Props) {
                 <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-purple-600/20 hover:ring-purple-600/40" asChild>
                   <a href="#snippet-tool">
                     <Zap className="w-5 h-5 mr-2" />
-                    Try Promptly Free
+                    {hero('cta_primary')}
                   </a>
                 </Button>
                 <Button 
@@ -136,7 +139,7 @@ export default async function HomePage({params}: Props) {
                   asChild
                 >
                   <a href="#snippet-tool">
-                    See How It Works
+                    {hero('cta_secondary')}
                   </a>
                 </Button>
               </div>

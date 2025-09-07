@@ -1,42 +1,118 @@
 {
   "navigation": {
-    "home": "Home",
+    "home": "Accueil",
     "blog": "Blog",
-    "resources": "Resources",
-    "about": "About",
-    "pricing": "Pricing"
+    "resources": "Ressources",
+    "about": "À propos",
+    "pricing": "Tarifs",
+    "community": "Communauté",
+    "faq": "FAQ",
+    "company": "Entreprise",
+    "press": "Presse",
+    "contact": "Contact"
   },
   "hero": {
-    "title": "AI-powered tools for modern educators",
-    "subtitle": "Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
-    "cta_primary": "Try Zaza Teach",
-    "cta_secondary": "Join Waitlist"
+    "title": "Outils alimentés par l'IA pour les éducateurs modernes",
+    "subtitle": "Économisez 5+ heures par semaine avec la planification intelligente de leçons, l'aide à la notation et la gestion de classe.",
+    "cta_primary": "Essayer Zaza Teach",
+    "cta_secondary": "Rejoindre la liste d'attente",
+    "tagline": "IA pour les éducateurs"
   },
   "features": {
-    "title": "Why Zaza Promptly?",
-    "subtitle": "Built by educators, for educators",
+    "title": "Pourquoi Zaza Promptly ?",
+    "subtitle": "Conçu par des éducateurs, pour des éducateurs",
     "instant_feedback": {
-      "title": "Instant Feedback",
-      "description": "Generate personalized comments and feedback in seconds"
+      "title": "Retour instantané",
+      "description": "Générez des commentaires personnalisés et des retours en quelques secondes"
     },
     "time_saving": {
-      "title": "Save Time",
-      "description": "Reduce grading time by up to 80% with AI assistance"
+      "title": "Économiser du temps",
+      "description": "Réduisez le temps de notation jusqu'à 80% avec l'assistance IA"
     },
     "student_focused": {
-      "title": "Student-Focused",
-      "description": "Maintain personal connection while scaling your impact"
+      "title": "Centré sur l'élève",
+      "description": "Maintenez la connexion personnelle tout en élargissant votre impact"
     }
   },
   "snippet_tool": {
-    "title": "Live Demo: Snippet Tool",
-    "description": "Try our AI-powered comment generator",
-    "placeholder": "Enter assignment topic or student work sample...",
-    "generate": "Generate Comments"
+    "title": "Démo en direct : Outil Snippet",
+    "description": "Essayez notre générateur de commentaires alimenté par l'IA",
+    "placeholder": "Entrez le sujet de l'assignation ou un échantillon de travail d'élève...",
+    "generate": "Générer des commentaires"
   },
   "footer": {
-    "tagline": "Built by educators for educators",
-    "copyright": "© 2024 Zaza Technologies. All rights reserved.",
-    "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Germany"
+    "tagline": "Conçu par des éducateurs pour des éducateurs",
+    "copyright": "© 2024 Zaza Technologies. Tous droits réservés.",
+    "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Allemagne"
+  },
+  "blog": {
+    "title": "Blog pour éducateurs",
+    "subtitle": "Conseils pratiques, outils IA et perspectives éducatives",
+    "read_more": "Lire la suite",
+    "search_placeholder": "Rechercher dans le blog...",
+    "all_categories": "Toutes les catégories",
+    "no_posts": "Aucun article trouvé",
+    "reading_time": "min de lecture",
+    "published": "Publié",
+    "category": "Catégorie",
+    "share": "Partager",
+    "related_posts": "Articles connexes"
+  },
+  "resources": {
+    "title": "Ressources pour éducateurs",
+    "subtitle": "Matériel gratuit pour améliorer votre enseignement",
+    "download": "Télécharger",
+    "view": "Voir",
+    "free": "Gratuit",
+    "premium": "Premium"
+  },
+  "about": {
+    "title": "À propos de Zaza Promptly",
+    "subtitle": "Notre mission est d'autonomiser les éducateurs avec des outils IA",
+    "our_story": "Notre histoire",
+    "our_team": "Notre équipe",
+    "our_values": "Nos valeurs"
+  },
+  "pricing": {
+    "title": "Tarifs",
+    "subtitle": "Choisissez le plan qui vous convient le mieux",
+    "free_plan": "Plan gratuit",
+    "pro_plan": "Plan Pro",
+    "enterprise_plan": "Plan Entreprise",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "save": "Économisez",
+    "get_started": "Commencer",
+    "contact_sales": "Contacter les ventes"
+  },
+  "faq": {
+    "title": "Questions fréquemment posées",
+    "subtitle": "Tout ce que vous devez savoir sur Zaza Promptly"
+  },
+  "community": {
+    "title": "Communauté",
+    "subtitle": "Connectez-vous avec d'autres éducateurs",
+    "join_discord": "Rejoindre Discord",
+    "join_facebook": "Rejoindre le groupe Facebook"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "clear": "Effacer",
+    "apply": "Appliquer",
+    "reset": "Réinitialiser"
   }
 }

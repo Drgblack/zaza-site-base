@@ -1,42 +1,118 @@
 {
   "navigation": {
-    "home": "Home",
+    "home": "Startseite",
     "blog": "Blog",
-    "resources": "Resources",
-    "about": "About",
-    "pricing": "Pricing"
+    "resources": "Ressourcen",
+    "about": "Über uns",
+    "pricing": "Preise",
+    "community": "Community",
+    "faq": "FAQ",
+    "company": "Unternehmen",
+    "press": "Presse",
+    "contact": "Kontakt"
   },
   "hero": {
-    "title": "AI-powered tools for modern educators",
-    "subtitle": "Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
-    "cta_primary": "Try Zaza Teach",
-    "cta_secondary": "Join Waitlist"
+    "title": "KI-gestützte Tools für moderne Pädagogen",
+    "subtitle": "Sparen Sie 5+ Stunden pro Woche mit intelligenter Unterrichtsplanung, Bewertungshilfen und Klassenverwaltung.",
+    "cta_primary": "Zaza Teach ausprobieren",
+    "cta_secondary": "Warteliste beitreten",
+    "tagline": "KI für Pädagogen"
   },
   "features": {
-    "title": "Why Zaza Promptly?",
-    "subtitle": "Built by educators, for educators",
+    "title": "Warum Zaza Promptly?",
+    "subtitle": "Von Pädagogen, für Pädagogen entwickelt",
     "instant_feedback": {
-      "title": "Instant Feedback",
-      "description": "Generate personalized comments and feedback in seconds"
+      "title": "Sofortiges Feedback",
+      "description": "Erstellen Sie personalisierte Kommentare und Feedback in Sekunden"
     },
     "time_saving": {
-      "title": "Save Time",
-      "description": "Reduce grading time by up to 80% with AI assistance"
+      "title": "Zeit sparen",
+      "description": "Reduzieren Sie die Bewertungszeit um bis zu 80% mit KI-Unterstützung"
     },
     "student_focused": {
-      "title": "Student-Focused",
-      "description": "Maintain personal connection while scaling your impact"
+      "title": "Schülerfokussiert",
+      "description": "Behalten Sie persönliche Verbindungen bei und vergrößern Sie gleichzeitig Ihren Einfluss"
     }
   },
   "snippet_tool": {
-    "title": "Live Demo: Snippet Tool",
-    "description": "Try our AI-powered comment generator",
-    "placeholder": "Enter assignment topic or student work sample...",
-    "generate": "Generate Comments"
+    "title": "Live-Demo: Snippet-Tool",
+    "description": "Probieren Sie unseren KI-gestützten Kommentar-Generator aus",
+    "placeholder": "Geben Sie das Aufgabenthema oder eine Schülerarbeits-Probe ein...",
+    "generate": "Kommentare generieren"
   },
   "footer": {
-    "tagline": "Built by educators for educators",
-    "copyright": "© 2024 Zaza Technologies. All rights reserved.",
-    "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Germany"
+    "tagline": "Von Pädagogen für Pädagogen entwickelt",
+    "copyright": "© 2024 Zaza Technologies. Alle Rechte vorbehalten.",
+    "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Deutschland"
+  },
+  "blog": {
+    "title": "Blog für Pädagogen",
+    "subtitle": "Praktische Tipps, KI-Tools und Bildungseinblicke",
+    "read_more": "Weiterlesen",
+    "search_placeholder": "Blog durchsuchen...",
+    "all_categories": "Alle Kategorien",
+    "no_posts": "Keine Beiträge gefunden",
+    "reading_time": "Min. Lesezeit",
+    "published": "Veröffentlicht",
+    "category": "Kategorie",
+    "share": "Teilen",
+    "related_posts": "Verwandte Beiträge"
+  },
+  "resources": {
+    "title": "Ressourcen für Pädagogen",
+    "subtitle": "Kostenloses Material, um Ihren Unterricht zu verbessern",
+    "download": "Herunterladen",
+    "view": "Ansehen",
+    "free": "Kostenlos",
+    "premium": "Premium"
+  },
+  "about": {
+    "title": "Über Zaza Promptly",
+    "subtitle": "Unsere Mission ist es, Pädagogen mit KI-Tools zu stärken",
+    "our_story": "Unsere Geschichte",
+    "our_team": "Unser Team",
+    "our_values": "Unsere Werte"
+  },
+  "pricing": {
+    "title": "Preise",
+    "subtitle": "Wählen Sie den Plan, der für Sie am besten geeignet ist",
+    "free_plan": "Kostenloser Plan",
+    "pro_plan": "Pro-Plan",
+    "enterprise_plan": "Enterprise-Plan",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "save": "Sparen Sie",
+    "get_started": "Loslegen",
+    "contact_sales": "Vertrieb kontaktieren"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Alles, was Sie über Zaza Promptly wissen müssen"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Verbinden Sie sich mit anderen Pädagogen",
+    "join_discord": "Discord beitreten",
+    "join_facebook": "Facebook-Gruppe beitreten"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "search": "Suchen",
+    "filter": "Filter",
+    "sort": "Sortieren",
+    "clear": "Löschen",
+    "apply": "Anwenden",
+    "reset": "Zurücksetzen"
   }
 }

@@ -91,7 +91,8 @@
       "Bash(del:*)",
       "Bash(wc:*)",
       "Bash(awk:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(timeout 15 npm run dev)"
     ],
     "deny": []
   }

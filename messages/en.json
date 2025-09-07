@@ -4,13 +4,19 @@
     "blog": "Blog",
     "resources": "Resources",
     "about": "About",
-    "pricing": "Pricing"
+    "pricing": "Pricing",
+    "community": "Community",
+    "faq": "FAQ",
+    "company": "Company",
+    "press": "Press",
+    "contact": "Contact"
   },
   "hero": {
     "title": "AI-powered tools for modern educators",
     "subtitle": "Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
     "cta_primary": "Try Zaza Teach",
-    "cta_secondary": "Join Waitlist"
+    "cta_secondary": "Join Waitlist",
+    "tagline": "AI for Educators"
   },
   "features": {
     "title": "Why Zaza Promptly?",
@@ -38,5 +44,75 @@
     "tagline": "Built by educators for educators",
     "copyright": "© 2024 Zaza Technologies. All rights reserved.",
     "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Germany"
+  },
+  "blog": {
+    "title": "Blog for Educators",
+    "subtitle": "Practical tips, AI tools, and educational insights",
+    "read_more": "Read More",
+    "search_placeholder": "Search blog...",
+    "all_categories": "All Categories",
+    "no_posts": "No posts found",
+    "reading_time": "min read",
+    "published": "Published",
+    "category": "Category",
+    "share": "Share",
+    "related_posts": "Related Posts"
+  },
+  "resources": {
+    "title": "Resources for Educators",
+    "subtitle": "Free materials to enhance your teaching",
+    "download": "Download",
+    "view": "View",
+    "free": "Free",
+    "premium": "Premium"
+  },
+  "about": {
+    "title": "About Zaza Promptly",
+    "subtitle": "Our mission is to empower educators with AI tools",
+    "our_story": "Our Story",
+    "our_team": "Our Team",
+    "our_values": "Our Values"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose the plan that's right for you",
+    "free_plan": "Free Plan",
+    "pro_plan": "Pro Plan",
+    "enterprise_plan": "Enterprise Plan",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save",
+    "get_started": "Get Started",
+    "contact_sales": "Contact Sales"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about Zaza Promptly"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Connect with fellow educators",
+    "join_discord": "Join Discord",
+    "join_facebook": "Join Facebook Group"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "apply": "Apply",
+    "reset": "Reset"
   }
 }
