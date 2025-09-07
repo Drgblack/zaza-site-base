@@ -1,10 +1,16 @@
-// Middleware temporarily disabled to resolve 500 errors on blog routes
-// import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
+import createMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale } from './i18n';
 
-// export function middleware(_req: NextRequest) {
-//   const res = NextResponse.next();
-//   return res;
-// }
+export default createMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'always'
+});
 
-// export const config = { matcher: [] };
+export const config = {
+  matcher: [
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    '/',
+    '/(de|en|fr|es|it)/:path*'
+  ]
+};

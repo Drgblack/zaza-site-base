@@ -23,9 +23,9 @@ import {
   AlertTriangle,
   RefreshCw
 } from 'lucide-react';
-import { AutoPlanner } from './auto-planner';
-import { KnowledgeCore } from './knowledge-core';
-import { AISafetyLayer } from './ai-safety-layer';
+import { AutoPlannerAgent } from './auto-planner';
+import { KnowledgeCoreActivation } from './knowledge-core';
+import { AdaptiveAISafetyLayer } from './ai-safety-layer';
 
 interface AgentStatus {
   autoPlanner: 'active' | 'inactive' | 'syncing';
@@ -444,15 +444,15 @@ export function AgentDashboard() {
         </TabsContent>
 
         <TabsContent value="autoplanner" className="space-y-4">
-          <AutoPlanner />
+          <AutoPlannerAgent />
         </TabsContent>
 
         <TabsContent value="knowledgecore" className="space-y-4">
-          <KnowledgeCore />
+          <KnowledgeCoreActivation />
         </TabsContent>
 
         <TabsContent value="safety" className="space-y-4">
-          <AISafetyLayer />
+          <AdaptiveAISafetyLayer />
         </TabsContent>
       </Tabs>
     </div>

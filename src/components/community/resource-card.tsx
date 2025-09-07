@@ -17,7 +17,7 @@ import {
   FileText,
   BookOpen,
   Calculator,
-  PresentationChart,
+  BarChart3,
   ExternalLink,
   File,
   Users,
@@ -114,7 +114,7 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
       case 'template':
         return BookOpen;
       case 'guide':
-        return PresentationChart;
+        return BarChart3;
       default:
         return File;
     }
