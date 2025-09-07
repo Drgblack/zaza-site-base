@@ -18,63 +18,83 @@ import {
   BookOpen,
   Calculator,
   PresentationChart,
-  ExternalLink
+  ExternalLink,
+  File,
+  Users,
+  ShoppingCart
 } from 'lucide-react';
-
-interface CommunityResource {
-  id: string;
-  title: string;
-  description: string;
-  author: {
-    name: string;
-    avatar: string;
-    rating: number;
-  };
-  category: string;
-  tags: string[];
-  downloads: number;
-  rating: number;
-  price: number | null;
-  isPremium: boolean;
-  createdAt: string;
-  type: 'snippet' | 'template' | 'lesson' | 'assessment';
-}
+import { ResourceMetadata, resourceService } from '@/lib/resources';
+import { PaymentModal } from './payment-modal';
 
 interface CommunityResourceCardProps {
-  resource: CommunityResource;
+  resource: ResourceMetadata;
 }
 
 export function CommunityResourceCard({ resource }: CommunityResourceCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isPurchasing, setIsPurchasing] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-  const handleDownload = () => {
-    if (resource.price !== null) {
-      // Handle purchase logic
-      console.log('Purchasing resource:', resource.id);
-      alert(`Redirecting to purchase ${resource.title} for €${resource.price}`);
+  const handleDownload = async () => {
+    if (resource.isPremium && resource.price !== null) {
+      // Open payment modal for premium resources
+      setShowPaymentModal(true);
     } else {
       // Handle free download
-      console.log('Downloading resource:', resource.id);
-      alert(`Downloading ${resource.title}`);
+      setIsDownloading(true);
+      try {
+        await resourceService.downloadResource(resource.id);
+      } catch (error) {
+        console.error('Download error:', error);
+        alert('Download failed. Please try again.');
+      } finally {
+        setIsDownloading(false);
+      }
+    }
+  };
+
+  const handlePaymentSuccess = async (downloadUrl: string) => {
+    // Handle successful payment and download
+    setIsDownloading(true);
+    try {
+      const userEmail = 'user@example.com'; // In real app, get from auth context
+      await resourceService.downloadResource(resource.id, userEmail);
+    } catch (error) {
+      console.error('Download error:', error);
+    } finally {
+      setIsDownloading(false);
+      setShowPaymentModal(false);
+    }
+  };
+
+  const handlePreview = async () => {
+    const previewUrl = await resourceService.previewResource(resource.id);
+    if (previewUrl) {
+      window.open(previewUrl, '_blank');
+    } else {
+      setShowPreview(true);
     }
   };
 
   const handleLike = () => {
     setIsLiked(!isLiked);
-    console.log('Liked resource:', resource.id);
-    // Add like functionality
+    // In real app, would sync with backend
   };
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: resource.title,
-        text: resource.description,
-        url: window.location.href
-      });
+  const handleShare = async () => {
+    const shareData = {
+      title: resource.title,
+      text: resource.description,
+      url: window.location.href
+    };
+
+    if (navigator.share && navigator.canShare(shareData)) {
+      await navigator.share(shareData);
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
     }
   };
@@ -89,31 +109,27 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'snippet':
+      case 'pdf':
         return FileText;
       case 'template':
         return BookOpen;
-      case 'lesson':
+      case 'guide':
         return PresentationChart;
-      case 'assessment':
-        return Calculator;
       default:
-        return FileText;
+        return File;
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'snippet':
-        return 'from-blue-500 to-cyan-500';
+      case 'pdf':
+        return 'from-purple-400 to-pink-400';
       case 'template':
-        return 'from-purple-500 to-pink-500';
-      case 'lesson':
-        return 'from-green-500 to-emerald-500';
-      case 'assessment':
-        return 'from-orange-500 to-red-500';
+        return 'from-pink-400 to-rose-400';
+      case 'guide':
+        return 'from-purple-400 to-indigo-400';
       default:
-        return 'from-slate-500 to-gray-500';
+        return 'from-slate-400 to-gray-400';
     }
   };
 
@@ -129,12 +145,32 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 dark:from-purple-400/10 dark:to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       {/* Thumbnail/Preview Area */}
-      <div className="relative h-32 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 overflow-hidden">
-        {/* Type Icon Background */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${getTypeColor(resource.type)} opacity-10`} />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <TypeIcon className="h-16 w-16 text-slate-400 dark:text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300" />
-        </div>
+      <div className="relative h-40 overflow-hidden">
+        {resource.previewImage ? (
+          <div className="relative w-full h-full">
+            <img 
+              src={resource.previewImage}
+              alt={`${resource.title} preview`}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            {/* Preview overlay */}
+            <button 
+              onClick={handlePreview}
+              className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+              aria-label="Preview resource"
+            >
+              <Eye className="h-8 w-8 text-white drop-shadow-lg" />
+            </button>
+          </div>
+        ) : (
+          <div className={`relative h-full bg-gradient-to-br ${getTypeColor(resource.type)} opacity-20`}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <TypeIcon className="h-16 w-16 text-slate-400 dark:text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300" />
+            </div>
+          </div>
+        )}
         
         {/* Premium Badge */}
         {resource.isPremium && (
@@ -170,10 +206,13 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
           {/* Category and Type */}
           <div className="flex items-center gap-2 mb-3">
             <Badge variant="secondary" className="text-xs font-semibold px-2 py-1">
-              {resource.category}
+              {resource.category.charAt(0).toUpperCase() + resource.category.slice(1)}
             </Badge>
             <Badge variant="outline" className="text-xs px-2 py-1 border-slate-300 dark:border-slate-600">
-              {resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}
+              {resource.type.toUpperCase()}
+            </Badge>
+            <Badge variant="outline" className="text-xs px-2 py-1 border-slate-300 dark:border-slate-600">
+              {resource.pageCount} pages
             </Badge>
           </div>
         </div>
@@ -223,26 +262,26 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
         
         {/* Stats Row */}
         <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
-          <div className="text-center p-2 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800/50">
-            <Download className="h-4 w-4 mx-auto text-blue-600 dark:text-blue-400 mb-1" />
-            <div className="text-sm font-bold text-blue-700 dark:text-blue-300">
-              {resource.downloads.toLocaleString()}
+          <div className="text-center p-2 bg-purple-50/50 dark:bg-purple-950/20 rounded-lg border border-purple-200/40 dark:border-purple-800/30">
+            <Download className="h-4 w-4 mx-auto text-purple-600 dark:text-purple-400 mb-1" />
+            <div className="text-sm font-bold text-purple-700 dark:text-purple-300">
+              {resource.stats.downloads.toLocaleString()}
             </div>
-            <div className="text-xs text-blue-600/80 dark:text-blue-400/80">Downloads</div>
+            <div className="text-xs text-purple-600/80 dark:text-purple-400/80">Downloads</div>
           </div>
-          <div className="text-center p-2 bg-yellow-50 dark:bg-yellow-950/30 rounded-lg border border-yellow-200 dark:border-yellow-800/50">
+          <div className="text-center p-2 bg-pink-50/50 dark:bg-pink-950/20 rounded-lg border border-pink-200/40 dark:border-pink-800/30">
             <Star className="h-4 w-4 mx-auto fill-yellow-500 text-yellow-500 mb-1" />
-            <div className="text-sm font-bold text-yellow-700 dark:text-yellow-300">
-              {resource.rating}
+            <div className="text-sm font-bold text-pink-700 dark:text-pink-300">
+              {resource.stats.rating}
             </div>
-            <div className="text-xs text-yellow-600/80 dark:text-yellow-400/80">Rating</div>
+            <div className="text-xs text-pink-600/80 dark:text-pink-400/80">{resource.stats.reviews} reviews</div>
           </div>
           <div className="text-center p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700/50">
-            <Clock className="h-4 w-4 mx-auto text-slate-600 dark:text-slate-400 mb-1" />
+            <File className="h-4 w-4 mx-auto text-slate-600 dark:text-slate-400 mb-1" />
             <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-              {formatDate(resource.createdAt)}
+              {resource.fileSize}
             </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">Added</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">File size</div>
           </div>
         </div>
         
@@ -275,14 +314,21 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
           
           <Button 
             className={`flex-1 h-10 font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm ${
-              resource.price !== null 
+              resource.isPremium && resource.price !== null
                 ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700' 
                 : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
-            } hover:scale-105`}
+            } hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed`}
             onClick={handleDownload}
+            disabled={isDownloading || isPurchasing}
           >
-            {resource.price !== null ? (
+            {isDownloading || isPurchasing ? (
+              <div className="flex items-center">
+                <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                {isPurchasing ? 'Processing...' : 'Downloading...'}
+              </div>
+            ) : resource.isPremium && resource.price !== null ? (
               <>
+                <ShoppingCart className="h-4 w-4 mr-2" />
                 €{resource.price} • Purchase
               </>
             ) : (
@@ -294,15 +340,43 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
           </Button>
         </div>
         
-        {/* Preview Link */}
-        <div className="mt-3 text-center">
-          <button className="text-xs text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 font-medium flex items-center gap-1 mx-auto transition-colors duration-200">
+        {/* Preview Link & Features */}
+        <div className="mt-3 space-y-2">
+          <button 
+            onClick={handlePreview}
+            className="text-xs text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 font-medium flex items-center gap-1 mx-auto transition-colors duration-200"
+          >
             <Eye className="h-3 w-3" />
             Quick Preview
             <ExternalLink className="h-3 w-3" />
           </button>
+          
+          {/* Key Features */}
+          {resource.features.length > 0 && (
+            <div className="text-center">
+              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium mb-1">Includes:</p>
+              <div className="flex flex-wrap gap-1 justify-center">
+                {resource.features.slice(0, 2).map((feature, index) => (
+                  <span key={index} className="text-xs bg-purple-100/60 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">
+                    {feature}
+                  </span>
+                ))}
+                {resource.features.length > 2 && (
+                  <span className="text-xs text-slate-500 dark:text-slate-400">+{resource.features.length - 2} more</span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
+
+      {/* Payment Modal */}
+      <PaymentModal 
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        resource={resource}
+        onPaymentSuccess={handlePaymentSuccess}
+      />
     </Card>
   );
 }
