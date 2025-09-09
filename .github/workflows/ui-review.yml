@@ -1,0 +1,64 @@
+﻿name: UI Review
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "components/**"
+      - "pages/**"
+      - "styles/**"
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    env:
+      PAGES: "/,/blog"
+      BASE_URL: "http://localhost:3000"
+      VISUAL_DIR: "visual/runs/${{ github.sha }}"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Start Next.js server
+        run: |
+          npm run start -- -p 3000 &
+          npx wait-on http://localhost:3000
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run UI review script
+        run: node scripts/ui-review.mjs
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots
+          path: ${{ env.VISUAL_DIR }}
+
+      - name: Post PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            let body = "UI Review ran but no summary file.";
+            if (fs.existsSync("ui-review.md")) {
+              body = fs.readFileSync("ui-review.md", "utf8");
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body
+            });
