@@ -5,12 +5,26 @@ import {locales} from '../../../i18n';
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Header } from "@/components/site/header";
+import { Footer } from "@/components/site/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Zaza Promptly',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'),
+  title: {
+    template: '%s | Zaza Promptly',
+    default: 'Zaza Promptly',
+  },
   description: 'AI-powered parent communication for teachers',
+  keywords: ['education', 'AI', 'teachers', 'parent communication', 'teaching assistant'],
+  authors: [{ name: 'Zaza Technologies' }],
+  creator: 'Zaza Technologies',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default async function LocaleLayout({
@@ -31,9 +45,11 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
+          <Header />
           <main>
             {children}
           </main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
