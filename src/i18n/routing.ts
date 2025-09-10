@@ -1,4 +1,4 @@
-﻿import {defineRouting} from 'next-intl/routing';
+import {defineRouting} from 'next-intl/routing';
 import {createNavigation} from 'next-intl/navigation';
  
 export const routing = defineRouting({
@@ -6,13 +6,6 @@ export const routing = defineRouting({
   defaultLocale: 'en',
   pathnames: {
     '/': '/',
-    '/blog': {
-      en: '/blog',
-      de: '/blog',
-      fr: '/blog', 
-      es: '/blog',
-      it: '/blog'
-    },
     '/resources': {
       en: '/resources',
       de: '/ressourcen',
@@ -20,8 +13,7 @@ export const routing = defineRouting({
       es: '/recursos', 
       it: '/risorse'
     },
-    '/cookies': '/cookies',
-    '/blog/[slug]': '/blog/[slug]'
+    '/cookies': '/cookies'
   }
 });
  
