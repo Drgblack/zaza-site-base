@@ -1,33 +1,20 @@
-import {notFound} from 'next/navigation';
-import {getRequestConfig} from 'next-intl/server';
+﻿import {getRequestConfig} from "next-intl/server";
 
-// Can be imported from a shared config
-export const locales = ['en', 'de', 'fr', 'es', 'it'] as const;
+export const locales = ["en","de","fr","es","it"] as const;
 export type Locale = typeof locales[number];
 
-export const defaultLocale: Locale = 'en';
+// Static import map avoids bundler issues with "import(`./messages/${locale}.json`)"
+const messageImports: Record<string, () => Promise<any>> = {
+  en: () => import("./messages/en.json"),
+  de: () => import("./messages/de.json"),
+  fr: () => import("./messages/fr.json"),
+  es: () => import("./messages/es.json"),
+  it: () => import("./messages/it.json"),
+};
 
-export const localeNames = {
-  en: 'English',
-  de: 'Deutsch', 
-  fr: 'Français',
-  es: 'Español',
-  it: 'Italiano'
-} as const;
-
-export const localeFlags = {
-  en: '🇺🇸',
-  de: '🇩🇪',
-  fr: '🇫🇷', 
-  es: '🇪🇸',
-  it: '🇮🇹'
-} as const;
-
-export default getRequestConfig(async ({locale}) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as Locale)) notFound();
-
-  return {
-    messages: (await import(`./messages/${locale}.json`)).default
-  };
+export default getRequestConfig(async ({ locale }) => {
+  const code = locales.includes(locale as Locale) ? String(locale) : "en";
+  const load = messageImports[code] ?? messageImports.en;
+  const messages = (await load()).default;
+  return { locale: code, messages };
 });
