@@ -1,4 +1,15 @@
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Zaza Promptly - AI-Powered Tools for Teachers",
+  description: "Save 5+ hours per week with AI-powered parent communication and teaching tools. Join thousands of teachers using Zaza Promptly to enhance their impact.",
+  openGraph: {
+    title: "Zaza Promptly - AI-Powered Tools for Teachers",
+    description: "Save time and teach better with AI-powered tools designed for modern educators",
+    type: "website",
+  },
+};
 
 export default function EnglishHomePage() {
   return (
