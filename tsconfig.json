@@ -39,6 +39,10 @@
     "exclude":  [
                     "node_modules",
                     "salvage-package",
-                    "salvage-package/**/*"
+                    "salvage-package/**/*",
+                    "zaza-trends",
+                    "zaza-trends/**/*",
+                    "blog-backup",
+                    "blog-backup/**/*"
                 ]
 }

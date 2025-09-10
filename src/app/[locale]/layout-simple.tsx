@@ -1,17 +1,11 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import {notFound} from 'next/navigation';
-import {locales} from '../../../i18n';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { locales } from '../../../i18n';
 import "../globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: 'Zaza Promptly',
-  description: 'AI-powered parent communication for teachers',
-};
 
 export default async function LocaleLayout({
   children,
@@ -20,7 +14,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{locale: string}>;
 }) {
-  const {locale} = await params;
+  const { locale } = await params;
   if (!locales.includes(locale as any)) {
     notFound();
   }
@@ -31,9 +25,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <main>
-            {children}
-          </main>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

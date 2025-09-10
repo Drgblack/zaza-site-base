@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
+import { ChevronDown, Globe } from 'lucide-react';
 import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
 
 export function LanguageSwitcher() {
@@ -33,10 +33,10 @@ export function LanguageSwitcher() {
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
-        <GlobeAltIcon className="w-4 h-4 mr-2" />
+        <Globe className="w-4 h-4 mr-2" />
         <span className="mr-1">{localeFlags[locale]}</span>
         <span className="hidden sm:inline">{localeNames[locale]}</span>
-        <ChevronDownIcon className="w-4 h-4 ml-2" />
+        <ChevronDown className="w-4 h-4 ml-2" />
       </button>
 
       {isOpen && (

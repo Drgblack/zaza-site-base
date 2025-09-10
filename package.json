@@ -4,13 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3010",
-    "prebuild": "node scripts/generate-teacher-blog-data.js",
     "build": "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
     "start": "next start",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "audit:blog": "ts-node --transpile-only scripts/audit-blog-images.ts",
     "postbuild": "echo 'Build completed successfully!'",
     "ui:review": "node scripts/ui-review.mjs"
   },
