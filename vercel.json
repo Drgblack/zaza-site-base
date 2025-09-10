@@ -1,14 +1,5 @@
-{
-  "env": {
-    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1",
-    "CI": "true",
-    "NEXT_PUBLIC_BLOG2": "1"
-  },
-  "build": {
-    "env": {
-      "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1",
-      "CI": "true",
-      "NEXT_PUBLIC_BLOG2": "1"
-    }
-  }
+﻿{
+  "redirects": [
+    { "source": "/", "destination": "/en", "permanent": true }
+  ]
 }
