@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function BlogPage() {
   const mockPosts = [
     {
@@ -47,12 +49,12 @@ export default function BlogPage() {
                 </span>
               </div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-                <a
+                <Link
                   href={`/en/blog/${post.slug}`}
                   className="hover:text-purple-600 transition-colors"
                 >
                   {post.title}
-                </a>
+                </Link>
               </h2>
             </article>
           ))}
