@@ -11,7 +11,7 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations('home');
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">{/* Fixed deployment */}
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 py-20">
