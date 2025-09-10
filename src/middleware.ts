@@ -1,25 +1,35 @@
-import createMiddleware from 'next-intl/middleware';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from '../i18n';
-import { NextRequest } from 'next/server';
-
-const intlMiddleware = createMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'always' // Changed from 'as-needed' to 'always' to ensure locale is always in URL
-});
 
 export default function middleware(request: NextRequest) {
-  // Explicitly handle root path
   const pathname = request.nextUrl.pathname;
   
-  // If accessing root without locale, redirect to default locale
+  // Check if the pathname is exactly '/'
   if (pathname === '/') {
-    const url = new URL(`/${defaultLocale}`, request.url);
-    return Response.redirect(url);
+    // Redirect to the default locale
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url));
   }
   
-  // For all other paths, use the intl middleware
-  return intlMiddleware(request);
+  // Check if the pathname is missing a locale
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+  
+  if (!pathnameHasLocale && pathname !== '/') {
+    // Redirect to the default locale version
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url));
+  }
+  
+  // Use next-intl middleware for locale handling
+  const handleI18nRouting = createIntlMiddleware({
+    locales,
+    defaultLocale,
+    localePrefix: 'always'
+  });
+  
+  return handleI18nRouting(request);
 }
 
 export const config = {
