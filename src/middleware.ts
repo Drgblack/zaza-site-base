@@ -6,23 +6,22 @@ import { locales, defaultLocale } from '../i18n';
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
-  // Check if the pathname is exactly '/'
+  // Always redirect root to default locale - this is our primary guard
   if (pathname === '/') {
-    // Redirect to the default locale
-    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url));
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url), 308);
   }
   
-  // Check if the pathname is missing a locale
+  // Check if the pathname has a valid locale prefix
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
   
+  // If no locale and not root, add default locale prefix
   if (!pathnameHasLocale && pathname !== '/') {
-    // Redirect to the default locale version
-    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url));
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url), 308);
   }
   
-  // Use next-intl middleware for locale handling
+  // For all other cases, use next-intl middleware
   const handleI18nRouting = createIntlMiddleware({
     locales,
     defaultLocale,
@@ -33,5 +32,13 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: [
+    // Match all pathnames except for
+    // - api (API routes)
+    // - _next/static (static files)
+    // - _next/image (image optimization files)
+    // - favicon.ico (favicon file)
+    // - files with extensions
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)' 
+  ]
 };
