@@ -104,42 +104,23 @@ export function GuidedZaraAssistant() {
     console.log(`[Zara Telemetry] ${event}`, data || {});
   };
 
-  // Focus trap management
+  // Focus management (non-blocking)
   useEffect(() => {
     if (isOpen) {
-      firstButtonRef.current?.focus();
+      // Don't automatically focus - let user choose to interact
       logEvent('zara_open');
     }
   }, [isOpen]);
 
-  // Keyboard handling
+  // Keyboard handling (non-blocking)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!isOpen) return;
 
+      // Only handle Escape key - no focus trap for non-blocking UX
       if (event.key === 'Escape') {
         handleClose();
         return;
-      }
-
-      // Focus trap
-      if (event.key === 'Tab') {
-        const focusableElements = dialogRef.current?.querySelectorAll(
-          'button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
-        );
-        
-        if (focusableElements && focusableElements.length > 0) {
-          const firstElement = focusableElements[0] as HTMLElement;
-          const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-          
-          if (event.shiftKey && document.activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-          } else if (!event.shiftKey && document.activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
-          }
-        }
       }
     };
 
@@ -157,6 +138,8 @@ export function GuidedZaraAssistant() {
     setFormData({});
     setOutput(null);
     setCopyStatus('idle');
+    
+    logEvent('zara_close');
     
     // Return focus to open button
     setTimeout(() => {
@@ -249,21 +232,18 @@ export function GuidedZaraAssistant() {
       {/* Chat Window */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-end justify-end p-6"
-          style={{ zIndex: 40 }}
-          onClick={(e) => e.target === e.currentTarget && handleClose()}
+          ref={dialogRef}
+          className="fixed bottom-6 right-6 w-full max-w-md h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
+          style={{ 
+            zIndex: 60,
+            // Ensure it doesn't cover hero CTAs on mobile
+            bottom: window.innerWidth < 768 ? '100px' : '24px'
+          }}
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="zara-title"
+          aria-describedby="zara-description"
         >
-          <div
-            ref={dialogRef}
-            className="w-full max-w-md h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
-            style={{ 
-              // Ensure it doesn't cover hero CTAs on mobile
-              marginBottom: window.innerWidth < 768 ? '80px' : '0px'
-            }}
-            role="dialog"
-            aria-labelledby="zara-title"
-            aria-describedby="zara-description"
-          >
             {/* Header */}
             <div className="bg-purple-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center">
@@ -410,7 +390,6 @@ export function GuidedZaraAssistant() {
                 </div>
               )}
             </div>
-          </div>
         </div>
       )}
     </>

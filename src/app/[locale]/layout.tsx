@@ -40,6 +40,48 @@ export default async function LocaleLayout({
  
   return (
     <html lang={locale}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://zazapromptly.com/#organization",
+                  "name": "Zaza Technologies",
+                  "url": "https://zazapromptly.com",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://zazapromptly.com/logo.png"
+                  },
+                  "description": "AI-powered teaching assistant and parent communication tools for educators"
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://zazapromptly.com/#product",
+                  "name": "Zaza Promptly",
+                  "description": "AI-powered parent communication for teachers",
+                  "url": "https://zazapromptly.com",
+                  "applicationCategory": "EducationalApplication",
+                  "operatingSystem": "Web Browser",
+                  "offers": {
+                    "@type": "Offer",
+                    "url": "https://teach.zazatechnologies.com",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock"
+                  },
+                  "publisher": {
+                    "@id": "https://zazapromptly.com/#organization"
+                  }
+                }
+              ]
+            })
+          }}
+        />
+        <link rel="canonical" href={`https://zazapromptly.com/${locale}`} />
+      </head>
       <body className={inter.className}>
         <SimpleHeader />
         <main className="pt-16">
