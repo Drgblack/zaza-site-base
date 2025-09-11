@@ -1,7 +1,4 @@
-import {getTranslations} from 'next-intl/server';
-import {setRequestLocale} from 'next-intl/server';
-import { Link } from '@/i18n/routing';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -9,10 +6,6 @@ type Props = {
 
 export default async function HomePage({params}: Props) {
   const {locale} = await params;
-  setRequestLocale(locale);
-  
-  const hero = await getTranslations('hero');
-  const features = await getTranslations('features');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -20,23 +13,25 @@ export default async function HomePage({params}: Props) {
       <section className="relative py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            {hero('title')}
+            AI-powered tools for modern educators
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            {hero('subtitle')}
+            Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button asChild size="lg" className="text-lg">
-              <a href="https://teach.zazatechnologies.com">
-                {hero('cta_primary')}
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg">
-              <Link href="/resources">
-                View Resources
-              </Link>
-            </Button>
+            <a 
+              href="https://teach.zazatechnologies.com"
+              className="bg-purple-600 text-white py-3 px-8 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors"
+            >
+              Try Zaza Teach
+            </a>
+            <Link 
+              href="/en/resources"
+              className="bg-white text-purple-600 py-3 px-8 rounded-lg font-semibold text-lg border-2 border-purple-600 hover:bg-purple-50 transition-colors"
+            >
+              View Resources
+            </Link>
           </div>
         </div>
       </section>
@@ -46,10 +41,10 @@ export default async function HomePage({params}: Props) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {features('title')}
+              Why Zaza Promptly?
             </h2>
             <p className="text-xl text-gray-600">
-              {features('subtitle')}
+              Built by educators, for educators
             </p>
           </div>
           
@@ -59,10 +54,10 @@ export default async function HomePage({params}: Props) {
                 <span className="text-3xl">⚡</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {features('instant_feedback.title')}
+                Instant Feedback
               </h3>
               <p className="text-gray-600">
-                {features('instant_feedback.description')}
+                Generate personalized comments and feedback in seconds
               </p>
             </div>
             
@@ -71,10 +66,10 @@ export default async function HomePage({params}: Props) {
                 <span className="text-3xl">⏰</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {features('time_saving.title')}
+                Save Time
               </h3>
               <p className="text-gray-600">
-                {features('time_saving.description')}
+                Reduce grading time by up to 80% with AI assistance
               </p>
             </div>
             
@@ -83,30 +78,45 @@ export default async function HomePage({params}: Props) {
                 <span className="text-3xl">🎯</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {features('student_focused.title')}
+                Student-Focused
               </h3>
               <p className="text-gray-600">
-                {features('student_focused.description')}
+                Maintain personal connection while scaling your impact
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600">
+      {/* Navigation Links */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to transform your teaching?
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+            Explore More
           </h2>
-          <p className="text-xl text-purple-100 mb-8">
-            Join thousands of educators already using AI to enhance their classroom experience.
-          </p>
-          <Button asChild size="lg" variant="secondary" className="text-lg">
-            <a href="https://teach.zazatechnologies.com">
-              {hero('cta_primary')}
-            </a>
-          </Button>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link 
+              href="/en/blog"
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Blog</h3>
+              <p className="text-gray-600">Latest insights and tips for educators</p>
+            </Link>
+            <Link 
+              href="/en/resources"
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Resources</h3>
+              <p className="text-gray-600">Free AI teaching materials and guides</p>
+            </Link>
+            <Link 
+              href="/en/pricing"
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Pricing</h3>
+              <p className="text-gray-600">Plans that fit your teaching needs</p>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
