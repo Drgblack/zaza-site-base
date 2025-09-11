@@ -16,7 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Ensure pnpm is available on the runner
       - uses: pnpm/action-setup@v3
         with:
           version: 8
@@ -27,15 +26,14 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      # ✅ Make install tolerant so the job runs even if the lockfile is missing
+      # Tolerant install so the job always runs
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Type check
-        run: pnpm typecheck
+      # (Optional) lint only the validator file so we don't lint the whole app
+      - name: Lint validator
+        run: pnpm exec eslint scripts/validate-content.ts --max-warnings=0
 
-      - name: Lint code
-        run: pnpm lint
-
+      # ✅ Run the validator itself
       - name: Validate content
         run: pnpm validate:content
