@@ -1,4 +1,3 @@
-import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ type Props = {
 
 export default async function ResourcesPage({params}: Props) {
   const {locale} = await params;
-  setRequestLocale(locale);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
