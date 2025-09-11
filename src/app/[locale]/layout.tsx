@@ -46,7 +46,7 @@ export default async function LocaleLayout({
           {children}
         </main>
         <SimpleFooter />
-        <ZaraAssistant />
+        {process.env.NEXT_PUBLIC_ENABLE_ZARA === '1' && <ZaraAssistant />}
       </body>
     </html>
   );
