@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { HeroCarousel } from '@/components/hero/hero-carousel';
-import { SnippetTool } from '@/components/tools/snippet-tool';
+import { Hero } from '@/components/home/Hero';
+import { HowItWorks } from '@/components/home/HowItWorks';
+import { SocialProof } from '@/components/home/SocialProof';
+import { HomeDemo } from '@/components/home/HomeDemo';
+import { ValueProps } from '@/components/home/ValueProps';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -12,133 +13,36 @@ export default async function HomePage({params}: Props) {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Carousel */}
-      <HeroCarousel />
+      {/* Hero Section - Above the fold */}
+      <Hero />
 
-      {/* Value Proposition */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Transform Your Teaching with AI
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Join thousands of educators who save 5+ hours per week with intelligent lesson planning, 
-            grading assistance, and parent communication tools.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="https://teach.zazatechnologies.com"
-              className="bg-purple-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors shadow-lg"
-            >
-              Start Free Trial
-            </a>
-            <Link 
-              href="/en/demo"
-              className="bg-white text-purple-600 py-4 px-8 rounded-lg font-semibold text-lg border-2 border-purple-600 hover:bg-purple-50 transition-colors"
-            >
-              Watch Demo
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* How It Works - Compact 3 steps */}
+      <HowItWorks />
 
-      {/* Live Snippet Tool Demo */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Try Our AI Comment Generator
-            </h2>
-            <p className="text-xl text-gray-600">
-              See how AI can help you write personalized student feedback in seconds
-            </p>
-          </div>
-          <SnippetTool />
-        </div>
-      </section>
+      {/* Social Proof Strip */}
+      <SocialProof />
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Zaza Promptly?
-            </h2>
-            <p className="text-xl text-gray-600">
-              Built by educators, for educators
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">⚡</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Instant Feedback
-              </h3>
-              <p className="text-gray-600">
-                Generate personalized comments and feedback in seconds
-              </p>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">⏰</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Save Time
-              </h3>
-              <p className="text-gray-600">
-                Reduce grading time by up to 80% with AI assistance
-              </p>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl">
-              <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🎯</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Student-Focused
-              </h3>
-              <p className="text-gray-600">
-                Maintain personal connection while scaling your impact
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Demo Block - AI Comment Generator */}
+      <HomeDemo />
 
-      {/* Navigation Links */}
-      <section className="py-16 bg-gray-50">
+      {/* Value Props - 3 tightened cards */}
+      <ValueProps />
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
-            Explore More
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Save 5+ Hours Every Week?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link 
-              href="/en/blog"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Blog</h3>
-              <p className="text-gray-600">Latest insights and tips for educators</p>
-            </Link>
-            <Link 
-              href="/en/resources"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Resources</h3>
-              <p className="text-gray-600">Free AI teaching materials and guides</p>
-            </Link>
-            <Link 
-              href="/en/pricing"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Pricing</h3>
-              <p className="text-gray-600">Plans that fit your teaching needs</p>
-            </Link>
-          </div>
+          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of educators who've transformed their teaching with AI-powered tools.
+          </p>
+          <a
+            href="https://teach.zazatechnologies.com"
+            className="bg-white text-purple-600 py-4 px-8 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg inline-block"
+          >
+            Start Free Trial
+          </a>
         </div>
       </section>
     </div>
