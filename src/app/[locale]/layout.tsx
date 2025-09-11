@@ -4,7 +4,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SimpleHeader } from '@/components/layout/simple-header';
-import { SimpleFooter } from '@/components/layout/simple-footer';
+import { Footer } from '@/components/layout/Footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -45,7 +45,7 @@ export default async function LocaleLayout({
         <main className="pt-16">
           {children}
         </main>
-        <SimpleFooter />
+        <Footer />
         <ZaraAssistant />
       </body>
     </html>
