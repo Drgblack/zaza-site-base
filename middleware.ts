@@ -11,7 +11,7 @@ const intl = createMiddleware({
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/en", request.url));
+    return NextResponse.redirect(new URL("/en/resources", request.url));
   }
   return intl(request);
 }
