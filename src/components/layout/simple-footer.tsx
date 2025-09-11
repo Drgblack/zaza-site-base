@@ -40,7 +40,7 @@ export function SimpleFooter() {
   ];
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-gray-900 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Top section */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
@@ -50,14 +50,14 @@ export function SimpleFooter() {
               <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold">Z</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-bold text-white">
                 Zaza Technologies
               </span>
             </Link>
-            <p className="text-gray-600 mb-4 max-w-sm">
+            <p className="text-gray-300 mb-4 max-w-sm">
               AI-powered tools that help teachers save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.
             </p>
-            <p className="text-sm text-gray-500 italic">
+            <p className="text-sm text-gray-400 italic">
               Built by educators for educators
             </p>
           </div>
@@ -65,7 +65,7 @@ export function SimpleFooter() {
           {/* Navigation sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">
+              <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -76,14 +76,14 @@ export function SimpleFooter() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                        className="text-sm text-gray-300 hover:text-white transition-colors"
                       >
                         {link.name}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                        className="text-sm text-gray-300 hover:text-white transition-colors"
                       >
                         {link.name}
                       </Link>
@@ -96,10 +96,10 @@ export function SimpleFooter() {
         </div>
 
         {/* Bottom section */}
-        <div className="border-t border-gray-200 mt-12 pt-8">
+        <div className="border-t border-gray-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="text-sm text-gray-500 space-y-1">
-              <div>© 2024 Zaza Technologies. All rights reserved.</div>
+            <div className="text-sm text-gray-400 space-y-1">
+              <div>© 2025 Zaza Technologies. All rights reserved.</div>
               <address className="not-italic">
                 Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Germany
               </address>
@@ -109,7 +109,7 @@ export function SimpleFooter() {
                 href="https://linkedin.com/company/zaza-technologies"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-300"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
