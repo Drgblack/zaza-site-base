@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "postbuild": "echo 'Build completed successfully!'",
-    "ui:review": "node scripts/ui-review.mjs"
+    "ui:review": "node scripts/ui-review.mjs",
+    "pdf:self-care": "md-to-pdf public/resources/teacher-self-care-guide/teacher-self-care-guide-v2.md --config-file scripts/pdf/md-to-pdf.config.cjs"
   },
   "dependencies": {
     "@firebase/auth": "^1.11.0",
@@ -68,6 +69,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "eslint-plugin-next": "^0.0.0",
+    "md-to-pdf": "^5.2.4",
     "tailwindcss": "^4",
     "typescript": "^5",
     "typescript-eslint": "^8.41.0",

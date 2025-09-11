@@ -1,0 +1,9 @@
+Mock PDF file for Teacher Self-Care Guide.
+
+Note: This is a placeholder PDF. 
+To generate the actual PDF, run:
+1. npm install
+2. npx puppeteer browsers install chrome  
+3. npm run pdf:self-care
+
+The PDF will be generated from teacher-self-care-guide-v2.md with Zaza branding.

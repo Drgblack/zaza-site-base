@@ -269,8 +269,8 @@ const resources: Resource[] = [
     description: 'Evidence-based strategies for maintaining your wellbeing throughout the school year.',
     category: 'Wellbeing',
     type: 'Guide',
-    thumbnail: '/resources/teacher-self-care-guide.pdf',
-    downloadUrl: '/resources/teacher-self-care-guide.pdf',
+    thumbnail: '/resources/teacher-self-care-guide/teacher-self-care-guide-v2.pdf',
+    downloadUrl: '/resources/teacher-self-care-guide/teacher-self-care-guide-v2.pdf',
     size: '1.4 MB',
     downloads: 2789
   },
