@@ -1,0 +1,67 @@
+name: Validate Content
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'scripts/validate-content.ts'
+      - 'package.json'
+      - '.github/workflows/validate-content.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate content
+        run: pnpm validate:content
+
+      - name: Lint code
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ All validation checks passed!" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ Content validation" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ ESLint checks" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ TypeScript checks" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi
