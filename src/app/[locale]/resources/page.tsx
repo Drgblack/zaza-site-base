@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import {getTranslations} from 'next-intl/server';
-import {setRequestLocale} from 'next-intl/server';
 import { DownloadButton } from '@/components/ui/download-button';
 
 export const metadata: Metadata = {
@@ -15,9 +13,6 @@ type Props = {
 
 export default async function ResourcesPage({params}: Props) {
   const {locale} = await params;
-  setRequestLocale(locale);
-  
-  const resources = await getTranslations('resources');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -25,10 +20,10 @@ export default async function ResourcesPage({params}: Props) {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            {resources('title')}
+            Free Resources for Educators
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {resources('subtitle')}
+            Download our comprehensive collection of AI teaching resources, guides, and toolkits to enhance your classroom with artificial intelligence.
           </p>
         </div>
 
