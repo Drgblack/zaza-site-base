@@ -37,16 +37,14 @@ export default async function LocaleLayout({
     notFound();
   }
  
-  const messages = await getMessages();
+  // const messages = await getMessages();
  
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
-          <main>
-            {children}
-          </main>
-        </NextIntlClientProvider>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
