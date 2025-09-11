@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
+    "blog:extract": "ts-node --transpile-only scripts/extract-blog-from-ts.ts",
     "test:e2e": "playwright test",
     "postbuild": "echo 'Build completed successfully!'",
     "ui:review": "node scripts/ui-review.mjs"
@@ -69,6 +70,7 @@
     "eslint-config-next": "15.5.2",
     "eslint-plugin-next": "^0.0.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "typescript-eslint": "^8.41.0",
     "wait-on": "^8.0.4"
