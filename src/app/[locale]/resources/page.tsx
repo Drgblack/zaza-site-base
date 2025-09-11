@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { DownloadButton } from '@/components/ui/download-button';
 
 export const metadata: Metadata = {
   title: 'Free Resources - AI Tools for Educators',
@@ -37,9 +38,12 @@ export default async function ResourcesPage({params}: Props) {
             <p className="text-gray-600 mb-6">
               A comprehensive guide to maintaining well-being while teaching with AI assistance.
             </p>
-            <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+            <DownloadButton 
+              resourceType="self-care"
+              className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+            >
               Download PDF
-            </button>
+            </DownloadButton>
           </div>
 
           {/* AI Teaching Templates */}
@@ -51,9 +55,12 @@ export default async function ResourcesPage({params}: Props) {
             <p className="text-gray-600 mb-6">
               Ready-to-use templates for integrating AI tools into your daily teaching routine.
             </p>
-            <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+            <DownloadButton 
+              resourceType="templates"
+              className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+            >
               Download Templates
-            </button>
+            </DownloadButton>
           </div>
 
           {/* Parent Communication Kit */}
@@ -65,9 +72,12 @@ export default async function ResourcesPage({params}: Props) {
             <p className="text-gray-600 mb-6">
               Tools and scripts for effective AI-powered parent-teacher communication.
             </p>
-            <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+            <DownloadButton 
+              resourceType="communication"
+              className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+            >
               Download Kit
-            </button>
+            </DownloadButton>
           </div>
         </div>
 
