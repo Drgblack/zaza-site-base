@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import {useTranslations} from 'next-intl';
+import {setRequestLocale} from 'next-intl/server';
+import { Link } from '@/i18n/routing';
 
 export const metadata: Metadata = {
   title: 'Blog - AI Teaching Insights & Tips',
@@ -44,6 +46,9 @@ const blogPosts = [
 
 export default async function BlogPage({params}: Props) {
   const {locale} = await params;
+  setRequestLocale(locale);
+  
+  const blog = useTranslations('blog');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -51,10 +56,10 @@ export default async function BlogPage({params}: Props) {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            AI Teaching Blog
+            {blog('title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Expert insights, practical tips, and inspiring stories to help you harness the power of AI in education.
+            {blog('subtitle')}
           </p>
         </div>
 
