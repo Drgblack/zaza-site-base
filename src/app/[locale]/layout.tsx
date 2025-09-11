@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SimpleHeader } from '@/components/layout/simple-header';
 import { SimpleFooter } from '@/components/layout/simple-footer';
-import { ZaraAssistant } from '@/components/ai/zara-assistant';
+import { GuidedZaraAssistant } from '@/components/ai/guided-zara-assistant';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,7 +46,7 @@ export default async function LocaleLayout({
           {children}
         </main>
         <SimpleFooter />
-        <ZaraAssistant />
+        <GuidedZaraAssistant />
       </body>
     </html>
   );
