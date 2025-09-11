@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 import {setRequestLocale} from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 
@@ -48,7 +48,7 @@ export default async function BlogPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
   
-  const blog = useTranslations('blog');
+  const blog = await getTranslations('blog');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">

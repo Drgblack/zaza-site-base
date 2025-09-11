@@ -1,4 +1,4 @@
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 import {setRequestLocale} from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
@@ -11,8 +11,8 @@ export default async function HomePage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
   
-  const hero = useTranslations('hero');
-  const features = useTranslations('features');
+  const hero = await getTranslations('hero');
+  const features = await getTranslations('features');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">

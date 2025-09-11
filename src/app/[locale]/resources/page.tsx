@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 import {setRequestLocale} from 'next-intl/server';
 import { DownloadButton } from '@/components/ui/download-button';
 
@@ -17,7 +17,7 @@ export default async function ResourcesPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
   
-  const resources = useTranslations('resources');
+  const resources = await getTranslations('resources');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
