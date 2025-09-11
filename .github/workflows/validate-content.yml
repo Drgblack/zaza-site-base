@@ -1,39 +1,39 @@
 name: Validate Content
-
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
     paths:
-      - ".github/workflows/validate-content.yml"
-      - "scripts/validate-content.ts"
-      - "content/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
+      - 'scripts/**'
+      - '.github/workflows/validate-content.yml'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 10
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
 
-      # Tolerant install so the job always runs
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
 
-      # (Optional) lint only the validator file so we don't lint the whole app
-      - name: Lint validator
-        run: pnpm exec eslint scripts/validate-content.ts --max-warnings=0
+      - name: Type check (scoped)
+        run: pnpm typecheck
 
-      # ✅ Run the validator itself
-      - name: Validate content
+      - name: Lint (validator only)
+        run: pnpm lint:validator
+
+      - name: Run content validator
         run: pnpm validate:content
