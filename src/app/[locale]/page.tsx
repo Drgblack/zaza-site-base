@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { HeroCarousel } from '@/components/hero/hero-carousel';
+import { SnippetTool } from '@/components/tools/snippet-tool';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -8,31 +11,50 @@ export default async function HomePage({params}: Props) {
   const {locale} = await params;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-32">
+    <div className="min-h-screen">
+      {/* Hero Section with Carousel */}
+      <HeroCarousel />
+
+      {/* Value Proposition */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            AI-powered tools for modern educators
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Transform Your Teaching with AI
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+            Join thousands of educators who save 5+ hours per week with intelligent lesson planning, 
+            grading assistance, and parent communication tools.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="https://teach.zazatechnologies.com"
-              className="bg-purple-600 text-white py-3 px-8 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors"
+              className="bg-purple-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors shadow-lg"
             >
-              Try Zaza Teach
+              Start Free Trial
             </a>
             <Link 
-              href="/en/resources"
-              className="bg-white text-purple-600 py-3 px-8 rounded-lg font-semibold text-lg border-2 border-purple-600 hover:bg-purple-50 transition-colors"
+              href="/en/demo"
+              className="bg-white text-purple-600 py-4 px-8 rounded-lg font-semibold text-lg border-2 border-purple-600 hover:bg-purple-50 transition-colors"
             >
-              View Resources
+              Watch Demo
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Live Snippet Tool Demo */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Try Our AI Comment Generator
+            </h2>
+            <p className="text-xl text-gray-600">
+              See how AI can help you write personalized student feedback in seconds
+            </p>
+          </div>
+          <SnippetTool />
         </div>
       </section>
 
