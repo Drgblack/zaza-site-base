@@ -1,0 +1,9 @@
+name: ci-pr-seed
+on:
+  pull_request:
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'priming required checks'
