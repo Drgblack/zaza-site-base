@@ -7,8 +7,9 @@
     "build": "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
     "start": "next start",
     "lint": "eslint src/",
-    "typecheck": "tsc --noEmit",
-    "validate:content": "ts-node --transpile-only scripts/validate-content.ts",
+    "typecheck": "tsc -p scripts/tsconfig.json",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "lint:validator": "eslint --max-warnings=0 scripts/validate-content.ts",
     "test:e2e": "playwright test",
     "postbuild": "echo 'Build completed successfully!'",
     "ui:review": "node scripts/ui-review.mjs"
