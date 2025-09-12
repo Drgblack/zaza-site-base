@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import { SimpleHeader } from '@/components/layout/simple-header';
 import { SimpleFooter } from '@/components/layout/simple-footer';
 import { GuidedZaraAssistant } from '@/components/ai/guided-zara-assistant';
+import { Footer } from '@/components/layout/Footer';
+import { ZaraAssistant } from '@/components/ai/zara-assistant';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,6 +49,10 @@ export default async function LocaleLayout({
         </main>
         <SimpleFooter />
         <GuidedZaraAssistant />
+        <Footer />
+        <ZaraAssistant />
+        <SimpleFooter />
+        {process.env.NEXT_PUBLIC_ENABLE_ZARA === '1' && <ZaraAssistant />}
       </body>
     </html>
   );
