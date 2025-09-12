@@ -1,4 +1,4 @@
-import {notFound} from 'next/navigation';
+﻿import {notFound} from 'next/navigation';
 import {locales} from '../../../i18n';
 import "../globals.css";
 import type { Metadata } from "next";
@@ -6,7 +6,6 @@ import { Inter } from "next/font/google";
 import { Header } from '@/components/site/header';
 import { Footer } from '@/components/site/footer';
 import { SimpleHeader } from '@/components/layout/simple-header';
-import { Footer } from '@/components/layout/Footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
 
 const inter = Inter({ subsets: ["latin"] });
