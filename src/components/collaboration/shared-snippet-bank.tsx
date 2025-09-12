@@ -32,7 +32,7 @@ interface SharedSnippetBank {
   description: string;
   snippets: string[];
   createdBy: string;
-  createdAt: any;
+  createdAt: unknown;
   permissions: {
     canView: string[];
     canEdit: string[];
@@ -48,7 +48,7 @@ interface OrganizationSnippet {
   context: string;
   createdBy: string;
   createdByName: string;
-  createdAt: any;
+  createdAt: unknown;
   tags: string[];
   bankId: string;
   isApproved: boolean;
@@ -461,3 +461,4 @@ export function SharedSnippetBank({ organizationId, userRole }: SharedSnippetBan
     </div>
   );
 }
+

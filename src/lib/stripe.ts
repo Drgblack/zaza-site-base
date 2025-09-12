@@ -106,7 +106,7 @@ export interface CheckoutButtonProps {
   disabled?: boolean;
   customerEmail?: string;
   onCheckoutStart?: () => void;
-  onCheckoutError?: (error: string) => void;
+  onCheckoutError?: (_error: string) => void;
 }
 
 // Utility function to detect user's country for VAT handling
@@ -118,7 +118,7 @@ export const getUserCountry = async (): Promise<string | null> => {
     const data = await response.json();
     return data.country_code || null;
   } catch (_error) {
-    console.warn('Could not detect user country:', error);
+    console.warn('Could not detect user country:', _error);
     return null;
   }
 };
@@ -197,3 +197,5 @@ declare global {
     ) => void;
   }
 }
+
+

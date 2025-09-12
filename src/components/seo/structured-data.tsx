@@ -1,6 +1,6 @@
-interface StructuredDataProps {
+﻿interface StructuredDataProps {
   type: 'website' | 'article' | 'organization' | 'breadcrumbList';
-  data: any;
+  data: unknown;
 }
 
 export function StructuredData({ type, data }: StructuredDataProps) {
@@ -94,7 +94,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
   const generateBreadcrumbData = () => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": data.map((item: any, index: number) => ({
+    "itemListElement": data.map((item: unknown, index: number) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,

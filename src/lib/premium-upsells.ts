@@ -1,4 +1,4 @@
-export interface PremiumPlan {
+﻿export interface PremiumPlan {
   id: string;
   name: string;
   description: string;
@@ -350,7 +350,7 @@ export function getRecommendedPlan(userData: {
 }
 
 // Conversion optimization
-export function optimizeUpsellMessage(trigger: UpsellTrigger, userData: any): string {
+export function optimizeUpsellMessage(trigger: UpsellTrigger, userData: unknown): string {
   let message = trigger.message;
   
   // Personalize based on usage
@@ -365,3 +365,4 @@ export function optimizeUpsellMessage(trigger: UpsellTrigger, userData: any): st
   
   return message;
 }
+

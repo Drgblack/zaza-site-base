@@ -1,4 +1,4 @@
-import { auth } from './firebase';
+﻿import { auth } from './firebase';
 
 // Stub functions for when Firebase is not available
 export const signInWithGoogle = async () => {
@@ -34,7 +34,7 @@ export const signOutUser = async () => {
   }
 };
 
-export const onAuthStateChange = (callback: (user: any) => void) => {
+export const onAuthStateChange = (callback: (user: unknown) => void) => {
   if (!auth) {
     callback(null);
     return () => {};

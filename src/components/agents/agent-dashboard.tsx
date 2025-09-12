@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -299,7 +299,7 @@ export function AgentDashboard() {
                   )}
                   
                   <Button size="sm" variant="ghost">
-                    View Details →
+                    View Details â†’
                   </Button>
                 </div>
               </div>
@@ -382,7 +382,7 @@ export function AgentDashboard() {
       </Card>
 
       {/* Main Agent Interface */}
-      <Tabs value={activeAgent} onValueChange={(value: any) => setActiveAgent(value)} className="space-y-4">
+      <Tabs value={activeAgent} onValueChange={(value: unknown) => setActiveAgent(value)} className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="autoplanner">AutoPlanner</TabsTrigger>

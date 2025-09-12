@@ -1,3 +1,4 @@
+﻿import { increment } from 'firebase/firestore';
 import { db } from './firebase';
 import { User } from 'firebase/auth';
 
@@ -28,8 +29,8 @@ export interface UserProfile {
   email: string;
   displayName: string;
   photoURL?: string;
-  createdAt: any;
-  lastLogin: any;
+  createdAt: unknown;
+  lastLogin: unknown;
   savedSnippets: string[];
   downloadHistory: string[];
   referralCredits: number;
@@ -46,7 +47,7 @@ export interface UserProfile {
   referredUsers: string[]; // UIDs of users they referred
   referredBy?: string; // UID of user who referred them
   streakDays: number; // consecutive days of usage
-  lastActiveDate?: any;
+  lastActiveDate?: unknown;
   achievements: string[]; // achievement badges earned
   totalPoints: number; // gamification points
   level: number; // user level based on activity
@@ -56,7 +57,7 @@ export interface UserProfile {
   department?: string;
   grade?: string;
   isActive: boolean;
-  lastSeenAt?: any;
+  lastSeenAt?: unknown;
 }
 
 export interface SavedSnippet {
@@ -66,7 +67,7 @@ export interface SavedSnippet {
   tone: string;
   category: string;
   context: string;
-  createdAt: any;
+  createdAt: unknown;
   rating?: number;
   isShared: boolean;
   shareId?: string;
@@ -77,7 +78,7 @@ export interface SharedSnippet extends SavedSnippet {
   authorId: string;
   shareCount: number;
   saveCount: number;
-  sharedAt: any;
+  sharedAt: unknown;
   isAnonymous: boolean;
 }
 
@@ -85,7 +86,7 @@ export interface SnippetRating {
   snippetId: string;
   userId: string;
   rating: number; // 1 for thumbs up, -1 for thumbs down
-  createdAt: any;
+  createdAt: unknown;
 }
 
 // Phase 8: Custom Snippets
@@ -98,8 +99,8 @@ export interface CustomSnippet {
   tags: string[];
   isPublic: boolean;
   usageCount: number;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
 }
 
 // Phase 8: Analytics
@@ -128,7 +129,7 @@ export interface ReferralData {
   referrerUid: string;
   referredUid: string;
   referralCode: string;
-  completedAt: any;
+  completedAt: unknown;
   rewardClaimed: boolean;
   conversionType: 'signup' | 'first_snippet' | 'premium';
 }
@@ -165,8 +166,8 @@ export interface Organization {
   totalSeats: number;
   settings: OrganizationSettings;
   subscription?: SubscriptionInfo;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
   createdBy: string;
 }
 
@@ -189,8 +190,8 @@ export interface SubscriptionInfo {
   price: number;
   billingCycle: 'monthly' | 'annual';
   status: 'active' | 'cancelled' | 'past_due' | 'trialing';
-  currentPeriodStart: any;
-  currentPeriodEnd: any;
+  currentPeriodStart: unknown;
+  currentPeriodEnd: unknown;
   cancelAtPeriodEnd: boolean;
   stripeSubscriptionId?: string;
   stripeCustomerId?: string;
@@ -202,7 +203,7 @@ export interface OrganizationMember {
   role: 'super_admin' | 'admin' | 'teacher' | 'viewer';
   department?: string;
   grade?: string;
-  joinedAt: any;
+  joinedAt: unknown;
   invitedBy?: string;
   status: 'active' | 'invited' | 'suspended';
 }
@@ -214,8 +215,8 @@ export interface SharedSnippetBank {
   description: string;
   snippets: string[]; // snippet IDs
   createdBy: string;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
   permissions: {
     canView: string[]; // user IDs or roles
     canEdit: string[]; // user IDs or roles
@@ -1072,3 +1073,4 @@ export const getOrganizationSnippetBanks = async (organizationId: string): Promi
     ...doc.data()
   })) as SharedSnippetBank[];
 };
+

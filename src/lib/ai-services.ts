@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 // AI Service Layer for Phase 12 Agent-Native Features
 export interface AIServiceConfig {
@@ -18,14 +18,14 @@ export interface AIResponse {
 export interface AutoPlannerRequest {
   userInput: string;
   context: 'promptly' | 'teach' | 'collaboration';
-  userProfile?: any;
-  previousPlans?: any[];
+  userProfile?: unknown;
+  previousPlans?: unknown[];
 }
 
 export interface KnowledgeCoreContext {
-  userSnippets: any[];
-  sharedSnippets: any[];
-  organizationContext?: any;
+  userSnippets: unknown[];
+  sharedSnippets: unknown[];
+  organizationContext?: unknown;
   teachingSubject?: string;
   gradeLevel?: string;
 }
@@ -76,7 +76,7 @@ export class AutoPlannerAgent {
     }
   }
 
-  private buildPromptlyPlanningPrompt(userInput: string, userProfile: any): string {
+  private buildPromptlyPlanningPrompt(userInput: string, userProfile: unknown): string {
     return `You are an expert educational communication planner. Help create a comprehensive communication plan for:
 
 Context: ${userInput}
@@ -92,7 +92,7 @@ Generate a structured plan that includes:
 Focus on building positive relationships and supporting student success.`;
   }
 
-  private buildTeachPlanningPrompt(userInput: string, userProfile: any): string {
+  private buildTeachPlanningPrompt(userInput: string, userProfile: unknown): string {
     return `You are an expert lesson planning assistant. Create a comprehensive teaching plan for:
 
 Topic: ${userInput}
@@ -111,7 +111,7 @@ Generate a structured lesson plan including:
 Ensure the plan is engaging, age-appropriate, and follows best educational practices.`;
   }
 
-  private buildCollaborationPlanningPrompt(userInput: string, userProfile: any): string {
+  private buildCollaborationPlanningPrompt(userInput: string, userProfile: unknown): string {
     return `You are an expert in educational collaboration. Create a collaboration plan for:
 
 Initiative: ${userInput}
@@ -153,30 +153,30 @@ Focus on building effective educational communities and shared best practices.`;
   private generateCommunicationPlan(input: string): string {
     return `## Communication Plan: ${input}
 
-### 📋 Objectives
+### ðŸ“‹ Objectives
 - Build positive parent-teacher relationships
 - Ensure clear, consistent messaging
 - Support student academic and social development
 - Maintain professional boundaries
 
-### 🎯 Recommended Approach
+### ðŸŽ¯ Recommended Approach
 **Tone**: Professional yet warm and approachable
 **Timing**: Within 24-48 hours for concerns, weekly for updates
 **Channel**: Email for documentation, phone for urgent matters
 
-### 📝 Key Messages
+### ðŸ“ Key Messages
 1. **Opening**: Establish rapport and context
 2. **Main Content**: Clear, specific information
 3. **Action Items**: Next steps for all parties
 4. **Closing**: Invitation for questions and continued dialogue
 
-### 🔄 Follow-up Strategy
+### ðŸ”„ Follow-up Strategy
 - Schedule follow-up meeting if needed
 - Document outcomes in student records
 - Share relevant information with school team
 - Monitor student progress and adjust approach
 
-### 📊 Success Indicators
+### ðŸ“Š Success Indicators
 - Improved parent engagement
 - Positive response to communications
 - Student progress and development
@@ -186,42 +186,42 @@ Focus on building effective educational communities and shared best practices.`;
   private generateLessonPlan(input: string): string {
     return `## Lesson Plan: ${input}
 
-### 🎯 Learning Objectives
+### ðŸŽ¯ Learning Objectives
 Students will be able to:
 - Demonstrate understanding of key concepts
 - Apply knowledge to real-world scenarios
 - Collaborate effectively with peers
 - Reflect on their learning process
 
-### 📚 Prerequisites
+### ðŸ“š Prerequisites
 - Prior knowledge of foundational concepts
 - Basic skills in subject area
 - Familiarity with classroom procedures
 
-### 🏗️ Lesson Structure (45 minutes)
+### ðŸ—ï¸ Lesson Structure (45 minutes)
 **Opening (5 min)**: Hook activity and objective review
 **Direct Instruction (15 min)**: Core concept presentation
 **Guided Practice (15 min)**: Collaborative exploration
 **Independent Work (8 min)**: Individual application
 **Closing (2 min)**: Summary and preview
 
-### 📋 Assessment Strategies
+### ðŸ“‹ Assessment Strategies
 - **Formative**: Exit tickets, peer discussions, quick checks
 - **Summative**: Unit project, quiz, performance task
 - **Self-Assessment**: Reflection journals, learning goals tracking
 
-### 🔧 Differentiation Options
+### ðŸ”§ Differentiation Options
 - **Support**: Graphic organizers, peer partnerships, extended time
 - **Extension**: Advanced problems, leadership roles, research projects
 - **Accommodations**: Alternative formats, assistive technology
 
-### 📦 Materials Needed
+### ðŸ“¦ Materials Needed
 - Digital presentation tools
 - Handouts and worksheets
 - Collaborative workspace (physical/digital)
 - Assessment rubrics
 
-### 🚀 Extension Activities
+### ðŸš€ Extension Activities
 - Real-world connections and applications
 - Cross-curricular integration opportunities
 - Student choice projects
@@ -231,43 +231,43 @@ Students will be able to:
   private generateCollaborationPlan(input: string): string {
     return `## Collaboration Plan: ${input}
 
-### 🎯 Goals & Objectives
+### ðŸŽ¯ Goals & Objectives
 - Foster educational excellence through shared expertise
 - Build sustainable professional learning communities
 - Improve student outcomes through coordinated efforts
 - Share resources and best practices effectively
 
-### 👥 Key Stakeholders
+### ðŸ‘¥ Key Stakeholders
 **Core Team**: Lead teachers, administrators, specialists
 **Extended Team**: Support staff, parents, community partners
 **Students**: Active participants in their learning journey
 
-### 📞 Communication Protocols
+### ðŸ“ž Communication Protocols
 - **Regular Meetings**: Weekly team check-ins, monthly planning sessions
 - **Digital Tools**: Shared drives, messaging platforms, project management
 - **Documentation**: Meeting notes, action items, progress tracking
 - **Feedback Loops**: Regular surveys, informal check-ins
 
-### 📚 Shared Resources
+### ðŸ“š Shared Resources
 - **Template Library**: Lesson plans, communication templates, assessments
 - **Best Practice Database**: Successful strategies, research findings
 - **Professional Development**: Training materials, workshop resources
 - **Student Support Tools**: Intervention strategies, enrichment activities
 
-### 📅 Timeline & Milestones
+### ðŸ“… Timeline & Milestones
 **Month 1**: Team formation and goal setting
 **Month 2-3**: Resource development and sharing
 **Month 4-6**: Implementation and feedback collection
 **Month 7-8**: Evaluation and refinement
 **Month 9**: Planning for sustainability and expansion
 
-### 📈 Success Metrics
+### ðŸ“ˆ Success Metrics
 - **Engagement**: Participation rates, contribution quality
 - **Outcomes**: Student achievement improvements
 - **Satisfaction**: Team member feedback, retention rates
 - **Impact**: School-wide adoption, community recognition
 
-### 🔄 Evaluation Process
+### ðŸ”„ Evaluation Process
 - **Quarterly Reviews**: Progress assessment, goal adjustment
 - **Feedback Collection**: Surveys, focus groups, interviews
 - **Data Analysis**: Student outcomes, engagement metrics
@@ -306,7 +306,7 @@ export class KnowledgeCoreService {
     }
   }
 
-  private buildKnowledgeBase(context: KnowledgeCoreContext): any {
+  private buildKnowledgeBase(context: KnowledgeCoreContext): unknown {
     return {
       personalSnippets: context.userSnippets?.length || 0,
       sharedSnippets: context.sharedSnippets?.length || 0,
@@ -320,7 +320,7 @@ export class KnowledgeCoreService {
     };
   }
 
-  private buildZaraIntegrationPrompt(knowledgeBase: any): string {
+  private buildZaraIntegrationPrompt(knowledgeBase: unknown): string {
     return `Integrate the following user knowledge base with Zara Assistant:
 
 User Profile:
@@ -335,7 +335,7 @@ Communication Patterns: ${JSON.stringify(knowledgeBase.communicationPatterns)}
 Create personalized Zara responses that leverage this user-specific knowledge while maintaining safety and professionalism.`;
   }
 
-  private categorizeUserContent(snippets: any[]): any {
+  private categorizeUserContent(snippets: unknown[]): unknown {
     // Analyze user snippets and categorize them
     const categories = {
       'parent-communication': 0,
@@ -360,7 +360,7 @@ Create personalized Zara responses that leverage this user-specific knowledge wh
     return categories;
   }
 
-  private analyzePatterns(snippets: any[]): any {
+  private analyzePatterns(snippets: unknown[]): unknown {
     return {
       averageLength: snippets?.length ? 
         snippets.reduce((acc, s) => acc + (s.content?.length || 0), 0) / snippets.length : 0,
@@ -373,27 +373,27 @@ Create personalized Zara responses that leverage this user-specific knowledge wh
   private async mockKnowledgeIntegration(prompt: string): Promise<string> {
     await new Promise(resolve => setTimeout(resolve, 1200));
     
-    return `## Zara Knowledge Integration Complete ✅
+    return `## Zara Knowledge Integration Complete âœ…
 
-### 🧠 Enhanced Capabilities
+### ðŸ§  Enhanced Capabilities
 - **Personalized Responses**: Zara now understands your communication style and preferences
 - **Context Awareness**: Integrated your teaching context and student information
 - **Smart Suggestions**: Recommendations based on your successful communication patterns
 - **Collaborative Intelligence**: Connected with your organization's shared knowledge base
 
-### 📚 Knowledge Base Summary
+### ðŸ“š Knowledge Base Summary
 - Successfully integrated personal and shared content library
 - Analyzed communication patterns and preferences
 - Established teaching context and subject matter expertise
 - Connected organizational resources and templates
 
-### 🎯 Zara Enhancement Features
+### ðŸŽ¯ Zara Enhancement Features
 1. **Personalized Tone Matching**: Suggestions align with your established communication style
 2. **Context-Aware Responses**: Recommendations consider your specific teaching situation
 3. **Pattern Learning**: Zara learns from your successful communications
 4. **Collaborative Insights**: Leverages shared organizational knowledge
 
-### 🛡️ Safety & Privacy
+### ðŸ›¡ï¸ Safety & Privacy
 - All content processed with privacy protection
 - Sensitive information automatically filtered
 - User control over shared vs. private knowledge
