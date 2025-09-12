@@ -1,4 +1,4 @@
-// Input validation and sanitization utilities
+﻿// Input validation and sanitization utilities
 import DOMPurify from 'isomorphic-dompurify';
 
 export interface ValidationResult {
@@ -12,7 +12,7 @@ export interface ValidationRule {
   minLength?: number;
   maxLength?: number;
   pattern?: RegExp;
-  custom?: (value: string) => boolean;
+  custom?: (_value: string) => boolean;
   customError?: string;
 }
 
@@ -166,7 +166,7 @@ export const VALIDATION_RULES = {
   password: {
     required: true,
     minLength: 8,
-    custom: (value: string) => {
+    custom: (_value: string) => {
       return /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value);
     },
     customError: 'Password must contain uppercase, lowercase, and number',
@@ -181,3 +181,4 @@ export const VALIDATION_RULES = {
     maxLength: 15,
   },
 } as const;
+

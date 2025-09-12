@@ -1,4 +1,4 @@
-// Enhanced Stripe configuration and utilities with EU VAT handling
+﻿// Enhanced Stripe configuration and utilities with EU VAT handling
 import { toast } from 'sonner';
 
 export const stripeConfig = {
@@ -117,7 +117,7 @@ export const getUserCountry = async (): Promise<string | null> => {
     const response = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`);
     const data = await response.json();
     return data.country_code || null;
-  } catch (error) {
+  } catch (_error) {
     console.warn('Could not detect user country:', error);
     return null;
   }
@@ -156,22 +156,22 @@ export const TRUST_BADGES = [
   {
     name: 'Stripe',
     description: 'Secure payments',
-    icon: '🔒',
+    icon: 'ðŸ”’',
   },
   {
     name: 'SSL',
     description: '256-bit encryption',
-    icon: '🛡️',
+    icon: 'ðŸ›¡ï¸',
   },
   {
     name: 'GDPR',
     description: 'Data protection',
-    icon: '🇪🇺',
+    icon: 'ðŸ‡ªðŸ‡º',
   },
   {
     name: 'Money-back',
     description: '30-day guarantee',
-    icon: '💰',
+    icon: 'ðŸ’°',
   },
 ];
 
@@ -192,7 +192,7 @@ declare global {
   interface Window {
     gtag?: (
       command: string,
-      targetId: string | Date,
+      _targetId: string | Date,
       config?: Record<string, any>
     ) => void;
   }
