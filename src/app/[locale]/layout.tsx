@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import { Header } from '@/components/site/header';
 import { Footer } from '@/components/site/footer';
 import { SimpleHeader } from '@/components/layout/simple-header';
+import { SimpleFooter } from '@/components/layout/simple-footer';
+import { GuidedZaraAssistant } from '@/components/ai/guided-zara-assistant';
 import { Footer } from '@/components/layout/Footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
 
@@ -71,6 +73,8 @@ export default async function LocaleLayout({
         <main className="pt-16">
           {children}
         </main>
+        <SimpleFooter />
+        <GuidedZaraAssistant />
         <Footer />
         <ZaraAssistant />
         <SimpleFooter />
