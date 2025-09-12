@@ -3,7 +3,7 @@
 // Stub functions for when Firebase is not available
 export const signInWithGoogle = async () => {
   if (!auth || typeof window === 'undefined') {
-    throw new Error('Authentication not available');
+    throw new _error('Authentication not available');
   }
   
   try {
@@ -14,9 +14,9 @@ export const signInWithGoogle = async () => {
     
     const result = await signInWithPopup(auth, googleProvider);
     return result.user;
-  } catch (error) {
-    console.error('Error signing in with Google:', error);
-    throw error;
+  } catch (_error) {
+    console._error('_error signing in with Google:', _error);
+    throw _error;
   }
 };
 
@@ -28,13 +28,13 @@ export const signOutUser = async () => {
   try {
     const { signOut } = await import('firebase/auth');
     await signOut(auth);
-  } catch (error) {
-    console.error('Error signing out:', error);
-    throw error;
+  } catch (_error) {
+    console._error('_error signing out:', _error);
+    throw _error;
   }
 };
 
-export const onAuthStateChange = (callback: (user: unknown) => void) => {
+export const onAuthStateChange = (callback: (_user: unknown) => void) => {
   if (!auth) {
     callback(null);
     return () => {};
@@ -43,8 +43,9 @@ export const onAuthStateChange = (callback: (user: unknown) => void) => {
   try {
     const { onAuthStateChanged } = require('firebase/auth');
     return onAuthStateChanged(auth, callback);
-  } catch (error) {
+  } catch (_error) {
     callback(null);
     return () => {};
   }
 };
+

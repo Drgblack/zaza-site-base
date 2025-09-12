@@ -40,7 +40,7 @@ export interface SafetyFilterResult {
 // AutoPlanner Agent Service
 export class AutoPlannerAgent {
   private config: AIServiceConfig;
-  
+
   constructor(config: AIServiceConfig) {
     this.config = config;
   }
@@ -49,9 +49,9 @@ export class AutoPlannerAgent {
     try {
       // In production, this would call Claude API or OpenAI
       // For now, implementing intelligent mock responses based on context
-      
+
       const { userInput, context, userProfile } = request;
-      
+
       // Context-aware planning
       const planningPrompts = {
         promptly: this.buildPromptlyPlanningPrompt(userInput, userProfile),
@@ -60,16 +60,16 @@ export class AutoPlannerAgent {
       };
 
       const systemPrompt = planningPrompts[context];
-      
+
       // Simulate AI planning with contextual intelligence
       const response = await this.mockAICall(systemPrompt, userInput);
-      
+
       return {
         content: response,
         reasoning: `Generated ${context} plan based on user input and profile`,
         safety_score: 0.95
       };
-      
+
     } catch (error) {
       console.error('AutoPlanner error:', error);
       throw new Error('Failed to generate plan');
@@ -132,7 +132,7 @@ Focus on building effective educational communities and shared best practices.`;
   private async mockAICall(systemPrompt: string, userInput: string): Promise<string> {
     // Simulate API delay and intelligent response generation
     await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
-    
+
     // Context-aware response templates
     const responseTemplates = {
       communication: this.generateCommunicationPlan(userInput),
@@ -278,28 +278,28 @@ Students will be able to:
 // KnowledgeCore Service
 export class KnowledgeCoreService {
   private config: AIServiceConfig;
-  
+
   constructor(config: AIServiceConfig) {
     this.config = config;
   }
 
   async linkUserContentToZara(context: KnowledgeCoreContext): Promise<AIResponse> {
     try {
-      const { userSnippets, sharedSnippets, organizationContext } = context;
-      
+      const { userSnippets: _userSnippets, sharedSnippets: _sharedSnippets, organizationContext: _organizationContext } = context;
+
       // Create comprehensive context for Zara
       const knowledgeBase = this.buildKnowledgeBase(context);
       const enhancedPrompt = this.buildZaraIntegrationPrompt(knowledgeBase);
-      
+
       // Simulate knowledge integration
       const response = await this.mockKnowledgeIntegration(enhancedPrompt);
-      
+
       return {
         content: response,
         reasoning: 'Integrated user content with Zara knowledge base',
         safety_score: 0.98
       };
-      
+
     } catch (error) {
       console.error('KnowledgeCore error:', error);
       throw new Error('Failed to link content to Zara');
@@ -362,7 +362,7 @@ Create personalized Zara responses that leverage this user-specific knowledge wh
 
   private analyzePatterns(snippets: unknown[]): unknown {
     return {
-      averageLength: snippets?.length ? 
+      averageLength: snippets?.length ?
         snippets.reduce((acc, s) => acc + (s.content?.length || 0), 0) / snippets.length : 0,
       commonTones: ['professional', 'friendly'],
       frequentTopics: ['student progress', 'parent communication', 'classroom updates'],
@@ -370,12 +370,12 @@ Create personalized Zara responses that leverage this user-specific knowledge wh
     };
   }
 
-  private async mockKnowledgeIntegration(prompt: string): Promise<string> {
+  private async mockKnowledgeIntegration(_prompt: string): Promise<string> {
     await new Promise(resolve => setTimeout(resolve, 1200));
-    
-    return `## Zara Knowledge Integration Complete âœ…
 
-### ðŸ§  Enhanced Capabilities
+    return `## Zara Knowledge Integration Complete ✅
+
+### ðŸ§  Enhanced Capabilities
 - **Personalized Responses**: Zara now understands your communication style and preferences
 - **Context Awareness**: Integrated your teaching context and student information
 - **Smart Suggestions**: Recommendations based on your successful communication patterns
@@ -407,7 +407,7 @@ Zara is now equipped with your personalized knowledge base while maintaining the
 export class AdaptiveAISafety {
   private sensitivePatterns: RegExp[];
   private professionalBoundaries: string[];
-  
+
   constructor() {
     this.sensitivePatterns = [
       /\b(SSN|social security|phone number)\b/gi,
@@ -416,7 +416,7 @@ export class AdaptiveAISafety {
       /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, // Email
       /\b(home address|personal information|private details)\b/gi
     ];
-    
+
     this.professionalBoundaries = [
       'personal relationships with students',
       'inappropriate physical contact',
@@ -432,20 +432,20 @@ export class AdaptiveAISafety {
       const personalInfoViolations = this.detectPersonalInformation(content);
       const boundaryViolations = this.detectBoundaryViolations(content);
       const appropriatenessScore = this.calculateAppropriatenessScore(content);
-      
-      const isApproved = personalInfoViolations.length === 0 && 
-                        boundaryViolations.length === 0 && 
+
+      const isApproved = personalInfoViolations.length === 0 &&
+                        boundaryViolations.length === 0 &&
                         appropriatenessScore > 0.7;
-      
+
       const result: SafetyFilterResult = {
         isApproved,
         confidence: appropriatenessScore,
         reasons: [...personalInfoViolations, ...boundaryViolations],
         suggestedEdits: this.generateSuggestedEdits(content, personalInfoViolations, boundaryViolations)
       };
-      
+
       return result;
-      
+
     } catch (error) {
       console.error('Safety scan error:', error);
       return {
@@ -458,82 +458,82 @@ export class AdaptiveAISafety {
 
   async neutralizeSensitiveContent(content: string): Promise<string> {
     let neutralizedContent = content;
-    
+
     // Remove or mask sensitive information
     this.sensitivePatterns.forEach(pattern => {
       neutralizedContent = neutralizedContent.replace(pattern, '[REMOVED]');
     });
-    
+
     // Replace boundary violations with professional alternatives
     this.professionalBoundaries.forEach(boundary => {
       if (neutralizedContent.toLowerCase().includes(boundary)) {
         neutralizedContent = this.suggestProfessionalAlternative(neutralizedContent, boundary);
       }
     });
-    
+
     return neutralizedContent;
   }
 
   private detectPersonalInformation(content: string): string[] {
     const violations: string[] = [];
-    
+
     this.sensitivePatterns.forEach(pattern => {
       if (pattern.test(content)) {
         violations.push('Contains personal identifying information');
       }
     });
-    
+
     return violations;
   }
 
   private detectBoundaryViolations(content: string): string[] {
     const violations: string[] = [];
     const lowerContent = content.toLowerCase();
-    
+
     this.professionalBoundaries.forEach(boundary => {
       if (lowerContent.includes(boundary)) {
         violations.push(`Potential professional boundary concern: ${boundary}`);
       }
     });
-    
+
     return violations;
   }
 
   private calculateAppropriatenessScore(content: string): number {
     let score = 1.0;
     const lowerContent = content.toLowerCase();
-    
+
     // Positive indicators
     const positiveTerms = ['learning', 'progress', 'achievement', 'support', 'growth', 'success'];
     positiveTerms.forEach(term => {
       if (lowerContent.includes(term)) score += 0.1;
     });
-    
+
     // Negative indicators
     const negativeTerms = ['failure', 'stupid', 'lazy', 'bad', 'terrible'];
     negativeTerms.forEach(term => {
       if (lowerContent.includes(term)) score -= 0.2;
     });
-    
+
     return Math.max(0, Math.min(1, score));
   }
 
   private generateSuggestedEdits(content: string, personalViolations: string[], boundaryViolations: string[]): string[] {
     const suggestions: string[] = [];
-    
+
     if (personalViolations.length > 0) {
       suggestions.push('Remove specific personal information and use general descriptions instead');
     }
-    
+
     if (boundaryViolations.length > 0) {
       suggestions.push('Focus on educational objectives and professional communication');
       suggestions.push('Consider rephrasing to maintain appropriate teacher-student/parent boundaries');
     }
-    
+
     if (suggestions.length === 0) {
       suggestions.push('Content meets safety guidelines - consider adding more specific educational context');
     }
-    
+
     return suggestions;
   }
 
@@ -544,12 +544,12 @@ export class AdaptiveAISafety {
       'political opinions': 'encouraging critical thinking and respectful discourse',
       'religious beliefs': 'respecting diverse perspectives and maintaining inclusivity'
     };
-    
+
     const alternative = alternatives[boundary];
     if (alternative) {
       return content.replace(new RegExp(boundary, 'gi'), alternative);
     }
-    
+
     return content;
   }
 }
@@ -559,28 +559,28 @@ export class AIServicesManager {
   private autoPlannerAgent: AutoPlannerAgent;
   private knowledgeCoreService: KnowledgeCoreService;
   private adaptiveSafety: AdaptiveAISafety;
-  
+
   constructor(config: AIServiceConfig) {
     this.autoPlannerAgent = new AutoPlannerAgent(config);
     this.knowledgeCoreService = new KnowledgeCoreService(config);
     this.adaptiveSafety = new AdaptiveAISafety();
   }
-  
+
   get autoPlanner() {
     return this.autoPlannerAgent;
   }
-  
+
   get knowledgeCore() {
     return this.knowledgeCoreService;
   }
-  
+
   get safety() {
     return this.adaptiveSafety;
   }
-  
+
   async processWithSafety(content: string): Promise<{ approved: boolean; content: string; reasons?: string[] }> {
     const safetyResult = await this.adaptiveSafety.scanContent(content);
-    
+
     if (!safetyResult.isApproved) {
       const neutralizedContent = await this.adaptiveSafety.neutralizeSensitiveContent(content);
       return {
@@ -589,7 +589,7 @@ export class AIServicesManager {
         reasons: safetyResult.reasons
       };
     }
-    
+
     return {
       approved: true,
       content: content
@@ -607,3 +607,4 @@ export const defaultAIConfig: AIServiceConfig = {
 
 // Singleton instance
 export const aiServices = new AIServicesManager(defaultAIConfig);
+

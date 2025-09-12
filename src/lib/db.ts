@@ -10,13 +10,11 @@ const getFirebaseFunctions = async () => {
   
   try {
     const { 
-      doc, getDoc, setDoc, updateDoc, addDoc, collection, 
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
+      doc, getDoc, setDoc, updateDoc, addDoc, collection, query: _query, where, orderBy: _orderBy, limit: _limit, getDocs, arrayUnion, serverTimestamp, increment
     } = await import('firebase/firestore');
     
     return {
-      doc, getDoc, setDoc, updateDoc, addDoc, collection,
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
+      doc, getDoc, setDoc, updateDoc, addDoc, collection, query: _query, where, orderBy: _orderBy, limit: _limit, getDocs, arrayUnion, serverTimestamp, increment
     };
   } catch (error) {
     console.warn('Firebase functions not available:', error);
@@ -355,7 +353,7 @@ export const getUserSnippets = async (userId: string): Promise<SavedSnippet[]> =
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const q = query(
     collection(db, 'snippets'),
     where('userId', '==', userId),
@@ -393,7 +391,7 @@ export const getSnippetRating = async (snippetId: string, userId: string): Promi
     return null;
   }
 
-  const { query, collection, where, limit, getDocs } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'snippet_ratings'),
     where('snippetId', '==', snippetId),
@@ -463,7 +461,7 @@ export const getSharedSnippets = async (): Promise<SharedSnippet[]> => {
     return [];
   }
 
-  const { query, collection, orderBy, limit, getDocs } = firebase;
+  const { query: _query, collection, orderBy: _orderBy, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     orderBy('sharedAt', 'desc'),
@@ -488,7 +486,7 @@ export const getSharedSnippetByShareId = async (shareId: string): Promise<Shared
     return null;
   }
 
-  const { query, collection, where, limit, getDocs } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     where('shareId', '==', shareId),
@@ -542,7 +540,7 @@ export const getUserCustomSnippets = async (userId: string): Promise<CustomSnipp
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const q = query(
     collection(db, 'custom_snippets'),
     where('userId', '==', userId),
@@ -590,7 +588,7 @@ export const getAnalyticsData = async (): Promise<AnalyticsData> => {
     };
   }
 
-  const { collection, getDocs, query, orderBy, limit } = firebase;
+  const { collection, getDocs, query: _query, orderBy: _orderBy, limit: _limit } = firebase;
   
   // Get basic counts
   const [snippetsSnapshot, usersSnapshot] = await Promise.all([
@@ -649,7 +647,7 @@ export const processReferral = async (
     return false;
   }
 
-  const { query, collection, where, limit, getDocs, doc, updateDoc, arrayUnion, addDoc, serverTimestamp, increment } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs, doc, updateDoc, arrayUnion, addDoc, serverTimestamp, increment } = firebase;
   
   // Find the referrer by referral code
   const q = query(
@@ -804,7 +802,7 @@ export const getLeaderboard = async (limit: number = 10): Promise<LeaderboardEnt
     return [];
   }
 
-  const { query, collection, orderBy, limit: queryLimit, getDocs } = firebase;
+  const { query: _query, collection, orderBy: _orderBy, limit: queryLimit, getDocs } = firebase;
   const q = query(
     collection(db, 'users'),
     orderBy('totalPoints', 'desc'),
@@ -934,7 +932,7 @@ export const getOrganizationMembers = async (organizationId: string): Promise<(O
     return [];
   }
 
-  const { query, collection, where, getDocs, doc, getDoc } = firebase;
+  const { query: _query, collection, where, getDocs, doc, getDoc } = firebase;
   const membersQuery = query(
     collection(db, 'organization_members'),
     where('organizationId', '==', organizationId),
@@ -975,7 +973,7 @@ export const getOrganizationAnalytics = async (
     throw new Error('Database not available');
   }
 
-  const { query, collection, where, getDocs } = firebase;
+  const { query: _query, collection, where, getDocs } = firebase;
   
   // Get organization members
   const membersQuery = query(
@@ -1060,7 +1058,7 @@ export const getOrganizationSnippetBanks = async (organizationId: string): Promi
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const banksQuery = query(
     collection(db, 'shared_snippet_banks'),
     where('organizationId', '==', organizationId),
@@ -1073,4 +1071,5 @@ export const getOrganizationSnippetBanks = async (organizationId: string): Promi
     ...doc.data()
   })) as SharedSnippetBank[];
 };
+
 
