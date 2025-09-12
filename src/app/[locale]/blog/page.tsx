@@ -1,49 +1,26 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getAllPosts } from '@/lib/mdx';
 
 export const metadata: Metadata = {
-  title: 'Blog - AI Teaching Insights & Tips',
-  description: 'Latest insights, tips, and strategies for using AI in education. Expert advice for modern teachers.',
-  keywords: ['AI education blog', 'teaching tips', 'AI tools', 'education technology', 'teacher resources'],
+  title: 'Blog - AI Teaching Insights & Tips | Zaza Promptly',
+  description: 'Latest insights, tips, and strategies for using AI in education. Expert advice for modern teachers to save time and enhance student outcomes.',
+  keywords: ['AI education blog', 'teaching tips', 'AI tools', 'education technology', 'teacher resources', 'classroom management', 'parent communication'],
+  openGraph: {
+    title: 'Blog - AI Teaching Insights & Tips | Zaza Promptly',
+    description: 'Latest insights, tips, and strategies for using AI in education.',
+    type: 'website',
+  },
 };
 
 type Props = {
   params: Promise<{locale: string}>;
 };
 
-// Mock blog posts data
-const blogPosts = [
-  {
-    id: 1,
-    title: "Getting Started with AI in Your Classroom",
-    excerpt: "A beginner's guide to incorporating AI tools into your daily teaching routine without overwhelming yourself or your students.",
-    date: "2024-03-15",
-    readTime: "5 min read",
-    category: "Getting Started",
-    slug: "getting-started-ai-classroom"
-  },
-  {
-    id: 2,
-    title: "AI-Powered Parent Communication: Best Practices",
-    excerpt: "Learn how to use AI to craft clear, empathetic messages that build stronger relationships with parents and families.",
-    date: "2024-03-10",
-    readTime: "7 min read",
-    category: "Communication",
-    slug: "ai-parent-communication-best-practices"
-  },
-  {
-    id: 3,
-    title: "Reducing Teacher Workload with Smart AI Tools",
-    excerpt: "Discover practical AI solutions that can save you hours each week on administrative tasks and lesson planning.",
-    date: "2024-03-05",
-    readTime: "6 min read",
-    category: "Productivity",
-    slug: "reducing-workload-ai-tools"
-  }
-];
 
 export default async function BlogPage({params}: Props) {
   const {locale} = await params;
+  const blogPosts = getAllPosts().filter(post => post.published);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -71,7 +48,7 @@ export default async function BlogPage({params}: Props) {
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <article key={post.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+            <article key={post.slug} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
               <div className="p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="inline-block bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">
@@ -85,16 +62,19 @@ export default async function BlogPage({params}: Props) {
                 </h2>
                 
                 <p className="text-gray-600 mb-4 line-clamp-3">
-                  {post.excerpt}
+                  {post.description}
                 </p>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-500">
                     {new Date(post.date).toLocaleDateString()}
                   </span>
-                  <button className="text-purple-600 hover:text-purple-700 font-medium">
+                  <Link 
+                    href={`/${locale}/blog/${post.slug}`}
+                    className="text-purple-600 hover:text-purple-700 font-medium"
+                  >
                     Read More →
-                  </button>
+                  </Link>
                 </div>
               </div>
             </article>
