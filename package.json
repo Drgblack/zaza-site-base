@@ -3,17 +3,19 @@
   "name": "zaza-site-base",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack -p 3010",
-    "build": "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
-    "start": "next start",
-    "lint": "eslint src/",
-    "typecheck": "tsc --noEmit",
-    "blog:extract": "ts-node --transpile-only scripts/extract-blog-from-ts.ts",
-    "test:e2e": "playwright test",
-    "postbuild": "echo 'Build completed successfully!'",
-    "ui:review": "node scripts/ui-review.mjs"
-  },
+"scripts": {
+  "dev": "next dev --turbopack -p 3010",
+  "build": "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
+  "start": "next start",
+  "lint": "eslint src/",
+  "typecheck": "tsc -p scripts/tsconfig.json",
+  "validate:content": "tsx scripts/validate-content.ts",
+  "lint:validator": "eslint -c scripts/eslint.config.mjs --max-warnings=0 scripts/validate-content.ts",
+  "blog:extract": "tsx scripts/blog-extractor.ts",
+  "test:e2e": "playwright test",
+  "postbuild": "echo 'Build completed successfully!'",
+  "ui:review": "node scripts/ui-review.mjs"
+},
   "dependencies": {
     "@firebase/auth": "^1.11.0",
     "@firebase/firestore": "^4.9.1",
