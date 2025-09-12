@@ -375,19 +375,19 @@ Create personalized Zara responses that leverage this user-specific knowledge wh
 
     return `## Zara Knowledge Integration Complete ✅
 
-### ðŸ§  Enhanced Capabilities
+### Enhanced Capabilities
 - **Personalized Responses**: Zara now understands your communication style and preferences
 - **Context Awareness**: Integrated your teaching context and student information
 - **Smart Suggestions**: Recommendations based on your successful communication patterns
 - **Collaborative Intelligence**: Connected with your organization's shared knowledge base
 
-### ðŸ“š Knowledge Base Summary
+### Knowledge Base Summary
 - Successfully integrated personal and shared content library
 - Analyzed communication patterns and preferences
 - Established teaching context and subject matter expertise
 - Connected organizational resources and templates
 
-### ðŸŽ¯ Zara Enhancement Features
+### Zara Enhancement Features
 1. **Personalized Tone Matching**: Suggestions align with your established communication style
 2. **Context-Aware Responses**: Recommendations consider your specific teaching situation
 3. **Pattern Learning**: Zara learns from your successful communications
