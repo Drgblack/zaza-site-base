@@ -4,3 +4,4 @@
 *.js  text
 *.css text
 *.md  text
+*.pdf binary
