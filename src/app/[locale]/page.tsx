@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeroCarousel } from '@/components/hero/hero-carousel';
-import { SnippetTool } from '@/components/tools/snippet-tool';
+import { EnhancedDemo } from '@/components/tools/enhanced-demo';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -54,7 +54,7 @@ export default async function HomePage({params}: Props) {
               See how AI can help you write personalized student feedback in seconds
             </p>
           </div>
-          <SnippetTool />
+          <EnhancedDemo />
         </div>
       </section>
 
