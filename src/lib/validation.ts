@@ -12,7 +12,7 @@ export interface ValidationRule {
   minLength?: number;
   maxLength?: number;
   pattern?: RegExp;
-  custom?: (_value: string) => boolean;
+  custom?: (value: string) => boolean;
   customError?: string;
 }
 
@@ -142,7 +142,7 @@ export class InputValidator {
     
     for (const [field, value] of Object.entries(data)) {
       if (typeof value === 'string') {
-        results[field] = this.validateText(_value, {}, field);
+        results[field] = this.validateText(value, {}, field);
       }
     }
     
@@ -166,8 +166,8 @@ export const VALIDATION_RULES = {
   password: {
     required: true,
     minLength: 8,
-    custom: (_value: string) => {
-      return /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(_value);
+    custom: (value: string) => {
+      return /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value);
     },
     customError: 'Password must contain uppercase, lowercase, and number',
   },
@@ -181,6 +181,7 @@ export const VALIDATION_RULES = {
     maxLength: 15,
   },
 } as const;
+
 
 
 
