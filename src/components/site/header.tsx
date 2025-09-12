@@ -44,6 +44,7 @@ export function Header() {
   const navigation = [
     { name: t('home'), href: '/' },
     { name: t('resources'), href: '/resources' },
+    { name: 'Blog', href: '/blog' },
     { name: t('blog'), href: '/blog' },
     { name: 'Community', href: '/community' },
     { name: 'FAQ', href: '/faq' },

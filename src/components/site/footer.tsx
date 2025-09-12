@@ -116,6 +116,15 @@ export function Footer() {
               <address className="not-italic">
                 {t('address')}
               </address>
+              <div className="flex items-center space-x-3 text-xs mt-2">
+                <a href="https://zazatechnologies.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 dark:hover:text-gray-300">
+                  Zaza Technologies
+                </a>
+                <span>•</span>
+                <a href="https://realtyclose.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 dark:hover:text-gray-300">
+                  RealtyClose
+                </a>
+              </div>
             </div>
             <div className="flex items-center space-x-6">
               <a

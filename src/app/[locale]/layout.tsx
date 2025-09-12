@@ -3,6 +3,8 @@ import {locales} from '../../../i18n';
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Header } from '@/components/site/header';
+import { Footer } from '@/components/site/footer';
 import { SimpleHeader } from '@/components/layout/simple-header';
 import { Footer } from '@/components/layout/Footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
@@ -56,6 +58,15 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <NextIntlClientProvider messages={messages}>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow pt-16">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </NextIntlClientProvider>
         <SimpleHeader />
         <main className="pt-16">
           {children}
