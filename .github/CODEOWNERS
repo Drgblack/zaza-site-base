@@ -1,0 +1,22 @@
+# Global code owners
+* @Drgblack
+
+# Core application files
+/src/ @Drgblack
+/components/ @Drgblack
+/pages/ @Drgblack
+
+# Configuration files
+/.env* @Drgblack
+/next.config.js @Drgblack
+/tailwind.config.js @Drgblack
+/tsconfig.json @Drgblack
+/package.json @Drgblack
+
+# Content and assets
+/content/ @Drgblack
+/public/ @Drgblack
+
+# CI/CD and scripts
+/.github/ @Drgblack
+/scripts/ @Drgblack

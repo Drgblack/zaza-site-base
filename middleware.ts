@@ -1,5 +1,6 @@
 ﻿import createMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const intl = createMiddleware({
   defaultLocale: "en",
@@ -7,10 +8,10 @@ const intl = createMiddleware({
   localePrefix: "always"
 });
 
-export default function middleware(request) {
+export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/en/resources", request.url));
+    return NextResponse.redirect(new URL("/en", request.url));
   }
   return intl(request);
 }
