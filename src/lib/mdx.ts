@@ -11,8 +11,10 @@ export interface BlogPost {
   date: string;
   category: string;
   author: string;
+  readTime?: string;
   image?: string;
   content: string;
+  published?: boolean;
 }
 
 export function getAllPostSlugs(): string[] {
@@ -21,14 +23,25 @@ export function getAllPostSlugs(): string[] {
   }
   
   return fs.readdirSync(postsDirectory)
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => file.replace(/\.mdx$/, ''));
+    .filter((item) => {
+      const itemPath = path.join(postsDirectory, item);
+      return fs.statSync(itemPath).isDirectory() && 
+             fs.existsSync(path.join(itemPath, 'index.mdx'));
+    });
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  // Check for subdirectory structure first
+  const subdirPath = path.join(postsDirectory, slug, 'index.mdx');
+  // Fallback to direct .mdx file
+  const directPath = path.join(postsDirectory, `${slug}.mdx`);
   
-  if (!fs.existsSync(fullPath)) {
+  let fullPath = '';
+  if (fs.existsSync(subdirPath)) {
+    fullPath = subdirPath;
+  } else if (fs.existsSync(directPath)) {
+    fullPath = directPath;
+  } else {
     return null;
   }
   
@@ -42,8 +55,10 @@ export function getPostBySlug(slug: string): BlogPost | null {
     date: data.date,
     category: data.category,
     author: data.author,
+    readTime: data.readTime,
     image: data.image,
     content,
+    published: data.published !== false, // Default to true if not specified
   };
 }
 
