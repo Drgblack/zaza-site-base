@@ -95,37 +95,20 @@ export function Header() {
             role="navigation"
             aria-label="Main navigation"
           >
-            {navigation.map((item) => {
-              if (item.href === '/' || item.href === '/resources' || item.href === '/blog' || item.href === '/community' || item.href === '/faq') {
-                return (
-                  <Link
-                    key={item.name}
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    href={item.href as any}
-                    className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
-                      pathname === item.href
-                        ? 'text-purple-600 dark:text-purple-400'
-                        : 'text-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
-                    pathname === item.href
-                      ? 'text-purple-600 dark:text-purple-400'
-                      : 'text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {item.name}
-                </a>
-              );
-            })}
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                href={item.href as any}
+                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
+                  pathname === item.href
+                    ? 'text-purple-600 dark:text-purple-400'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
             
             {/* Our Company Dropdown */}
             <DropdownMenu>
@@ -136,12 +119,12 @@ export function Header() {
               <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg dark:bg-gray-900/95 dark:border-gray-700">
                 {companyLinks.map((link) => (
                   <DropdownMenuItem key={link.href} asChild className="hover:bg-gray-50 dark:hover:bg-gray-800 focus:bg-gray-50 dark:focus:bg-gray-800">
-                    <a
-                      href={link.href}
+                    <Link
+                      href={link.href as any}
                       className="w-full cursor-pointer text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -210,31 +193,17 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
             <div className="py-4 space-y-1">
-              {navigation.map((item) => {
-                if (item.href === '/' || item.href === '/resources' || item.href === '/blog' || item.href === '/faq' || item.href === '/community') {
-                  return (
-                    <Link
-                      key={item.name}
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      href={item.href as any}
-                      className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  );
-                }
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                );
-              })}
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  href={item.href as any}
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
               <div className="pt-4">
                 <Button asChild className="w-full">
                   <a href="https://teach.zazatechnologies.com">
