@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/mdx';
 

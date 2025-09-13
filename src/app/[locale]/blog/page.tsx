@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { getAllPosts } from '@/lib/mdx';
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default async function BlogPage({params}: Props) {
         {/* Navigation */}
         <div className="flex justify-center mb-12">
           <Link 
-            href="/en"
+            href="/"
             className="text-purple-600 hover:text-purple-700 font-medium flex items-center"
           >
             ← Back to Home
