@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { Clock, User, Calendar } from 'lucide-react';
 
 export const dynamic = "error";
-export const dynamicParams = false;
 export const revalidate = false;
 
 export const metadata: Metadata = {

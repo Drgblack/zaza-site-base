@@ -9,6 +9,12 @@ import { ZaraAssistant } from '@/components/ai/zara-assistant';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 
+// Ensure static generation for each locale segment
+export function generateStaticParams() {
+  // Hardcode the same 5 locales
+  return ['en', 'de', 'fr', 'es', 'it'].map((locale) => ({ locale }));
+}
+
 const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
