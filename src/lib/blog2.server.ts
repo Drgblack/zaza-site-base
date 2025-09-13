@@ -53,7 +53,9 @@ async function readFirstExisting(slug: string, exts: string[]) {
     const p = path.join(BLOG_DIR, slug + ext);
     try {
       return { raw: await fs.readFile(p, 'utf8'), ext };
-    } catch {}
+    } catch {
+      // File doesn't exist, try next extension
+    }
   }
   throw new Error(`No file for ${slug}`);
 }
