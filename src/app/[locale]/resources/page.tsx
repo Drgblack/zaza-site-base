@@ -11,7 +11,8 @@ type Props = {
   params: Promise<{locale: string}>;
 };
 
-export default async function ResourcesPage({}: Props) {
+export default async function ResourcesPage({params}: Props) {
+  await params; // Just to satisfy TypeScript
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
