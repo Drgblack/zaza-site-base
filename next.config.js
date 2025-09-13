@@ -1,4 +1,6 @@
-﻿/** @type {import("next").NextConfig} */
+﻿const withNextIntl = require('next-intl/plugin')('./i18n.ts');
+
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   async redirects() {
     return [
@@ -10,5 +12,5 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true }
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);
 
