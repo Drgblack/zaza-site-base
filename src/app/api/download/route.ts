@@ -216,6 +216,16 @@ Website: https://zazapromptly.com
         return NextResponse.json({ error: 'Invalid download type' }, { status: 400 });
     }
 
+    // For ZIP cases (logos, headshots, screenshots, media-kit)
+    const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
+    
+    return new NextResponse(zipBuffer as any, {
+      headers: {
+        'Content-Type': 'application/zip',
+        'Content-Disposition': `attachment; filename="${type}.zip"`
+      } as any
+    });
+
   } catch (error) {
     console.error('Error creating download:', error);
     return NextResponse.json({ error: 'Failed to create download' }, { status: 500 });

@@ -12,7 +12,8 @@ type Props = {
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const locales = ["en","de","fr","es","it"];
+  return slugs.flatMap(slug => locales.map(locale => ({ locale, slug })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
