@@ -1,41 +1,28 @@
-import type { MetadataRoute } from 'next';
-import { routing } from '@/i18n/routing';
-import { getAllSlugs } from '@/lib/blog2.server';
+// src/app/sitemap.ts
+import type { MetadataRoute } from "next";
+import { routing } from "@/i18n/routing";
+import { getAllSlugs } from "@/lib/blog2.server";
+
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zaza-site-base.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zaza-site-base.vercel.app';
-  const staticPaths = ['', '/resources', '/pricing', '/community', '/faq', '/about', '/press', '/blog'];
-
   const entries: MetadataRoute.Sitemap = [];
-  
-  // Add static pages for all locales
+
+  // Static pages per locale
   for (const locale of routing.locales) {
-    for (const p of staticPaths) {
-      entries.push({ 
-        url: `${base}/${locale}${p}`, 
-        changeFrequency: 'weekly', 
-        priority: 0.7,
-        lastModified: new Date()
-      });
+    for (const path of ["", "/pricing", "/resources", "/community", "/faq", "/about", "/press"]) {
+      entries.push({ url: `${BASE}/${locale}${path}`, changeFrequency: "weekly", priority: 0.7 });
+    }
+    entries.push({ url: `${BASE}/${locale}/blog`, changeFrequency: "daily", priority: 0.8 });
+  }
+
+  // Blog posts per locale
+  const slugs = await getAllSlugs();
+  for (const slug of slugs) {
+    for (const locale of routing.locales) {
+      entries.push({ url: `${BASE}/${locale}/blog/${slug}`, changeFrequency: "monthly", priority: 0.6 });
     }
   }
 
-  // Add blog posts for all locales
-  try {
-    const slugs = await getAllSlugs();
-    for (const slug of slugs) {
-      for (const locale of routing.locales) {
-        entries.push({ 
-          url: `${base}/${locale}/blog/${slug}`, 
-          changeFrequency: 'weekly', 
-          priority: 0.6,
-          lastModified: new Date()
-        });
-      }
-    }
-  } catch (error) {
-    console.error('[sitemap] Failed to load blog slugs:', error);
-  }
-  
   return entries;
 }

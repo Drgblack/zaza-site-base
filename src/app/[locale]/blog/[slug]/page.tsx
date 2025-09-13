@@ -10,9 +10,9 @@ type Props = {
   }>;
 };
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-export const dynamicParams = true;
+export const dynamic = "error";
+export const dynamicParams = false;
+export const revalidate = false;
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
+  const post = await getPostBySlug(slug).catch(() => null);
+  
   if (!post) {
     notFound();
   }

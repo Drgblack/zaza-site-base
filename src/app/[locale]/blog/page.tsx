@@ -5,8 +5,9 @@ import { getAllPosts } from '@/lib/blog2.server';
 import Image from 'next/image';
 import { Clock, User, Calendar } from 'lucide-react';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = "error";
+export const dynamicParams = false;
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'AI in Education Blog - Zaza Promptly',

@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import LanguageSwitcher from '@/components/ui/language-switcher';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
