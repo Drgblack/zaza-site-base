@@ -52,13 +52,13 @@ export function getPostBySlug(slug: string): BlogPost | null {
     slug,
     title: data.title,
     description: data.description,
-    date: data.date,
+    date: data.date || data.publishDate,
     category: data.category,
     author: data.author,
-    readTime: data.readTime,
-    image: data.image,
+    readTime: data.readTime || data.readingTime,
+    image: data.image || data.featuredImage,
     content,
-    published: data.published !== false, // Default to true if not specified
+    published: data.published !== false && data.isPublished !== false && !data.isDraft, // Default to true if not specified
   };
 }
 
