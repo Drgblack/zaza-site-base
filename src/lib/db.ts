@@ -1,3 +1,4 @@
+﻿import { increment } from 'firebase/firestore';
 import { db } from './firebase';
 import { User } from 'firebase/auth';
 
@@ -9,13 +10,11 @@ const getFirebaseFunctions = async () => {
   
   try {
     const { 
-      doc, getDoc, setDoc, updateDoc, addDoc, collection, 
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
+      doc, getDoc, setDoc, updateDoc, addDoc, collection, query: _query, where, orderBy: _orderBy, limit: _limit, getDocs, arrayUnion, serverTimestamp, increment
     } = await import('firebase/firestore');
     
     return {
-      doc, getDoc, setDoc, updateDoc, addDoc, collection,
-      query, where, orderBy, limit, getDocs, arrayUnion, serverTimestamp, increment
+      doc, getDoc, setDoc, updateDoc, addDoc, collection, query: _query, where, orderBy: _orderBy, limit: _limit, getDocs, arrayUnion, serverTimestamp, increment
     };
   } catch (error) {
     console.warn('Firebase functions not available:', error);
@@ -28,8 +27,8 @@ export interface UserProfile {
   email: string;
   displayName: string;
   photoURL?: string;
-  createdAt: any;
-  lastLogin: any;
+  createdAt: unknown;
+  lastLogin: unknown;
   savedSnippets: string[];
   downloadHistory: string[];
   referralCredits: number;
@@ -46,7 +45,7 @@ export interface UserProfile {
   referredUsers: string[]; // UIDs of users they referred
   referredBy?: string; // UID of user who referred them
   streakDays: number; // consecutive days of usage
-  lastActiveDate?: any;
+  lastActiveDate?: unknown;
   achievements: string[]; // achievement badges earned
   totalPoints: number; // gamification points
   level: number; // user level based on activity
@@ -56,7 +55,7 @@ export interface UserProfile {
   department?: string;
   grade?: string;
   isActive: boolean;
-  lastSeenAt?: any;
+  lastSeenAt?: unknown;
 }
 
 export interface SavedSnippet {
@@ -66,7 +65,7 @@ export interface SavedSnippet {
   tone: string;
   category: string;
   context: string;
-  createdAt: any;
+  createdAt: unknown;
   rating?: number;
   isShared: boolean;
   shareId?: string;
@@ -77,7 +76,7 @@ export interface SharedSnippet extends SavedSnippet {
   authorId: string;
   shareCount: number;
   saveCount: number;
-  sharedAt: any;
+  sharedAt: unknown;
   isAnonymous: boolean;
 }
 
@@ -85,7 +84,7 @@ export interface SnippetRating {
   snippetId: string;
   userId: string;
   rating: number; // 1 for thumbs up, -1 for thumbs down
-  createdAt: any;
+  createdAt: unknown;
 }
 
 // Phase 8: Custom Snippets
@@ -98,8 +97,8 @@ export interface CustomSnippet {
   tags: string[];
   isPublic: boolean;
   usageCount: number;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
 }
 
 // Phase 8: Analytics
@@ -128,7 +127,7 @@ export interface ReferralData {
   referrerUid: string;
   referredUid: string;
   referralCode: string;
-  completedAt: any;
+  completedAt: unknown;
   rewardClaimed: boolean;
   conversionType: 'signup' | 'first_snippet' | 'premium';
 }
@@ -165,8 +164,8 @@ export interface Organization {
   totalSeats: number;
   settings: OrganizationSettings;
   subscription?: SubscriptionInfo;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
   createdBy: string;
 }
 
@@ -189,8 +188,8 @@ export interface SubscriptionInfo {
   price: number;
   billingCycle: 'monthly' | 'annual';
   status: 'active' | 'cancelled' | 'past_due' | 'trialing';
-  currentPeriodStart: any;
-  currentPeriodEnd: any;
+  currentPeriodStart: unknown;
+  currentPeriodEnd: unknown;
   cancelAtPeriodEnd: boolean;
   stripeSubscriptionId?: string;
   stripeCustomerId?: string;
@@ -202,7 +201,7 @@ export interface OrganizationMember {
   role: 'super_admin' | 'admin' | 'teacher' | 'viewer';
   department?: string;
   grade?: string;
-  joinedAt: any;
+  joinedAt: unknown;
   invitedBy?: string;
   status: 'active' | 'invited' | 'suspended';
 }
@@ -214,8 +213,8 @@ export interface SharedSnippetBank {
   description: string;
   snippets: string[]; // snippet IDs
   createdBy: string;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
   permissions: {
     canView: string[]; // user IDs or roles
     canEdit: string[]; // user IDs or roles
@@ -354,7 +353,7 @@ export const getUserSnippets = async (userId: string): Promise<SavedSnippet[]> =
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const q = query(
     collection(db, 'snippets'),
     where('userId', '==', userId),
@@ -392,7 +391,7 @@ export const getSnippetRating = async (snippetId: string, userId: string): Promi
     return null;
   }
 
-  const { query, collection, where, limit, getDocs } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'snippet_ratings'),
     where('snippetId', '==', snippetId),
@@ -462,7 +461,7 @@ export const getSharedSnippets = async (): Promise<SharedSnippet[]> => {
     return [];
   }
 
-  const { query, collection, orderBy, limit, getDocs } = firebase;
+  const { query: _query, collection, orderBy: _orderBy, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     orderBy('sharedAt', 'desc'),
@@ -487,7 +486,7 @@ export const getSharedSnippetByShareId = async (shareId: string): Promise<Shared
     return null;
   }
 
-  const { query, collection, where, limit, getDocs } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs } = firebase;
   const q = query(
     collection(db, 'shared_snippets'),
     where('shareId', '==', shareId),
@@ -541,7 +540,7 @@ export const getUserCustomSnippets = async (userId: string): Promise<CustomSnipp
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const q = query(
     collection(db, 'custom_snippets'),
     where('userId', '==', userId),
@@ -589,7 +588,7 @@ export const getAnalyticsData = async (): Promise<AnalyticsData> => {
     };
   }
 
-  const { collection, getDocs, query, orderBy, limit } = firebase;
+  const { collection, getDocs, query: _query, orderBy: _orderBy, limit: _limit } = firebase;
   
   // Get basic counts
   const [snippetsSnapshot, usersSnapshot] = await Promise.all([
@@ -648,7 +647,7 @@ export const processReferral = async (
     return false;
   }
 
-  const { query, collection, where, limit, getDocs, doc, updateDoc, arrayUnion, addDoc, serverTimestamp, increment } = firebase;
+  const { query: _query, collection, where, limit: _limit, getDocs, doc, updateDoc, arrayUnion, addDoc, serverTimestamp, increment } = firebase;
   
   // Find the referrer by referral code
   const q = query(
@@ -803,7 +802,7 @@ export const getLeaderboard = async (limit: number = 10): Promise<LeaderboardEnt
     return [];
   }
 
-  const { query, collection, orderBy, limit: queryLimit, getDocs } = firebase;
+  const { query: _query, collection, orderBy: _orderBy, limit: queryLimit, getDocs } = firebase;
   const q = query(
     collection(db, 'users'),
     orderBy('totalPoints', 'desc'),
@@ -933,7 +932,7 @@ export const getOrganizationMembers = async (organizationId: string): Promise<(O
     return [];
   }
 
-  const { query, collection, where, getDocs, doc, getDoc } = firebase;
+  const { query: _query, collection, where, getDocs, doc, getDoc } = firebase;
   const membersQuery = query(
     collection(db, 'organization_members'),
     where('organizationId', '==', organizationId),
@@ -974,7 +973,7 @@ export const getOrganizationAnalytics = async (
     throw new Error('Database not available');
   }
 
-  const { query, collection, where, getDocs } = firebase;
+  const { query: _query, collection, where, getDocs } = firebase;
   
   // Get organization members
   const membersQuery = query(
@@ -1059,7 +1058,7 @@ export const getOrganizationSnippetBanks = async (organizationId: string): Promi
     return [];
   }
 
-  const { query, collection, where, orderBy, getDocs } = firebase;
+  const { query: _query, collection, where, orderBy: _orderBy, getDocs } = firebase;
   const banksQuery = query(
     collection(db, 'shared_snippet_banks'),
     where('organizationId', '==', organizationId),
@@ -1072,3 +1071,5 @@ export const getOrganizationSnippetBanks = async (organizationId: string): Promi
     ...doc.data()
   })) as SharedSnippetBank[];
 };
+
+

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +24,7 @@ interface Achievement {
   id: string;
   title: string;
   description: string;
-  icon: any;
+  icon: unknown;
   progress: number;
   maxProgress: number;
   completed: boolean;
@@ -144,7 +144,7 @@ export function ProgressTracker({ className = "" }: ProgressTrackerProps) {
             onClick={handleClose}
             className="text-gray-400 hover:text-gray-600 text-sm"
           >
-            ×
+            Ã—
           </button>
         </div>
         
@@ -191,7 +191,7 @@ export function ProgressTracker({ className = "" }: ProgressTrackerProps) {
               
               {achievement.completed && achievement.reward && (
                 <div className="text-xs text-green-600 bg-green-50 p-1 rounded">
-                  🎉 {achievement.reward}
+                  ðŸŽ‰ {achievement.reward}
                 </div>
               )}
             </div>

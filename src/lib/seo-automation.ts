@@ -1,4 +1,4 @@
-export interface SEOContent {
+﻿export interface SEOContent {
   title: string;
   description: string;
   keywords: string[];
@@ -7,7 +7,7 @@ export interface SEOContent {
   ogTitle: string;
   ogDescription: string;
   twitterCard: string;
-  structuredData: any;
+  structuredData: unknown;
 }
 
 export interface BlogPostSEO {
@@ -283,3 +283,4 @@ export function generateContentSuggestions(content: string): string[] {
   
   return suggestions;
 }
+

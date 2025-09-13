@@ -28,7 +28,6 @@ const messageImports: Record<string, () => Promise<any>> = {
   es: () => import("./messages/es.json"),
   it: () => import("./messages/it.json"),
 };
-
 export default getRequestConfig(async ({ locale }) => {
   const code = locales.includes(locale as Locale) ? String(locale) : "en";
   const load = messageImports[code] ?? messageImports.en;

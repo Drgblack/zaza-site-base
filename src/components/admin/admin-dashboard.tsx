@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/auth-context';
@@ -29,7 +29,7 @@ interface OrganizationMember {
   role: string;
   department?: string;
   grade?: string;
-  joinedAt: any;
+  joinedAt: unknown;
   status: string;
   userProfile?: {
     displayName: string;
@@ -37,7 +37,7 @@ interface OrganizationMember {
     photoURL?: string;
     totalTimeSaved: number;
     snippetsGenerated: number;
-    lastSeenAt?: any;
+    lastSeenAt?: unknown;
   };
 }
 
@@ -277,7 +277,7 @@ export function AdminDashboard({ organizationId, organizationName, userRole }: A
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm">{user.displayName}</p>
                         <p className="text-xs text-gray-500">
-                          {user.snippetsGenerated} snippets • {Math.floor(user.timeSaved / 60)}h saved
+                          {user.snippetsGenerated} snippets â€¢ {Math.floor(user.timeSaved / 60)}h saved
                         </p>
                       </div>
                     </div>
@@ -435,7 +435,7 @@ export function AdminDashboard({ organizationId, organizationName, userRole }: A
                           </p>
                           {member.department && (
                             <p className="text-xs text-gray-500 mt-1">
-                              {member.department} • Joined {new Date(member.joinedAt?.seconds * 1000).toLocaleDateString()}
+                              {member.department} â€¢ Joined {new Date(member.joinedAt?.seconds * 1000).toLocaleDateString()}
                             </p>
                           )}
                         </div>

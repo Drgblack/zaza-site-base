@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -112,65 +112,65 @@ export function AutoPlannerAgent({ context = 'promptly', initialInput = '', onPl
     const fallbackPlans = {
       promptly: `## Communication Plan: ${userInput}
 
-### 🎯 Objective
+### ðŸŽ¯ Objective
 Create effective parent-teacher communication that builds relationships and supports student success.
 
-### 📝 Key Components
+### ðŸ“ Key Components
 1. **Opening**: Establish positive rapport
 2. **Main Message**: Clear, specific information
 3. **Action Items**: Next steps for all parties
 4. **Follow-up**: Continued engagement strategy
 
-### 💡 Recommended Approach
+### ðŸ’¡ Recommended Approach
 - Use a professional yet warm tone
 - Include specific examples when appropriate
 - Provide clear action items
 - Invite questions and dialogue
 
-### 📅 Implementation
+### ðŸ“… Implementation
 - Send within 24-48 hours of the situation
 - Follow up within a week
 - Document outcomes for future reference`,
 
       teach: `## Lesson Plan: ${userInput}
 
-### 🎯 Learning Objectives
+### ðŸŽ¯ Learning Objectives
 Students will demonstrate understanding and application of key concepts through engaging activities.
 
-### 📚 Lesson Structure
+### ðŸ“š Lesson Structure
 1. **Hook Activity** (5 min): Engage student interest
 2. **Direct Instruction** (15 min): Present core concepts  
 3. **Guided Practice** (15 min): Collaborative exploration
 4. **Independent Work** (8 min): Individual application
 5. **Closure** (2 min): Summarize and preview
 
-### 🔧 Differentiation
+### ðŸ”§ Differentiation
 - **Support**: Graphic organizers, peer partnerships
 - **Extension**: Advanced challenges, leadership roles
 - **Assessment**: Multiple formats, self-reflection
 
-### 📦 Materials & Resources
+### ðŸ“¦ Materials & Resources
 - Presentation tools and handouts
 - Collaborative workspace setup
 - Assessment rubrics and feedback forms`,
 
       collaboration: `## Collaboration Plan: ${userInput}
 
-### 🤝 Goals & Vision
+### ðŸ¤ Goals & Vision
 Build effective educational partnerships that enhance student outcomes and professional growth.
 
-### 👥 Stakeholder Engagement
+### ðŸ‘¥ Stakeholder Engagement
 - **Core Team**: Key educators and administrators
 - **Extended Network**: Support staff and community partners
 - **Communication**: Regular meetings and shared resources
 
-### 📋 Action Framework
+### ðŸ“‹ Action Framework
 1. **Planning Phase**: Goal setting and role definition
 2. **Implementation**: Resource sharing and coordination
 3. **Evaluation**: Progress monitoring and adjustment
 4. **Sustainability**: Long-term success planning
 
-### 🔄 Success Measures
+### ðŸ”„ Success Measures
 - Improved collaboration metrics
 - Enhanced student outcomes
 - Positive stakeholder feedback
@@ -190,18 +190,18 @@ Build effective educational partnerships that enhance student outcomes and profe
     setCrossAppMode(!crossAppMode);
     if (!crossAppMode && currentPlan) {
       // Simulate cross-app integration
-      const integratedContent = `## Cross-App Integration Active 🔗
+      const integratedContent = `## Cross-App Integration Active ðŸ”—
 
 ### Promptly + Teach Connected
 ${currentPlan.content}
 
-### 🚀 Enhanced Features
+### ðŸš€ Enhanced Features
 - **Shared Resources**: Access lesson plans and communication templates
 - **Seamless Workflow**: Move from lesson planning to parent communication
 - **Unified Analytics**: Track impact across both platforms
 - **Smart Suggestions**: Context-aware recommendations
 
-### 🎯 Next Steps
+### ðŸŽ¯ Next Steps
 1. Review generated plan in current context
 2. Access complementary features in connected app
 3. Implement coordinated approach
@@ -274,7 +274,7 @@ ${currentPlan.content}
           {/* Context Selection */}
           <div>
             <label className="text-sm font-medium mb-2 block">Planning Context</label>
-            <Select value={selectedContext} onValueChange={(value: any) => setSelectedContext(value)}>
+            <Select value={selectedContext} onValueChange={(value: unknown) => setSelectedContext(value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>

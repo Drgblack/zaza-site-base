@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,7 +28,7 @@ import { aiServices, KnowledgeCoreContext } from '@/lib/ai-services';
 import { getUserSnippets, getSharedSnippets } from '@/lib/db';
 
 interface KnowledgeCoreProps {
-  onActivated?: (result: any) => void;
+  onActivated?: (result: unknown) => void;
 }
 
 interface KnowledgeStats {
@@ -102,7 +102,7 @@ export function KnowledgeCoreActivation({ onActivated }: KnowledgeCoreProps) {
     }
   };
 
-  const analyzeCategories = (snippets: any[]): { [key: string]: number } => {
+  const analyzeCategories = (snippets: unknown[]): { [key: string]: number } => {
     const categories: { [key: string]: number } = {};
     
     snippets.forEach(snippet => {

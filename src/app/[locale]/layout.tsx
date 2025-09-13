@@ -1,13 +1,13 @@
-import {notFound} from 'next/navigation';
+﻿import {notFound} from 'next/navigation';
 import {locales} from '../../../i18n';
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from '@/components/site/header';
 import { Footer } from '@/components/site/footer';
-import { SimpleHeader } from '@/components/layout/simple-header';
-import { Footer } from '@/components/layout/Footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,6 +54,8 @@ export default async function LocaleLayout({
   if (!locales.includes(locale as any)) {
     notFound();
   }
+
+  const messages = await getMessages();
  
   return (
     <html lang={locale}>
@@ -66,15 +68,8 @@ export default async function LocaleLayout({
             </main>
             <Footer />
           </div>
+          {process.env.NEXT_PUBLIC_ENABLE_ZARA === '1' && <ZaraAssistant />}
         </NextIntlClientProvider>
-        <SimpleHeader />
-        <main className="pt-16">
-          {children}
-        </main>
-        <Footer />
-        <ZaraAssistant />
-        <SimpleFooter />
-        {process.env.NEXT_PUBLIC_ENABLE_ZARA === '1' && <ZaraAssistant />}
       </body>
     </html>
   );

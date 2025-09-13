@@ -1,4 +1,4 @@
-// src/app/api/zara/chat/route.ts
+﻿// src/app/api/zara/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 type Tone = "neutral" | "warm" | "formal" | "friendly";
@@ -128,7 +128,7 @@ Return as JSON with keys: text, explanation, alternatives (array of 3).
     };
     
     return NextResponse.json(payload);
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json({ error: e?.message ?? "Unknown error" }, { status: 500 });
   }
 }
