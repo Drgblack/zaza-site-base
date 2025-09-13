@@ -1,28 +1,28 @@
 // src/app/sitemap.ts
-import type { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
-import { getAllSlugs } from "@/lib/blog2.server";
+import {getAllSlugs} from '@/lib/blog2.server';
+import {routing} from '@/i18n/routing';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zaza-site-base.vercel.app";
+export const revalidate = 3600;
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const entries: MetadataRoute.Sitemap = [];
+export default async function sitemap() {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://zaza-site-base.vercel.app';
+  const slugs = await getAllSlugs(); // returns ['ai-tools-for-teachers', ...]
+  const urls: { url: string; lastModified?: string }[] = [];
 
-  // Static pages per locale
-  for (const locale of routing.locales) {
-    for (const path of ["", "/pricing", "/resources", "/community", "/faq", "/about", "/press"]) {
-      entries.push({ url: `${BASE}/${locale}${path}`, changeFrequency: "weekly", priority: 0.7 });
-    }
-    entries.push({ url: `${BASE}/${locale}/blog`, changeFrequency: "daily", priority: 0.8 });
+  // Locale roots
+  for (const loc of routing.locales) {
+    urls.push({ url: `${base}/${loc}` });
+    urls.push({ url: `${base}/${loc}/pricing` });
+    urls.push({ url: `${base}/${loc}/resources` });
+    urls.push({ url: `${base}/${loc}/blog` });
   }
 
   // Blog posts per locale
-  const slugs = await getAllSlugs();
-  for (const slug of slugs) {
-    for (const locale of routing.locales) {
-      entries.push({ url: `${BASE}/${locale}/blog/${slug}`, changeFrequency: "monthly", priority: 0.6 });
+  for (const loc of routing.locales) {
+    for (const slug of slugs) {
+      urls.push({ url: `${base}/${loc}/blog/${slug}` });
     }
   }
 
-  return entries;
+  return urls;
 }

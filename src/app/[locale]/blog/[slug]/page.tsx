@@ -16,12 +16,13 @@ export const revalidate = false;
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
-  return slugs.map(slug => ({ slug }));
+  // Return params WITHOUT locale — Next will handle for each [locale] segment
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug).catch(() => null);
   
   if (!post) {
     return {
@@ -43,13 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug).catch(() => null);
-  
-  if (!post) {
-    notFound();
-  }
+export default async function Page({ params }: { params: { locale: string; slug: string } }) {
+  const post = await getPostBySlug(params.slug).catch(() => null);
+  if (!post) return notFound();
 
   return (
     <article className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
