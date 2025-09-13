@@ -12,7 +12,8 @@
                     "lint:validator":  "eslint -c scripts/eslint.config.mjs --max-warnings=0 scripts/validate-content.ts",
                     "test:e2e":  "playwright test",
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",
-                    "ui:review":  "node scripts/ui-review.mjs"
+                    "ui:review":  "node scripts/ui-review.mjs",
+                    "smoke:test":  "node scripts/smoke-test.js"
                 },
     "dependencies":  {
                          "@firebase/auth":  "^1.11.0",
