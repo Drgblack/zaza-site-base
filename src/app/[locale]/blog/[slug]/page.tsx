@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next-intl/link';
+import {Link} from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/mdx';
 
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Breadcrumb Navigation */}
         <nav className="mb-8">
           <Link 
-            href={`/${locale}/blog`}
+            href="/blog"
             className="text-purple-600 hover:text-purple-700 font-medium flex items-center"
           >
             ← Back to Blog
@@ -140,7 +140,7 @@ export default async function BlogPostPage({ params }: Props) {
             Join thousands of educators receiving weekly AI teaching insights.
           </p>
           <Link 
-            href={`/${locale}`}
+            href="/"
             className="inline-block bg-purple-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
           >
             Try Zaza Promptly Free

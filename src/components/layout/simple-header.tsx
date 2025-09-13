@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next-intl/link';
+import {Link} from '@/i18n/routing';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 

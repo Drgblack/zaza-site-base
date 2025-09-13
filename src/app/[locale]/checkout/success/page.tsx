@@ -9,7 +9,7 @@ import {
   ArrowRight,
   Sparkles
 } from 'lucide-react';
-import Link from 'next-intl/link';
+import {Link} from '@/i18n/routing';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

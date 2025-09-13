@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next-intl/link';
+import {Link} from '@/i18n/routing';
 import { getAllPosts } from '@/lib/mdx';
 
 export const metadata: Metadata = {
@@ -70,7 +70,7 @@ export default async function BlogPage({params}: Props) {
                     {new Date(post.date).toLocaleDateString()}
                   </span>
                   <Link 
-                    href={`/${locale}/blog/${post.slug}`}
+                    href={`/blog/${post.slug}`}
                     className="text-purple-600 hover:text-purple-700 font-medium"
                   >
                     Read More →
