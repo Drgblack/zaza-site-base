@@ -163,140 +163,58 @@ Website: https://zazapromptly.com
 
       case 'self-care':
         try {
-          const selfCareGuide = await fs.readFile(path.join(publicPath, 'resources/teacher-self-care-guide.pdf'));
-          zip.file('teacher-self-care-guide.pdf', selfCareGuide);
+          // Return the actual PDF file directly
+          const pdfPath = path.join(publicPath, 'resources/teacher-self-care-guide.pdf');
+          const pdfBuffer = await fs.readFile(pdfPath);
+          
+          return new NextResponse(pdfBuffer, {
+            headers: {
+              'Content-Type': 'application/pdf',
+              'Content-Disposition': 'attachment; filename="teacher-self-care-guide.pdf"'
+            }
+          });
         } catch (e) {
-          console.log('Self-care guide PDF not found, creating markdown content');
-          zip.file('teacher-self-care-guide.md', `# Teacher Self-Care Guide
-
-## Maintaining Well-being as an Educator
-
-### Introduction
-Teaching is one of the most rewarding yet demanding professions. This guide provides practical strategies for maintaining your well-being while managing the daily challenges of education.
-
-### Core Self-Care Principles
-- Set boundaries between work and personal time
-- Practice mindfulness and stress management
-- Build a support network with fellow educators
-- Prioritize physical health and exercise
-- Take time for hobbies and interests outside teaching
-
-### AI-Assisted Self-Care
-Learn how AI tools like Zaza Promptly can help reduce administrative burden:
-- Automate routine communications
-- Generate personalized feedback efficiently
-- Save time on lesson planning and grading
-
-### Weekly Self-Care Checklist
-□ Take at least one evening completely off from work
-□ Connect with friends or family outside education
-□ Engage in physical activity or exercise
-□ Practice a mindfulness or relaxation technique
-□ Do something creative or fun
-
-### Resources
-- National Education Association: Mental Health Resources
-- Teacher wellness apps and tools
-- Professional development in stress management
-
-Remember: Taking care of yourself isn't selfish—it's essential for being the best educator you can be.
-
-© 2025 Zaza Technologies. Visit https://zazapromptly.com for more resources.`);
+          console.error('Self-care guide PDF not found:', e);
+          return NextResponse.json({ error: 'File not found' }, { status: 404 });
         }
-        break;
 
       case 'templates':
-        zip.file('ai-teaching-templates.md', `# AI Teaching Templates - Ready-to-Use Templates for AI-Powered Education
-
-### Parent Email Templates
-
-**Progress Update Template:**
-Subject: [Student Name] - Weekly Progress Update
-
-Dear [Parent Name],
-
-I wanted to share some positive updates about [Student Name]'s progress this week...
-
-**Behavior Note Template:**
-Subject: [Student Name] - Classroom Update
-
-Hi [Parent Name],
-
-I'm reaching out to discuss [Student Name]'s behavior in class today...
-
-### Student Feedback Templates
-
-**Assignment Feedback Template:**
-Great work on [Assignment Name]! I noticed you [specific positive observation]. 
-
-Areas for improvement:
-- [Specific suggestion 1]
-- [Specific suggestion 2]
-
-### AI Prompts for Teachers
-
-**Generate Discussion Questions:**
-"Create 5 discussion questions for 8th grade students about [topic] that encourage critical thinking"
-
-**Differentiate Content:**
-"Adapt this lesson for students reading 2 grades below level: [paste lesson content]"
-
-**Parent Communication:**
-"Help me write a positive email to parents about [student achievement/behavior]"
-
-© 2025 Zaza Technologies. More templates available at https://zazapromptly.com`);
-        break;
+        try {
+          // Return the actual templates PDF file
+          const pdfPath = path.join(publicPath, 'resources/lesson-plan-template-primary.pdf');
+          const pdfBuffer = await fs.readFile(pdfPath);
+          
+          return new NextResponse(pdfBuffer, {
+            headers: {
+              'Content-Type': 'application/pdf',
+              'Content-Disposition': 'attachment; filename="ai-teaching-templates.pdf"'
+            }
+          });
+        } catch (e) {
+          console.error('Templates PDF not found:', e);
+          return NextResponse.json({ error: 'File not found' }, { status: 404 });
+        }
 
       case 'communication':
-        zip.file('parent-communication-kit.md', `# Parent Communication Kit - AI-Powered Tools for Effective Teacher-Parent Communication
-
-### Communication Principles
-1. Be clear and specific
-2. Lead with positives when possible
-3. Use "I" statements for concerns
-4. Provide concrete examples
-5. Suggest actionable next steps
-
-### Email Templates by Situation
-
-**Academic Concerns:**
-Subject: Supporting [Student Name]'s Academic Success
-
-Dear [Parent Name],
-
-I'm writing to discuss [Student Name]'s recent academic performance in [subject]. While they show strength in [positive area], I've noticed challenges with [specific concern].
-
-### Cultural Sensitivity Tips
-- Learn correct pronunciation of names
-- Understand different communication styles
-- Be aware of cultural attitudes toward authority
-- Consider language barriers and offer translation
-- Respect different family structures and values
-
-### AI Communication Tools
-Use AI assistants to:
-- Draft initial emails (always review before sending)
-- Translate messages for non-English speaking families
-- Generate multiple versions of difficult messages
-- Create follow-up reminders and action items
-
-© 2025 Zaza Technologies. Visit https://zazapromptly.com for more communication tools.`);
-        break;
+        try {
+          // Return the actual communication PDF file
+          const pdfPath = path.join(publicPath, 'resources/ai-parent-comms.pdf');
+          const pdfBuffer = await fs.readFile(pdfPath);
+          
+          return new NextResponse(pdfBuffer, {
+            headers: {
+              'Content-Type': 'application/pdf',
+              'Content-Disposition': 'attachment; filename="parent-communication-kit.pdf"'
+            }
+          });
+        } catch (e) {
+          console.error('Communication PDF not found:', e);
+          return NextResponse.json({ error: 'File not found' }, { status: 404 });
+        }
 
       default:
         return NextResponse.json({ error: 'Invalid download type' }, { status: 400 });
     }
-
-    const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
-
-    const filename = `zaza-promptly-${type}-${new Date().toISOString().split('T')[0]}.zip`;
-
-    return new NextResponse(zipBuffer, {
-      headers: {
-        'Content-Type': 'application/zip',
-        'Content-Disposition': `attachment; filename="${filename}"`
-      }
-    });
 
   } catch (error) {
     console.error('Error creating download:', error);

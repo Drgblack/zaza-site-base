@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { ChevronDown, Globe } from 'lucide-react';
 import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
@@ -13,15 +13,11 @@ export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
 
   const handleLanguageChange = (newLocale: Locale) => {
-    // Remove current locale from pathname and add new one
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-    const newPath = `/${newLocale}${pathWithoutLocale}`;
-    
     // Set locale preference in localStorage
     localStorage.setItem('preferred-locale', newLocale);
     
-    // Navigate to new locale path
-    router.push(newPath);
+    // Use the localized router to properly handle locale switching
+    router.replace(pathname, { locale: newLocale });
     setIsOpen(false);
   };
 

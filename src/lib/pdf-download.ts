@@ -15,7 +15,15 @@ export const downloadPDF = async (resourceType: string) => {
     // Create download link
     const a = document.createElement('a');
     a.href = url;
-    a.download = `zaza-promptly-${resourceType}-${new Date().toISOString().split('T')[0]}.zip`;
+    
+    // Set appropriate filename based on resource type
+    const filenames = {
+      'self-care': 'teacher-self-care-guide.pdf',
+      'templates': 'ai-teaching-templates.pdf', 
+      'communication': 'parent-communication-kit.pdf'
+    };
+    
+    a.download = filenames[resourceType as keyof typeof filenames] || `${resourceType}.pdf`;
     document.body.appendChild(a);
     a.click();
     
