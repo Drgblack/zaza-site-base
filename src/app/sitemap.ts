@@ -1,6 +1,6 @@
 // src/app/sitemap.ts
 import type { MetadataRoute } from 'next';
-import { getAllSlugs } from '@/lib/blog2.server';
+import { getAllPosts } from '@/lib/blog2.server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-static';
@@ -10,7 +10,7 @@ const LOCALES = ['en','de','fr','es','it'] as const;
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zaza-site-base.vercel.app';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs = await getAllSlugs();
+  const posts = await getAllPosts();
   const now = new Date();
 
   const staticPages = LOCALES.flatMap((l) => [
@@ -25,7 +25,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const blog = LOCALES.flatMap((l) =>
-    slugs.map((s) => ({ url: `${BASE}/${l}/blog/${s}`, lastModified: now }))
+    posts.map((post) => ({
+      url: `${BASE}/${l}/blog/${post.slug}`,
+      lastModified: post.date ? new Date(post.date) : now
+    }))
   );
 
   return [...staticPages, ...blog];
