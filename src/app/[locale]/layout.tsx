@@ -1,4 +1,4 @@
-import {notFound} from 'next/navigation';
+﻿import {notFound} from 'next/navigation';
 import {locales} from '../../../i18n';
 import "../globals.css";
 import type { Metadata } from "next";

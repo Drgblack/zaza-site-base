@@ -1,11 +1,11 @@
-import "server-only";
+﻿import "server-only";
 import fs from "fs";
 import path from "path";
 
 export function normalizeImage(src?: string): string {
   if (!src) return "/images/blog/default.jpg";
   let v = src;
-  try { v = decodeURIComponent(src); } catch (e) { /* ignore decode errors */ }
+  try { v = decodeURIComponent(src); } catch (_e) { /* ignore decode errors */ }
   if (/^https?:\/\//i.test(v)) return v;
   v = v.replace(/^\/?public\//, "");
   return v.startsWith("/") ? v : `/${v}`;

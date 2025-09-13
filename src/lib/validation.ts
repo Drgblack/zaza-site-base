@@ -1,4 +1,4 @@
-// Input validation and sanitization utilities
+﻿// Input validation and sanitization utilities
 import DOMPurify from 'isomorphic-dompurify';
 
 export interface ValidationResult {
@@ -181,3 +181,7 @@ export const VALIDATION_RULES = {
     maxLength: 15,
   },
 } as const;
+
+
+
+

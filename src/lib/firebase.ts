@@ -1,4 +1,4 @@
-// Firebase configuration with fallbacks for build time
+﻿// Firebase configuration with fallbacks for build time
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "demo-key",
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "demo.firebaseapp.com",
@@ -9,9 +9,9 @@ const firebaseConfig = {
 };
 
 // Create stub implementations for build time
-let auth: any = null;
-let db: any = null;
-let app: any = null;
+let auth: unknown = null;
+let db: unknown = null;
+let app: unknown = null;
 
 if (typeof window !== 'undefined') {
   // Only initialize Firebase on the client side

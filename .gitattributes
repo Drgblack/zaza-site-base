@@ -1,6 +1,2 @@
 ﻿* text=auto eol=lf
-*.ts  text
-*.tsx text
-*.js  text
-*.css text
-*.md  text
+*.{ts,tsx,js,jsx,json,css,scss,md,yml,yaml} text eol=lf
