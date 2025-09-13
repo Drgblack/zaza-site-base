@@ -22,25 +22,42 @@ export function getAllPostSlugs(): string[] {
     return [];
   }
   
-  return fs.readdirSync(postsDirectory)
-    .filter((item) => {
-      const itemPath = path.join(postsDirectory, item);
-      return fs.statSync(itemPath).isDirectory() && 
-             fs.existsSync(path.join(itemPath, 'index.mdx'));
-    });
+  const slugs: string[] = [];
+  
+  fs.readdirSync(postsDirectory).forEach((item) => {
+    const itemPath = path.join(postsDirectory, item);
+    const stat = fs.statSync(itemPath);
+    
+    if (stat.isDirectory()) {
+      // Check for index.mdx in subdirectory
+      if (fs.existsSync(path.join(itemPath, 'index.mdx'))) {
+        slugs.push(item);
+      }
+    } else if (stat.isFile()) {
+      // Check for direct .mdx or .md files
+      if (item.endsWith('.mdx') || item.endsWith('.md')) {
+        slugs.push(item.replace(/\.(mdx?|md)$/, ''));
+      }
+    }
+  });
+  
+  return slugs;
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
   // Check for subdirectory structure first
   const subdirPath = path.join(postsDirectory, slug, 'index.mdx');
-  // Fallback to direct .mdx file
-  const directPath = path.join(postsDirectory, `${slug}.mdx`);
+  // Fallback to direct files
+  const directMdxPath = path.join(postsDirectory, `${slug}.mdx`);
+  const directMdPath = path.join(postsDirectory, `${slug}.md`);
   
   let fullPath = '';
   if (fs.existsSync(subdirPath)) {
     fullPath = subdirPath;
-  } else if (fs.existsSync(directPath)) {
-    fullPath = directPath;
+  } else if (fs.existsSync(directMdxPath)) {
+    fullPath = directMdxPath;
+  } else if (fs.existsSync(directMdPath)) {
+    fullPath = directMdPath;
   } else {
     return null;
   }
@@ -58,7 +75,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
     readTime: data.readTime || data.readingTime,
     image: data.image || data.featuredImage,
     content,
-    published: data.published !== false && data.isPublished !== false && !data.isDraft, // Default to true if not specified
+    published: data.published !== undefined ? data.published : 
+               data.isPublished !== undefined ? data.isPublished : 
+               data.isDraft !== undefined ? !data.isDraft : true,
   };
 }
 

@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
+import LanguageSwitcher from '@/components/ui/language-switcher';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -95,37 +96,20 @@ export function Header() {
             role="navigation"
             aria-label="Main navigation"
           >
-            {navigation.map((item) => {
-              if (item.href === '/' || item.href === '/resources' || item.href === '/blog' || item.href === '/community' || item.href === '/faq') {
-                return (
-                  <Link
-                    key={item.name}
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    href={item.href as any}
-                    className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
-                      pathname === item.href
-                        ? 'text-purple-600 dark:text-purple-400'
-                        : 'text-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
-                    pathname === item.href
-                      ? 'text-purple-600 dark:text-purple-400'
-                      : 'text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {item.name}
-                </a>
-              );
-            })}
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                href={item.href as any}
+                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
+                  pathname === item.href
+                    ? 'text-purple-600 dark:text-purple-400'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
             
             {/* Our Company Dropdown */}
             <DropdownMenu>
@@ -136,12 +120,12 @@ export function Header() {
               <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg dark:bg-gray-900/95 dark:border-gray-700">
                 {companyLinks.map((link) => (
                   <DropdownMenuItem key={link.href} asChild className="hover:bg-gray-50 dark:hover:bg-gray-800 focus:bg-gray-50 dark:focus:bg-gray-800">
-                    <a
-                      href={link.href}
+                    <Link
+                      href={link.href as any}
                       className="w-full cursor-pointer text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -151,38 +135,7 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Language Switcher */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  <Globe className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {locales.map((loc) => (
-                  <DropdownMenuItem key={loc} asChild>
-                    <Link 
-                      href={pathname} 
-                      locale={loc}
-                      className={`flex items-center w-full px-3 py-2 ${
-                        loc === locale 
-                          ? 'bg-purple-50 text-purple-700 font-semibold' 
-                          : 'text-gray-700'
-                      }`}
-                    >
-                      <span className="mr-3 text-lg">{localeFlags[loc]}</span>
-                      <span>{localeNames[loc]}</span>
-                      {loc === locale && (
-                        <span className="ml-auto">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      )}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSwitcher />
 
             <Button asChild>
               <a href="https://teach.zazatechnologies.com">
@@ -210,31 +163,17 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
             <div className="py-4 space-y-1">
-              {navigation.map((item) => {
-                if (item.href === '/' || item.href === '/resources' || item.href === '/blog' || item.href === '/faq' || item.href === '/community') {
-                  return (
-                    <Link
-                      key={item.name}
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      href={item.href as any}
-                      className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  );
-                }
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                );
-              })}
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  href={item.href as any}
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md dark:text-gray-300 dark:hover:text-purple-400 dark:hover:bg-gray-800"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
               <div className="pt-4">
                 <Button asChild className="w-full">
                   <a href="https://teach.zazatechnologies.com">

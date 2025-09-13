@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,28 +7,28 @@ export function Footer() {
     {
       title: 'Product',
       links: [
-        { name: 'Zaza Promptly', href: '/en' },
+        { name: 'Zaza Promptly', href: '/' },
         { name: 'Zaza Teach', href: 'https://teach.zazatechnologies.com', external: true },
-        { name: 'Pricing', href: '/en/pricing' },
-        { name: 'Resources', href: '/en/resources' },
+        { name: 'Pricing', href: '/pricing' },
+        { name: 'Resources', href: '/resources' },
       ]
     },
     {
       title: 'Company',
       links: [
-        { name: 'About', href: '/en/about' },
-        { name: 'Blog', href: '/en/blog' },
-        { name: 'FAQ', href: '/en/faq' },
-        { name: 'Contact', href: '/en/contact' },
+        { name: 'About', href: '/about' },
+        { name: 'Blog', href: '/blog' },
+        { name: 'FAQ', href: '/faq' },
+        { name: 'Contact', href: '/contact' },
       ]
     },
     {
       title: 'Legal',
       links: [
-        { name: 'Privacy Policy', href: '/en/privacy' },
-        { name: 'Terms of Service', href: '/en/terms' },
-        { name: 'Cookie Policy', href: '/en/cookies' },
-        { name: 'Impressum', href: '/en/impressum' },
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Terms of Service', href: '/terms' },
+        { name: 'Cookie Policy', href: '/cookies' },
+        { name: 'Impressum', href: '/impressum' },
       ]
     },
     {
@@ -37,7 +37,7 @@ export function Footer() {
         { name: 'Zaza Technologies', href: 'https://zazatechnologies.com', external: true },
         { name: 'RealtyClose', href: 'https://realtyclose.com', external: true },
         { name: 'LinkedIn', href: 'https://linkedin.com/company/zaza-technologies', external: true },
-        { name: 'Support', href: '/en/contact' },
+        { name: 'Support', href: '/contact' },
       ]
     }
   ];
@@ -49,7 +49,7 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
           {/* Brand section */}
           <div className="lg:col-span-2">
-            <Link href="/en" className="flex items-center space-x-3 mb-6">
+            <Link href="/" className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-lg">Z</span>
               </div>

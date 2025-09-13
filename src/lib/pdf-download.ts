@@ -1,21 +1,50 @@
 // PDF download utility
-export const downloadPDF = (resourceType: string) => {
-  // For now, this is a placeholder that shows an alert
-  // In a real implementation, this would trigger actual PDF generation/download
-  
-  const messages = {
-    'self-care': 'Teacher Self-Care Guide PDF will be available soon. Check back later!',
-    'templates': 'AI Teaching Templates PDF will be available soon. Check back later!',
-    'communication': 'Parent Communication Kit PDF will be available soon. Check back later!'
-  };
-  
-  const message = messages[resourceType as keyof typeof messages] || 'PDF download coming soon!';
-  
-  // Show user feedback
-  alert(message);
-  
-  // Track download attempt (in real app, you'd send to analytics)
-  console.log(`PDF download attempted: ${resourceType}`);
+export const downloadPDF = async (resourceType: string) => {
+  try {
+    // Call the download API
+    const response = await fetch(`/api/download?type=${resourceType}`);
+    
+    if (!response.ok) {
+      throw new Error('Download failed');
+    }
+    
+    // Get the blob and create download
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    
+    // Create download link
+    const a = document.createElement('a');
+    a.href = url;
+    
+    // Set appropriate filename based on resource type
+    const filenames = {
+      'self-care': 'teacher-self-care-guide.pdf',
+      'templates': 'ai-teaching-templates.pdf', 
+      'communication': 'parent-communication-kit.pdf'
+    };
+    
+    a.download = filenames[resourceType as keyof typeof filenames] || `${resourceType}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    
+    // Cleanup
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    
+    console.log(`Successfully downloaded: ${resourceType}`);
+  } catch (error) {
+    console.error('Download failed:', error);
+    
+    // Fallback messages for now
+    const messages = {
+      'self-care': 'Teacher Self-Care Guide download temporarily unavailable. Please try again later.',
+      'templates': 'AI Teaching Templates download temporarily unavailable. Please try again later.',
+      'communication': 'Parent Communication Kit download temporarily unavailable. Please try again later!'
+    };
+    
+    const message = messages[resourceType as keyof typeof messages] || 'Download temporarily unavailable!';
+    alert(message);
+  }
 };
 
 // Generate sample PDF content (placeholder for future implementation)

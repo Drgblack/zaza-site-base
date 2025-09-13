@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useEffect } from 'react'
-import Link from 'next/link'
+import {Link} from '@/i18n/routing'
 
 export default function Error({
   error,

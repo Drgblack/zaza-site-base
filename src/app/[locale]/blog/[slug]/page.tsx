@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/mdx';
+import { getPostBySlug, getAllSlugs } from '@/lib/blog2.server';
 
 type Props = {
   params: Promise<{
@@ -10,14 +10,19 @@ type Props = {
   }>;
 };
 
+export const dynamic = "error";
+export const dynamicParams = false;
+export const revalidate = false;
+
 export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
+  const slugs = await getAllSlugs();
+  // Return params WITHOUT locale — Next will handle for each [locale] segment
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug).catch(() => null);
   
   if (!post) {
     return {
@@ -27,25 +32,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${post.title} | Zaza Promptly Blog`,
-    description: post.description,
+    description: post.excerpt,
     openGraph: {
       title: post.title,
-      description: post.description,
+      description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
-      authors: [post.author],
+      authors: ['Zaza Team'],
       images: post.image ? [post.image] : undefined,
     },
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
-  const { locale, slug } = await params;
-  const post = getPostBySlug(slug);
-
-  if (!post || !post.published) {
-    notFound();
-  }
+export default async function Page({ params }: { params: { locale: string; slug: string } }) {
+  const post = await getPostBySlug(params.slug).catch(() => null);
+  if (!post) return notFound();
 
   return (
     <article className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -53,7 +54,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Breadcrumb Navigation */}
         <nav className="mb-8">
           <Link 
-            href={`/${locale}/blog`}
+            href="/blog"
             className="text-purple-600 hover:text-purple-700 font-medium flex items-center"
           >
             ← Back to Blog
@@ -64,11 +65,9 @@ export default async function BlogPostPage({ params }: Props) {
         <header className="mb-12">
           <div className="flex items-center gap-4 mb-4">
             <span className="inline-block bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">
-              {post.category}
+              Education
             </span>
-            {post.readTime && (
-              <span className="text-sm text-gray-500">{post.readTime}</span>
-            )}
+            <span className="text-sm text-gray-500">5 min read</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -76,19 +75,19 @@ export default async function BlogPostPage({ params }: Props) {
           </h1>
           
           <p className="text-xl text-gray-600 mb-8">
-            {post.description}
+            {post.excerpt}
           </p>
           
           <div className="flex items-center justify-between border-t border-b border-gray-200 py-4">
             <div className="text-sm text-gray-600">
-              By <span className="font-medium text-gray-900">{post.author}</span>
+              By <span className="font-medium text-gray-900">Zaza Team</span>
             </div>
             <time className="text-sm text-gray-600" dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString('en-US', {
+              {post.date ? new Date(post.date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
-              })}
+              }) : 'Recent'}
             </time>
           </div>
         </header>
@@ -107,15 +106,14 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Article Content */}
         <div className="prose prose-lg max-w-none">
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            {/* Simplified content rendering - in production would use MDX */}
+            {/* Simplified content rendering - showing excerpt for now */}
             <div className="space-y-4 text-gray-700">
-              {post.content.split('\n\n').map((paragraph, idx) => (
-                paragraph.trim() && (
-                  <p key={idx} className="leading-relaxed">
-                    {paragraph}
-                  </p>
-                )
-              ))}
+              <p className="leading-relaxed">
+                {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
+              </p>
+              <p className="leading-relaxed">
+                Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
+              </p>
             </div>
           </div>
         </div>
@@ -126,7 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
             About the Author
           </h3>
           <p className="text-gray-600">
-            {post.author} is a passionate educator and AI advocate helping teachers 
+            The Zaza Team consists of passionate educators and AI advocates helping teachers 
             transform their classrooms with innovative technology.
           </p>
         </div>
@@ -140,7 +138,7 @@ export default async function BlogPostPage({ params }: Props) {
             Join thousands of educators receiving weekly AI teaching insights.
           </p>
           <Link 
-            href={`/${locale}`}
+            href="/"
             className="inline-block bg-purple-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
           >
             Try Zaza Promptly Free

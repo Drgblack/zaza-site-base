@@ -3,10 +3,9 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Users, Calculator } from 'lucide-react';
+import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Calculator } from 'lucide-react';
 import { EnhancedSnippetToolV2 } from '@/components/site/enhanced-snippet-tool-v2';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
-import { StructuredData } from '@/components/seo/structured-data';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
 import ZaraClient from '@/components/zara/ZaraClient';
 import { ROICalculator } from '@/components/site/roi-calculator';
@@ -49,8 +48,6 @@ export default async function HomePage({params}: Props) {
   setRequestLocale(locale);
 
   const hero = await getTranslations('hero');
-  const features = await getTranslations('features');
-  const pricing = await getTranslations('pricing');
 
   return (
     <div className="flex flex-col">

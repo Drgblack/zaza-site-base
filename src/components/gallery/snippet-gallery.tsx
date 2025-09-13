@@ -23,7 +23,7 @@ import {
   ChevronUp
 } from 'lucide-react';
 import { toast } from 'sonner';
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 
 export function SnippetGallery() {
   const { user, isAuthenticated } = useAuth();

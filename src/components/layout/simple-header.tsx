@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
@@ -8,10 +8,10 @@ export function SimpleHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Home', href: '/en' },
-    { name: 'Resources', href: '/en/resources' },
-    { name: 'Blog', href: '/en/blog' },
-    { name: 'Pricing', href: '/en/pricing' },
+    { name: 'Home', href: '/' },
+    { name: 'Resources', href: '/resources' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Pricing', href: '/pricing' },
   ];
 
   return (
@@ -19,7 +19,7 @@ export function SimpleHeader() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/en" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">Z</span>
             </div>
