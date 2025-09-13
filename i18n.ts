@@ -4,6 +4,15 @@ export const locales = ["en","de","fr","es","it"] as const;
 export type Locale = typeof locales[number];
 export const defaultLocale: Locale = "en";
 
+// Static import map avoids bundler issues with "import(`./messages/${locale}.json`)"
+const messageImports: Record<string, () => Promise<any>> = {
+  en: () => import("./messages/en.json"),
+  de: () => import("./messages/de.json"),
+  fr: () => import("./messages/fr.json"),
+  es: () => import("./messages/es.json"),
+  it: () => import("./messages/it.json"),
+};
+
 export const localeNames: Record<Locale, string> = {
   en: "English",
   de: "Deutsch", 
