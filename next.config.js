@@ -13,4 +13,3 @@ const nextConfig = {
 };
 
 module.exports = withNextIntl(nextConfig);
-
