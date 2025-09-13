@@ -22,6 +22,7 @@ export type PostMeta = {
   date?: string;
   excerpt?: string;
   image?: string | null;
+  mtime?: Date;
 };
 
 export async function getAllPosts(): Promise<PostMeta[]> {
@@ -32,12 +33,14 @@ export async function getAllPosts(): Promise<PostMeta[]> {
     try {
       const file = await readFirstExisting(slug, ['.mdx', '.md']);
       const { data, content } = matter(file.raw);
+      const stats = await fs.stat(path.join(BLOG_DIR, slug + file.ext));
       posts.push({
         slug,
         title: data.title ?? slug,
         date: data.date ?? '',
         excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
-        image: data.image ?? data.heroImage ?? data.featuredImage ?? null
+        image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
+        mtime: stats.mtime
       });
     } catch (e) {
       console.error('[blog] skipping', slug, e);

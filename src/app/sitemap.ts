@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blog = LOCALES.flatMap((l) =>
     posts.map((post) => ({
       url: `${BASE}/${l}/blog/${post.slug}`,
-      lastModified: post.date ? new Date(post.date) : now
+      lastModified: post.date ? new Date(post.date) : (post.mtime ?? now)
     }))
   );
 
