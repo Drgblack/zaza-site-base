@@ -1,42 +1,41 @@
-import { MetadataRoute } from 'next'
- 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'
-  const locales = ['en', 'de', 'fr', 'es', 'it']
-  
-  const routes = [
-    { path: '', priority: 1, changeFrequency: 'weekly' as const },
-    { path: '/resources', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/faq', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/about', priority: 0.6, changeFrequency: 'monthly' as const },
-    { path: '/pricing', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/contact', priority: 0.5, changeFrequency: 'monthly' as const },
-    { path: '/privacy', priority: 0.4, changeFrequency: 'monthly' as const },
-    { path: '/terms', priority: 0.4, changeFrequency: 'monthly' as const },
-    { path: '/cookies', priority: 0.4, changeFrequency: 'monthly' as const },
-  ]
+import type { MetadataRoute } from 'next';
+import { routing } from '@/i18n/routing';
+import { getAllSlugs } from '@/lib/blog2.server';
 
-  const staticPages: MetadataRoute.Sitemap = []
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zaza-site-base.vercel.app';
+  const staticPaths = ['', '/resources', '/pricing', '/community', '/faq', '/about', '/press', '/blog'];
+
+  const entries: MetadataRoute.Sitemap = [];
   
-  // Add root page
-  staticPages.push({
-    url: baseUrl,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 1,
-  })
+  // Add static pages for all locales
+  for (const locale of routing.locales) {
+    for (const p of staticPaths) {
+      entries.push({ 
+        url: `${base}/${locale}${p}`, 
+        changeFrequency: 'weekly', 
+        priority: 0.7,
+        lastModified: new Date()
+      });
+    }
+  }
+
+  // Add blog posts for all locales
+  try {
+    const slugs = await getAllSlugs();
+    for (const slug of slugs) {
+      for (const locale of routing.locales) {
+        entries.push({ 
+          url: `${base}/${locale}/blog/${slug}`, 
+          changeFrequency: 'weekly', 
+          priority: 0.6,
+          lastModified: new Date()
+        });
+      }
+    }
+  } catch (error) {
+    console.error('[sitemap] Failed to load blog slugs:', error);
+  }
   
-  // Add localized pages
-  locales.forEach(locale => {
-    routes.forEach(route => {
-      staticPages.push({
-        url: `${baseUrl}/${locale}${route.path}`,
-        lastModified: new Date(),
-        changeFrequency: route.changeFrequency,
-        priority: route.priority,
-      })
-    })
-  })
-  
-  return staticPages
+  return entries;
 }

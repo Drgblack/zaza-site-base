@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { locales, localeNames, localeFlags, type Locale } from '../../../i18n';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -134,38 +135,7 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Language Switcher */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  <Globe className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {locales.map((loc) => (
-                  <DropdownMenuItem key={loc} asChild>
-                    <Link 
-                      href={pathname} 
-                      locale={loc}
-                      className={`flex items-center w-full px-3 py-2 ${
-                        loc === locale 
-                          ? 'bg-purple-50 text-purple-700 font-semibold' 
-                          : 'text-gray-700'
-                      }`}
-                    >
-                      <span className="mr-3 text-lg">{localeFlags[loc]}</span>
-                      <span>{localeNames[loc]}</span>
-                      {loc === locale && (
-                        <span className="ml-auto">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      )}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSwitcher />
 
             <Button asChild>
               <a href="https://teach.zazatechnologies.com">

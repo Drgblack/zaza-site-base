@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
-import { getAllPosts } from '@/lib/mdx';
+import { getAllPosts } from '@/lib/blog2.server';
 import Image from 'next/image';
 import { Clock, User, Calendar } from 'lucide-react';
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'AI in Education Blog - Zaza Promptly',
@@ -34,8 +37,8 @@ export default async function BlogPage({params}: Props) {
   const {locale} = await params;
   setRequestLocale(locale);
 
-  // Get all published posts from the existing MDX system
-  const allPosts = getAllPosts().filter(post => post.published);
+  // Get all posts from the unified blog loader
+  const allPosts = await getAllPosts();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -97,11 +100,11 @@ export default async function BlogPage({params}: Props) {
                 {/* Category & Reading Time */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                    {post.category || 'Education'}
+                    Education
                   </span>
                   <div className="flex items-center text-gray-500 text-sm">
                     <Clock className="w-4 h-4 mr-1" />
-                    {post.readTime || '5 min read'}
+                    5 min read
                   </div>
                 </div>
                 
@@ -112,18 +115,18 @@ export default async function BlogPage({params}: Props) {
                 
                 {/* Description */}
                 <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-                  {post.description || post.content?.substring(0, 120) + '...'}
+                  {post.excerpt || 'Transform your teaching with AI-powered tools and strategies...'}
                 </p>
                 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div className="flex items-center text-sm text-gray-500">
                     <User className="w-4 h-4 mr-1" />
-                    {post.author || 'Zaza Team'}
+                    Zaza Team
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
                     <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(post.date).toLocaleDateString()}
+                    {post.date ? new Date(post.date).toLocaleDateString() : 'Recent'}
                   </div>
                 </div>
                 

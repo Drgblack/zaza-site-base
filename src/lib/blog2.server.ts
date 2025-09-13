@@ -1,111 +1,76 @@
-// server-only ensures this file is never bundled for the client
-import "server-only";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import matter from 'gray-matter';
 
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
 
-export type Blog2Post = {
-  title: string;
+export async function getAllSlugs(): Promise<string[]> {
+  try {
+    const files = await fs.readdir(BLOG_DIR);
+    return files
+      .filter(f => f.endsWith('.md') || f.endsWith('.mdx'))
+      .map(f => f.replace(/\.mdx?$/, ''));
+  } catch (e) {
+    console.error('[blog] Failed to read blog directory:', e);
+    return [];
+  }
+}
+
+export type PostMeta = {
   slug: string;
-  description: string; // always present (never empty)
-  date: string; // ISO string
-  author: string; // always present
-  category: string; // always present
-  readingTime: number; // always present
-  featured: boolean;
-  image: string; // always present (never empty)
-  content: string;
+  title: string;
+  date?: string;
+  excerpt?: string;
+  image?: string | null;
 };
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+export async function getAllPosts(): Promise<PostMeta[]> {
+  const slugs = await getAllSlugs();
+  const posts: PostMeta[] = [];
 
-const stem = (f:string) => f.replace(/\.[mc]?mdx?$/i,'');
-export function canonicalSlug(fileBase:string, fmSlug?:string): string {
-  const s = (fmSlug || stem(fileBase)).toLowerCase().trim();
-  return s.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-}
-
-export function resolveImage(i?:string): string {
-  const v = (i || '').trim();
-  if (!v) return '/images/blog/default.jpg';
-  try {
-    if (/^https?:\/\//i.test(v)) return v;            // external ok
-    const u = decodeURIComponent(v).replace(/^public\//,'');
-    return u.startsWith('/') ? u : '/'+u;
-  } catch { return '/images/blog/default.jpg'; }
-}
-
-export function toExcerpt(md:string, words=28): string {
-  return md.replace(/```[\s\S]*?```/g,' ')
-           .replace(/[#>*_`[\]()-]/g,' ')
-           .replace(/\s+/g,' ').trim().split(' ').slice(0,words).join(' ')+'…';
-}
-
-function readAllBlog2Posts(): Blog2Post[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
-  
-  const files = fs.readdirSync(BLOG_DIR).filter(f => /\.mdx?$/.test(f));
-  const posts = files.map(file => {
-    const fp = path.join(BLOG_DIR, file);
-    const raw = fs.readFileSync(fp, "utf8");
-    const { data, content } = matter(raw);
-    
-    const fileName = file.replace(/\.[mc]?mdx?$/i, "");
-    const slug = canonicalSlug(fileName, data.slug);
-    const image = resolveImage(data.image || data.featuredImage || data.heroImage);
-    const description = data.description?.trim() || toExcerpt(content);
-    
-    // Guaranteed fields with fallbacks
-    const title = data.title?.trim() || slug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
-    const author = data.author?.name || data.author || "Zaza Team";
-    const category = data.category || "General";
-    const readingTime = typeof data.readingTime === 'number' ? data.readingTime : 
-                       typeof data.readingTime === 'string' ? parseInt(data.readingTime.replace(/\D/g, ''), 10) || 4 : 4;
-    const featured = Boolean(data.featured);
-    
-    // Handle date with fallback
-    let postDate: string;
+  for (const slug of slugs) {
     try {
-      const rawDate = data.date || data.publishDate || data.publishedAt || "2024-12-01";
-      postDate = new Date(rawDate).toISOString();
-    } catch {
-      postDate = new Date("2024-12-01").toISOString();
-    }
-    
-    return {
-      title,
-      slug,
-      description,
-      date: postDate,
-      author,
-      category,
-      readingTime,
-      featured,
-      image,
-      content,
-    };
-  }).sort((a, b) => (a.date < b.date ? 1 : -1));
-
-  // Audit missing images (only in development)
-  if (process.env.NODE_ENV === 'development') {
-    const missingImages = posts
-      .filter(p => !/^https?:\/\//.test(p.image))
-      .filter(p => !fs.existsSync(path.join(process.cwd(), "public", p.image)))
-      .map(p => `${p.slug} -> ${p.image}`);
-    
-    if (missingImages.length) {
-      console.warn("[blog2] Missing local images:\n" + missingImages.join("\n"));
+      const file = await readFirstExisting(slug, ['.mdx', '.md']);
+      const { data, content } = matter(file.raw);
+      posts.push({
+        slug,
+        title: data.title ?? slug,
+        date: data.date ?? '',
+        excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
+        image: data.image ?? data.heroImage ?? data.featuredImage ?? null
+      });
+    } catch (e) {
+      console.error('[blog] skipping', slug, e);
     }
   }
 
+  posts.sort((a, b) => String(b.date).localeCompare(String(a.date)));
   return posts;
 }
 
-export function getAllBlog2Posts(): Blog2Post[] {
-  return readAllBlog2Posts();
+async function readFirstExisting(slug: string, exts: string[]) {
+  for (const ext of exts) {
+    const p = path.join(BLOG_DIR, slug + ext);
+    try {
+      return { raw: await fs.readFile(p, 'utf8'), ext };
+    } catch {}
+  }
+  throw new Error(`No file for ${slug}`);
 }
 
-export function getBlog2PostBySlug(slug: string): Blog2Post | null {
-  return readAllBlog2Posts().find(p => p.slug === slug) ?? null;
+export async function getPostBySlug(slug: string): Promise<PostMeta | null> {
+  try {
+    const file = await readFirstExisting(slug, ['.mdx', '.md']);
+    const { data, content } = matter(file.raw);
+    return {
+      slug,
+      title: data.title ?? slug,
+      date: data.date ?? '',
+      excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
+      image: data.image ?? data.heroImage ?? data.featuredImage ?? null
+    };
+  } catch (e) {
+    console.error('[blog] Failed to get post by slug', slug, e);
+    return null;
+  }
 }

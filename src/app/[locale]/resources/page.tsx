@@ -59,7 +59,7 @@ export default async function ResourcesPage({params}: Props) {
               resourceType="templates"
               className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
-              Download Templates
+              Download PDF
             </DownloadButton>
           </div>
 
@@ -76,7 +76,7 @@ export default async function ResourcesPage({params}: Props) {
               resourceType="communication"
               className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
-              Download Kit
+              Download PDF
             </DownloadButton>
           </div>
         </div>
