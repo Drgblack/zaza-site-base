@@ -17,14 +17,14 @@ export async function GET(request: NextRequest) {
         try {
           const logoSvg = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.svg'));
           zip.file('zaza-logo.svg', logoSvg);
-        } catch (e) {
+        } catch {
           console.log('SVG logo not found, skipping');
         }
 
         try {
           const logoPng = await fs.readFile(path.join(publicPath, 'images/zaza-logo.png'));
           zip.file('zaza-logo.png', logoPng);
-        } catch (e) {
+        } catch {
           console.log('PNG logo not found, skipping');
         }
 
@@ -47,14 +47,14 @@ For questions about logo usage, contact: press@zazatechnologies.com`);
         try {
           const headshot1 = await fs.readFile(path.join(publicPath, 'images/greg-founder-photo-v2.png'));
           zip.file('greg-blackburn-headshot-1.png', headshot1);
-        } catch (e) {
+        } catch {
           console.log('Headshot 1 not found');
         }
 
         try {
           const headshot2 = await fs.readFile(path.join(publicPath, 'images/founder-greg.jpg'));
           zip.file('greg-blackburn-headshot-2.jpg', headshot2);
-        } catch (e) {
+        } catch {
           console.log('Headshot 2 not found');
         }
 
@@ -74,14 +74,14 @@ For additional photos or specific requirements, contact: press@zazatechnologies.
         try {
           const dashboard = await fs.readFile(path.join(publicPath, 'media-kit/screenshots/app-dashboard.svg'));
           zip.file('zaza-promptly-dashboard.svg', dashboard);
-        } catch (e) {
+        } catch {
           console.log('Dashboard screenshot not found');
         }
 
         try {
           const composer = await fs.readFile(path.join(publicPath, 'media-kit/screenshots/message-composer.svg'));
           zip.file('zaza-promptly-composer.svg', composer);
-        } catch (e) {
+        } catch {
           console.log('Composer screenshot not found');
         }
 
@@ -102,47 +102,47 @@ For additional screenshots or specific views, contact: press@zazatechnologies.co
         try {
           const logoSvg = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.svg'));
           zip.folder('logos')?.file('zaza-logo.svg', logoSvg);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const logoPng = await fs.readFile(path.join(publicPath, 'images/zaza-logo.png'));
           zip.folder('logos')?.file('zaza-logo.png', logoPng);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const headshot1 = await fs.readFile(path.join(publicPath, 'images/greg-founder-photo-v2.png'));
           zip.folder('headshots')?.file('greg-blackburn-headshot-1.png', headshot1);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const headshot2 = await fs.readFile(path.join(publicPath, 'images/founder-greg.jpg'));
           zip.folder('headshots')?.file('greg-blackburn-headshot-2.jpg', headshot2);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const dashboard = await fs.readFile(path.join(publicPath, 'media-kit/screenshots/app-dashboard.svg'));
           zip.folder('screenshots')?.file('zaza-promptly-dashboard.svg', dashboard);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const composer = await fs.readFile(path.join(publicPath, 'media-kit/screenshots/message-composer.svg'));
           zip.folder('screenshots')?.file('zaza-promptly-composer.svg', composer);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const brandGuide = await fs.readFile(path.join(publicPath, 'media-kit/brand-guidelines.pdf'));
           zip.file('brand-guidelines.pdf', brandGuide);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const factSheet = await fs.readFile(path.join(publicPath, 'media-kit/company-factsheet.pdf'));
           zip.file('company-factsheet.pdf', factSheet);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         try {
           const pressTemplate = await fs.readFile(path.join(publicPath, 'media-kit/press-release-template.docx'));
           zip.file('press-release-template.docx', pressTemplate);
-        } catch (e) { console.error('Error in /api/download:', e); }
+        } catch (error) { console.error('Error in /api/download:', error); }
 
         zip.file('README.txt', `Zaza Promptly Complete Media Kit
 
@@ -219,11 +219,11 @@ Website: https://zazapromptly.com
     // For ZIP cases (logos, headshots, screenshots, media-kit)
     const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
     
-    return new NextResponse(zipBuffer as any, {
+    return new NextResponse(zipBuffer, {
       headers: {
         'Content-Type': 'application/zip',
         'Content-Disposition': `attachment; filename="${type}.zip"`
-      } as any
+      }
     });
 
   } catch (error) {

@@ -11,8 +11,7 @@ type Props = {
   params: Promise<{locale: string}>;
 };
 
-export default async function ResourcesPage({params}: Props) {
-  const {locale} = await params;
+export default async function ResourcesPage({}: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">

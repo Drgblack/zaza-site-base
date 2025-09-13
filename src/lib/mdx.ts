@@ -75,7 +75,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
     readTime: data.readTime || data.readingTime,
     image: data.image || data.featuredImage,
     content,
-    published: data.published ?? data.isPublished ?? !data.isDraft ?? true, // Default to true if not specified
+    published: data.published !== undefined ? data.published : 
+               data.isPublished !== undefined ? data.isPublished : 
+               data.isDraft !== undefined ? !data.isDraft : true,
   };
 }
 
