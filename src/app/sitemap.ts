@@ -6,7 +6,8 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-static';
 export const revalidate = 86400;
 
-const LOCALES = ['en','de','fr','es','it'] as const;
+// Only include enabled locales in sitemap
+const LOCALES = ['en'] as const;
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zaza-site-base.vercel.app';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

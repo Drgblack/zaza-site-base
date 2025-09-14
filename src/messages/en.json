@@ -1,7 +1,50 @@
-﻿{
+{
+  "brand": "Zaza Promptly",
+  "navigation": {
+    "home": "Home",
+    "resources": "Resources",
+    "blog": "Blog",
+    "community": "Community",
+    "faq": "FAQ",
+    "pricing": "Pricing",
+    "about": "About",
+    "press": "Press",
+    "company": "Company"
+  },
   "hero": {
-    "kicker": "AI tools for modern educators",
-    "headline": "Save hours every week with Promptly",
-    "subhead": "Beautiful, accurate messages for parents, students and colleagues—fast."
+    "tagline": "AI tools for modern educators",
+    "headline": "Write parent messages in minutes, not hours",
+    "subhead": "Beautiful, accurate messages for parents, students and colleagues—fast.",
+    "cta_primary": "Try Promptly Free"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Connect with fellow educators",
+    "description": "Practical tips, resources and support to help you save time and teach better.",
+    "stats": {
+      "teachers": "2,500+",
+      "resources": "150+",
+      "success_stories": "500+"
+    },
+    "cta": "Join the community"
+  },
+  "resources": {
+    "title": "Resources for Educators",
+    "subtitle": "Free materials to enhance your teaching",
+    "download": "Download PDF",
+    "download_file": "Download File",
+    "categories": {
+      "planning": "Planning",
+      "communication": "Communication", 
+      "ai": "AI Tools",
+      "assessment": "Assessment",
+      "management": "Management",
+      "wellbeing": "Wellbeing"
+    }
+  },
+  "footer": {
+    "tagline": "AI-powered tools that help teachers save time with lesson planning, grading and classroom management.",
+    "address": "Zaza Technologies GmbH, Berlin, Germany",
+    "copyright": "© {year} Zaza Technologies. All rights reserved."
   }
 }
