@@ -32,8 +32,14 @@ export default async function LocaleLayout({
   // Mark this subtree as rendered for the given locale
   setRequestLocale(locale);
 
-  // Load messages for this locale
-  const messages = (await import(`@/messages/${locale}.json`)).default;
+  // Load messages for this locale with fallback to English
+  let messages;
+  try {
+    messages = (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    // Fallback to English if locale messages don't exist
+    messages = (await import(`@/messages/en.json`)).default;
+  }
 
   // Also get a server translator so we can render one visible proof string
   const t = await getTranslations({locale});

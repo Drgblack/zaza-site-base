@@ -1,7 +1,62 @@
-﻿{
+{
+  "brand": "Zaza Promptly",
   "hero": {
     "kicker": "AI tools for modern educators",
     "headline": "Save hours every week with Promptly",
     "subhead": "Beautiful, accurate messages for parents, students and colleagues—fast."
+  },
+  "cta_primary": "Try Zaza Promptly Free",
+  "cta_secondary": "Learn More",
+  "nav": {
+    "home": "Home",
+    "blog": "Blog", 
+    "resources": "Resources",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "community": "Community",
+    "about": "About",
+    "press": "Press"
+  },
+  "community": {
+    "title": "Join Our Teaching Community",
+    "subtitle": "Connect with educators using AI to transform their classrooms",
+    "description": "Be part of a growing community of teachers sharing tips, resources, and success stories with AI-powered tools.",
+    "cta": "Join Waitlist",
+    "stats": {
+      "teachers": "Active Teachers",
+      "resources": "Shared Resources",
+      "success_stories": "Success Stories"
+    }
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Start free, upgrade when you're ready",
+    "free": {
+      "name": "Free",
+      "price": "Free",
+      "description": "Perfect for getting started"
+    },
+    "pro": {
+      "name": "Pro", 
+      "price": "$9/month",
+      "description": "For serious educators"
+    }
+  },
+  "footer": {
+    "company": "Company",
+    "product": "Product", 
+    "resources": "Resources",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2024 Zaza Promptly. All rights reserved."
+  },
+  "blog": {
+    "title": "Teaching with AI",
+    "subtitle": "Tips, guides and insights for modern educators"
+  },
+  "resources": {
+    "title": "Free Teaching Resources",
+    "subtitle": "Download our collection of templates, guides and tools"
   }
 }

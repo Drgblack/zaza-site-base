@@ -4,11 +4,13 @@
     "private":  true,
     "scripts":  {
                     "dev":  "next dev --turbopack -p 3010",
+                    "prebuild":  "tsx scripts/validate-blog-images.ts",
                     "build":  "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
                     "start":  "next start",
                     "lint":  "eslint src/",
                     "typecheck":  "tsc -p scripts/tsconfig.json",
                     "validate:content":  "tsx scripts/validate-content.ts",
+                    "validate:blog:images":  "tsx scripts/validate-blog-images.ts",
                     "lint:validator":  "eslint -c scripts/eslint.config.mjs --max-warnings=0 scripts/validate-content.ts",
                     "test:e2e":  "playwright test",
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",
