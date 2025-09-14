@@ -27,8 +27,9 @@ export type PostMeta = {
 };
 
 export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> {
-  // Allow drafts in dev when explicitly enabled
-  const showDrafts = includeDrafts ?? process.env.NEXT_PUBLIC_SHOW_DRAFTS === "1";
+  // Show drafts only in dev with flag, never in production
+  const showDrafts = process.env.NODE_ENV !== 'production' && 
+    (includeDrafts ?? process.env.NEXT_PUBLIC_SHOW_DRAFTS === "1");
   const slugs = await getAllSlugs();
   const posts: PostMeta[] = [];
 
@@ -72,12 +73,15 @@ async function readFirstExisting(slug: string, exts: string[]) {
   throw new Error(`No file for ${slug}`);
 }
 
-export async function getPostBySlug(slug: string, includeDrafts: boolean = false): Promise<PostMeta | null> {
+export async function getPostBySlug(slug: string, includeDrafts?: boolean): Promise<PostMeta | null> {
   try {
     const file = await readFirstExisting(slug, ['.mdx', '.md']);
     const { data, content } = matter(file.raw);
-    // Return 404 for draft posts in production when not including drafts
-    if (!includeDrafts && data.draft === true) {
+    // Hide drafts in production, respect dev flag
+    if (data.draft === true && (
+      process.env.NODE_ENV === 'production' || 
+      !includeDrafts && process.env.NEXT_PUBLIC_SHOW_DRAFTS !== "1"
+    )) {
       return null;
     }
 

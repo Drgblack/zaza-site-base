@@ -11,7 +11,9 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zaza-site-base.vercel.
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Never show drafts in sitemap
-  const posts = await getAllPosts(false);
+  const posts = await getAllPosts(false).then(posts => 
+    posts.filter(post => !post.draft)
+  );
   const now = new Date();
 
   const staticPages = LOCALES.flatMap((l) => [
