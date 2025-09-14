@@ -1,13 +1,12 @@
-﻿import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import createMiddleware from 'next-intl/middleware';
 
-export function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname === "/") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/en";
-    return NextResponse.redirect(url);
-  }
-  return NextResponse.next();
-}
+export default createMiddleware({
+  locales: ['en', 'de', 'fr', 'es', 'it'],
+  defaultLocale: 'en',
+  localePrefix: 'always',
+  localeDetection: true
+});
 
-export const config = { matcher: ["/"] };
+export const config = {
+  matcher: ['/', '/(en|de|fr|es|it)/:path*']
+};

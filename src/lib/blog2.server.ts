@@ -22,9 +22,14 @@ export type PostMeta = {
   date?: string;
   excerpt?: string;
   image?: string | null;
+  mtime?: Date;
+  draft?: boolean;
 };
 
-export async function getAllPosts(): Promise<PostMeta[]> {
+export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> {
+  // Show drafts only in dev with flag, never in production
+  const showDrafts = process.env.NODE_ENV !== 'production' && 
+    (includeDrafts ?? process.env.NEXT_PUBLIC_SHOW_DRAFTS === "1");
   const slugs = await getAllSlugs();
   const posts: PostMeta[] = [];
 
@@ -32,12 +37,20 @@ export async function getAllPosts(): Promise<PostMeta[]> {
     try {
       const file = await readFirstExisting(slug, ['.mdx', '.md']);
       const { data, content } = matter(file.raw);
+      const stats = await fs.stat(path.join(BLOG_DIR, slug + file.ext));
+      // Skip drafts unless explicitly showing drafts
+      if (!showDrafts && data.draft === true) {
+        continue;
+      }
+      
       posts.push({
         slug,
         title: data.title ?? slug,
         date: data.date ?? '',
         excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
-        image: data.image ?? data.heroImage ?? data.featuredImage ?? null
+        image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
+        mtime: stats.mtime,
+        draft: data.draft === true
       });
     } catch (e) {
       console.error('[blog] skipping', slug, e);
@@ -60,16 +73,25 @@ async function readFirstExisting(slug: string, exts: string[]) {
   throw new Error(`No file for ${slug}`);
 }
 
-export async function getPostBySlug(slug: string): Promise<PostMeta | null> {
+export async function getPostBySlug(slug: string, includeDrafts?: boolean): Promise<PostMeta | null> {
   try {
     const file = await readFirstExisting(slug, ['.mdx', '.md']);
     const { data, content } = matter(file.raw);
+    // Hide drafts in production, respect dev flag
+    if (data.draft === true && (
+      process.env.NODE_ENV === 'production' || 
+      !includeDrafts && process.env.NEXT_PUBLIC_SHOW_DRAFTS !== "1"
+    )) {
+      return null;
+    }
+
     return {
       slug,
       title: data.title ?? slug,
       date: data.date ?? '',
       excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
-      image: data.image ?? data.heroImage ?? data.featuredImage ?? null
+      image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
+      draft: data.draft === true
     };
   } catch (e) {
     console.error('[blog] Failed to get post by slug', slug, e);

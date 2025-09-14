@@ -65,6 +65,9 @@ export default async function LocaleLayout({
  
   return (
     <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+      </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <div className="min-h-screen flex flex-col">
