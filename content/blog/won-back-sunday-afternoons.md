@@ -1,10 +1,10 @@
-# How I Won Back My Sunday Afternoons
+﻿# How I Won Back My Sunday Afternoons
 
 *Three months ago, I spent every Sunday afternoon hunched over my laptop, writing progress reports and responding to parent emails. My family learned to tiptoe around me as I stressed over finding the right words for each student evaluation.*
 
 *Today, I'm writing this from my back porch, watching my daughter play in the yard while my husband grills dinner. The reports are done. The emails are sent. And I actually remember what weekends feel like again.*
 
-**Here's how I reclaimed my Sunday afternoons – and you can too.**
+**Here's how I reclaimed my Sunday afternoons â€“ and you can too.**
 
 ## The Breaking Point
 
@@ -28,18 +28,18 @@ Like most teachers, I was doing everything by hand:
 
 ## The Discovery: Automation Doesn't Mean Impersonal
 
-A colleague mentioned she'd started using AI tools for some of her reporting. My first reaction was skeptical – wouldn't that make my communication less personal?
+A colleague mentioned she'd started using AI tools for some of her reporting. My first reaction was skeptical â€“ wouldn't that make my communication less personal?
 
 But when she showed me her parent reports, I was shocked. They were more professional, more consistent, and somehow more thoughtful than what I'd been writing manually.
 
-**The key insight:** AI doesn't replace your professional judgment – it amplifies it.
+**The key insight:** AI doesn't replace your professional judgment â€“ it amplifies it.
 
 ## My Step-by-Step Transformation
 
 ### Week 1: Progress Reports
 I started with progress reports, using **Zaza Promptly** to generate initial drafts based on my observations for each student.
 
-**Before:** 30 minutes per report × 28 students = 14 hours
+**Before:** 30 minutes per report Ã— 28 students = 14 hours
 **After:** 5 minutes per report (3 minutes generating, 2 minutes customizing) = 2.3 hours
 
 **Saved: 11.7 hours every reporting period**
@@ -114,7 +114,7 @@ Ready to reclaim your weekends? Here's my challenge for you:
 **Week 3:** Include behavioral documentation and IEP notes
 **Week 4:** Integrate the full system into your routine
 
-**Track your time savings** – I guarantee you'll be amazed at the results.
+**Track your time savings** â€“ I guarantee you'll be amazed at the results.
 
 ## What I Do With My Extra 9 Hours
 
@@ -129,7 +129,7 @@ These days, my Sunday afternoons look very different:
 
 ## The Bottom Line
 
-I haven't become a less dedicated teacher – I've become a more efficient one. My students still get personalized attention, parents still receive thoughtful communication, and all my administrative tasks get completed.
+I haven't become a less dedicated teacher â€“ I've become a more efficient one. My students still get personalized attention, parents still receive thoughtful communication, and all my administrative tasks get completed.
 
 The only difference? I do it all in a fraction of the time, which means I have energy left for what really matters: being creative in my classroom and being present with my family.
 

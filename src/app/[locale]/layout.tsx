@@ -1,52 +1,19 @@
-﻿import {notFound} from 'next/navigation';
-import {locales} from '../../../i18n';
-import "../globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from '@/components/site/header';
-import { Footer } from '@/components/site/footer';
-import { ZaraAssistant } from '@/components/ai/zara-assistant';
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import { setRequestLocale } from '@/lib/intl-compat';
+import {notFound} from "next/navigation";
+import {Inter} from "next/font/google";
+import {NextIntlClientProvider} from "next-intl";
+import {  getTranslations} from "next-intl/server";
+import {locales} from "@/i18n";
+import { Header } from "@/components/site/header";
+import { Footer } from "@/components/site/footer";
+import { ZaraAssistant } from "@/components/ai/zara-assistant";
 
-// Ensure static generation for each locale segment
-export function generateStaticParams() {
-  // Hardcode the same 5 locales
-  return ['en', 'de', 'fr', 'es', 'it'].map((locale) => ({ locale }));
-}
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
-  const {locale} = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com';
-  
-  // Generate hreflang alternates for all locales
-  const languages = locales.reduce((acc, loc) => {
-    acc[loc] = `${baseUrl}/${loc}`;
-    return acc;
-  }, {} as Record<string, string>);
-
-  return {
-    metadataBase: new URL(baseUrl),
-    title: {
-      template: '%s | Zaza Promptly',
-      default: 'Zaza Promptly',
-    },
-    description: 'AI-powered parent communication for teachers',
-    keywords: ['education', 'AI', 'teachers', 'parent communication', 'teaching assistant'],
-    authors: [{ name: 'Zaza Technologies' }],
-    creator: 'Zaza Technologies',
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/apple-touch-icon.png',
-    },
-    alternates: {
-      canonical: `${baseUrl}/${locale}`,
-      languages,
-    },
-  };
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({
@@ -54,30 +21,42 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: {locale: string};
 }) {
-  const {locale} = await params;
+  const { locale } = params;
+
   if (!locales.includes(locale as any)) {
     notFound();
   }
 
-  const messages = await getMessages();
- 
+  // Mark this subtree as rendered for the given locale
+  setRequestLocale(locale);
+
+  // Load messages for this locale
+  const messages = (await import(`@/messages/${locale}.json`)).default;
+
+  // Also get a server translator so we can render one visible proof string
+  const t = await getTranslations({locale});
+
   return (
     <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
       </head>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="min-h-screen flex flex-col">
             <Header />
+            {/* Visible i18n proof, remove later once satisfied */}
+            <div className="text-xs text-gray-400 px-4 py-1">
+              {t("brand")}
+            </div>
             <main className="flex-grow pt-16">
               {children}
             </main>
             <Footer />
           </div>
-          {process.env.NEXT_PUBLIC_ENABLE_ZARA === '1' && <ZaraAssistant />}
+          {process.env.NEXT_PUBLIC_ENABLE_ZARA === "1" && <ZaraAssistant />}
         </NextIntlClientProvider>
       </body>
     </html>

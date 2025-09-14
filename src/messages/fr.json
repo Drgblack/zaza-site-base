@@ -1,0 +1,16 @@
+﻿{
+    "brand":  "Zaza Promptly · FR",
+    "nav":  {
+                "home":  "Home",
+                "resources":  "Resources",
+                "blog":  "Blog",
+                "community":  "Community",
+                "pricing":  "Pricing"
+            },
+    "hero":  {
+                 "headline":  "AI-powered tools for modern educators",
+                 "sub":  "Save time, reduce admin, and write better messages with Promptly.",
+                 "primaryCta":  "Try Promptly Free",
+                 "secondaryCta":  "See how it works"
+             }
+}

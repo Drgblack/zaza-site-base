@@ -1,4 +1,4 @@
----
+﻿---
 title: "Less Time Writing, More Time Living"
 description: "Reclaim your evenings and weekends with AI-powered tools that handle administrative tasks, so you can focus on what matters most in teaching."
 date: "2024-12-15"
@@ -15,7 +15,7 @@ imageAlt: "Teacher working late on administrative tasks"
 
 *You love teaching. You chose this profession to make a difference in kids' lives. But somewhere between lesson plans and progress reports, administrative tasks and parent communications, you started feeling like you were drowning in words that nobody asked you to spend your evenings writing.*
 
-**What if I told you that reclaiming your time isn't about working faster – it's about working smarter?**
+**What if I told you that reclaiming your time isn't about working faster â€“ it's about working smarter?**
 
 ## The Weight We Carry
 
@@ -35,7 +35,7 @@ Think about last week. How many evenings did you lose to:
 - Documenting behavioral incidents with precision that would make a lawyer proud?
 - Second-guessing your word choices for communications you'll send tomorrow?
 
-**These tasks aren't just stealing your time – they're stealing your energy for what matters most.**
+**These tasks aren't just stealing your time â€“ they're stealing your energy for what matters most.**
 
 Your partner notices when you're mentally composing emails during dinner. Your children see you choosing the laptop over the couch. Your friends stop inviting you to weekend plans because they know you'll probably have "school stuff" to finish.
 
@@ -45,7 +45,7 @@ Here's the truth that changed everything for me: **Your value as a teacher isn't
 
 Your value is in the moments when you help a struggling reader finally "get it." It's in the split-second when you know exactly what to say to defuse a classroom conflict. It's in your ability to see potential in every child who walks through your door.
 
-**Administrative tasks support that mission – they shouldn't consume it.**
+**Administrative tasks support that mission â€“ they shouldn't consume it.**
 
 ## The Mindset Shift
 
@@ -55,7 +55,7 @@ The day everything changed for me was when I stopped asking, "How can I write th
 
 ## Living Your Values
 
-When you streamline your administrative tasks, you don't just save time – you reclaim your identity as an educator.
+When you streamline your administrative tasks, you don't just save time â€“ you reclaim your identity as an educator.
 
 **Instead of spending your evening crafting the perfect progress report**, you have energy to:
 - Design that hands-on science experiment you've been meaning to try
@@ -71,9 +71,9 @@ When you streamline your administrative tasks, you don't just save time – you 
 
 ## The Tools That Give You Life Back
 
-This isn't about lowering your standards – it's about raising your efficiency.
+This isn't about lowering your standards â€“ it's about raising your efficiency.
 
-**Zaza Promptly** understands that your time is precious because your calling is important. When you input your observations about a student, our AI doesn't just generate text – it creates professional, thoughtful communication that honors both your expertise and the family's trust.
+**Zaza Promptly** understands that your time is precious because your calling is important. When you input your observations about a student, our AI doesn't just generate text â€“ it creates professional, thoughtful communication that honors both your expertise and the family's trust.
 
 **The result?** Communication that's often better than what you'd write manually, completed in a fraction of the time, leaving you with energy for what you became a teacher to do.
 
@@ -87,7 +87,7 @@ Here's what teachers tell us after they reclaim their evenings:
 
 *"I took my kids to the park after school instead of rushing home to write reports. We had the best time."*
 
-*"I'm creating again – trying new activities, taking risks in my classroom. I forgot how fun teaching could be."*
+*"I'm creating again â€“ trying new activities, taking risks in my classroom. I forgot how fun teaching could be."*
 
 ## The Ripple Effect
 
@@ -130,7 +130,7 @@ What would you do with an extra hour this evening?
 
 **That hour is waiting for you.**
 
-The administrative tasks will get done – professionally, thoughtfully, efficiently. But they don't have to cost you your evenings, your energy, or your joy.
+The administrative tasks will get done â€“ professionally, thoughtfully, efficiently. But they don't have to cost you your evenings, your energy, or your joy.
 
 **You have one life. You chose to dedicate it to teaching.**
 
