@@ -36,6 +36,12 @@ export default async function LocaleLayout({
           {children}
           <Footer />
           {process.env.NEXT_PUBLIC_ENABLE_ZARA === "1" && <ZaraAssistant />}
+          
+          {/* Build stamp for QA */}
+          <div data-build-stamp className="text-xs text-gray-500/70 text-center py-6">
+            {process.env.VERCEL_ENV ?? 'local'} · {process.env.VERCEL_GIT_COMMIT_REF ?? 'dev'} · Build:{' '}
+            {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? 'local'}
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
