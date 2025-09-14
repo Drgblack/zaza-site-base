@@ -70,7 +70,10 @@ export default async function HomePage({params}: Props) {
                 
                 {/* Anthony Pierri Framework Headline */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
-                  {hero('title')}
+                  {hero('headline')}
+                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    {hero('headline_highlight')}
+                  </span>
                 </h1>
                 
                 {/* Social proof - Above the fold */}
