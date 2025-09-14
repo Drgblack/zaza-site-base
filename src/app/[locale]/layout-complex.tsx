@@ -1,4 +1,4 @@
-import {NextIntlClientProvider} from 'next-intl';
+import SafeIntlProvider from '@/components/i18n/SafeIntlProvider';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {locales} from '../../../i18n';
@@ -84,7 +84,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <SafeIntlProvider messages={messages}>
           <ErrorBoundary>
             <AuthProvider>
               <UnifiedAuthProvider app="promptly">
@@ -106,7 +106,7 @@ export default async function LocaleLayout({
               </UnifiedAuthProvider>
             </AuthProvider>
           </ErrorBoundary>
-        </NextIntlClientProvider>
+        </SafeIntlProvider>
       </body>
     </html>
   );

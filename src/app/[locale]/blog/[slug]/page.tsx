@@ -144,7 +144,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
                 
                 <div className="flex items-center justify-between border-t border-b border-gray-200 py-4">
                   <div className="text-sm text-gray-600">
-                    By <span className="font-medium text-gray-900">{post.author}</span>
+                    By <span className="font-medium text-gray-900">{typeof post.author==="string" ? post.author : (post.author?.name ?? "")}</span>
                   </div>
                   <div className="text-sm text-gray-600 space-x-4">
                     {publishedDate && (
@@ -205,7 +205,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
                   <p className="text-gray-600">
                     {post.author === 'Zaza Team' 
                       ? 'The Zaza Team consists of passionate educators and AI advocates helping teachers transform their classrooms with innovative technology.'
-                      : `${post.author} is a passionate educator focused on AI-powered teaching solutions.`
+                      : `${typeof post.author==="string" ? post.author : (post.author?.name ?? "")} is a passionate educator focused on AI-powered teaching solutions.`
                     }
                   </p>
                 </div>

@@ -1,5 +1,6 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import 'server-only';
+import fs from 'fs/promises';
+import path from 'path';
 
 export interface Resource {
   id: string;

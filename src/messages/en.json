@@ -1,7 +1,10 @@
-﻿{
+{
+  "brand": "Promptly",
   "hero": {
-    "kicker": "AI tools for modern educators",
-    "headline": "Save hours every week with Promptly",
-    "subhead": "Beautiful, accurate messages for parents, students and colleagues—fast."
+    "headline": "Write less. Teach more.",
+    "headline_highlight": "AI that writes like a teacher.",
+    "tagline": "Save hours each week on emails, feedback, and reports.",
+    "cta_primary": "Try Zara free",
+    "cta_secondary": "Browse resources"
   }
 }

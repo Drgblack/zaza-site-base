@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,7 +21,7 @@ import {
   Users,
   ShoppingCart
 } from 'lucide-react';
-import { ResourceMetadata, resourceService } from '@/lib/resources';
+import { ResourceMetadata, resourceService } from '@/lib/resources.shared';
 import { PaymentModal } from './payment-modal';
 
 interface CommunityResourceCardProps {
@@ -183,7 +181,7 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
         {/* Price Tag */}
         {resource.price !== null && (
           <div className="absolute top-3 left-3 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-            €{resource.price}
+            â‚¬{resource.price}
           </div>
         )}
         
@@ -254,7 +252,7 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
             <div className="flex items-center gap-1">
               <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
               <span className="text-xs text-slate-700 dark:text-slate-300 font-semibold">
-                {resource.author.rating} • Author Rating
+                {resource.author.rating} â€¢ Author Rating
               </span>
             </div>
           </div>
@@ -329,7 +327,7 @@ export function CommunityResourceCard({ resource }: CommunityResourceCardProps) 
             ) : resource.isPremium && resource.price !== null ? (
               <>
                 <ShoppingCart className="h-4 w-4 mr-2" />
-                €{resource.price} • Purchase
+                â‚¬{resource.price} â€¢ Purchase
               </>
             ) : (
               <>

@@ -1,16 +1,10 @@
-﻿{
-    "brand":  "Zaza Promptly · FR",
-    "nav":  {
-                "home":  "Home",
-                "resources":  "Resources",
-                "blog":  "Blog",
-                "community":  "Community",
-                "pricing":  "Pricing"
-            },
-    "hero":  {
-                 "headline":  "AI-powered tools for modern educators",
-                 "sub":  "Save time, reduce admin, and write better messages with Promptly.",
-                 "primaryCta":  "Try Promptly Free",
-                 "secondaryCta":  "See how it works"
-             }
+{
+  "brand": "Promptly",
+  "hero": {
+    "headline": "Write less. Teach more.",
+    "headline_highlight": "AI that writes like a teacher.",
+    "tagline": "Save hours each week on emails, feedback, and reports.",
+    "cta_primary": "Try Zara free",
+    "cta_secondary": "Browse resources"
+  }
 }

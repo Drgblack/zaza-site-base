@@ -1,9 +1,8 @@
 'use client';
-
 import { useState } from 'react';
 import { Download, FileText, AlertCircle } from 'lucide-react';
-import type { Resource } from '@/lib/resources';
-import { categoryColors } from '@/lib/resources';
+import type { Resource } from '@/lib/resources.shared';
+import { categoryColors } from '@/lib/resources.shared';
 
 interface ResourceCardProps {
   resource: Resource;

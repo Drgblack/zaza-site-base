@@ -1,4 +1,4 @@
-﻿interface StructuredDataProps {
+interface StructuredDataProps {
   type: 'website' | 'article' | 'organization' | 'breadcrumbList';
   data: unknown;
 }

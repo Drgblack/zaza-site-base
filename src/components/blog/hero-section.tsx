@@ -66,7 +66,7 @@ export default function HeroSection({ post, locale }: HeroSectionProps) {
             <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-gray-300 mb-6">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                <span>{post.author}</span>
+                <span>{(typeof post.author === "string" ? post.author : (post.author?.name ?? ""))}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />
