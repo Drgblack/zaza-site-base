@@ -17,12 +17,6 @@ export default async function Page({params}: Props) {
     { value: '2,500+', label: t('stats.teachers') },
     { value: '150+',   label: t('stats.resources') },
     { value: '500+',   label: t('stats.success_stories') },
-const stats = [
-  { value: '2,500+', label: t('community.stats.teachers') },
-  { value: '150+',   label: t('community.stats.resources') },
-  { value: '500+',   label: t('community.stats.success_stories') }
-];
-
   ];
   
   return (
