@@ -9,6 +9,7 @@
                     "lint":  "eslint src/",
                     "typecheck":  "tsc -p scripts/tsconfig.json",
                     "validate:content":  "tsx scripts/validate-content.ts",
+                    "validate:blog:images":  "tsx scripts/validate-blog-images.ts",
                     "lint:validator":  "eslint -c scripts/eslint.config.mjs --max-warnings=0 scripts/validate-content.ts",
                     "test:e2e":  "playwright test",
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",

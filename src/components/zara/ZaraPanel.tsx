@@ -123,31 +123,45 @@ export default function ZaraPanel({ onClose }: Props) {
 
           {last && (
             <div className="mt-3 space-y-2">
-              <div className="p-2 rounded-md bg-white/10 border border-white/20">
-                <div className="text-xs opacity-80 mb-1">Explanation</div>
-                <div className="text-sm">{last.explanation}</div>
-              </div>
-              <div className="p-2 rounded-md bg-white/10 border border-white/20">
-                <div className="text-xs opacity-80 mb-1">Improved</div>
-                <div className="whitespace-pre-wrap text-sm">{last.text}</div>
-                <div className="mt-2">
-                  <button
-                    onClick={() => insertAtCursor(last.text)}
-                    className="px-3 py-1 rounded-md text-sm bg-white/20 border border-white/30 hover:bg-white/30"
-                  >
-                    Insert into editor
-                  </button>
+              {last.error ? (
+                <div className="p-3 rounded-md bg-red-500/20 border border-red-400/30">
+                  <div className="text-xs opacity-80 mb-1 text-red-200">Service Error</div>
+                  <div className="text-sm text-red-100">{last.explanation}</div>
+                  {last.errorType === 'service_unavailable' && (
+                    <div className="text-xs mt-2 text-red-200/80">
+                      The AI assistant is temporarily disabled. Please try again later or contact support.
+                    </div>
+                  )}
                 </div>
-              </div>
-              {last.alternatives?.length > 0 && (
-                <div className="p-2 rounded-md bg-white/10 border border-white/20">
-                  <div className="text-xs opacity-80 mb-1">Alternatives</div>
-                  <ul className="list-disc ml-4 text-sm space-y-1">
-                    {last.alternatives.map((a, i) => (
-                      <li key={i}>{a}</li>
-                    ))}
-                  </ul>
-                </div>
+              ) : (
+                <>
+                  <div className="p-2 rounded-md bg-white/10 border border-white/20">
+                    <div className="text-xs opacity-80 mb-1">Explanation</div>
+                    <div className="text-sm">{last.explanation}</div>
+                  </div>
+                  <div className="p-2 rounded-md bg-white/10 border border-white/20">
+                    <div className="text-xs opacity-80 mb-1">Improved</div>
+                    <div className="whitespace-pre-wrap text-sm">{last.text}</div>
+                    <div className="mt-2">
+                      <button
+                        onClick={() => insertAtCursor(last.text)}
+                        className="px-3 py-1 rounded-md text-sm bg-white/20 border border-white/30 hover:bg-white/30"
+                      >
+                        Insert into editor
+                      </button>
+                    </div>
+                  </div>
+                  {last.alternatives?.length > 0 && (
+                    <div className="p-2 rounded-md bg-white/10 border border-white/20">
+                      <div className="text-xs opacity-80 mb-1">Alternatives</div>
+                      <ul className="list-disc ml-4 text-sm space-y-1">
+                        {last.alternatives.map((a, i) => (
+                          <li key={i}>{a}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           )}

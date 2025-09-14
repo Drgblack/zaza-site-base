@@ -92,7 +92,13 @@ Return as JSON with keys: text, explanation, alternatives (array of 3).
     // ---- OpenAI (fetch) ----
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: "Missing OPENAI_API_KEY" }, { status: 500 });
+      return NextResponse.json(
+        { 
+          error: "Service temporarily unavailable", 
+          message: "AI assistance is currently disabled. Please try again later or contact support."
+        }, 
+        { status: 503 }
+      );
     }
 
     const r = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -115,7 +121,14 @@ Return as JSON with keys: text, explanation, alternatives (array of 3).
 
     if (!r.ok) {
       const text = await r.text();
-      return NextResponse.json({ error: `Upstream error: ${text}` }, { status: 500 });
+      console.error('OpenAI API Error:', r.status, text);
+      return NextResponse.json(
+        { 
+          error: "AI service temporarily unavailable", 
+          message: "Please try again in a moment. If the problem persists, contact support."
+        }, 
+        { status: 503 }
+      );
     }
 
     const data = await r.json();
@@ -129,6 +142,13 @@ Return as JSON with keys: text, explanation, alternatives (array of 3).
     
     return NextResponse.json(payload);
   } catch (e: unknown) {
-    return NextResponse.json({ error: e?.message ?? "Unknown error" }, { status: 500 });
+    console.error('Zara API Error:', e);
+    return NextResponse.json(
+      { 
+        error: "Service temporarily unavailable", 
+        message: "An unexpected error occurred. Please try again later."
+      }, 
+      { status: 500 }
+    );
   }
 }

@@ -24,4 +24,6 @@ export interface ZaraResponse {
   text: string;
   explanation: string;
   alternatives: string[];
+  error?: boolean;
+  errorType?: 'service_unavailable' | 'api_error' | 'network_error';
 }

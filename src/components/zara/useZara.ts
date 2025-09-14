@@ -42,9 +42,36 @@ export function useZara() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await r.json()) as ZaraResponse;
-      setLast(data);
-      return data;
+      
+      const data = await r.json();
+      
+      // Handle error responses
+      if (!r.ok) {
+        const errorResponse: ZaraResponse = {
+          text: "",
+          explanation: data.message || data.error || "Service temporarily unavailable",
+          alternatives: [],
+          error: true,
+          errorType: r.status === 503 ? 'service_unavailable' : 'api_error'
+        };
+        setLast(errorResponse);
+        return errorResponse;
+      }
+      
+      const response = data as ZaraResponse;
+      setLast(response);
+      return response;
+    } catch (error) {
+      console.error('Zara client error:', error);
+      const errorResponse: ZaraResponse = {
+        text: "",
+        explanation: "Connection failed. Please check your internet connection and try again.",
+        alternatives: [],
+        error: true,
+        errorType: 'network_error'
+      };
+      setLast(errorResponse);
+      return errorResponse;
     } finally {
       setBusy(false);
     }

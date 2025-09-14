@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import {Link} from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllSlugs } from '@/lib/blog2.server';
+import { getPostBySlug, getAllSlugs, getAdjacentPosts } from '@/lib/blog2.server';
+import { MDXContent } from '@/components/blog/MDXContent';
+import { TableOfContents } from '@/components/blog/TableOfContents';
+import { PostNavigation } from '@/components/blog/PostNavigation';
+import { BlogImage } from '@/components/blog/BlogImage';
 
 type Props = {
   params: Promise<{
@@ -21,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const post = await getPostBySlug(slug).catch(() => null);
   
   if (!post) {
@@ -30,121 +34,202 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com';
+  const imageUrl = post.image?.startsWith('/') 
+    ? `${baseUrl}${post.image}` 
+    : post.image || `${baseUrl}/images/blog/default.jpg`;
+
   return {
     title: `${post.title} | Zaza Promptly Blog`,
     description: post.excerpt,
+    canonical: `${baseUrl}/${locale}/blog/${slug}`,
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
-      authors: ['Zaza Team'],
-      images: post.image ? [post.image] : undefined,
+      modifiedTime: post.mtime?.toISOString(),
+      authors: [post.author || 'Zaza Team'],
+      images: [imageUrl],
+      url: `${baseUrl}/${locale}/blog/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [imageUrl],
     },
   };
 }
 
 export default async function Page({ params }: { params: { locale: string; slug: string } }) {
-  const post = await getPostBySlug(params.slug).catch(() => null);
+  const resolvedParams = await params;
+  const post = await getPostBySlug(resolvedParams.slug).catch(() => null);
   if (!post) return notFound();
 
+  const { prevPost, nextPost } = await getAdjacentPosts(resolvedParams.slug);
+
+  // Format dates
+  const publishedDate = post.date ? new Date(post.date) : null;
+  const updatedDate = post.mtime ? new Date(post.mtime) : null;
+
+  // Generate JSON-LD structured data for BlogPosting
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image?.startsWith('/') 
+      ? `${process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'}${post.image}`
+      : post.image || `${process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'}/images/blog/default.jpg`,
+    "datePublished": publishedDate?.toISOString(),
+    "dateModified": updatedDate?.toISOString() || publishedDate?.toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": post.author || "Zaza Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zaza Promptly",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'}/images/zaza-logo.png`
+      }
+    },
+    "url": `${process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'}/${resolvedParams.locale}/blog/${resolvedParams.slug}`,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${process.env.NEXT_PUBLIC_APP_URL || 'https://zazapromptly.com'}/${resolvedParams.locale}/blog/${resolvedParams.slug}`
+    }
+  };
+
   return (
-    <article className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-8">
-          <Link 
-            href="/blog"
-            className="text-purple-600 hover:text-purple-700 font-medium flex items-center"
-          >
-            ← Back to Blog
-          </Link>
-        </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      <article className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          {/* Breadcrumb Navigation */}
+          <nav className="mb-8">
+            <Link 
+              href="/blog"
+              className="text-purple-600 hover:text-purple-700 font-medium flex items-center"
+            >
+              ← Back to Blog
+            </Link>
+          </nav>
 
-        {/* Article Header */}
-        <header className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="inline-block bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">
-              Education
-            </span>
-            <span className="text-sm text-gray-500">5 min read</span>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {post.title}
-          </h1>
-          
-          <p className="text-xl text-gray-600 mb-8">
-            {post.excerpt}
-          </p>
-          
-          <div className="flex items-center justify-between border-t border-b border-gray-200 py-4">
-            <div className="text-sm text-gray-600">
-              By <span className="font-medium text-gray-900">Zaza Team</span>
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-8">
+              {/* Article Header */}
+              <header className="mb-12">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="inline-block bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">
+                    {post.category || 'Education'}
+                  </span>
+                  <span className="text-sm text-gray-500">{post.readingTime}</span>
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  {post.title}
+                </h1>
+                
+                <p className="text-xl text-gray-600 mb-8">
+                  {post.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-between border-t border-b border-gray-200 py-4">
+                  <div className="text-sm text-gray-600">
+                    By <span className="font-medium text-gray-900">{post.author}</span>
+                  </div>
+                  <div className="text-sm text-gray-600 space-x-4">
+                    {publishedDate && (
+                      <time dateTime={post.date}>
+                        Published {publishedDate.toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </time>
+                    )}
+                    {updatedDate && updatedDate.getTime() !== publishedDate?.getTime() && (
+                      <time dateTime={updatedDate.toISOString()}>
+                        Updated {updatedDate.toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </time>
+                    )}
+                  </div>
+                </div>
+              </header>
+
+              {/* Cover Image */}
+              {post.image && (
+                <div className="mb-12 relative h-64 md:h-80 lg:h-96">
+                  <BlogImage
+                    src={post.image}
+                    alt={`Cover image for ${post.title}`}
+                    title={post.title}
+                    className="w-full h-full shadow-lg"
+                    priority
+                  />
+                </div>
+              )}
+
+              {/* Article Content */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                {post.content && <MDXContent content={post.content} />}
+              </div>
+
+              {/* Post Navigation */}
+              <PostNavigation prevPost={prevPost} nextPost={nextPost} />
             </div>
-            <time className="text-sm text-gray-600" dateTime={post.date}>
-              {post.date ? new Date(post.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              }) : 'Recent'}
-            </time>
-          </div>
-        </header>
 
-        {/* Cover Image */}
-        {post.image && (
-          <div className="mb-12">
-            <img 
-              src={post.image} 
-              alt={`Cover image for ${post.title}`}
-              className="w-full rounded-2xl shadow-lg"
-            />
-          </div>
-        )}
+            {/* Sidebar */}
+            <div className="lg:col-span-4">
+              <div className="lg:sticky lg:top-24 space-y-8">
+                {/* Table of Contents */}
+                {post.content && <TableOfContents content={post.content} />}
 
-        {/* Article Content */}
-        <div className="prose prose-lg max-w-none">
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            {/* Simplified content rendering - showing excerpt for now */}
-            <div className="space-y-4 text-gray-700">
-              <p className="leading-relaxed">
-                {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
-              </p>
-              <p className="leading-relaxed">
-                Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
-              </p>
+                {/* Author Bio */}
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    About the Author
+                  </h3>
+                  <p className="text-gray-600">
+                    {post.author === 'Zaza Team' 
+                      ? 'The Zaza Team consists of passionate educators and AI advocates helping teachers transform their classrooms with innovative technology.'
+                      : `${post.author} is a passionate educator focused on AI-powered teaching solutions.`
+                    }
+                  </p>
+                </div>
+
+                {/* Newsletter CTA */}
+                <div className="bg-purple-50 rounded-lg p-6 text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    Get More Teaching Tips
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Join thousands of educators receiving weekly AI teaching insights.
+                  </p>
+                  <Link 
+                    href="/"
+                    className="inline-block bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                  >
+                    Try Zaza Promptly Free
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Author Bio */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mt-12">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            About the Author
-          </h3>
-          <p className="text-gray-600">
-            The Zaza Team consists of passionate educators and AI advocates helping teachers 
-            transform their classrooms with innovative technology.
-          </p>
-        </div>
-
-        {/* Newsletter CTA */}
-        <div className="bg-purple-50 rounded-2xl p-8 text-center mt-12">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Get More Teaching Tips
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Join thousands of educators receiving weekly AI teaching insights.
-          </p>
-          <Link 
-            href="/"
-            className="inline-block bg-purple-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-          >
-            Try Zaza Promptly Free
-          </Link>
-        </div>
-      </div>
-    </article>
+      </article>
+    </>
   );
 }

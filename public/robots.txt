@@ -9,7 +9,7 @@ Disallow: /draft/
 Allow: /*/blog/
 Allow: /*/blog/*
 
-Sitemap: https://zazapromptly.com/sitemap.xml
+Sitemap: https://zaza-site-base.vercel.app/sitemap.xml
 
 # Crawl-delay for well-behaved bots
 Crawl-delay: 1
