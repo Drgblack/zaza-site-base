@@ -1,11 +1,11 @@
 #!/usr/bin/env tsx
 import { readdir, stat, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
-import { join } from 'path';
+import { join, relative, dirname } from 'path';
 
 const RESOURCES_DIR = 'public/resources';
 const OUTPUT_FILE = 'src/data/resources.json';
-const MIN_FILE_SIZE = 500; // 500 bytes minimum to include more resources
+const MIN_FILE_SIZE = 1024; // Keep ≥1KB threshold as specified
 
 interface ResourceFile {
   id: string;
@@ -21,6 +21,8 @@ interface ResourceFile {
   sizeLabel: string;
   featured?: boolean;
   createdAt: string;
+  lang?: string;
+  version?: string;
 }
 
 function formatBytes(bytes: number): string {
@@ -38,15 +40,28 @@ function filenameToTitle(filename: string): string {
     .replace(/\b\w/g, l => l.toUpperCase()); // Title case
 }
 
+// Extract category from folder structure (category/file.pdf)
+function getCategoryFromPath(filePath: string): string {
+  const relativePath = relative(RESOURCES_DIR, filePath);
+  const categoryFromFolder = dirname(relativePath);
+  
+  // If file is in a subfolder, use that as category
+  if (categoryFromFolder && categoryFromFolder !== '.') {
+    return categoryFromFolder.charAt(0).toUpperCase() + categoryFromFolder.slice(1);
+  }
+  
+  return 'General';
+}
+
 // Resource metadata mapping for teacher-focused content
-function getResourceMetadata(filename: string): Partial<ResourceFile> {
+function getResourceMetadata(filename: string, category: string): Partial<ResourceFile> {
   const name = filename.toLowerCase();
   
   // Enhanced metadata for each resource
   if (name.includes('lesson-plan-template-primary')) {
     return {
       description: "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
-      category: "Planning",
+      category: category,
       tags: ["lesson-planning", "primary-education", "templates", "curriculum"],
       level: "beginner",
       type: "template",
@@ -58,7 +73,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('ai-parent-comms')) {
     return {
       description: "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
-      category: "Communication",
+      category: category,
       tags: ["parent-communication", "ai-tools", "professional-development"],
       level: "intermediate",
       type: "guide",
@@ -69,7 +84,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('teacher-ai-toolkit')) {
     return {
       description: "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
-      category: "Technology",
+      category: category,
       tags: ["ai-integration", "productivity", "teaching-tools", "time-saving"],
       level: "intermediate",
       type: "toolkit",
@@ -80,7 +95,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('classroom-routines')) {
     return {
       description: "Proven classroom management routines and procedures that create a positive learning environment.",
-      category: "Management",
+      category: category,
       tags: ["classroom-management", "routines", "behavior", "organization"],
       level: "beginner",
       type: "guide"
@@ -90,7 +105,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('teacher-self-care-guide')) {
     return {
       description: "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
-      category: "Wellness",
+      category: category,
       tags: ["self-care", "wellness", "work-life-balance", "mental-health"],
       level: "beginner",
       type: "guide",
@@ -102,7 +117,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('ai-grading-prompts')) {
     return {
       description: "Ready-to-use AI prompts for efficient and consistent grading that save hours while providing meaningful feedback to students.",
-      category: "Assessment",
+      category: category,
       tags: ["grading", "ai-prompts", "feedback", "assessment", "time-saving"],
       level: "intermediate",
       type: "toolkit"
@@ -112,7 +127,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('ai-quiz-generator-guide')) {
     return {
       description: "Step-by-step guide to creating engaging quizzes and assessments using AI tools, with templates and best practices.",
-      category: "Assessment", 
+      category: category, 
       tags: ["quiz-creation", "ai-tools", "assessment", "engagement"],
       level: "beginner",
       type: "guide"
@@ -122,7 +137,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('ai-student-support')) {
     return {
       description: "AI-powered strategies for providing personalized student support, intervention planning, and academic assistance.",
-      category: "Student Support",
+      category: category,
       tags: ["student-support", "personalization", "ai-tools", "intervention"],
       level: "intermediate", 
       type: "guide"
@@ -132,7 +147,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('assessment-rubric-template')) {
     return {
       description: "Professional rubric templates for various subjects and projects, designed to streamline assessment and provide clear expectations.",
-      category: "Assessment",
+      category: category,
       tags: ["rubrics", "assessment", "templates", "grading", "standards"],
       level: "beginner",
       type: "template"
@@ -142,7 +157,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('behavior-strategies')) {
     return {
       description: "Evidence-based behavior management strategies and interventions for creating positive classroom environments and supporting all learners.",
-      category: "Management",
+      category: category,
       tags: ["behavior-management", "classroom-strategies", "positive-discipline", "interventions"],
       level: "intermediate",
       type: "guide"
@@ -152,7 +167,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('formative-assessment-checklist')) {
     return {
       description: "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
-      category: "Assessment",
+      category: category,
       tags: ["formative-assessment", "checklist", "feedback", "instruction"],
       level: "beginner", 
       type: "checklist"
@@ -162,7 +177,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('group-work-tools')) {
     return {
       description: "Essential tools and strategies for organizing effective group work, promoting collaboration, and ensuring all students participate.",
-      category: "Instruction",
+      category: category,
       tags: ["group-work", "collaboration", "cooperative-learning", "engagement"],
       level: "beginner",
       type: "toolkit"
@@ -172,7 +187,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('parent-meeting-checklist')) {
     return {
       description: "Comprehensive checklist for conducting productive parent meetings, conferences, and difficult conversations with preparation tips.",
-      category: "Communication",
+      category: category,
       tags: ["parent-meetings", "conferences", "checklist", "communication"],
       level: "beginner",
       type: "checklist"
@@ -182,7 +197,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('student-feedback-bank')) {
     return {
       description: "Ready-to-use feedback comments and phrases for various subjects and situations, saving time while providing meaningful responses.",
-      category: "Assessment", 
+      category: category, 
       tags: ["feedback", "comments", "grading", "time-saving", "templates"],
       level: "beginner",
       type: "template"
@@ -192,7 +207,7 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   if (name.includes('weekly-lesson-planner')) {
     return {
       description: "Comprehensive weekly planning template that helps organize lessons, track progress, and maintain work-life balance.",
-      category: "Planning",
+      category: category,
       tags: ["lesson-planning", "weekly-planning", "organization", "templates"],
       level: "beginner",
       type: "template"
@@ -202,11 +217,28 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
   // Default metadata for unrecognized files
   return {
     description: "Educational resource for teachers and educators.",
-    category: "General",
+    category: category,
     tags: ["teaching", "education"],
     level: "beginner",
     type: "guide"
   };
+}
+
+async function walkDirectory(dir: string): Promise<string[]> {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files: string[] = [];
+  
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      const subFiles = await walkDirectory(fullPath);
+      files.push(...subFiles);
+    } else if (entry.name.toLowerCase().endsWith('.pdf')) {
+      files.push(fullPath);
+    }
+  }
+  
+  return files;
 }
 
 async function buildResourcesManifest() {
@@ -219,8 +251,7 @@ async function buildResourcesManifest() {
     return;
   }
 
-  const files = await readdir(RESOURCES_DIR);
-  const pdfFiles = files.filter(f => f.toLowerCase().endsWith('.pdf'));
+  const pdfFiles = await walkDirectory(RESOURCES_DIR);
 
   if (pdfFiles.length === 0) {
     console.log('📝 No PDF files found in resources directory');
@@ -230,26 +261,34 @@ async function buildResourcesManifest() {
 
   const resources: ResourceFile[] = [];
 
-  for (const file of pdfFiles) {
-    const filePath = join(RESOURCES_DIR, file);
+  for (const filePath of pdfFiles) {
     const stats = await stat(filePath);
+    const filename = require('path').basename(filePath);
+    const category = getCategoryFromPath(filePath);
+    const relativePath = relative('public', filePath).replace(/\\/g, '/');
     
-    console.log(`📄 Processing: ${file} (${formatBytes(stats.size)})`);
+    console.log(`📄 Processing: ${filename} (${formatBytes(stats.size)}) [${category}]`);
     
     if (stats.size < MIN_FILE_SIZE) {
       console.log(`  ⚠️  File too small (< 1KB), skipping`);
       continue;
     }
 
-    const metadata = getResourceMetadata(file);
+    const metadata = getResourceMetadata(filename, category);
+    
+    // Extract version and lang from filename if present (e.g., file-v1.0-en.pdf)
+    const versionMatch = filename.match(/-v(\d+\.\d+)-/);
+    const langMatch = filename.match(/-([a-z]{2})\.pdf$/);
     
     resources.push({
-      id: file.replace(/\.[^/.]+$/, ''), // Remove extension for ID
-      title: filenameToTitle(file),
-      path: `/resources/${file}`,
+      id: filename.replace(/\.[^/.]+$/, ''), // Remove extension for ID
+      title: filenameToTitle(filename),
+      path: `/${relativePath}`,
       bytes: stats.size,
       sizeLabel: formatBytes(stats.size),
       createdAt: new Date().toISOString(),
+      lang: langMatch?.[1] || 'en',
+      version: versionMatch?.[1] || '1.0',
       ...metadata
     } as ResourceFile);
   }

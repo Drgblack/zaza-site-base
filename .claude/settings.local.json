@@ -97,7 +97,17 @@
       "Bash(timeout 300 npm run build)",
       "Bash(cmd /c \"npm run build\")",
       "Bash(npm.cmd run build)",
+<<<<<<< Updated upstream
       "Bash(git cherry-pick:*)"
+=======
+      "Bash(git cherry-pick:*)",
+      "Bash(pdftotext:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(npm i:*)",
+      "Bash(yarn add:*)",
+      "Bash(tsx scripts/build-pdfs.ts:*)"
+>>>>>>> Stashed changes
     ],
     "deny": []
   }
