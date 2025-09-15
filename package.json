@@ -81,8 +81,7 @@
                             "tsx":  "^4.20.5",
                             "typescript":  "^5",
                             "typescript-eslint":  "^8.41.0",
-                            "wait-on":  "^8.0.4",
-                            "md-to-pdf": "^5.2.4"
+                            "wait-on":  "^8.0.4"
                         },
     "engines":  {
                     "node":  "\u003e=18.17 \u003c21"
