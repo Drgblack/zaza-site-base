@@ -313,4 +313,4 @@ When communication breaks down:
 - **Invite collaboration** in problem-solving
 - **Celebrate growth** together
 
-<div class="footer">© Zaza Technologies GmbH — Teacher resources. Use within your school. Not for resale.</div>
+<div class="footer">© Zaza Technologies — Teacher resources. Use within your school. Not for resale.</div>

@@ -111,7 +111,7 @@ async function createHTMLTemplate(content: string, metadata: ResourceMetadata, c
   ${finalContent}
   
   <div class="footer">
-    © Zaza Technologies GmbH — Teacher resources. Use within your school. Not for resale.
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
   </div>
 </body>
 </html>`;

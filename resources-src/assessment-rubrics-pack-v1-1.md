@@ -222,4 +222,4 @@ Before using any rubric, ensure it meets these standards:
 - [ ] **Fair and unbiased** language throughout
 - [ ] **Includes specific examples** where helpful
 
-<div class="footer">© Zaza Technologies GmbH — Teacher resources. Use within your school. Not for resale.</div>
+<div class="footer">© Zaza Technologies — Teacher resources. Use within your school. Not for resale.</div>

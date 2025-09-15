@@ -232,10 +232,10 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                         {resource.sizeLabel}
                       </div>
                       <div className="flex gap-2">
-                        <Button asChild variant="outline" className="flex-1" data-resource-card="view">
+                        <Button asChild variant="outline" className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-50" data-resource-card="view">
                           <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
                             <BookOpen className="w-4 h-4 mr-2" />
-                            Open
+                            View online
                           </a>
                         </Button>
                         <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" data-resource-card="download">
@@ -351,10 +351,10 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                         </span>
                       </div>
                       <div className="flex gap-2">
-                        <Button asChild variant="outline" className="flex-1" data-resource-card="view">
+                        <Button asChild variant="outline" className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-50" data-resource-card="view">
                           <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
                             <BookOpen className="w-4 h-4 mr-2" />
-                            Open
+                            View online
                           </a>
                         </Button>
                         <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg" data-resource-card="download">

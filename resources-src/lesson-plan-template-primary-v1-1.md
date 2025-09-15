@@ -342,4 +342,4 @@ Early Finisher Activity: ______________________
 - "Create extension activities for advanced learners in {{subject}} {{topic}}"
 - "Suggest ELL supports for this lesson: {{paste lesson description}}"
 
-<div class="footer">© Zaza Technologies GmbH — Teacher resources. Use within your school. Not for resale.</div>
+<div class="footer">© Zaza Technologies — Teacher resources. Use within your school. Not for resale.</div>
