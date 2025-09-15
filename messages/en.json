@@ -45,7 +45,13 @@
   "footer": {
     "tagline": "Built by educators for educators",
     "copyright": "© {year} Zaza Technologies. All rights reserved.",
-    "address": "Zaza Technologies UG (haftungsbeschränkt), Gumbertstraße 150, 40229 Düsseldorf, Germany"
+    "address": "Zaza Technologies GmbH, Gumbertstraße 150, 40229 Düsseldorf, Deutschland"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "We're here to help with setup, billing, and technical questions.",
+    "cta_faq": "Open FAQ",
+    "contact_label": "Email us:"
   },
   "blog": {
     "title": "Blog for Educators",
