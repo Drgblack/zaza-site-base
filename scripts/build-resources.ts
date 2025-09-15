@@ -4,15 +4,14 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 const RESOURCES_DIR = 'public/resources';
-const OUTPUT_FILE = 'src/data/resources-manifest.json';
-const MIN_FILE_SIZE = 8 * 1024; // 8KB minimum
+const OUTPUT_FILE = 'src/data/resources.json';
+const MIN_FILE_SIZE = 1 * 1024; // 1KB minimum (as requested)
 
 interface ResourceFile {
-  name: string;
-  filename: string;
-  size: number;
-  sizeFormatted: string;
-  downloadUrl: string;
+  title: string;
+  path: string;
+  bytes: number;
+  sizeLabel: string;
 }
 
 function formatBytes(bytes: number): string {
