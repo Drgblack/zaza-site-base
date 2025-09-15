@@ -127,6 +127,13 @@
   .netflix-stagger-5 { animation-delay: 0.5s; }
   .netflix-stagger-6 { animation-delay: 0.6s; }
 
+  /* Hard wrap long URLs/words inside preview boxes just in case */
+  .snippet-prewrap {
+    white-space: pre-wrap;      /* preserve spaces/newlines */
+    word-break: break-word;     /* break long tokens */
+    overflow-wrap: anywhere;    /* modern fallback */
+  }
+
   /* Smooth image loading */
   @keyframes netflix-image-load {
     from {

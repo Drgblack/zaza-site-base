@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Calculator } from 'lucide-react';
-import { EnhancedSnippetToolV2 } from '@/components/site/enhanced-snippet-tool-v2';
+import SmartSnippetWriterV3 from '@/components/site/snippet/SmartSnippetWriterV3';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
 import ZaraClient from '@/components/zara/ZaraClient';
@@ -376,7 +376,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* 3.5. Interactive Demo - Snippet Tool */}
-      <EnhancedSnippetToolV2 />
+      <SmartSnippetWriterV3 />
 
       {/* 3.6. ROI Calculator */}
       <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/30 dark:via-emerald-950/30 dark:to-teal-950/30">
