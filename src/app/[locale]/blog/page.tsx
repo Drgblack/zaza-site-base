@@ -152,16 +152,23 @@ export default async function BlogPage({params}: Props) {
           <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
             Get the latest AI teaching tips, tools, and insights delivered to your inbox every week.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <form 
+            action={process.env.NEXT_PUBLIC_NEWSLETTER_ACTION || "/api/newsletter"}
+            method="POST"
+            className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+          >
             <input 
               type="email" 
+              name="email"
+              required
               placeholder="Enter your email"
               className="flex-1 px-6 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300"
             />
-            <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors">
+            <input type="hidden" name="locale" value={locale} />
+            <button type="submit" className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors">
               Subscribe
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
