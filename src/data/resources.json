@@ -1,0 +1,391 @@
+[
+  {
+    "id": "ai-parent-comms",
+    "title": "Ai Parent Comms",
+    "path": "/resources/ai-parent-comms.pdf",
+    "bytes": 5034,
+    "sizeLabel": "4.92 KB",
+    "createdAt": "2025-09-15T06:24:22.609Z",
+    "description": "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
+    "category": "Communication",
+    "tags": [
+      "parent-communication",
+      "ai-tools",
+      "professional-development"
+    ],
+    "level": "intermediate",
+    "type": "guide",
+    "featured": true
+  },
+  {
+    "id": "lesson-plan-template-primary",
+    "title": "Lesson Plan Template Primary",
+    "path": "/resources/lesson-plan-template-primary.pdf",
+    "bytes": 6008,
+    "sizeLabel": "5.87 KB",
+    "createdAt": "2025-09-15T06:24:22.614Z",
+    "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+    "category": "Planning",
+    "tags": [
+      "lesson-planning",
+      "primary-education",
+      "templates",
+      "curriculum"
+    ],
+    "level": "beginner",
+    "type": "template",
+    "subject": "General",
+    "featured": true
+  },
+  {
+    "id": "teacher-ai-toolkit",
+    "title": "Teacher Ai Toolkit",
+    "path": "/resources/teacher-ai-toolkit.pdf",
+    "bytes": 4738,
+    "sizeLabel": "4.63 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
+    "category": "Technology",
+    "tags": [
+      "ai-integration",
+      "productivity",
+      "teaching-tools",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit",
+    "featured": true
+  },
+  {
+    "id": "teacher-self-care-guide",
+    "title": "Teacher Self Care Guide",
+    "path": "/resources/teacher-self-care-guide.pdf",
+    "bytes": 4333,
+    "sizeLabel": "4.23 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
+    "category": "Wellness",
+    "tags": [
+      "self-care",
+      "wellness",
+      "work-life-balance",
+      "mental-health"
+    ],
+    "level": "beginner",
+    "type": "guide",
+    "featured": true
+  },
+  {
+    "id": "ai-grading-prompts",
+    "title": "Ai Grading Prompts",
+    "path": "/resources/ai-grading-prompts.pdf",
+    "bytes": 5187,
+    "sizeLabel": "5.07 KB",
+    "createdAt": "2025-09-15T06:24:22.608Z",
+    "description": "Ready-to-use AI prompts for efficient and consistent grading that save hours while providing meaningful feedback to students.",
+    "category": "Assessment",
+    "tags": [
+      "grading",
+      "ai-prompts",
+      "feedback",
+      "assessment",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit"
+  },
+  {
+    "id": "ai-quiz-generator-guide",
+    "title": "Ai Quiz Generator Guide",
+    "path": "/resources/ai-quiz-generator-guide.pdf",
+    "bytes": 841,
+    "sizeLabel": "841 Bytes",
+    "createdAt": "2025-09-15T06:24:22.610Z",
+    "description": "Step-by-step guide to creating engaging quizzes and assessments using AI tools, with templates and best practices.",
+    "category": "Assessment",
+    "tags": [
+      "quiz-creation",
+      "ai-tools",
+      "assessment",
+      "engagement"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "assessment-rubric-template",
+    "title": "Assessment Rubric Template",
+    "path": "/resources/assessment-rubric-template.pdf",
+    "bytes": 3910,
+    "sizeLabel": "3.82 KB",
+    "createdAt": "2025-09-15T06:24:22.612Z",
+    "description": "Professional rubric templates for various subjects and projects, designed to streamline assessment and provide clear expectations.",
+    "category": "Assessment",
+    "tags": [
+      "rubrics",
+      "assessment",
+      "templates",
+      "grading",
+      "standards"
+    ],
+    "level": "beginner",
+    "type": "template"
+  },
+  {
+    "id": "formative-assessment-checklist",
+    "title": "Formative Assessment Checklist",
+    "path": "/resources/formative-assessment-checklist.pdf",
+    "bytes": 3077,
+    "sizeLabel": "3 KB",
+    "createdAt": "2025-09-15T06:24:22.613Z",
+    "description": "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
+    "category": "Assessment",
+    "tags": [
+      "formative-assessment",
+      "checklist",
+      "feedback",
+      "instruction"
+    ],
+    "level": "beginner",
+    "type": "checklist"
+  },
+  {
+    "id": "student-feedback-bank",
+    "title": "Student Feedback Bank",
+    "path": "/resources/student-feedback-bank.pdf",
+    "bytes": 3868,
+    "sizeLabel": "3.78 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Ready-to-use feedback comments and phrases for various subjects and situations, saving time while providing meaningful responses.",
+    "category": "Assessment",
+    "tags": [
+      "feedback",
+      "comments",
+      "grading",
+      "time-saving",
+      "templates"
+    ],
+    "level": "beginner",
+    "type": "template"
+  },
+  {
+    "id": "parent-meeting-checklist",
+    "title": "Parent Meeting Checklist",
+    "path": "/resources/parent-meeting-checklist.pdf",
+    "bytes": 4343,
+    "sizeLabel": "4.24 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Comprehensive checklist for conducting productive parent meetings, conferences, and difficult conversations with preparation tips.",
+    "category": "Communication",
+    "tags": [
+      "parent-meetings",
+      "conferences",
+      "checklist",
+      "communication"
+    ],
+    "level": "beginner",
+    "type": "checklist"
+  },
+  {
+    "id": "ai-time-saving-guide",
+    "title": "Ai Time Saving Guide",
+    "path": "/resources/ai-time-saving-guide.pdf",
+    "bytes": 836,
+    "sizeLabel": "836 Bytes",
+    "createdAt": "2025-09-15T06:24:22.611Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "best-practices-guide",
+    "title": "Best Practices Guide",
+    "path": "/resources/best-practices-guide.pdf",
+    "bytes": 846,
+    "sizeLabel": "846 Bytes",
+    "createdAt": "2025-09-15T06:24:22.612Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "case-studies",
+    "title": "Case Studies",
+    "path": "/resources/case-studies.pdf",
+    "bytes": 831,
+    "sizeLabel": "831 Bytes",
+    "createdAt": "2025-09-15T06:24:22.613Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "future-of-teaching",
+    "title": "Future Of Teaching",
+    "path": "/resources/future-of-teaching.pdf",
+    "bytes": 831,
+    "sizeLabel": "831 Bytes",
+    "createdAt": "2025-09-15T06:24:22.614Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "lesson-plan-template-secondary",
+    "title": "Lesson Plan Template Secondary",
+    "path": "/resources/lesson-plan-template-secondary.pdf",
+    "bytes": 853,
+    "sizeLabel": "853 Bytes",
+    "createdAt": "2025-09-15T06:24:22.614Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "project-based-learning-planner",
+    "title": "Project Based Learning Planner",
+    "path": "/resources/project-based-learning-planner.pdf",
+    "bytes": 834,
+    "sizeLabel": "834 Bytes",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "teacher-growth-planner",
+    "title": "Teacher Growth Planner",
+    "path": "/resources/teacher-growth-planner.pdf",
+    "bytes": 834,
+    "sizeLabel": "834 Bytes",
+    "createdAt": "2025-09-15T06:24:22.615Z",
+    "description": "Educational resource for teachers and educators.",
+    "category": "General",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "group-work-tools",
+    "title": "Group Work Tools",
+    "path": "/resources/group-work-tools.pdf",
+    "bytes": 839,
+    "sizeLabel": "839 Bytes",
+    "createdAt": "2025-09-15T06:24:22.614Z",
+    "description": "Essential tools and strategies for organizing effective group work, promoting collaboration, and ensuring all students participate.",
+    "category": "Instruction",
+    "tags": [
+      "group-work",
+      "collaboration",
+      "cooperative-learning",
+      "engagement"
+    ],
+    "level": "beginner",
+    "type": "toolkit"
+  },
+  {
+    "id": "behavior-strategies",
+    "title": "Behavior Strategies",
+    "path": "/resources/behavior-strategies.pdf",
+    "bytes": 833,
+    "sizeLabel": "833 Bytes",
+    "createdAt": "2025-09-15T06:24:22.612Z",
+    "description": "Evidence-based behavior management strategies and interventions for creating positive classroom environments and supporting all learners.",
+    "category": "Management",
+    "tags": [
+      "behavior-management",
+      "classroom-strategies",
+      "positive-discipline",
+      "interventions"
+    ],
+    "level": "intermediate",
+    "type": "guide"
+  },
+  {
+    "id": "classroom-routines",
+    "title": "Classroom Routines",
+    "path": "/resources/classroom-routines.pdf",
+    "bytes": 4593,
+    "sizeLabel": "4.49 KB",
+    "createdAt": "2025-09-15T06:24:22.613Z",
+    "description": "Proven classroom management routines and procedures that create a positive learning environment.",
+    "category": "Management",
+    "tags": [
+      "classroom-management",
+      "routines",
+      "behavior",
+      "organization"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "weekly-lesson-planner",
+    "title": "Weekly Lesson Planner",
+    "path": "/resources/weekly-lesson-planner.pdf",
+    "bytes": 3184,
+    "sizeLabel": "3.11 KB",
+    "createdAt": "2025-09-15T06:24:22.616Z",
+    "description": "Comprehensive weekly planning template that helps organize lessons, track progress, and maintain work-life balance.",
+    "category": "Planning",
+    "tags": [
+      "lesson-planning",
+      "weekly-planning",
+      "organization",
+      "templates"
+    ],
+    "level": "beginner",
+    "type": "template"
+  },
+  {
+    "id": "ai-student-support",
+    "title": "Ai Student Support",
+    "path": "/resources/ai-student-support.pdf",
+    "bytes": 864,
+    "sizeLabel": "864 Bytes",
+    "createdAt": "2025-09-15T06:24:22.610Z",
+    "description": "AI-powered strategies for providing personalized student support, intervention planning, and academic assistance.",
+    "category": "Student Support",
+    "tags": [
+      "student-support",
+      "personalization",
+      "ai-tools",
+      "intervention"
+    ],
+    "level": "intermediate",
+    "type": "guide"
+  }
+]

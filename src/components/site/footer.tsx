@@ -13,7 +13,7 @@ export function Footer() {
       title: 'Product',
       links: [
         { name: 'Zaza Promptly', href: '/' },
-        { name: 'Zaza Teach', href: 'https://teach.zazatechnologies.com' },
+        { name: 'Zaza Teach', href: 'https://zazateach.com' },
         { name: 'Pricing', href: '/pricing' },
         { name: 'Resources', href: '/resources' },
       ]

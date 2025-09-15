@@ -24,6 +24,13 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '**.imgix.net' },
     ],
   },
+  async redirects() {
+    return [
+      // old hardcoded path → new canonical, locale-aware
+      { source: '/about/greg', destination: '/en/meet-your-fellow-educator', permanent: true },
+      { source: '/:locale/about/greg', destination: '/:locale/meet-your-fellow-educator', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

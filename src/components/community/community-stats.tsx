@@ -3,6 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
+import { useTranslations } from 'next-intl';
 import { 
   Users, 
   BookOpen, 
@@ -17,12 +18,13 @@ import {
 } from 'lucide-react';
 
 export function CommunityStats() {
+  const t = useTranslations('community.stats');
   const { elementRef, isInView } = useIntersectionObserver({ threshold: 0.2 });
 
   const stats = [
     {
       icon: Users,
-      label: 'Active Teachers',
+      label: t('teachers'),
       value: 10247,
       displayValue: '10,247',
       change: '+12%',
@@ -33,7 +35,7 @@ export function CommunityStats() {
     },
     {
       icon: BookOpen,
-      label: 'Resources Shared',
+      label: t('resources'),
       value: 5892,
       displayValue: '5,892',
       change: '+8%',
@@ -44,7 +46,7 @@ export function CommunityStats() {
     },
     {
       icon: Download,
-      label: 'Total Downloads',
+      label: t('total_downloads'),
       value: 52341,
       displayValue: '52,341',
       change: '+15%',
@@ -55,7 +57,7 @@ export function CommunityStats() {
     },
     {
       icon: Star,
-      label: 'Average Rating',
+      label: t('average_rating'),
       value: 4.8,
       displayValue: '4.8',
       change: '+0.2',
@@ -67,7 +69,7 @@ export function CommunityStats() {
     },
     {
       icon: Globe,
-      label: 'Countries',
+      label: t('countries'),
       value: 47,
       displayValue: '47',
       change: '+3',
@@ -78,7 +80,7 @@ export function CommunityStats() {
     },
     {
       icon: Clock,
-      label: 'Time Saved',
+      label: t('time_saved'),
       value: 2847,
       displayValue: '2,847h',
       change: '+23%',
