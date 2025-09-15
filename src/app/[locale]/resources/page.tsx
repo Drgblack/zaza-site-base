@@ -16,7 +16,12 @@ interface ResourceManifest {
   size: string;
 }
 
-export default async function ResourcesPage() {
+type Props = {
+  params: Promise<{locale: string}>;
+};
+
+export default async function ResourcesPage({params}: Props) {
+  const {locale} = await params;
   const t = await getTranslations();
   const manifestResources = await getResourcesFromManifest();
 
