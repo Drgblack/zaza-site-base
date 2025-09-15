@@ -57,21 +57,20 @@ async function buildResourcesManifest() {
     console.log(`📄 Processing: ${file} (${formatBytes(stats.size)})`);
     
     if (stats.size < MIN_FILE_SIZE) {
-      console.log(`  ⚠️  File too small (< 8KB), skipping`);
+      console.log(`  ⚠️  File too small (< 1KB), skipping`);
       continue;
     }
 
     resources.push({
-      name: filenameToTitle(file),
-      filename: file,
-      size: stats.size,
-      sizeFormatted: formatBytes(stats.size),
-      downloadUrl: `/resources/${file}`
+      title: filenameToTitle(file),
+      path: `/resources/${file}`,
+      bytes: stats.size,
+      sizeLabel: formatBytes(stats.size)
     });
   }
 
   // Sort by size (largest first)
-  resources.sort((a, b) => b.size - a.size);
+  resources.sort((a, b) => b.bytes - a.bytes);
 
   await writeFile(OUTPUT_FILE, JSON.stringify(resources, null, 2));
   
@@ -79,7 +78,7 @@ async function buildResourcesManifest() {
   console.log(`📄 Output: ${OUTPUT_FILE}`);
 
   if (resources.length === 0) {
-    console.log('⚠️  No valid resources found (all files < 8KB)');
+    console.log('⚠️  No valid resources found (all files < 1KB)');
   }
 }
 
