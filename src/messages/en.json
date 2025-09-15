@@ -46,6 +46,12 @@
     "footer":  {
                    "tagline":  "AI-powered tools that help teachers save time with lesson planning, grading and classroom management.",
                    "copyright":  "© 2025 Zaza Technologies. All rights reserved.",
-                   "address":  "Zaza Technologies GmbH, Berlin, Germany"
-               }
+                   "address":  "Zaza Technologies GmbH, Gumbertstraße 150, 40229 Düsseldorf, Deutschland"
+               },
+    "support": {
+                 "title": "Support",
+                 "subtitle": "We're here to help with setup, billing, and technical questions.",
+                 "cta_faq": "Open FAQ",
+                 "contact_label": "Email us:"
+             }
 }
