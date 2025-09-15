@@ -27,8 +27,8 @@ export async function getResourcesFromManifest(): Promise<ResourceManifestItem[]
     const manifestData = await fs.readFile(MANIFEST_PATH, 'utf8');
     return JSON.parse(manifestData) as ResourceManifestItem[];
   } catch (error) {
-    console.warn('Could not load resources manifest, falling back to filesystem scan');
-    return await scanResourcesFilesystem();
+    console.error('Could not load resources manifest:', error);
+    return [];
   }
 }
 

@@ -1,84 +1,41 @@
-'use client';
-
-import { useState, useMemo } from 'react';
-import { Search, Filter, Download, BookOpen, Clock, Star, Tag, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Suspense } from 'react';
+import { BookOpen, Users } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { getResourcesFromManifest, formatFileSize } from '@/lib/resources.server';
+import { ResourcesContent } from './resources-content';
 
-// Import the enhanced resource data
-import resourcesData from '@/data/resources.json';
-
-interface Resource {
-  id: string;
+interface ResourceManifest {
   title: string;
-  description: string;
+  slug: string;
   category: string;
-  tags: string[];
-  level: 'beginner' | 'intermediate' | 'advanced';
-  type: 'template' | 'guide' | 'checklist' | 'toolkit' | 'worksheet';
-  subject?: string;
-  path: string;
-  bytes: number;
-  sizeLabel: string;
-  featured?: boolean;
-  createdAt: string;
+  lang: string;
+  version: string;
+  size: number;
+  href: string;
 }
 
-const resources: Resource[] = resourcesData as Resource[];
+export default async function ResourcesPage() {
+  const t = await getTranslations();
+  const manifestResources = await getResourcesFromManifest();
 
-const levelColors = {
-  beginner: 'bg-green-100 text-green-800 border-green-200',
-  intermediate: 'bg-blue-100 text-blue-800 border-blue-200', 
-  advanced: 'bg-purple-100 text-purple-800 border-purple-200'
-};
+  // Convert manifest data to the format expected by the UI
+  const resources = manifestResources.map((resource, index) => ({
+    id: resource.slug,
+    title: resource.title,
+    description: getResourceDescription(resource.slug),
+    category: resource.category,
+    tags: getResourceTags(resource.slug),
+    level: 'intermediate' as const,
+    type: getResourceType(resource.slug),
+    path: resource.href,
+    bytes: resource.size,
+    sizeLabel: formatFileSize(resource.size),
+    featured: index < 3, // First 3 resources are featured
+    createdAt: new Date().toISOString()
+  }));
 
-const typeIcons = {
-  template: BookOpen,
-  guide: Users,
-  checklist: Filter,
-  toolkit: Star,
-  worksheet: Clock
-};
-
-export default function ResourcesPage() {
-  const t = useTranslations();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedLevel, setSelectedLevel] = useState('all');
-  const [selectedType, setSelectedType] = useState('all');
-
-  // Get unique categories, levels, and types
-  const categories = useMemo(() => 
-    [...new Set(resources.map(r => r.category))].sort()
-  , []);
-  
-  const levels = useMemo(() => 
-    [...new Set(resources.map(r => r.level))].sort()
-  , []);
-  
-  const types = useMemo(() => 
-    [...new Set(resources.map(r => r.type))].sort()
-  , []);
-
-  // Filter resources based on search and filters
-  const filteredResources = useMemo(() => {
-    return resources.filter(resource => {
-      const matchesSearch = searchQuery === '' || 
-        resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      
-      const matchesCategory = selectedCategory === 'all' || resource.category === selectedCategory;
-      const matchesLevel = selectedLevel === 'all' || resource.level === selectedLevel;
-      const matchesType = selectedType === 'all' || resource.type === selectedType;
-      
-      return matchesSearch && matchesCategory && matchesLevel && matchesType;
-    });
-  }, [searchQuery, selectedCategory, selectedLevel, selectedType]);
-
-  const featuredResources = resources.filter(r => r.featured);
+  const categories = [...new Set(resources.map(r => r.category))].sort();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
@@ -89,13 +46,13 @@ export default function ResourcesPage() {
           <div className="text-center space-y-6">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-medium mb-4">
               <BookOpen className="w-4 h-4 mr-2" />
-              {t('resources.badge', 'Resource Centre')}
+              Resource Centre
             </div>
             <h1 className="text-5xl font-bold tracking-tight">
-              {t('resources.title')}
+              Teacher Resources
             </h1>
             <p className="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-              {t('resources.subtitle')}
+              Professional-grade teaching resources, templates, and guides created specifically for educators.
             </p>
             <div className="flex items-center justify-center gap-8 pt-8">
               <div className="text-center">
@@ -116,282 +73,9 @@ export default function ResourcesPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Search and Filters - Moved to top */}
-        <section className="mb-12">
-          <div className="bg-white rounded-2xl shadow-lg border p-8">
-            <div className="grid gap-6 md:grid-cols-4">
-              {/* Search */}
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Search Resources
-                </label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Search by title, description, or tags..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Category Filter */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Category
-                </label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                >
-                  <option value="all">All Categories</option>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Level Filter */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Level
-                </label>
-                <select
-                  value={selectedLevel}
-                  onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                >
-                  <option value="all">All Levels</option>
-                  {levels.map((level) => (
-                    <option key={level} value={level}>
-                      {level.charAt(0).toUpperCase() + level.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Type Filter */}
-            <div className="mt-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Resource Type
-              </label>
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  variant={selectedType === 'all' ? 'default' : 'outline'}
-                  onClick={() => setSelectedType('all')}
-                  className="rounded-full"
-                >
-                  All Types
-                </Button>
-                {types.map((type) => {
-                  const TypeIcon = typeIcons[type];
-                  return (
-                    <Button
-                      key={type}
-                      variant={selectedType === type ? 'default' : 'outline'}
-                      onClick={() => setSelectedType(type)}
-                      className="rounded-full"
-                    >
-                      <TypeIcon className="w-4 h-4 mr-2" />
-                      {type.charAt(0).toUpperCase() + type.slice(1)}
-                    </Button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Results count */}
-            <div className="mt-6 pt-6 border-t border-gray-100">
-              <p className="text-gray-600">
-                Showing <span className="font-semibold">{filteredResources.length}</span> of{' '}
-                <span className="font-semibold">{resources.length}</span> resources
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Resources */}
-        {featuredResources.length > 0 && (
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <Star className="w-6 h-6 text-yellow-500" />
-              <h2 className="text-3xl font-bold text-gray-900">Featured Resources</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {featuredResources.slice(0, 3).map((resource) => {
-                const TypeIcon = typeIcons[resource.type];
-                return (
-                  <Card key={resource.id} className="group hover:shadow-xl transition-all duration-300 border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                            <TypeIcon className="w-6 h-6 text-yellow-600" />
-                          </div>
-                          <div>
-                            <Badge className="mb-2 bg-yellow-500 text-white border-yellow-600">
-                              {resource.category}
-                            </Badge>
-                            <Badge variant="outline" className={levelColors[resource.level]}>
-                              {resource.level}
-                            </Badge>
-                          </div>
-                        </div>
-                        <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                      </div>
-                      <CardTitle className="text-xl leading-tight">{resource.title}</CardTitle>
-                      <CardDescription className="text-gray-600 line-clamp-4">
-                        {resource.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {resource.tags.slice(0, 3).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                        {resource.tags.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{resource.tags.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm text-gray-500">
-                          {resource.sizeLabel}
-                        </div>
-                        <Button asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                          <a href={resource.path} download>
-                            <Download className="w-4 h-4 mr-2" />
-                            {t('resources.download')}
-                          </a>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {/* All Resources */}
-        <section className="mb-12">
-          <div className="flex items-center gap-3 mb-8">
-            <BookOpen className="w-6 h-6 text-purple-600" />
-            <h2 className="text-3xl font-bold text-gray-900">All Resources</h2>
-          </div>
-        </section>
-
-        {/* Resource Grid */}
-        <section>
-          {filteredResources.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No resources found</h3>
-              <p className="text-gray-600 mb-6">
-                Try adjusting your search terms or filters to find what you're looking for.
-              </p>
-              <Button
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('all');
-                  setSelectedLevel('all');
-                  setSelectedType('all');
-                }}
-                variant="outline"
-              >
-                Clear All Filters
-              </Button>
-            </div>
-          ) : (
-            <div className="grid gap-8 md:grid-cols-2">
-              {filteredResources.map((resource) => {
-                const TypeIcon = typeIcons[resource.type];
-                return (
-                  <Card key={resource.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg overflow-hidden">
-                    <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 text-white">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-4">
-                          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                            <TypeIcon className="w-8 h-8 text-white" />
-                          </div>
-                          <div>
-                            <Badge className="mb-2 bg-white/20 text-white border-white/30 hover:bg-white/30">
-                              {resource.category}
-                            </Badge>
-                            <div className="flex gap-2">
-                              <Badge variant="outline" className="bg-white/10 text-white border-white/30">
-                                {resource.level}
-                              </Badge>
-                              <Badge variant="outline" className="bg-white/10 text-white border-white/30 capitalize">
-                                {resource.type}
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-                        {resource.featured && (
-                          <div className="bg-yellow-400 rounded-full p-2">
-                            <Star className="w-5 h-5 text-yellow-800 fill-yellow-800" />
-                          </div>
-                        )}
-                      </div>
-                      <CardTitle className="text-2xl leading-tight text-white mb-3">{resource.title}</CardTitle>
-                    </div>
-                    
-                    <CardContent className="p-6">
-                      <CardDescription className="text-gray-700 text-base leading-relaxed mb-6 line-clamp-4">
-                        {resource.description}
-                      </CardDescription>
-                      
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {resource.tags.slice(0, 4).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
-                            <Tag className="w-3 h-3 mr-1" />
-                            {tag}
-                          </Badge>
-                        ))}
-                        {resource.tags.length > 4 && (
-                          <Badge variant="secondary" className="text-xs bg-gray-50 text-gray-600">
-                            +{resource.tags.length - 4} more
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="border-t pt-4 flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <span className="flex items-center gap-1">
-                            <Download className="w-4 h-4" />
-                            {resource.sizeLabel}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            PDF Format
-                          </span>
-                        </div>
-                        <Button asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg">
-                          <a href={resource.path} download>
-                            <Download className="w-4 h-4 mr-2" />
-                            {t('resources.download')}
-                          </a>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          )}
-        </section>
+        <Suspense fallback={<div>Loading resources...</div>}>
+          <ResourcesContent resources={resources} />
+        </Suspense>
 
         {/* CTA Section */}
         <section className="mt-20">
@@ -400,13 +84,41 @@ export default function ResourcesPage() {
             <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
               Join our community of educators and get access to exclusive teaching resources, webinars, and expert tips.
             </p>
-            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-50">
-              <Users className="w-5 h-5 mr-2" />
+            <button className="bg-white text-purple-600 hover:bg-gray-50 px-6 py-3 rounded-lg font-medium">
+              <Users className="w-5 h-5 mr-2 inline" />
               Join Our Community
-            </Button>
+            </button>
           </div>
         </section>
       </div>
     </div>
   );
+}
+
+function getResourceDescription(slug: string): string {
+  const descriptions: Record<string, string> = {
+    'parent-email-playbook': 'Professional email templates for parent communication with tone guidelines and real examples.',
+    'assessment-rubrics-pack': 'Comprehensive rubric templates for fair and transparent assessment across all subjects.',
+    'report-comment-bank': 'Evidence-based comment bank with impact statements and next steps for report writing.',
+    'lesson-plan-template-primary': 'Structured lesson planning template designed specifically for primary school educators.'
+  };
+  return descriptions[slug] || 'Professional teaching resource with comprehensive content and practical examples.';
+}
+
+function getResourceTags(slug: string): string[] {
+  const tags: Record<string, string[]> = {
+    'parent-email-playbook': ['communication', 'parent-engagement', 'templates'],
+    'assessment-rubrics-pack': ['assessment', 'rubrics', 'evaluation', 'standards'],
+    'report-comment-bank': ['reporting', 'assessment', 'feedback', 'comments'],
+    'lesson-plan-template-primary': ['planning', 'primary', 'templates', 'curriculum']
+  };
+  return tags[slug] || ['teaching', 'education', 'professional-development'];
+}
+
+function getResourceType(slug: string): 'template' | 'guide' | 'checklist' | 'toolkit' | 'worksheet' {
+  if (slug.includes('template')) return 'template';
+  if (slug.includes('pack') || slug.includes('toolkit')) return 'toolkit';
+  if (slug.includes('checklist')) return 'checklist';
+  if (slug.includes('bank')) return 'guide';
+  return 'guide';
 }
