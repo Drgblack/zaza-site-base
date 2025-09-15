@@ -14,6 +14,8 @@
   "hero": {
     "title": "AI-powered tools for modern educators",
     "subtitle": "Save 5+ hours per week with intelligent lesson planning, grading assistance, and classroom management.",
+    "headline": "Write parent messages in minutes, not hours",
+    "headline_highlight": "Save time. Reduce stress.",
     "cta_primary": "Try Zaza Teach",
     "cta_secondary": "Join Waitlist",
     "tagline": "AI for Educators"
@@ -62,7 +64,9 @@
   "resources": {
     "title": "Resources for Educators",
     "subtitle": "Free materials to enhance your teaching",
+    "note": "More resources coming soon! We're working on creating high-quality teaching materials to help you integrate AI into your classroom.",
     "download": "Download",
+    "download_file": "Download",
     "view": "View",
     "free": "Free",
     "premium": "Premium"
@@ -93,6 +97,13 @@
   "community": {
     "title": "Community",
     "subtitle": "Connect with fellow educators",
+    "description": "Join thousands of educators who are using AI to transform their teaching practice. Share resources, get support, and learn from each other's experiences.",
+    "stats": {
+      "teachers": "Active Teachers",
+      "resources": "Shared Resources",
+      "success_stories": "Success Stories"
+    },
+    "cta": "Get Started Today",
     "join_discord": "Join Discord",
     "join_facebook": "Join Facebook Group"
   },
