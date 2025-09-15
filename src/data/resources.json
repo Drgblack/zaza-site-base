@@ -1,32 +1,96 @@
 [
   {
-    "title": "Lesson Plan Template Primary",
-    "path": "/resources/lesson-plan-template-primary.pdf",
-    "bytes": 6008,
-    "sizeLabel": "5.87 KB"
-  },
-  {
+    "id": "ai-parent-comms",
     "title": "Ai Parent Comms",
     "path": "/resources/ai-parent-comms.pdf",
     "bytes": 5034,
-    "sizeLabel": "4.92 KB"
+    "sizeLabel": "4.92 KB",
+    "createdAt": "2025-09-15T05:16:53.581Z",
+    "description": "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
+    "category": "Communication",
+    "tags": [
+      "parent-communication",
+      "ai-tools",
+      "professional-development"
+    ],
+    "level": "intermediate",
+    "type": "guide",
+    "featured": true
   },
   {
+    "id": "lesson-plan-template-primary",
+    "title": "Lesson Plan Template Primary",
+    "path": "/resources/lesson-plan-template-primary.pdf",
+    "bytes": 6008,
+    "sizeLabel": "5.87 KB",
+    "createdAt": "2025-09-15T05:16:53.586Z",
+    "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+    "category": "Planning",
+    "tags": [
+      "lesson-planning",
+      "primary-education",
+      "templates",
+      "curriculum"
+    ],
+    "level": "beginner",
+    "type": "template",
+    "subject": "General",
+    "featured": true
+  },
+  {
+    "id": "teacher-ai-toolkit",
     "title": "Teacher Ai Toolkit",
     "path": "/resources/teacher-ai-toolkit.pdf",
     "bytes": 4738,
-    "sizeLabel": "4.63 KB"
+    "sizeLabel": "4.63 KB",
+    "createdAt": "2025-09-15T05:16:53.587Z",
+    "description": "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
+    "category": "Technology",
+    "tags": [
+      "ai-integration",
+      "productivity",
+      "teaching-tools",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit",
+    "featured": true
   },
   {
-    "title": "Classroom Routines",
-    "path": "/resources/classroom-routines.pdf",
-    "bytes": 4593,
-    "sizeLabel": "4.49 KB"
-  },
-  {
+    "id": "teacher-self-care-guide",
     "title": "Teacher Self Care Guide",
     "path": "/resources/teacher-self-care-guide.pdf",
     "bytes": 4333,
-    "sizeLabel": "4.23 KB"
+    "sizeLabel": "4.23 KB",
+    "createdAt": "2025-09-15T05:16:53.588Z",
+    "description": "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
+    "category": "Wellness",
+    "tags": [
+      "self-care",
+      "wellness",
+      "work-life-balance",
+      "mental-health"
+    ],
+    "level": "beginner",
+    "type": "guide",
+    "featured": true
+  },
+  {
+    "id": "classroom-routines",
+    "title": "Classroom Routines",
+    "path": "/resources/classroom-routines.pdf",
+    "bytes": 4593,
+    "sizeLabel": "4.49 KB",
+    "createdAt": "2025-09-15T05:16:53.585Z",
+    "description": "Proven classroom management routines and procedures that create a positive learning environment.",
+    "category": "Management",
+    "tags": [
+      "classroom-management",
+      "routines",
+      "behavior",
+      "organization"
+    ],
+    "level": "beginner",
+    "type": "guide"
   }
 ]
