@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Prompts for Subject Planning</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: rgba(250, 250, 250, 0.9) !important;
+  color: #111827 !important;
+  border-radius: 8px;
+  page-break-inside: avoid;
+  mix-blend-mode: normal !important;
+  z-index: 1;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(2, 6, 23, 0.05) !important;
+  color: #0f172a !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  mix-blend-mode: normal !important;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>AI Prompts for Subject Planning</h1>
+  <div class="subtitle">Subject-specific AI prompts for lesson planning in ELA, Math, Science, Social Studies, and World Languages.</div>
+  <div class="badges"><span class="badge">AI Tools</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>English Language Arts (ELA)</li>
+  <li>Mathematics</li>
+  <li>Science</li>
+  <li>Social Studies</li>
+  <li>World Languages</li>
+  <li>Universal Planning Prompts</li>
+  </ol>
+</div>
+<h2>English Language Arts (ELA)</h2>
+<h3>Reading Comprehension Lessons</h3>
+<p><strong>Fiction Analysis Prompt</strong>
+"Create a 45-minute lesson plan for [grade level] students analyzing [specific book/story]. Include:</p>
+<ul>
+<li>Pre-reading vocabulary (5 words)</li>
+<li>During-reading comprehension questions (3 levels)</li>
+<li>Post-reading discussion prompts</li>
+<li>Assessment rubric for [specific skill: character analysis/theme/plot]</li>
+<li>Differentiation for advanced and struggling readers"</li>
+</ul>
+<p><strong>Non-Fiction Text Structure</strong>
+"Design a lesson teaching [grade level] students to identify [text structure: cause-effect/compare-contrast/sequence]. Provide:</p>
+<ul>
+<li>Graphic organizer template</li>
+<li>Sample passages for practice</li>
+<li>Signal words anchor chart</li>
+<li>Exit ticket assessment</li>
+<li>Extension activity for early finishers"</li>
+</ul>
+<h3>Writing Instruction</h3>
+<p><strong>Genre-Specific Writing</strong>
+"Plan a [narrative/informative/persuasive] writing unit for [grade level]. Include:</p>
+<ul>
+<li>Week-by-week breakdown (4 weeks)</li>
+<li>Mini-lesson topics for each day</li>
+<li>Student exemplars at 3 proficiency levels</li>
+<li>Peer review checklist</li>
+<li>Final assessment rubric with specific criteria"</li>
+</ul>
+<p><strong>Grammar in Context</strong>
+"Create engaging activities to teach [specific grammar concept] to [grade level] students. Include:</p>
+<ul>
+<li>Hook activity to introduce concept</li>
+<li>Interactive practice exercises</li>
+<li>Real-world application examples</li>
+<li>Common error identification practice</li>
+<li>Self-assessment checklist for students"</li>
+</ul>
+<h3>Speaking &#x26; Listening</h3>
+<p><strong>Presentation Skills</strong>
+"Design a lesson sequence teaching effective presentation skills to [grade level] students. Include:</p>
+<ul>
+<li>Presentation rubric with clear criteria</li>
+<li>Practice activities for voice, body language, eye contact</li>
+<li>Peer feedback forms</li>
+<li>Technology integration options</li>
+<li>Accommodation suggestions for shy students"</li>
+</ul>
+<h2>Mathematics</h2>
+<h3>Problem-Solving Lessons</h3>
+<p><strong>Multi-Step Word Problems</strong>
+"Create a lesson for [grade level] students solving multi-step word problems involving [math concepts]. Include:</p>
+<ul>
+<li>Problem-solving strategy poster</li>
+<li>Worked examples with think-alouds</li>
+<li>Practice problems with varying difficulty</li>
+<li>Partner problem-solving protocol</li>
+<li>Error analysis activity using common mistakes"</li>
+</ul>
+<p><strong>Real-World Applications</strong>
+"Design activities connecting [math concept] to real-world careers and situations for [grade level]. Include:</p>
+<ul>
+<li>Career connections list</li>
+<li>Authentic problem scenarios</li>
+<li>Data collection opportunities</li>
+<li>Community expert interview questions</li>
+<li>Project-based learning culminating activity"</li>
+</ul>
+<h3>Conceptual Understanding</h3>
+<p><strong>Abstract Concept Introduction</strong>
+"Plan a lesson introducing [specific math concept] to [grade level] students using concrete-representational-abstract progression. Include:</p>
+<ul>
+<li>Manipulative activities (concrete)</li>
+<li>Visual representations and diagrams</li>
+<li>Abstract practice problems</li>
+<li>Assessment checkpoints throughout</li>
+<li>Intervention strategies for struggling learners"</li>
+</ul>
+<p><strong>Mathematical Discourse</strong>
+"Create discussion prompts and sentence starters for [grade level] students to explain their mathematical thinking about [concept]. Include:</p>
+<ul>
+<li>Academic vocabulary word bank</li>
+<li>Sentence frames for explanations</li>
+<li>Number talk discussion protocol</li>
+<li>Peer critique guidelines</li>
+<li>Self-reflection questions"</li>
+</ul>
+<h3>Assessment &#x26; Differentiation</h3>
+<p><strong>Formative Assessment Ideas</strong>
+"Generate quick formative assessment ideas for [math concept] suitable for [grade level]. Include:</p>
+<ul>
+<li>Exit ticket options (5 different formats)</li>
+<li>Thumbs up/down understanding checks</li>
+<li>Partner teaching activities</li>
+<li>Error identification tasks</li>
+<li>Self-assessment rubrics"</li>
+</ul>
+<h2>Science</h2>
+<h3>Inquiry-Based Lessons</h3>
+<p><strong>Scientific Method Application</strong>
+"Design a hands-on investigation for [grade level] students exploring [science concept]. Include:</p>
+<ul>
+<li>Testable question examples</li>
+<li>Materials list and safety considerations</li>
+<li>Data collection templates</li>
+<li>Analysis questions connecting to big ideas</li>
+<li>Extensions for different learning levels"</li>
+</ul>
+<p><strong>STEM Integration</strong>
+"Create a STEM challenge connecting [science concept] with engineering design for [grade level]. Include:</p>
+<ul>
+<li>Design challenge parameters</li>
+<li>Materials constraints</li>
+<li>Testing and iteration protocols</li>
+<li>Reflection questions on science connections</li>
+<li>Assessment rubric for both science and engineering practices"</li>
+</ul>
+<h3>Concept Development</h3>
+<p><strong>Abstract Science Concepts</strong>
+"Plan a lesson sequence making [complex science concept] accessible to [grade level] students. Include:</p>
+<ul>
+<li>Analogy or metaphor to introduce concept</li>
+<li>Interactive demonstrations or simulations</li>
+<li>Vocabulary development strategies</li>
+<li>Common misconceptions to address</li>
+<li>Connection to prior knowledge"</li>
+</ul>
+<p><strong>Science Literacy</strong>
+"Design activities helping [grade level] students read and interpret [scientific text type: graphs/data tables/research articles]. Include:</p>
+<ul>
+<li>Reading strategy instruction</li>
+<li>Practice examples with guided analysis</li>
+<li>Question stems for different comprehension levels</li>
+<li>Vocabulary support for scientific terms</li>
+<li>Connection to current events or phenomena"</li>
+</ul>
+<h3>Laboratory &#x26; Investigations</h3>
+<p><strong>Lab Safety &#x26; Procedures</strong>
+"Create a comprehensive lab safety lesson for [grade level] including [specific lab type]. Include:</p>
+<ul>
+<li>Safety contract template</li>
+<li>Equipment identification activity</li>
+<li>Emergency procedure practice</li>
+<li>Risk assessment training</li>
+<li>Pre-lab safety quiz questions"</li>
+</ul>
+<h2>Social Studies</h2>
+<h3>Historical Thinking Skills</h3>
+<p><strong>Primary Source Analysis</strong>
+"Design a lesson for [grade level] students analyzing primary sources from [historical period]. Include:</p>
+<ul>
+<li>Document analysis worksheet</li>
+<li>Historical context background information</li>
+<li>Perspective-taking discussion questions</li>
+<li>Comparison chart for multiple sources</li>
+<li>Creative response options (diary entry, newspaper, etc.)"</li>
+</ul>
+<p><strong>Historical Argument Construction</strong>
+"Create activities teaching [grade level] students to construct historical arguments about [historical question]. Include:</p>
+<ul>
+<li>Evidence evaluation criteria</li>
+<li>Claim-evidence-reasoning framework</li>
+<li>Counter-argument consideration prompts</li>
+<li>Peer review protocol for arguments</li>
+<li>Assessment rubric for historical reasoning"</li>
+</ul>
+<h3>Geography &#x26; Culture</h3>
+<p><strong>Geographic Skills Development</strong>
+"Plan lessons teaching [specific geography skills] to [grade level] students using [region/country] as context. Include:</p>
+<ul>
+<li>Map skills practice activities</li>
+<li>Geographic vocabulary development</li>
+<li>Technology integration (Google Earth, GIS)</li>
+<li>Cultural connection activities</li>
+<li>Assessment of geographic thinking"</li>
+</ul>
+<p><strong>Cultural Understanding</strong>
+"Design culturally responsive lessons about [culture/civilization] for [grade level]. Include:</p>
+<ul>
+<li>Multiple perspectives on historical events</li>
+<li>Cultural artifact analysis activities</li>
+<li>Contemporary connections to historical concepts</li>
+<li>Community expert interview opportunities</li>
+<li>Respectful representation guidelines"</li>
+</ul>
+<h3>Civic Engagement</h3>
+<p><strong>Government &#x26; Citizenship</strong>
+"Create lessons teaching [grade level] students about [government concept/civic responsibility]. Include:</p>
+<ul>
+<li>Age-appropriate civic engagement activities</li>
+<li>Role-playing or simulation exercises</li>
+<li>Current events connection opportunities</li>
+<li>Community problem-solving projects</li>
+<li>Democratic decision-making practice"</li>
+</ul>
+<h2>World Languages</h2>
+<h3>Communicative Language Teaching</h3>
+<p><strong>Functional Language Use</strong>
+"Design a [target language] lesson for [proficiency level] students focused on [real-world task: ordering food/asking directions/making appointments]. Include:</p>
+<ul>
+<li>Key vocabulary and phrases</li>
+<li>Interactive practice activities</li>
+<li>Role-play scenarios</li>
+<li>Cultural context information</li>
+<li>Assessment of communicative competence"</li>
+</ul>
+<p><strong>Grammar in Context</strong>
+"Create activities teaching [specific grammar point] in [target language] to [proficiency level] students. Include:</p>
+<ul>
+<li>Contextualized introduction (no translation)</li>
+<li>Communicative practice activities</li>
+<li>Meaningful output opportunities</li>
+<li>Error correction strategies</li>
+<li>Self-assessment tools for accuracy"</li>
+</ul>
+<h3>Cultural Integration</h3>
+<p><strong>Cultural Competence Development</strong>
+"Plan lessons integrating [cultural topic] with language learning for [target language] students at [proficiency level]. Include:</p>
+<ul>
+<li>Cultural comparison activities</li>
+<li>Authentic materials (videos, articles, music)</li>
+<li>Discussion prompts about cultural differences</li>
+<li>Respectful inquiry guidelines</li>
+<li>Reflection on cultural learning"</li>
+</ul>
+<p><strong>Authentic Assessment</strong>
+"Design performance-based assessments for [target language] students at [proficiency level] demonstrating [language function]. Include:</p>
+<ul>
+<li>Real-world task scenarios</li>
+<li>Proficiency-level appropriate expectations</li>
+<li>Holistic scoring rubrics</li>
+<li>Self and peer assessment components</li>
+<li>Portfolio collection suggestions"</li>
+</ul>
+<h2>Universal Planning Prompts</h2>
+<h3>Differentiation Support</h3>
+<p><strong>Multi-Level Planning</strong>
+"Adapt this lesson for students performing below, at, and above grade level in [subject area]. Include specific modifications for:</p>
+<ul>
+<li>Content complexity</li>
+<li>Process supports</li>
+<li>Product options</li>
+<li>Assessment alternatives</li>
+<li>Technology integration"</li>
+</ul>
+<h3>Time Management</h3>
+<p><strong>Flexible Timing</strong>
+"Provide 15-minute, 30-minute, and 45-minute versions of this [subject] lesson on [topic] for [grade level]. Each version should maintain essential learning objectives while adjusting depth and activities."</p>
+<h3>Assessment Integration</h3>
+<p><strong>Standards-Based Assessment</strong>
+"Create formative and summative assessment options for this [subject] lesson aligned to [specific standards]. Include:</p>
+<ul>
+<li>Clear success criteria</li>
+<li>Multiple assessment formats</li>
+<li>Student self-assessment tools</li>
+<li>Data collection templates</li>
+<li>Intervention planning guides"</li>
+</ul>
+<blockquote>
+<p><strong>AI Prompt Tip:</strong> Always include grade level, specific topic, time constraints, and desired outcomes for the most useful responses. Be specific about your context and needs.</p>
+</blockquote>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>
