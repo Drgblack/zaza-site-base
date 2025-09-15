@@ -61,13 +61,13 @@ export default async function HomePage({ params }: Props) {
             {/* Left side - Content */}
             <div className="text-center lg:text-left space-y-8">
               <div className="space-y-6">
-                {/* Category Definition - What is this? */}
+                {/* Anthony Pierri Framework: Category Definition - What is this? */}
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-purple-200/50 dark:border-purple-700/50 text-sm font-medium text-purple-700 dark:text-purple-300 mb-4">
                   <GraduationCap className="w-4 h-4 mr-2" />
-                  {hero('tagline')}
+                  {hero('category_definition')}
                 </div>
 
-                {/* Anthony Pierri Framework Headline - Updated copy */}
+                {/* Anthony Pierri Framework: Main Headline - What do you do? */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
                   {hero('headline')}{' '}
                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -75,7 +75,12 @@ export default async function HomePage({ params }: Props) {
                   </span>
                 </h1>
 
-                {/* Social proof - Above the fold */}
+                {/* Emotional Hook - Tagline */}
+                <div className="text-xl font-semibold text-purple-600 dark:text-purple-400 italic">
+                  {hero('tagline')}
+                </div>
+
+                {/* Anthony Pierri Framework: Social Proof - Why should I believe you? (Credibility) */}
                 <div className="flex flex-col sm:flex-row items-center gap-4 text-slate-600 dark:text-slate-300 mb-4">
                   <div className="flex items-center gap-2">
                     <div className="flex -space-x-2">
@@ -97,12 +102,12 @@ export default async function HomePage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* Anthony Pierri Subheadline */}
+                {/* Anthony Pierri Framework: Subheadline - How do you do it differently/better? */}
                 <p className="max-w-[600px] text-slate-600 md:text-xl dark:text-slate-300 mx-auto lg:mx-0 leading-relaxed">
                   {hero('subtitle')}
                 </p>
 
-                {/* Specific value proposition */}
+                {/* Anthony Pierri Framework: Proof - Why should I believe you? (Specific Examples) */}
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 rounded-2xl p-6 border border-green-200/50 dark:border-green-800/30">
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-semibold">
                     <div className="text-center">
