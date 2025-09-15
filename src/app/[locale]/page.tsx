@@ -1,6 +1,6 @@
 // src/app/[locale]/page.tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { Link } from 'next-intl/navigation';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
