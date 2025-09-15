@@ -191,15 +191,15 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
             {featuredResources.slice(0, 3).map((resource) => {
               const TypeIcon = typeIcons[resource.type];
               return (
-                <Card key={resource.id} className="group hover:shadow-xl transition-all duration-300 border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50">
+                <Card key={resource.id} className="group hover:shadow-xl transition-all duration-300 rounded-xl bg-amber-50 border border-amber-200 shadow-sm">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                          <TypeIcon className="w-6 h-6 text-yellow-600" />
+                        <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                          <TypeIcon className="w-6 h-6 text-amber-700" />
                         </div>
                         <div>
-                          <Badge className="mb-2 bg-yellow-500 text-white border-yellow-600">
+                          <Badge className="mb-2 bg-amber-600 text-white border-amber-700">
                             {resource.category.charAt(0).toUpperCase() + resource.category.slice(1)}
                           </Badge>
                           <Badge variant="outline" className={levelColors[resource.level]}>
@@ -207,43 +207,50 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                           </Badge>
                         </div>
                       </div>
-                      <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                      <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
                     </div>
-                    <CardTitle className="text-xl leading-tight text-gray-900">{resource.title}</CardTitle>
-                    <CardDescription className="text-gray-700 line-clamp-4">
+                    <CardTitle className="text-xl leading-tight text-slate-900 font-semibold">{resource.title}</CardTitle>
+                    <CardDescription className="text-slate-700 line-clamp-4">
                       {resource.description}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {resource.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                        <Badge key={tag} variant="secondary" className="text-xs bg-amber-100 text-amber-800">
                           {tag}
                         </Badge>
                       ))}
                       {resource.tags.length > 3 && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="text-xs bg-amber-100 text-amber-800">
                           +{resource.tags.length - 3} more
                         </Badge>
                       )}
                     </div>
                     <div className="space-y-3">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-slate-600">
                         {resource.sizeLabel}
                       </div>
                       <div className="flex gap-2">
-                        <Button asChild variant="outline" className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-50" data-resource-card="view">
-                          <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
-                            <BookOpen className="w-4 h-4 mr-2" />
-                            View online
-                          </a>
-                        </Button>
-                        <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" data-resource-card="download">
-                          <a href={resource.pdfPath} download>
-                            <Download className="w-4 h-4 mr-2" />
-                            Download PDF
-                          </a>
-                        </Button>
+                        <a
+                          href={resource.htmlPath}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 flex-1"
+                          data-resource-card="view"
+                        >
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          View online
+                        </a>
+                        <a
+                          href={resource.pdfPath}
+                          download
+                          className="inline-flex items-center justify-center rounded-md bg-violet-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-violet-700 flex-1"
+                          data-resource-card="download"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Download PDF
+                        </a>
                       </div>
                     </div>
                   </CardContent>

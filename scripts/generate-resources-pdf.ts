@@ -18,7 +18,7 @@ async function run() {
       const p = join(dir, name.name);
       if (name.isDirectory()) {
         walk(p, htmls);
-      } else if (name.isFile() && name.name.endsWith('.html') && name.name.includes('v1.1')) {
+      } else if (name.isFile() && name.name.endsWith('.html') && (name.name.includes('v1.1') || name.name.includes('v1.2'))) {
         htmls.push(p);
       }
     }

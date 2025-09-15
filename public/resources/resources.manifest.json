@@ -1,5 +1,25 @@
 [
   {
+    "title": "Differentiated Question Stems",
+    "slug": "differentiated-question-stems-v1.2-en",
+    "category": "assessment",
+    "lang": "en",
+    "version": "1.2",
+    "pdf": "/resources/assessment/differentiated-question-stems-v1.2-en.pdf",
+    "html": "/resources/assessment/differentiated-question-stems-v1.2-en.html",
+    "size": "9.4 KB"
+  },
+  {
+    "title": "Report Writing Framework",
+    "slug": "report-writing-framework-v1.2-en",
+    "category": "assessment",
+    "lang": "en",
+    "version": "1.2",
+    "pdf": "/resources/assessment/report-writing-framework-v1.2-en.pdf",
+    "html": "/resources/assessment/report-writing-framework-v1.2-en.html",
+    "size": "9.8 KB"
+  },
+  {
     "title": "Assessment Rubrics Pack",
     "slug": "assessment-rubrics-pack-v1.1-en",
     "category": "assessment",
@@ -7,7 +27,7 @@
     "version": "1.1",
     "pdf": "/resources/assessment/assessment-rubrics-pack-v1.1-en.pdf",
     "html": "/resources/assessment/assessment-rubrics-pack-v1.1-en.html",
-    "size": "29.0 KB"
+    "size": "29.6 KB"
   },
   {
     "title": "Classroom Routines Guide",
@@ -17,7 +37,27 @@
     "version": "1.1",
     "pdf": "/resources/management/classroom-routines-guide-v1.1-en.pdf",
     "html": "/resources/management/classroom-routines-guide-v1.1-en.html",
-    "size": "24.7 KB"
+    "size": "25.3 KB"
+  },
+  {
+    "title": "Parent Email Checklist",
+    "slug": "parent-email-checklist-v1.2-en",
+    "category": "communication",
+    "lang": "en",
+    "version": "1.2",
+    "pdf": "/resources/communication/parent-email-checklist-v1.2-en.pdf",
+    "html": "/resources/communication/parent-email-checklist-v1.2-en.html",
+    "size": "10.3 KB"
+  },
+  {
+    "title": "Translation Helpers Pack",
+    "slug": "translation-helpers-pack-v1.2-en",
+    "category": "communication",
+    "lang": "en",
+    "version": "1.2",
+    "pdf": "/resources/communication/translation-helpers-pack-v1.2-en.pdf",
+    "html": "/resources/communication/translation-helpers-pack-v1.2-en.html",
+    "size": "9.8 KB"
   },
   {
     "title": "Formative Assessment Checklist",
@@ -27,7 +67,7 @@
     "version": "1.1",
     "pdf": "/resources/assessment/formative-assessment-checklist-v1.1-en.pdf",
     "html": "/resources/assessment/formative-assessment-checklist-v1.1-en.html",
-    "size": "22.8 KB"
+    "size": "23.3 KB"
   },
   {
     "title": "Primary Lesson Plan Template",
@@ -37,7 +77,17 @@
     "version": "1.1",
     "pdf": "/resources/planning/lesson-plan-template-primary-v1.1-en.pdf",
     "html": "/resources/planning/lesson-plan-template-primary-v1.1-en.html",
-    "size": "22.5 KB"
+    "size": "23.0 KB"
+  },
+  {
+    "title": "Behavior Redirection Scripts",
+    "slug": "behavior-redirection-scripts-v1.2-en",
+    "category": "management",
+    "lang": "en",
+    "version": "1.2",
+    "pdf": "/resources/management/behavior-redirection-scripts-v1.2-en.pdf",
+    "html": "/resources/management/behavior-redirection-scripts-v1.2-en.html",
+    "size": "10.1 KB"
   },
   {
     "title": "Parent Email Playbook",
@@ -47,7 +97,7 @@
     "version": "1.1",
     "pdf": "/resources/communication/parent-email-playbook-v1.1-en.pdf",
     "html": "/resources/communication/parent-email-playbook-v1.1-en.html",
-    "size": "23.1 KB"
+    "size": "23.6 KB"
   },
   {
     "title": "Report Comment Bank",
@@ -57,7 +107,7 @@
     "version": "1.1",
     "pdf": "/resources/assessment/report-comment-bank-v1.1-en.pdf",
     "html": "/resources/assessment/report-comment-bank-v1.1-en.html",
-    "size": "29.0 KB"
+    "size": "29.5 KB"
   },
   {
     "title": "Secondary Lesson Plan Template",
@@ -67,7 +117,7 @@
     "version": "1.1",
     "pdf": "/resources/planning/secondary-lesson-plan-template-v1.1-en.pdf",
     "html": "/resources/planning/secondary-lesson-plan-template-v1.1-en.html",
-    "size": "23.9 KB"
+    "size": "24.4 KB"
   },
   {
     "title": "Teacher AI Toolkit",
@@ -77,6 +127,6 @@
     "version": "1.1",
     "pdf": "/resources/ai-tools/teacher-ai-toolkit-v1.1-en.pdf",
     "html": "/resources/ai-tools/teacher-ai-toolkit-v1.1-en.html",
-    "size": "20.9 KB"
+    "size": "21.4 KB"
   }
 ]

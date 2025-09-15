@@ -180,8 +180,28 @@ async function processMarkdownFile(filePath: string, css: string): Promise<Resou
   }
 }
 
+async function findMarkdownFiles(dir: string, basePath: string = ''): Promise<string[]> {
+  const files: string[] = [];
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    const relativePath = basePath ? path.join(basePath, entry.name) : entry.name;
+    
+    if (entry.isDirectory()) {
+      // Recursively scan subdirectories
+      const subFiles = await findMarkdownFiles(fullPath, relativePath);
+      files.push(...subFiles);
+    } else if (entry.isFile() && entry.name.endsWith('.md') && (entry.name.includes('v1-1') || entry.name.includes('v1.2'))) {
+      files.push(relativePath);
+    }
+  }
+  
+  return files;
+}
+
 async function main(): Promise<void> {
-  console.log('🚀 Generating Resources v1.1...');
+  console.log('🚀 Generating Resources v1.1 & v1.2...');
   
   try {
     // Ensure output directory exists
@@ -190,11 +210,10 @@ async function main(): Promise<void> {
     // Load CSS
     const css = await fs.readFile(CSS_PATH, 'utf8');
     
-    // Find all markdown files
-    const files = await fs.readdir(RESOURCES_SRC);
-    const markdownFiles = files.filter(f => f.endsWith('.md') && f.includes('v1-1'));
+    // Find all markdown files recursively
+    const markdownFiles = await findMarkdownFiles(RESOURCES_SRC);
     
-    console.log(`📄 Found ${markdownFiles.length} v1.1 markdown files`);
+    console.log(`📄 Found ${markdownFiles.length} markdown files (v1.1 & v1.2)`);
     
     // Process each file
     const manifest: ResourceManifest[] = [];
