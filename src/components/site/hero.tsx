@@ -17,10 +17,10 @@ export function Hero() {
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {t('title')}
+                {t('headline')}
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                {t('subtitle')}
+                {t('subhead')}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">

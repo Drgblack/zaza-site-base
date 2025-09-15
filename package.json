@@ -4,6 +4,7 @@
     "private":  true,
     "scripts":  {
                     "dev":  "next dev --turbopack -p 3010",
+                    "prebuild": "tsx scripts/build-resources.ts",
                     "build":  "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
                     "start":  "next start",
                     "lint":  "eslint src/",

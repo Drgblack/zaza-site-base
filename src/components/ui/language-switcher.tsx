@@ -1,14 +1,16 @@
 'use client';
 
 import {Link, usePathname} from '@/i18n/routing';
-import {routing} from '@/i18n/routing';
+
+// Only show English locale for now (others not fully supported)
+const enabledLocales = ['en'] as const;
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
 
   return (
     <div className="flex gap-2">
-      {routing.locales.map((loc) => (
+      {enabledLocales.map((loc) => (
         <Link
           key={loc}
           href={pathname || '/'}
