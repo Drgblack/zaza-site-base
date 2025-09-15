@@ -96,7 +96,8 @@
       "Bash(timeout 60 npm run build)",
       "Bash(timeout 300 npm run build)",
       "Bash(cmd /c \"npm run build\")",
-      "Bash(npm.cmd run build)"
+      "Bash(npm.cmd run build)",
+      "Bash(git cherry-pick:*)"
     ],
     "deny": []
   }
