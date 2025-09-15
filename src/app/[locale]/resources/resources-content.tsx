@@ -236,7 +236,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                           href={resource.htmlPath}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 flex-1"
+                          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 transition-colors flex-1"
                           data-resource-card="view"
                         >
                           <BookOpen className="w-4 h-4 mr-2" />
@@ -245,8 +245,20 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                         <a
                           href={resource.pdfPath}
                           download
-                          className="inline-flex items-center justify-center rounded-md bg-violet-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-violet-700 flex-1"
+                          className="inline-flex items-center justify-center rounded-md bg-violet-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-violet-700 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition-colors flex-1"
                           data-resource-card="download"
+                          onClick={() => {
+                            if (process.env.NEXT_PUBLIC_ANALYTICS === '1') {
+                              // Track download event
+                              if (typeof window !== 'undefined' && (window as any).gtag) {
+                                (window as any).gtag('event', 'resource_download', {
+                                  slug: resource.id,
+                                  category: resource.category,
+                                  title: resource.title
+                                });
+                              }
+                            }
+                          }}
                         >
                           <Download className="w-4 h-4 mr-2" />
                           Download PDF
@@ -358,14 +370,29 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                         </span>
                       </div>
                       <div className="flex gap-2">
-                        <Button asChild variant="outline" className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-50" data-resource-card="view">
+                        <Button asChild variant="outline" className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2" data-resource-card="view">
                           <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
                             <BookOpen className="w-4 h-4 mr-2" />
                             View online
                           </a>
                         </Button>
-                        <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg" data-resource-card="download">
-                          <a href={resource.pdfPath} download>
+                        <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg focus:ring-2 focus:ring-purple-500 focus:ring-offset-2" data-resource-card="download">
+                          <a 
+                            href={resource.pdfPath} 
+                            download
+                            onClick={() => {
+                              if (process.env.NEXT_PUBLIC_ANALYTICS === '1') {
+                                // Track download event
+                                if (typeof window !== 'undefined' && (window as any).gtag) {
+                                  (window as any).gtag('event', 'resource_download', {
+                                    slug: resource.id,
+                                    category: resource.category,
+                                    title: resource.title
+                                  });
+                                }
+                              }
+                            }}
+                          >
                             <Download className="w-4 h-4 mr-2" />
                             Download PDF
                           </a>
