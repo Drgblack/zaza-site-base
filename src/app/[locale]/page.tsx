@@ -46,7 +46,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = params;
   setRequestLocale(locale);
 
-  const hero = await getTranslations('hero'); // Updated hero copy
+  const hero = await getTranslations('hero'); // MUST SHOW: "Get your Sundays back" tagline
 
   return (
     <div className="flex flex-col">
