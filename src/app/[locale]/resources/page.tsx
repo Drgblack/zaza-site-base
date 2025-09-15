@@ -11,8 +11,9 @@ interface ResourceManifest {
   category: string;
   lang: string;
   version: string;
-  size: number;
-  href: string;
+  pdf: string;
+  html: string;
+  size: string;
 }
 
 export default async function ResourcesPage() {
@@ -28,9 +29,11 @@ export default async function ResourcesPage() {
     tags: getResourceTags(resource.slug),
     level: 'intermediate' as const,
     type: getResourceType(resource.slug),
-    path: resource.href,
-    bytes: resource.size,
-    sizeLabel: formatFileSize(resource.size),
+    path: resource.pdf, // Default to PDF for downloads
+    htmlPath: resource.html, // HTML for viewing
+    pdfPath: resource.pdf, // PDF for downloads
+    bytes: parseFloat(resource.size.replace(' KB', '')) * 1024, // Convert back to bytes for compatibility
+    sizeLabel: resource.size,
     featured: index < 3, // First 3 resources are featured
     createdAt: new Date().toISOString()
   }));

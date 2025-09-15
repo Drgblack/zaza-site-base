@@ -1,38 +1,42 @@
 [
   {
     "title": "Assessment Rubrics Pack",
-    "slug": "assessment-rubrics-pack",
+    "slug": "assessment-rubrics-pack-v1.1-en",
     "category": "assessment",
     "lang": "en",
     "version": "1.1",
-    "size": 29736,
-    "href": "/resources/assessment/assessment-rubrics-pack-v1.1-en.pdf"
+    "pdf": "/resources/assessment/assessment-rubrics-pack-v1.1-en.pdf",
+    "html": "/resources/assessment/assessment-rubrics-pack-v1.1-en.html",
+    "size": "29.0 KB"
   },
   {
     "title": "Primary Lesson Plan Template",
-    "slug": "lesson-plan-template-primary",
+    "slug": "lesson-plan-template-primary-v1.1-en",
     "category": "planning",
     "lang": "en",
     "version": "1.1",
-    "size": 23053,
-    "href": "/resources/planning/lesson-plan-template-primary-v1.1-en.pdf"
+    "pdf": "/resources/planning/lesson-plan-template-primary-v1.1-en.pdf",
+    "html": "/resources/planning/lesson-plan-template-primary-v1.1-en.html",
+    "size": "22.5 KB"
   },
   {
     "title": "Parent Email Playbook",
-    "slug": "parent-email-playbook",
+    "slug": "parent-email-playbook-v1.1-en",
     "category": "communication",
     "lang": "en",
     "version": "1.1",
-    "size": 23628,
-    "href": "/resources/communication/parent-email-playbook-v1.1-en.pdf"
+    "pdf": "/resources/communication/parent-email-playbook-v1.1-en.pdf",
+    "html": "/resources/communication/parent-email-playbook-v1.1-en.html",
+    "size": "23.1 KB"
   },
   {
     "title": "Report Comment Bank",
-    "slug": "report-comment-bank",
+    "slug": "report-comment-bank-v1.1-en",
     "category": "assessment",
     "lang": "en",
     "version": "1.1",
-    "size": 29652,
-    "href": "/resources/assessment/report-comment-bank-v1.1-en.pdf"
+    "pdf": "/resources/assessment/report-comment-bank-v1.1-en.pdf",
+    "html": "/resources/assessment/report-comment-bank-v1.1-en.html",
+    "size": "29.0 KB"
   }
 ]

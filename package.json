@@ -15,7 +15,9 @@
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",
                     "ui:review":  "node scripts/ui-review.mjs",
                     "smoke:test":  "node scripts/smoke-test.js",
-                    "gen:resources": "tsx scripts/generate-resources.ts"
+                    "gen:resources:html": "tsx scripts/generate-resources.ts",
+                    "gen:resources:pdf": "tsx scripts/generate-resources-pdf.ts",
+                    "gen:resources": "npm run gen:resources:html && npm run gen:resources:pdf"
                 },
     "dependencies":  {
                          "@firebase/auth":  "^1.11.0",

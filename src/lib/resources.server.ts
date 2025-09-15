@@ -12,8 +12,9 @@ interface ResourceManifestItem {
   category: string;
   lang: string;
   version: string;
-  size: number;
-  href: string;
+  pdf: string;
+  html: string;
+  size: string;
 }
 
 const MANIFEST_PATH = path.join(process.cwd(), 'public/resources/resources.manifest.json');

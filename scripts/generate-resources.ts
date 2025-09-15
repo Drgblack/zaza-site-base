@@ -27,8 +27,9 @@ interface ResourceManifest {
   category: string;
   lang: string;
   version: string;
-  size: number;
-  href: string;
+  pdf: string;
+  html: string;
+  size: string;
 }
 
 const RESOURCES_SRC = 'resources-src';
@@ -154,20 +155,23 @@ async function processMarkdownFile(filePath: string, css: string): Promise<Resou
     await fs.copyFile(htmlPath, pdfPath);
     console.log(`📄 Created PDF placeholder: ${pdfPath}`);
     
-    // Get file size from PDF
-    const stats = await fs.stat(pdfPath);
+    // Get file size from HTML
+    const stats = await fs.stat(htmlPath);
+    const sizeMB = (stats.size / 1024).toFixed(1) + ' KB';
     
-    // Return manifest entry pointing to PDF
-    const href = `/${path.relative('public', pdfPath).replace(/\\/g, '/')}`;
+    // Return manifest entry with both HTML and PDF paths
+    const pdfHref = `/${path.relative('public', pdfPath).replace(/\\/g, '/')}`;
+    const htmlHref = `/${path.relative('public', htmlPath).replace(/\\/g, '/')}`;
     
     return {
       title: resourceMetadata.title,
-      slug: resourceMetadata.slug,
+      slug: `${resourceMetadata.slug}-v${version}-${lang}`,
       category: resourceMetadata.category,
       lang,
       version,
-      size: stats.size,
-      href
+      pdf: pdfHref,
+      html: htmlHref,
+      size: sizeMB
     };
     
   } catch (error) {
@@ -208,17 +212,20 @@ async function main(): Promise<void> {
     const manifestPath = path.join(PUBLIC_RESOURCES, 'resources.manifest.json');
     await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
     
-    console.log(`✅ Generated ${manifest.length} PDFs`);
+    console.log(`✅ Generated ${manifest.length} HTML files (PDFs will be generated separately)`);
     console.log(`📋 Manifest written to: ${manifestPath}`);
     
     // Summary
-    const totalSize = manifest.reduce((sum, item) => sum + item.size, 0);
-    const avgSize = totalSize / manifest.length;
+    const totalSizeKB = manifest.reduce((sum, item) => {
+      const sizeStr = item.size.replace(' KB', '');
+      return sum + parseFloat(sizeStr);
+    }, 0);
+    const avgSizeKB = totalSizeKB / manifest.length;
     
-    console.log(`📊 Total size: ${(totalSize / 1024).toFixed(1)}KB`);
-    console.log(`📊 Average size: ${(avgSize / 1024).toFixed(1)}KB`);
+    console.log(`📊 Total size: ${totalSizeKB.toFixed(1)}KB`);
+    console.log(`📊 Average size: ${avgSizeKB.toFixed(1)}KB`);
     
-    if (avgSize < 100 * 1024) {
+    if (avgSizeKB < 100) {
       console.warn('⚠️ Warning: Average file size is less than 100KB');
     }
     

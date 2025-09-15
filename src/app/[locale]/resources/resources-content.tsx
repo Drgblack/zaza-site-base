@@ -15,6 +15,8 @@ interface Resource {
   level: 'beginner' | 'intermediate' | 'advanced';
   type: 'template' | 'guide' | 'checklist' | 'toolkit' | 'worksheet';
   path: string;
+  htmlPath: string;
+  pdfPath: string;
   bytes: number;
   sizeLabel: string;
   featured?: boolean;
@@ -225,16 +227,24 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                         </Badge>
                       )}
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="space-y-3">
                       <div className="text-sm text-gray-500">
                         {resource.sizeLabel}
                       </div>
-                      <Button asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                        <a href={resource.path} download>
-                          <Download className="w-4 h-4 mr-2" />
-                          Download
-                        </a>
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button asChild variant="outline" className="flex-1" data-resource-card="view">
+                          <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            Open
+                          </a>
+                        </Button>
+                        <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" data-resource-card="download">
+                          <a href={resource.pdfPath} download>
+                            <Download className="w-4 h-4 mr-2" />
+                            Download PDF
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -329,7 +339,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                       )}
                     </div>
                     
-                    <div className="border-t pt-4 flex items-center justify-between">
+                    <div className="border-t pt-4 space-y-4">
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span className="flex items-center gap-1">
                           <Download className="w-4 h-4" />
@@ -340,12 +350,20 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                           PDF Format
                         </span>
                       </div>
-                      <Button asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg">
-                        <a href={resource.path} download>
-                          <Download className="w-4 h-4 mr-2" />
-                          Download
-                        </a>
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button asChild variant="outline" className="flex-1" data-resource-card="view">
+                          <a href={resource.htmlPath} target="_blank" rel="noopener noreferrer">
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            Open
+                          </a>
+                        </Button>
+                        <Button asChild className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg" data-resource-card="download">
+                          <a href={resource.pdfPath} download>
+                            <Download className="w-4 h-4 mr-2" />
+                            Download PDF
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
