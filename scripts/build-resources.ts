@@ -5,7 +5,7 @@ import { join } from 'path';
 
 const RESOURCES_DIR = 'public/resources';
 const OUTPUT_FILE = 'src/data/resources.json';
-const MIN_FILE_SIZE = 1 * 1024; // 1KB minimum (as requested)
+const MIN_FILE_SIZE = 500; // 500 bytes minimum to include more resources
 
 interface ResourceFile {
   id: string;
@@ -98,6 +98,107 @@ function getResourceMetadata(filename: string): Partial<ResourceFile> {
     };
   }
   
+  // Enhanced metadata for additional resources
+  if (name.includes('ai-grading-prompts')) {
+    return {
+      description: "Ready-to-use AI prompts for efficient and consistent grading that save hours while providing meaningful feedback to students.",
+      category: "Assessment",
+      tags: ["grading", "ai-prompts", "feedback", "assessment", "time-saving"],
+      level: "intermediate",
+      type: "toolkit"
+    };
+  }
+  
+  if (name.includes('ai-quiz-generator-guide')) {
+    return {
+      description: "Step-by-step guide to creating engaging quizzes and assessments using AI tools, with templates and best practices.",
+      category: "Assessment", 
+      tags: ["quiz-creation", "ai-tools", "assessment", "engagement"],
+      level: "beginner",
+      type: "guide"
+    };
+  }
+  
+  if (name.includes('ai-student-support')) {
+    return {
+      description: "AI-powered strategies for providing personalized student support, intervention planning, and academic assistance.",
+      category: "Student Support",
+      tags: ["student-support", "personalization", "ai-tools", "intervention"],
+      level: "intermediate", 
+      type: "guide"
+    };
+  }
+  
+  if (name.includes('assessment-rubric-template')) {
+    return {
+      description: "Professional rubric templates for various subjects and projects, designed to streamline assessment and provide clear expectations.",
+      category: "Assessment",
+      tags: ["rubrics", "assessment", "templates", "grading", "standards"],
+      level: "beginner",
+      type: "template"
+    };
+  }
+  
+  if (name.includes('behavior-strategies')) {
+    return {
+      description: "Evidence-based behavior management strategies and interventions for creating positive classroom environments and supporting all learners.",
+      category: "Management",
+      tags: ["behavior-management", "classroom-strategies", "positive-discipline", "interventions"],
+      level: "intermediate",
+      type: "guide"
+    };
+  }
+  
+  if (name.includes('formative-assessment-checklist')) {
+    return {
+      description: "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
+      category: "Assessment",
+      tags: ["formative-assessment", "checklist", "feedback", "instruction"],
+      level: "beginner", 
+      type: "checklist"
+    };
+  }
+  
+  if (name.includes('group-work-tools')) {
+    return {
+      description: "Essential tools and strategies for organizing effective group work, promoting collaboration, and ensuring all students participate.",
+      category: "Instruction",
+      tags: ["group-work", "collaboration", "cooperative-learning", "engagement"],
+      level: "beginner",
+      type: "toolkit"
+    };
+  }
+  
+  if (name.includes('parent-meeting-checklist')) {
+    return {
+      description: "Comprehensive checklist for conducting productive parent meetings, conferences, and difficult conversations with preparation tips.",
+      category: "Communication",
+      tags: ["parent-meetings", "conferences", "checklist", "communication"],
+      level: "beginner",
+      type: "checklist"
+    };
+  }
+  
+  if (name.includes('student-feedback-bank')) {
+    return {
+      description: "Ready-to-use feedback comments and phrases for various subjects and situations, saving time while providing meaningful responses.",
+      category: "Assessment", 
+      tags: ["feedback", "comments", "grading", "time-saving", "templates"],
+      level: "beginner",
+      type: "template"
+    };
+  }
+  
+  if (name.includes('weekly-lesson-planner')) {
+    return {
+      description: "Comprehensive weekly planning template that helps organize lessons, track progress, and maintain work-life balance.",
+      category: "Planning",
+      tags: ["lesson-planning", "weekly-planning", "organization", "templates"],
+      level: "beginner",
+      type: "template"
+    };
+  }
+
   // Default metadata for unrecognized files
   return {
     description: "Educational resource for teachers and educators.",
