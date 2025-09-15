@@ -86,11 +86,11 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
           <div className="grid gap-6 md:grid-cols-4">
             {/* Search */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Search Resources
               </label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search by title, description, or tags..."
@@ -103,7 +103,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
 
             {/* Category Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Category
               </label>
               <select
@@ -122,7 +122,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
 
             {/* Level Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Level
               </label>
               <select
@@ -142,7 +142,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
 
           {/* Type Filter */}
           <div className="mt-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
               Resource Type
             </label>
             <div className="flex flex-wrap gap-3">
@@ -171,10 +171,10 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
           </div>
 
           {/* Results count */}
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <p className="text-gray-600">
-              Showing <span className="font-semibold">{filteredResources.length}</span> of{' '}
-              <span className="font-semibold">{resources.length}</span> resources
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-slate-600 dark:text-slate-400">
+              Showing <span className="font-semibold text-slate-900 dark:text-slate-100">{filteredResources.length}</span> of{' '}
+              <span className="font-semibold text-slate-900 dark:text-slate-100">{resources.length}</span> resources
             </p>
           </div>
         </div>
@@ -185,7 +185,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <Star className="w-6 h-6 text-yellow-500" />
-            <h2 className="text-3xl font-bold text-gray-900">Featured Resources</h2>
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Featured Resources</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {featuredResources.slice(0, 3).map((resource) => {
@@ -265,7 +265,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-8">
           <BookOpen className="w-6 h-6 text-purple-600" />
-          <h2 className="text-3xl font-bold text-gray-900">All Resources</h2>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100">All Resources</h2>
         </div>
       </section>
 
