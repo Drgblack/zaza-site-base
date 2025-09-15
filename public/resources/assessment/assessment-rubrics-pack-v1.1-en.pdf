@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assessment Rubrics Pack</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies GmbH, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+  position: relative;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-left: 3px solid #c7d2fe;
+  background: #eef2ff;
+  color: #1e3a8a;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+}
+
+pre {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  
+  <h1>Assessment Rubrics Pack</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>Why Rubrics Transform Learning</li>
+  <li>4-Point Generic Rubric (copy & adapt)</li>
+  <li>Subject-Specific Rubrics</li>
+  <li>Collaboration & Social Skills Rubrics</li>
+  <li>Creative Project Rubrics</li>
+  <li>Implementation Strategies</li>
+  <li>Customization Guidelines</li>
+  <li>Quality Assurance for Rubrics</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"A great rubric doesn't just measure learning—it teaches students what quality looks like."</p>
+</blockquote>
+<h2>Why Rubrics Transform Learning</h2>
+<p>When students understand the criteria for success before they begin, they can:</p>
+<ul>
+<li><strong>Self-monitor</strong> their progress during the task</li>
+<li><strong>Set goals</strong> for improvement in specific areas</li>
+<li><strong>Peer assess</strong> using shared understanding of quality</li>
+<li><strong>Take ownership</strong> of their learning journey</li>
+</ul>
+<h2>4-Point Generic Rubric (copy &#x26; adapt)</h2>
+<p>This foundation rubric works across subjects and grade levels. Simply replace the criteria with subject-specific skills.</p>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>4 — Exemplary</th>
+<th>3 — Proficient</th>
+<th>2 — Developing</th>
+<th>1 — Beginning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content &#x26; Ideas</strong></td>
+<td>Insightful ideas; convincing evidence; goes beyond requirements</td>
+<td>Clear ideas; relevant evidence; meets all requirements</td>
+<td>Some ideas present; limited evidence; basic requirements met</td>
+<td>Minimal understanding; little evidence; requirements unclear</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Logical flow; effective transitions; engaging structure</td>
+<td>Organized; transitions present; clear beginning/middle/end</td>
+<td>Basic structure; some unclear transitions</td>
+<td>Disorganized; hard to follow</td>
+</tr>
+<tr>
+<td><strong>Language Use</strong></td>
+<td>Precise, varied, audience-aware; enhances meaning</td>
+<td>Clear and appropriate; good word choice</td>
+<td>Some errors or repetition; meaning clear</td>
+<td>Errors impede meaning; limited vocabulary</td>
+</tr>
+<tr>
+<td><strong>Effort &#x26; Polish</strong></td>
+<td>Exceptional attention to detail; clear evidence of revision</td>
+<td>Good effort; some revision evident</td>
+<td>Adequate effort; minimal revision</td>
+<td>Limited effort; lacks polish</td>
+</tr>
+</tbody>
+</table>
+<h2>Subject-Specific Rubrics</h2>
+<h3>Writing Assessment (Grades 3-8)</h3>
+<p><strong>Narrative Writing</strong></p>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Story Elements</strong></td>
+<td>Engaging characters, vivid setting, clear problem/solution with creative resolution</td>
+<td>Well-developed characters, clear setting, problem and solution evident</td>
+<td>Basic characters and setting, simple problem/solution</td>
+<td>Characters unclear, minimal setting, problem/solution missing</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Compelling opening, logical sequence, satisfying conclusion with smooth transitions</td>
+<td>Clear beginning/middle/end, good sequence, appropriate transitions</td>
+<td>Basic structure, some sequence issues, simple transitions</td>
+<td>Unclear structure, events out of order, lacks transitions</td>
+</tr>
+<tr>
+<td><strong>Voice &#x26; Style</strong></td>
+<td>Strong, consistent voice; varied sentence structure; engaging word choice</td>
+<td>Clear voice; some sentence variety; appropriate word choice</td>
+<td>Developing voice; mostly simple sentences; basic vocabulary</td>
+<td>Weak voice; repetitive sentences; limited vocabulary</td>
+</tr>
+<tr>
+<td><strong>Conventions</strong></td>
+<td>Grammar, spelling, punctuation enhance meaning; skillful editing evident</td>
+<td>Minor errors don't interfere with meaning; good editing</td>
+<td>Some errors may confuse meaning; basic editing</td>
+<td>Many errors interfere with understanding; needs editing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Comment from Rubric:</strong><br>
+<em>"Sarah's narrative demonstrates exemplary story elements with engaging characters and a creative resolution (4), while her voice and style show clear voice with some sentence variety (3). Next, she'll focus on varying sentence beginnings to strengthen her writing style."</em></p>
+<h3>Persuasive Writing</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Argument &#x26; Evidence</strong></td>
+<td>Compelling thesis; multiple types of strong evidence; addresses counterarguments</td>
+<td>Clear position; relevant evidence; acknowledges other viewpoints</td>
+<td>Basic position stated; some evidence provided; limited perspective</td>
+<td>Unclear position; minimal or weak evidence; single perspective</td>
+</tr>
+<tr>
+<td><strong>Reasoning</strong></td>
+<td>Logical connections between claims and evidence; sophisticated thinking</td>
+<td>Clear connections between ideas; sound reasoning</td>
+<td>Some logical connections; basic reasoning</td>
+<td>Unclear connections; weak reasoning</td>
+</tr>
+<tr>
+<td><strong>Persuasive Techniques</strong></td>
+<td>Skillful use of emotional appeal, credibility, and logic; aware of audience</td>
+<td>Good use of persuasive techniques; considers audience</td>
+<td>Basic persuasive techniques; some audience awareness</td>
+<td>Limited persuasive techniques; little audience consideration</td>
+</tr>
+</tbody>
+</table>
+<h3>Mathematics Problem Solving (Grades K-8)</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Understanding</strong></td>
+<td>Shows complete understanding; identifies all relevant information and constraints</td>
+<td>Shows substantial understanding; identifies key information</td>
+<td>Shows partial understanding; may miss some key information</td>
+<td>Shows little understanding; misses or ignores key information</td>
+</tr>
+<tr>
+<td><strong>Strategy Selection</strong></td>
+<td>Uses efficient, sophisticated strategy; may show multiple approaches</td>
+<td>Uses appropriate strategy that leads to solution</td>
+<td>Uses partially correct strategy; may need redirection</td>
+<td>Uses inappropriate strategy or no clear strategy</td>
+</tr>
+<tr>
+<td><strong>Implementation</strong></td>
+<td>Carries out strategy completely and accurately; work is organized</td>
+<td>Carries out strategy with minor errors; mostly organized</td>
+<td>Carries out strategy with some errors or incompletely</td>
+<td>Cannot carry out strategy; makes major errors</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Clear, detailed explanation; uses math vocabulary precisely; shows all work</td>
+<td>Adequate explanation; appropriate vocabulary; shows most work</td>
+<td>Some explanation; basic vocabulary; shows some work</td>
+<td>Little explanation; limited vocabulary; minimal work shown</td>
+</tr>
+<tr>
+<td><strong>Reasoning</strong></td>
+<td>Makes logical connections; explains why solution makes sense</td>
+<td>Shows logical thinking; checks reasonableness</td>
+<td>Some logical thinking; limited checking</td>
+<td>Illogical or unclear thinking; no checking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Real Example:</strong><br>
+<em>Problem: "A school is planning a field trip. There are 127 students and each bus holds 42 students. How many buses are needed?"</em></p>
+<ul>
+<li>
+<p><strong>Exemplary (4):</strong> Calculates 127 ÷ 42 = 3.02, explains that you can't have part of a bus, so 4 buses are needed. Shows division clearly, checks by multiplying 4 × 42 = 168 and explains this covers all 127 students with 41 empty seats.</p>
+</li>
+<li>
+<p><strong>Proficient (3):</strong> Calculates 127 ÷ 42 = 3.02, rounds up to 4 buses. Shows division work and explains reasoning clearly.</p>
+</li>
+<li>
+<p><strong>Developing (2):</strong> Calculates 127 ÷ 42 = 3.02, says "3 buses" without considering the remainder.</p>
+</li>
+</ul>
+<h3>Science Investigation (Grades 3-8)</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Question &#x26; Hypothesis</strong></td>
+<td>Asks sophisticated, testable question; hypothesis shows deep understanding of concepts</td>
+<td>Asks clear, testable question; reasonable hypothesis based on prior knowledge</td>
+<td>Question needs refinement; basic hypothesis</td>
+<td>Question unclear or not testable; no clear hypothesis</td>
+</tr>
+<tr>
+<td><strong>Investigation Design</strong></td>
+<td>Designs controlled investigation; considers multiple variables; creative approach</td>
+<td>Designs appropriate investigation; identifies key variables</td>
+<td>Basic investigation design with some flaws</td>
+<td>Investigation design flawed or incomplete</td>
+</tr>
+<tr>
+<td><strong>Data Collection</strong></td>
+<td>Collects accurate, detailed data; uses multiple trials; records systematically</td>
+<td>Collects adequate data using appropriate methods; organized recording</td>
+<td>Collects basic data with some gaps or errors</td>
+<td>Data collection incomplete or inaccurate</td>
+</tr>
+<tr>
+<td><strong>Analysis &#x26; Conclusions</strong></td>
+<td>Makes insightful connections; draws logical conclusions; considers limitations and improvements</td>
+<td>Draws logical conclusions supported by data; some analysis</td>
+<td>Basic conclusions with some support from data; limited analysis</td>
+<td>Conclusions not clearly supported by data; minimal analysis</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Uses precise scientific vocabulary; clear visual representations; engaging presentation</td>
+<td>Uses appropriate scientific vocabulary; good organization; clear communication</td>
+<td>Uses some scientific vocabulary; basic organization; adequate communication</td>
+<td>Limited scientific vocabulary; unclear organization; poor communication</td>
+</tr>
+</tbody>
+</table>
+<h3>Oral Presentation (All Grades)</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content Knowledge</strong></td>
+<td>Demonstrates mastery; answers all questions with depth and accuracy</td>
+<td>Shows solid understanding; answers most questions correctly</td>
+<td>Shows basic understanding; some difficulty with questions</td>
+<td>Limited understanding; cannot answer most questions</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Clear, engaging structure; smooth transitions; strong opening and closing</td>
+<td>Well-organized; clear transitions; appropriate opening and closing</td>
+<td>Basic organization; some unclear transitions; adequate opening/closing</td>
+<td>Poor organization; unclear flow; weak opening/closing</td>
+</tr>
+<tr>
+<td><strong>Delivery</strong></td>
+<td>Confident, engaging delivery; excellent eye contact; varied voice; natural gestures</td>
+<td>Clear voice; good eye contact; appropriate pace; some gestures</td>
+<td>Adequate delivery; some eye contact issues; pace too fast/slow</td>
+<td>Difficult to hear/understand; limited eye contact; poor pacing</td>
+</tr>
+<tr>
+<td><strong>Visual Aids</strong></td>
+<td>Sophisticated visuals enhance understanding; seamlessly integrated</td>
+<td>Appropriate visuals support content; well-integrated</td>
+<td>Basic visuals with some connection to content; adequate integration</td>
+<td>Poor visuals don't support content; poorly integrated or distracting</td>
+</tr>
+<tr>
+<td><strong>Response to Questions</strong></td>
+<td>Thoughtful, detailed responses; engages with questioner; admits uncertainties appropriately</td>
+<td>Clear, accurate responses; listens well; handles most questions effectively</td>
+<td>Basic responses; some difficulty understanding or answering questions</td>
+<td>Limited responses; unclear or inaccurate answers; doesn't listen well</td>
+</tr>
+</tbody>
+</table>
+<h2>Collaboration &#x26; Social Skills Rubrics</h2>
+<h3>Group Work Assessment</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Participation</strong></td>
+<td>Takes initiative; actively engages all members; facilitates others' contributions</td>
+<td>Participates consistently and constructively; encourages others</td>
+<td>Participates but may need encouragement; sometimes quiet or dominant</td>
+<td>Limited participation; disengages or disrupts group</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Communicates ideas clearly and respectfully; builds on others' ideas; asks probing questions</td>
+<td>Shares ideas appropriately; listens actively; asks relevant questions</td>
+<td>Some difficulty expressing ideas or listening; basic questions</td>
+<td>Poor communication; doesn't listen; irrelevant contributions</td>
+</tr>
+<tr>
+<td><strong>Responsibility</strong></td>
+<td>Exceeds expectations; ensures quality; helps group stay organized and on task</td>
+<td>Completes assigned tasks reliably; contributes to group success</td>
+<td>Completes most tasks with reminders; adequate contribution</td>
+<td>Needs significant support; doesn't complete tasks; relies on others</td>
+</tr>
+<tr>
+<td><strong>Problem-Solving</strong></td>
+<td>Helps resolve conflicts constructively; finds creative solutions; mediates between others</td>
+<td>Addresses problems appropriately with group; offers solutions</td>
+<td>Some problem-solving with guidance; needs help with conflicts</td>
+<td>Avoids problems; creates additional conflicts; needs adult intervention</td>
+</tr>
+<tr>
+<td><strong>Respect &#x26; Inclusion</strong></td>
+<td>Values all perspectives; ensures everyone feels included; celebrates diversity</td>
+<td>Shows respect for all members; includes others in decisions</td>
+<td>Generally respectful; sometimes needs reminders about inclusion</td>
+<td>Disrespectful behavior; excludes others; needs frequent reminders</td>
+</tr>
+</tbody>
+</table>
+<h2>Creative Project Rubrics</h2>
+<h3>Art &#x26; Design Projects</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Creativity &#x26; Originality</strong></td>
+<td>Highly original ideas; innovative use of materials; unique personal expression</td>
+<td>Original thinking; creative use of materials; clear personal style</td>
+<td>Some original elements; basic creativity; developing personal style</td>
+<td>Limited originality; follows examples closely; minimal personal expression</td>
+</tr>
+<tr>
+<td><strong>Technical Skills</strong></td>
+<td>Masterful use of tools and techniques; shows advanced skills; professional quality</td>
+<td>Good use of tools and techniques; demonstrates learned skills; quality work</td>
+<td>Basic use of tools; developing skills; adequate technique</td>
+<td>Limited skill demonstrated; needs significant technique improvement</td>
+</tr>
+<tr>
+<td><strong>Visual Elements</strong></td>
+<td>Sophisticated use of color, line, shape, texture; creates strong visual impact</td>
+<td>Good use of visual elements; pleasing composition; effective design</td>
+<td>Basic use of visual elements; simple composition; adequate design</td>
+<td>Poor use of visual elements; weak composition; unclear design</td>
+</tr>
+<tr>
+<td><strong>Effort &#x26; Craftsmanship</strong></td>
+<td>Exceptional attention to detail; clear evidence of time and care; refined finish</td>
+<td>Good effort evident; attention to detail; neat and complete</td>
+<td>Adequate effort; some attention to detail; mostly complete</td>
+<td>Limited effort; lacks attention to detail; incomplete or messy</td>
+</tr>
+</tbody>
+</table>
+<h3>Research Projects (Grades 4-12)</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Exemplary (4)</th>
+<th>Proficient (3)</th>
+<th>Developing (2)</th>
+<th>Beginning (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Research Quality</strong></td>
+<td>Uses multiple credible sources; evaluates source reliability; synthesizes information effectively</td>
+<td>Uses several appropriate sources; shows some evaluation; good information gathering</td>
+<td>Uses basic sources; limited evaluation; adequate information</td>
+<td>Uses few or poor sources; no evaluation; insufficient information</td>
+</tr>
+<tr>
+<td><strong>Content Accuracy</strong></td>
+<td>All information accurate and current; shows deep understanding; makes connections</td>
+<td>Most information accurate; good understanding; some connections</td>
+<td>Generally accurate; basic understanding; few connections</td>
+<td>Some inaccuracies; limited understanding; no clear connections</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td>Logical flow of ideas; sophisticated structure; seamless transitions</td>
+<td>Well-organized; clear structure; good transitions</td>
+<td>Basic organization; simple structure; adequate transitions</td>
+<td>Poor organization; unclear structure; weak or missing transitions</td>
+</tr>
+<tr>
+<td><strong>Citations &#x26; Sources</strong></td>
+<td>Perfect citation format; comprehensive bibliography; ethical use of sources</td>
+<td>Good citation format; complete bibliography; proper source use</td>
+<td>Basic citations; adequate bibliography; mostly proper source use</td>
+<td>Poor or missing citations; incomplete bibliography; unclear source use</td>
+</tr>
+</tbody>
+</table>
+<h2>Implementation Strategies</h2>
+<h3>Getting Started with Rubrics</h3>
+<ol>
+<li><strong>Introduce gradually</strong> - Start with one simple rubric for familiar tasks</li>
+<li><strong>Model evaluation</strong> - Use exemplars to show each performance level</li>
+<li><strong>Practice together</strong> - Evaluate sample work as a class before independent use</li>
+<li><strong>Student-friendly language</strong> - Adapt vocabulary for your grade level</li>
+<li><strong>Make it visual</strong> - Use colors, icons, or symbols for younger students</li>
+</ol>
+<h3>Self-Assessment Integration</h3>
+<p><strong>Before the Task:</strong></p>
+<ul>
+<li>Students read rubric and ask clarifying questions</li>
+<li>Provide examples at each performance level</li>
+<li>Students set personal goals using rubric criteria</li>
+</ul>
+<p><strong>During the Task:</strong></p>
+<ul>
+<li>Students use rubric for self-monitoring</li>
+<li>Checkpoint conferences using rubric language</li>
+<li>Peer feedback based on specific criteria</li>
+</ul>
+<p><strong>After the Task:</strong></p>
+<ul>
+<li>Students self-assess before submitting work</li>
+<li>Compare self-assessment with teacher evaluation</li>
+<li>Set goals for next similar task</li>
+</ul>
+<h3>Efficient Grading with Rubrics</h3>
+<p><strong>Color-coding system:</strong></p>
+<ul>
+<li><strong>Green highlight:</strong> Exemplary (4)</li>
+<li><strong>Blue highlight:</strong> Proficient (3)</li>
+<li><strong>Yellow highlight:</strong> Developing (2)</li>
+<li><strong>Pink highlight:</strong> Beginning (1)</li>
+</ul>
+<p><strong>Comment strategies:</strong></p>
+<ul>
+<li>Circle/highlight key phrases from rubric</li>
+<li>Add 1-2 specific examples as evidence</li>
+<li>Include one clear next step for improvement</li>
+<li>Use rubric language in report card comments</li>
+</ul>
+<h2>Customization Guidelines</h2>
+<h3>Adapting for Grade Levels</h3>
+<p><strong>Primary (K-3):</strong></p>
+<ul>
+<li>Use 3-point scale instead of 4-point</li>
+<li>Include visual symbols (stars, traffic lights)</li>
+<li>Simplify language significantly</li>
+<li>Focus on effort and progress, not just achievement</li>
+</ul>
+<p><strong>Elementary (4-6):</strong></p>
+<ul>
+<li>Include "I can" statements for each level</li>
+<li>Use student-friendly examples</li>
+<li>Build vocabulary gradually</li>
+<li>Include behavior/process criteria</li>
+</ul>
+<p><strong>Middle/High School (7-12):</strong></p>
+<ul>
+<li>Include specific academic vocabulary</li>
+<li>Connect to standardized assessment criteria</li>
+<li>Include higher-order thinking skills</li>
+<li>Allow for self-selected criteria in some areas</li>
+</ul>
+<h3>Subject-Specific Adaptations</h3>
+<p><strong>Language Arts:</strong> Include creativity, voice, and audience awareness
+<strong>Mathematics:</strong> Emphasize reasoning, communication, and problem-solving process<br>
+<strong>Science:</strong> Focus on inquiry skills, scientific thinking, and communication
+<strong>Social Studies:</strong> Include perspective-taking, source evaluation, and connections
+<strong>Arts:</strong> Emphasize creativity, technique, and personal expression</p>
+<h2>Quality Assurance for Rubrics</h2>
+<p>Before using any rubric, ensure it meets these standards:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Clear performance descriptions</strong> that distinguish between levels</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Observable criteria</strong> that can be measured consistently</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Age-appropriate language</strong> students can understand</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Balanced expectations</strong> across all criteria</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Aligned to learning objectives</strong> and standards</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Practical to use</strong> within available time constraints</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Fair and unbiased</strong> language throughout</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Includes specific examples</strong> where helpful</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies GmbH — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

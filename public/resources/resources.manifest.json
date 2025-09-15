@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Assessment Rubrics Pack",
+    "slug": "assessment-rubrics-pack",
+    "category": "assessment",
+    "lang": "en",
+    "version": "1.1",
+    "size": 29736,
+    "href": "/resources/assessment/assessment-rubrics-pack-v1.1-en.pdf"
+  },
+  {
+    "title": "Primary Lesson Plan Template",
+    "slug": "lesson-plan-template-primary",
+    "category": "planning",
+    "lang": "en",
+    "version": "1.1",
+    "size": 23053,
+    "href": "/resources/planning/lesson-plan-template-primary-v1.1-en.pdf"
+  },
+  {
+    "title": "Parent Email Playbook",
+    "slug": "parent-email-playbook",
+    "category": "communication",
+    "lang": "en",
+    "version": "1.1",
+    "size": 23628,
+    "href": "/resources/communication/parent-email-playbook-v1.1-en.pdf"
+  },
+  {
+    "title": "Report Comment Bank",
+    "slug": "report-comment-bank",
+    "category": "assessment",
+    "lang": "en",
+    "version": "1.1",
+    "size": 29652,
+    "href": "/resources/assessment/report-comment-bank-v1.1-en.pdf"
+  }
+]

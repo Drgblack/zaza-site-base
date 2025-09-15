@@ -14,7 +14,8 @@
                     "test:e2e":  "playwright test",
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",
                     "ui:review":  "node scripts/ui-review.mjs",
-                    "smoke:test":  "node scripts/smoke-test.js"
+                    "smoke:test":  "node scripts/smoke-test.js",
+                    "gen:resources": "ts-node --swc scripts/generate-resources.ts"
                 },
     "dependencies":  {
                          "@firebase/auth":  "^1.11.0",
