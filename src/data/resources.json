@@ -5,7 +5,7 @@
     "path": "/resources/ai-parent-comms.pdf",
     "bytes": 5034,
     "sizeLabel": "4.92 KB",
-    "createdAt": "2025-09-15T06:01:25.631Z",
+    "createdAt": "2025-09-15T06:24:22.609Z",
     "description": "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
     "category": "Communication",
     "tags": [
@@ -23,7 +23,7 @@
     "path": "/resources/lesson-plan-template-primary.pdf",
     "bytes": 6008,
     "sizeLabel": "5.87 KB",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "createdAt": "2025-09-15T06:24:22.614Z",
     "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
     "category": "Planning",
     "tags": [
@@ -43,7 +43,7 @@
     "path": "/resources/teacher-ai-toolkit.pdf",
     "bytes": 4738,
     "sizeLabel": "4.63 KB",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
     "category": "Technology",
     "tags": [
@@ -62,7 +62,7 @@
     "path": "/resources/teacher-self-care-guide.pdf",
     "bytes": 4333,
     "sizeLabel": "4.23 KB",
-    "createdAt": "2025-09-15T06:01:25.635Z",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
     "category": "Wellness",
     "tags": [
@@ -79,9 +79,9 @@
     "id": "ai-grading-prompts",
     "title": "Ai Grading Prompts",
     "path": "/resources/ai-grading-prompts.pdf",
-    "bytes": 848,
-    "sizeLabel": "848 Bytes",
-    "createdAt": "2025-09-15T06:01:25.629Z",
+    "bytes": 5187,
+    "sizeLabel": "5.07 KB",
+    "createdAt": "2025-09-15T06:24:22.608Z",
     "description": "Ready-to-use AI prompts for efficient and consistent grading that save hours while providing meaningful feedback to students.",
     "category": "Assessment",
     "tags": [
@@ -100,7 +100,7 @@
     "path": "/resources/ai-quiz-generator-guide.pdf",
     "bytes": 841,
     "sizeLabel": "841 Bytes",
-    "createdAt": "2025-09-15T06:01:25.631Z",
+    "createdAt": "2025-09-15T06:24:22.610Z",
     "description": "Step-by-step guide to creating engaging quizzes and assessments using AI tools, with templates and best practices.",
     "category": "Assessment",
     "tags": [
@@ -116,9 +116,9 @@
     "id": "assessment-rubric-template",
     "title": "Assessment Rubric Template",
     "path": "/resources/assessment-rubric-template.pdf",
-    "bytes": 832,
-    "sizeLabel": "832 Bytes",
-    "createdAt": "2025-09-15T06:01:25.632Z",
+    "bytes": 3910,
+    "sizeLabel": "3.82 KB",
+    "createdAt": "2025-09-15T06:24:22.612Z",
     "description": "Professional rubric templates for various subjects and projects, designed to streamline assessment and provide clear expectations.",
     "category": "Assessment",
     "tags": [
@@ -135,9 +135,9 @@
     "id": "formative-assessment-checklist",
     "title": "Formative Assessment Checklist",
     "path": "/resources/formative-assessment-checklist.pdf",
-    "bytes": 850,
-    "sizeLabel": "850 Bytes",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "bytes": 3077,
+    "sizeLabel": "3 KB",
+    "createdAt": "2025-09-15T06:24:22.613Z",
     "description": "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
     "category": "Assessment",
     "tags": [
@@ -153,9 +153,9 @@
     "id": "student-feedback-bank",
     "title": "Student Feedback Bank",
     "path": "/resources/student-feedback-bank.pdf",
-    "bytes": 837,
-    "sizeLabel": "837 Bytes",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "bytes": 3868,
+    "sizeLabel": "3.78 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Ready-to-use feedback comments and phrases for various subjects and situations, saving time while providing meaningful responses.",
     "category": "Assessment",
     "tags": [
@@ -172,9 +172,9 @@
     "id": "parent-meeting-checklist",
     "title": "Parent Meeting Checklist",
     "path": "/resources/parent-meeting-checklist.pdf",
-    "bytes": 842,
-    "sizeLabel": "842 Bytes",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "bytes": 4343,
+    "sizeLabel": "4.24 KB",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Comprehensive checklist for conducting productive parent meetings, conferences, and difficult conversations with preparation tips.",
     "category": "Communication",
     "tags": [
@@ -192,7 +192,7 @@
     "path": "/resources/ai-time-saving-guide.pdf",
     "bytes": 836,
     "sizeLabel": "836 Bytes",
-    "createdAt": "2025-09-15T06:01:25.631Z",
+    "createdAt": "2025-09-15T06:24:22.611Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -208,7 +208,7 @@
     "path": "/resources/best-practices-guide.pdf",
     "bytes": 846,
     "sizeLabel": "846 Bytes",
-    "createdAt": "2025-09-15T06:01:25.632Z",
+    "createdAt": "2025-09-15T06:24:22.612Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -224,7 +224,7 @@
     "path": "/resources/case-studies.pdf",
     "bytes": 831,
     "sizeLabel": "831 Bytes",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "createdAt": "2025-09-15T06:24:22.613Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -240,7 +240,7 @@
     "path": "/resources/future-of-teaching.pdf",
     "bytes": 831,
     "sizeLabel": "831 Bytes",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "createdAt": "2025-09-15T06:24:22.614Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -256,7 +256,7 @@
     "path": "/resources/lesson-plan-template-secondary.pdf",
     "bytes": 853,
     "sizeLabel": "853 Bytes",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "createdAt": "2025-09-15T06:24:22.614Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -272,7 +272,7 @@
     "path": "/resources/project-based-learning-planner.pdf",
     "bytes": 834,
     "sizeLabel": "834 Bytes",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -288,7 +288,7 @@
     "path": "/resources/teacher-growth-planner.pdf",
     "bytes": 834,
     "sizeLabel": "834 Bytes",
-    "createdAt": "2025-09-15T06:01:25.634Z",
+    "createdAt": "2025-09-15T06:24:22.615Z",
     "description": "Educational resource for teachers and educators.",
     "category": "General",
     "tags": [
@@ -304,7 +304,7 @@
     "path": "/resources/group-work-tools.pdf",
     "bytes": 839,
     "sizeLabel": "839 Bytes",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "createdAt": "2025-09-15T06:24:22.614Z",
     "description": "Essential tools and strategies for organizing effective group work, promoting collaboration, and ensuring all students participate.",
     "category": "Instruction",
     "tags": [
@@ -322,7 +322,7 @@
     "path": "/resources/behavior-strategies.pdf",
     "bytes": 833,
     "sizeLabel": "833 Bytes",
-    "createdAt": "2025-09-15T06:01:25.632Z",
+    "createdAt": "2025-09-15T06:24:22.612Z",
     "description": "Evidence-based behavior management strategies and interventions for creating positive classroom environments and supporting all learners.",
     "category": "Management",
     "tags": [
@@ -340,7 +340,7 @@
     "path": "/resources/classroom-routines.pdf",
     "bytes": 4593,
     "sizeLabel": "4.49 KB",
-    "createdAt": "2025-09-15T06:01:25.633Z",
+    "createdAt": "2025-09-15T06:24:22.613Z",
     "description": "Proven classroom management routines and procedures that create a positive learning environment.",
     "category": "Management",
     "tags": [
@@ -356,9 +356,9 @@
     "id": "weekly-lesson-planner",
     "title": "Weekly Lesson Planner",
     "path": "/resources/weekly-lesson-planner.pdf",
-    "bytes": 831,
-    "sizeLabel": "831 Bytes",
-    "createdAt": "2025-09-15T06:01:25.635Z",
+    "bytes": 3184,
+    "sizeLabel": "3.11 KB",
+    "createdAt": "2025-09-15T06:24:22.616Z",
     "description": "Comprehensive weekly planning template that helps organize lessons, track progress, and maintain work-life balance.",
     "category": "Planning",
     "tags": [
@@ -376,7 +376,7 @@
     "path": "/resources/ai-student-support.pdf",
     "bytes": 864,
     "sizeLabel": "864 Bytes",
-    "createdAt": "2025-09-15T06:01:25.631Z",
+    "createdAt": "2025-09-15T06:24:22.610Z",
     "description": "AI-powered strategies for providing personalized student support, intervention planning, and academic assistance.",
     "category": "Student Support",
     "tags": [

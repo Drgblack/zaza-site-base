@@ -1,5 +1,6 @@
 // src/app/[locale]/page.tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { Link } from 'next-intl/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -536,7 +537,7 @@ export default async function HomePage({ params }: Props) {
             className="bg-white dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300"
             asChild
           >
-            <a href="/about/greg">Read Full Story →</a>
+            <Link href="/meet-your-fellow-educator">Read Full Story →</Link>
           </Button>
         </div>
       </section>
