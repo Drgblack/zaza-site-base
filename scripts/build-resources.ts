@@ -8,10 +8,19 @@ const OUTPUT_FILE = 'src/data/resources.json';
 const MIN_FILE_SIZE = 1 * 1024; // 1KB minimum (as requested)
 
 interface ResourceFile {
+  id: string;
   title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  level: 'beginner' | 'intermediate' | 'advanced';
+  type: 'template' | 'guide' | 'checklist' | 'toolkit' | 'worksheet';
+  subject?: string;
   path: string;
   bytes: number;
   sizeLabel: string;
+  featured?: boolean;
+  createdAt: string;
 }
 
 function formatBytes(bytes: number): string {
@@ -27,6 +36,76 @@ function filenameToTitle(filename: string): string {
     .replace(/\.[^/.]+$/, '') // Remove extension
     .replace(/[-_]/g, ' ')    // Replace dashes/underscores with spaces
     .replace(/\b\w/g, l => l.toUpperCase()); // Title case
+}
+
+// Resource metadata mapping for teacher-focused content
+function getResourceMetadata(filename: string): Partial<ResourceFile> {
+  const name = filename.toLowerCase();
+  
+  // Enhanced metadata for each resource
+  if (name.includes('lesson-plan-template-primary')) {
+    return {
+      description: "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+      category: "Planning",
+      tags: ["lesson-planning", "primary-education", "templates", "curriculum"],
+      level: "beginner",
+      type: "template",
+      subject: "General",
+      featured: true
+    };
+  }
+  
+  if (name.includes('ai-parent-comms')) {
+    return {
+      description: "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
+      category: "Communication",
+      tags: ["parent-communication", "ai-tools", "professional-development"],
+      level: "intermediate",
+      type: "guide",
+      featured: true
+    };
+  }
+  
+  if (name.includes('teacher-ai-toolkit')) {
+    return {
+      description: "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
+      category: "Technology",
+      tags: ["ai-integration", "productivity", "teaching-tools", "time-saving"],
+      level: "intermediate",
+      type: "toolkit",
+      featured: true
+    };
+  }
+  
+  if (name.includes('classroom-routines')) {
+    return {
+      description: "Proven classroom management routines and procedures that create a positive learning environment.",
+      category: "Management",
+      tags: ["classroom-management", "routines", "behavior", "organization"],
+      level: "beginner",
+      type: "guide"
+    };
+  }
+  
+  if (name.includes('teacher-self-care-guide')) {
+    return {
+      description: "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
+      category: "Wellness",
+      tags: ["self-care", "wellness", "work-life-balance", "mental-health"],
+      level: "beginner",
+      type: "guide",
+      featured: true
+    };
+  }
+  
+  // Default metadata for unrecognized files
+  return {
+    description: "Educational resource for teachers and educators.",
+    category: "General",
+    tags: ["teaching", "education"],
+    level: "beginner",
+    type: "guide"
+  };
 }
 
 async function buildResourcesManifest() {
@@ -61,16 +140,25 @@ async function buildResourcesManifest() {
       continue;
     }
 
+    const metadata = getResourceMetadata(file);
+    
     resources.push({
+      id: file.replace(/\.[^/.]+$/, ''), // Remove extension for ID
       title: filenameToTitle(file),
       path: `/resources/${file}`,
       bytes: stats.size,
-      sizeLabel: formatBytes(stats.size)
-    });
+      sizeLabel: formatBytes(stats.size),
+      createdAt: new Date().toISOString(),
+      ...metadata
+    } as ResourceFile);
   }
 
-  // Sort by size (largest first)
-  resources.sort((a, b) => b.bytes - a.bytes);
+  // Sort by featured first, then by category
+  resources.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return a.category.localeCompare(b.category);
+  });
 
   await writeFile(OUTPUT_FILE, JSON.stringify(resources, null, 2));
   
