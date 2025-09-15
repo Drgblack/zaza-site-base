@@ -96,7 +96,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
                   placeholder="Search by title, description, or tags..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:outline-none"
                 />
               </div>
             </div>
@@ -109,7 +109,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:outline-none"
               >
                 <option value="all">All Categories</option>
                 {categories.map((category) => (
@@ -128,7 +128,7 @@ export function ResourcesContent({ resources }: ResourcesContentProps) {
               <select
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:outline-none"
               >
                 <option value="all">All Levels</option>
                 {levels.map((level) => (
