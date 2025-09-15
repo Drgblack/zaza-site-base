@@ -10,6 +10,26 @@
     "size": "29.0 KB"
   },
   {
+    "title": "Classroom Routines Guide",
+    "slug": "classroom-routines-guide-v1.1-en",
+    "category": "management",
+    "lang": "en",
+    "version": "1.1",
+    "pdf": "/resources/management/classroom-routines-guide-v1.1-en.pdf",
+    "html": "/resources/management/classroom-routines-guide-v1.1-en.html",
+    "size": "24.7 KB"
+  },
+  {
+    "title": "Formative Assessment Checklist",
+    "slug": "formative-assessment-checklist-v1.1-en",
+    "category": "assessment",
+    "lang": "en",
+    "version": "1.1",
+    "pdf": "/resources/assessment/formative-assessment-checklist-v1.1-en.pdf",
+    "html": "/resources/assessment/formative-assessment-checklist-v1.1-en.html",
+    "size": "22.8 KB"
+  },
+  {
     "title": "Primary Lesson Plan Template",
     "slug": "lesson-plan-template-primary-v1.1-en",
     "category": "planning",
@@ -38,5 +58,25 @@
     "pdf": "/resources/assessment/report-comment-bank-v1.1-en.pdf",
     "html": "/resources/assessment/report-comment-bank-v1.1-en.html",
     "size": "29.0 KB"
+  },
+  {
+    "title": "Secondary Lesson Plan Template",
+    "slug": "secondary-lesson-plan-template-v1.1-en",
+    "category": "planning",
+    "lang": "en",
+    "version": "1.1",
+    "pdf": "/resources/planning/secondary-lesson-plan-template-v1.1-en.pdf",
+    "html": "/resources/planning/secondary-lesson-plan-template-v1.1-en.html",
+    "size": "23.9 KB"
+  },
+  {
+    "title": "Teacher AI Toolkit",
+    "slug": "teacher-ai-toolkit-v1.1-en",
+    "category": "ai-tools",
+    "lang": "en",
+    "version": "1.1",
+    "pdf": "/resources/ai-tools/teacher-ai-toolkit-v1.1-en.pdf",
+    "html": "/resources/ai-tools/teacher-ai-toolkit-v1.1-en.html",
+    "size": "20.9 KB"
   }
 ]
