@@ -33,6 +33,37 @@ const footerTemplate = `
   <span class="r">Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
 </div></div>`;
 
+function generateTOC(content: string): string {
+  const headings = content.match(/^## (.+)$/gm);
+  if (!headings || headings.length === 0) return '';
+  
+  const tocItems = headings.map(heading => {
+    const title = heading.replace(/^## /, '');
+    return `  <li>${title}</li>`;
+  }).join('\n');
+  
+  return `<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+${tocItems}
+  </ol>
+</div>\n\n`;
+}
+
+function generateCover(data: any): string {
+  if (!data.coverTitle) return '';
+  
+  return `<div class="cover">
+  <h1>${data.coverTitle}</h1>
+  ${data.coverSubtitle ? `<div class="subtitle">${data.coverSubtitle}</div>` : ''}
+  ${data.coverBadge ? `<div class="badges"><span class="badge">${data.coverBadge}</span></div>` : ''}
+</div>
+
+<hr class="m-0" />
+
+`;
+}
+
 async function run() {
   const css = fs.readFileSync(CSS, 'utf8');
   const files = fs.readdirSync(SRC).filter(f => f.endsWith('.md'));
@@ -54,8 +85,32 @@ async function run() {
 
     const pdfPath = path.join(outDir, `${slug}-v${ver}-${lang}.pdf`);
 
+    // Process content with cover and TOC
+    let processedContent = content;
+    
+    // Add cover if specified
+    const coverBlock = generateCover(data);
+    if (coverBlock) {
+      processedContent = coverBlock + processedContent;
+    }
+    
+    // Add TOC if specified
+    if (data.toc) {
+      const tocBlock = generateTOC(content);
+      if (tocBlock) {
+        // Insert TOC after the first H1 or at the beginning
+        const firstH1Index = processedContent.indexOf('\n# ');
+        if (firstH1Index !== -1) {
+          const afterH1 = processedContent.indexOf('\n', firstH1Index + 1);
+          processedContent = processedContent.slice(0, afterH1 + 1) + '\n' + tocBlock + processedContent.slice(afterH1 + 1);
+        } else {
+          processedContent = tocBlock + processedContent;
+        }
+      }
+    }
+
     const result = await mdToPdf(
-      { content, document_title: title },
+      { content: processedContent, document_title: title },
       {
         stylesheet: css,
         pdf_options: {
