@@ -46,7 +46,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = params;
   setRequestLocale(locale);
 
-  const hero = await getTranslations('hero');
+  const hero = await getTranslations('hero'); // Updated hero copy
 
   return (
     <div className="flex flex-col">
@@ -67,7 +67,7 @@ export default async function HomePage({ params }: Props) {
                   {hero('tagline')}
                 </div>
 
-                {/* Anthony Pierri Framework Headline */}
+                {/* Anthony Pierri Framework Headline - Updated copy */}
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 dark:text-white leading-tight">
                   {hero('headline')}{' '}
                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
