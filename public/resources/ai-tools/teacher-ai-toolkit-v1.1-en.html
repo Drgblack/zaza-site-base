@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher AI Toolkit</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Teacher AI Toolkit</h1>
+  <div class="subtitle">Essential AI tools and prompts to enhance teaching efficiency and student outcomes.</div>
+  <div class="badges"><span class="badge">AI Tools</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <h1>Teacher AI Toolkit</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>How to use this toolkit</li>
+  <li>Lesson Planning & Curriculum</li>
+  <li>Grading & Feedback</li>
+  <li>Student Communication & Support</li>
+  <li>Parent Communication</li>
+  <li>Administrative Efficiency</li>
+  <li>Professional Development</li>
+  <li>Time-Saving Workflows</li>
+  <li>Advanced Techniques</li>
+  <li>Troubleshooting Common Issues</li>
+  <li>Building Your AI Toolkit</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"AI doesn't replace teachers—it <strong>amplifies</strong> great teaching."<br>
+This toolkit provides practical, tested prompts to save time and improve outcomes.</p>
+</blockquote>
+<h2>How to use this toolkit</h2>
+<h3>Getting Started</h3>
+<ol>
+<li><strong>Choose your AI platform</strong> (ChatGPT, Claude, Gemini, or similar)</li>
+<li><strong>Copy and paste</strong> the prompts exactly as written</li>
+<li><strong>Replace placeholders</strong> ({{subject}}, {{grade level}}, etc.) with your specifics</li>
+<li><strong>Refine the output</strong> by asking follow-up questions</li>
+<li><strong>Save successful prompts</strong> for reuse</li>
+</ol>
+<h3>Prompt Structure</h3>
+<p>All prompts follow this pattern:</p>
+<ul>
+<li><strong>Context:</strong> Role and objective</li>
+<li><strong>Specifics:</strong> Subject, grade level, constraints</li>
+<li><strong>Output format:</strong> Exactly what you need</li>
+<li><strong>Quality criteria:</strong> Standards for the response</li>
+</ul>
+<h2>Lesson Planning &#x26; Curriculum</h2>
+<h3>Comprehensive Lesson Plans</h3>
+<p><strong>Subject:</strong> Create detailed lesson plan for {{topic}} for {{grade level}}</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>You are an experienced {{grade level}} teacher. Create a comprehensive 60-minute lesson plan for {{topic}} in {{subject}}.
+
+Include:
+- Learning objectives (specific, measurable)
+- Materials needed
+- Step-by-step activities with timing
+- Differentiation strategies
+- Assessment methods
+- Extension activities
+
+Format as a structured plan that another teacher could follow exactly.
+</code></pre>
+<p><strong>Example in action:</strong></p>
+<blockquote>
+<p>Create detailed lesson plan for photosynthesis for Grade 5<br>
+<em>Results in complete lesson with hands-on experiments, vocabulary cards, differentiated worksheets, and formative assessment checkpoints.</em></p>
+</blockquote>
+<h3>Unit Planning</h3>
+<p><strong>Subject:</strong> Design multi-lesson unit for {{topic}}</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Design a 2-week unit plan for {{grade level}} {{subject}} on {{topic}}.
+
+For each lesson, include:
+- Daily learning objective
+- Key activities (15-20 words each)
+- Assessment strategy
+- Materials needed
+- Homework/extension
+
+Structure as a planning calendar that shows progression and builds skills sequentially.
+</code></pre>
+<h3>Assessment Creation</h3>
+<p><strong>Subject:</strong> Generate assessment items for {{learning objective}}</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Create a formative assessment for {{grade level}} students learning {{specific concept}}.
+
+Include:
+- 5 multiple choice questions (with distractors that reveal common misconceptions)
+- 3 short answer questions (rubric included)
+- 1 performance task with clear criteria
+
+Ensure questions assess different cognitive levels (recall, application, analysis).
+</code></pre>
+<h2>Grading &#x26; Feedback</h2>
+<h3>Efficient Grading</h3>
+<p><strong>Subject:</strong> Grade {{assignment type}} quickly and fairly</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>I need to grade {{number}} {{assignment type}} papers for {{grade level}} {{subject}}.
+
+The assignment was: {{brief description}}
+
+Help me create:
+- A 4-point rubric with specific criteria
+- Common feedback phrases for each score level
+- Time-saving shortcuts for recurring issues
+- Sample comments that are encouraging yet specific
+
+Focus on {{key learning objective}}.
+</code></pre>
+<h3>Personalized Feedback</h3>
+<p><strong>Subject:</strong> Generate specific feedback for student work</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Review this {{grade level}} student's work on {{assignment topic}}:
+
+[Paste student work]
+
+Provide feedback that:
+- Celebrates specific strengths (be precise)
+- Identifies 1-2 priority areas for improvement
+- Suggests concrete next steps
+- Maintains encouraging tone
+- Takes 30 seconds to read
+
+Write as if speaking directly to the student.
+</code></pre>
+<h3>Report Card Comments</h3>
+<p><strong>Subject:</strong> Draft report card comments efficiently</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Write a report card comment for {{student name}}, a {{grade level}} student in {{subject}}.
+
+Key information:
+- Strengths: {{list 2-3 specific examples}}
+- Growth areas: {{1-2 specific areas}}
+- Recent progress: {{notable improvements}}
+- Participation/behavior: {{brief description}}
+
+Requirements:
+- 60-80 words
+- Positive, professional tone
+- Specific examples
+- Forward-looking
+- Parent-friendly language
+</code></pre>
+<h2>Student Communication &#x26; Support</h2>
+<h3>Differentiation Strategies</h3>
+<p><strong>Subject:</strong> Adapt lesson for diverse learners</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>I'm teaching {{lesson topic}} to {{grade level}} students. Help me differentiate for:
+
+- 3 students reading below grade level
+- 2 English language learners (beginner level)  
+- 4 students who need extension/enrichment
+- 1 student with ADHD who needs movement breaks
+
+Provide specific modifications for:
+- Content presentation
+- Student activities  
+- Assessment methods
+- Materials/resources
+
+Keep core learning objective the same for all students.
+</code></pre>
+<h3>Behavior Support Plans</h3>
+<p><strong>Subject:</strong> Create positive behavior interventions</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Design a behavior support plan for a {{grade level}} student showing {{specific behavior}} during {{context/subject}}.
+
+Background: {{brief situation}}
+
+Create:
+- 3 possible triggers/causes
+- 5 prevention strategies (proactive)
+- 3 teaching replacement behaviors
+- Response plan when behavior occurs
+- How to involve parents positively
+- Progress monitoring approach
+
+Focus on teaching new skills, not just managing problems.
+</code></pre>
+<h2>Parent Communication</h2>
+<h3>Meeting Preparation</h3>
+<p><strong>Subject:</strong> Prepare for parent conference</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Prepare me for a parent conference about {{student name}} in {{grade/subject}}.
+
+Student profile:
+- Academic strengths: {{list}}
+- Growth areas: {{list}}
+- Social/behavioral notes: {{brief}}
+- Recent work samples: {{describe}}
+
+Help me:
+- Structure the 20-minute meeting
+- Prepare 3 discussion points
+- Anticipate parent questions
+- Create action steps we can agree on
+- Plan follow-up communication
+
+Tone should be collaborative and solution-focused.
+</code></pre>
+<h3>Difficult Conversations</h3>
+<p><strong>Subject:</strong> Navigate challenging parent discussions</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Help me prepare for a difficult conversation with parents about {{specific concern}} regarding their {{grade level}} child.
+
+The situation: {{brief, factual description}}
+
+I need:
+- Opening statement that's professional yet empathetic
+- 3 specific examples (observable behaviors)
+- Collaborative language that invites partnership
+- Action plan with clear next steps
+- Timeline for follow-up
+
+Goal: Address concern while maintaining positive relationship.
+</code></pre>
+<h2>Administrative Efficiency</h2>
+<h3>Meeting Agendas</h3>
+<p><strong>Subject:</strong> Create focused meeting agendas</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Create an agenda for a {{type}} meeting lasting {{duration}} with {{participants}}.
+
+Topics to cover:
+{{list main topics}}
+
+Format:
+- Time allocations for each item
+- Clear objectives for each topic
+- Action items template
+- Who leads each discussion
+- Desired outcomes
+
+Keep focused and practical - no filler content.
+</code></pre>
+<h3>Email Templates</h3>
+<p><strong>Subject:</strong> Draft professional emails quickly</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Write a professional email template for {{purpose/situation}}.
+
+Context: {{brief background}}
+Audience: {{who will receive}}
+Tone: {{formal/friendly/urgent}}
+
+Include:
+- Clear subject line
+- Concise opening
+- Main message (2-3 sentences)
+- Specific action needed
+- Professional closing
+
+Template should be reusable with minor modifications.
+</code></pre>
+<h2>Professional Development</h2>
+<h3>Research Summaries</h3>
+<p><strong>Subject:</strong> Summarize educational research</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>I'm researching {{educational topic}} for {{specific purpose}}.
+
+Help me understand:
+- 3 key research findings (with implications)
+- Practical applications for {{grade level}} classroom
+- Implementation challenges to expect
+- Resources for deeper learning
+- How to measure impact
+
+Focus on actionable insights, not theory. Cite specific studies when possible.
+</code></pre>
+<h3>Reflection &#x26; Growth</h3>
+<p><strong>Subject:</strong> Structured teaching reflection</p>
+<p><strong>Prompt:</strong></p>
+<pre><code>Guide my reflection on {{specific lesson/unit/strategy}}.
+
+What happened:
+{{brief description}}
+
+Help me analyze:
+- What worked well (specific evidence)
+- What didn't work (concrete examples) 
+- Student response/engagement data
+- Alignment with learning objectives
+- Changes I'd make next time
+
+Frame as growth opportunity, not criticism.
+</code></pre>
+<h2>Time-Saving Workflows</h2>
+<h3>Batch Processing</h3>
+<ol>
+<li>
+<p><strong>Lesson Planning Batch:</strong></p>
+<ul>
+<li>Set aside 2-3 hours weekly</li>
+<li>Plan entire week at once</li>
+<li>Use templates for consistency</li>
+<li>Save successful prompts</li>
+</ul>
+</li>
+<li>
+<p><strong>Grading Batch:</strong></p>
+<ul>
+<li>Grade same assignment across all classes</li>
+<li>Use voice-to-text for feedback</li>
+<li>Create rubrics with AI first</li>
+<li>Set timer for each paper</li>
+</ul>
+</li>
+<li>
+<p><strong>Communication Batch:</strong></p>
+<ul>
+<li>Answer all emails once daily</li>
+<li>Write parent updates weekly</li>
+<li>Use templates with personal touches</li>
+<li>Schedule send for appropriate times</li>
+</ul>
+</li>
+</ol>
+<h3>Quality Control</h3>
+<p>Before using any AI-generated content:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Accuracy check:</strong> Verify facts and concepts</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Age appropriateness:</strong> Suitable for your students</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Alignment:</strong> Matches your learning objectives</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Voice:</strong> Sounds like you, not a robot</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Completeness:</strong> Includes all necessary elements</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Safety:</strong> No inappropriate content or bias</li>
+</ul>
+<h2>Advanced Techniques</h2>
+<h3>Prompt Chaining</h3>
+<p>Break complex tasks into steps:</p>
+<ol>
+<li><strong>Generate outline</strong> → Review and refine</li>
+<li><strong>Develop details</strong> → Add specifics</li>
+<li><strong>Create materials</strong> → Make worksheets/slides</li>
+<li><strong>Plan assessment</strong> → Design evaluation</li>
+</ol>
+<h3>Context Building</h3>
+<p>Improve results by providing context:</p>
+<ul>
+<li>Your teaching style</li>
+<li>Student characteristics</li>
+<li>School constraints</li>
+<li>Available resources</li>
+<li>Time limitations</li>
+</ul>
+<h3>Iteration Strategy</h3>
+<ol>
+<li>Start with basic prompt</li>
+<li>Review initial output</li>
+<li>Ask for specific improvements</li>
+<li>Refine until satisfied</li>
+<li>Save successful versions</li>
+</ol>
+<h2>Troubleshooting Common Issues</h2>
+<h3>Generic Responses</h3>
+<p><strong>Problem:</strong> AI gives vague, textbook answers<br>
+<strong>Solution:</strong> Add specific constraints, examples, and context</p>
+<h3>Inappropriate Content</h3>
+<p><strong>Problem:</strong> Content doesn't match your students<br>
+<strong>Solution:</strong> Specify grade level, reading level, cultural considerations</p>
+<h3>Wrong Format</h3>
+<p><strong>Problem:</strong> Output isn't in usable format<br>
+<strong>Solution:</strong> Be explicit about desired structure and format</p>
+<h3>Missing Key Elements</h3>
+<p><strong>Problem:</strong> AI skips important components<br>
+<strong>Solution:</strong> Use checklists in your prompts</p>
+<h2>Building Your AI Toolkit</h2>
+<h3>Start Small</h3>
+<ul>
+<li>Choose 2-3 prompts that address your biggest time challenges</li>
+<li>Practice with low-stakes content first</li>
+<li>Build confidence before trying complex tasks</li>
+</ul>
+<h3>Expand Gradually</h3>
+<ul>
+<li>Add new prompt categories monthly</li>
+<li>Adapt successful prompts for different subjects</li>
+<li>Share effective prompts with colleagues</li>
+</ul>
+<h3>Stay Current</h3>
+<ul>
+<li>Follow AI tool updates</li>
+<li>Join educator AI communities</li>
+<li>Experiment with new features</li>
+<li>Share what works</li>
+</ul>
+<h3>Maintain Quality</h3>
+<ul>
+<li>Always review AI output</li>
+<li>Add your professional judgment</li>
+<li>Personalize for your students</li>
+<li>Keep learning objectives central</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

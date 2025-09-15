@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formative Assessment Checklist</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Formative Assessment Checklist</h1>
+  <div class="subtitle">Quick, practical formative assessment strategies to monitor student learning in real-time.</div>
+  <div class="badges"><span class="badge">Assessment</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <h1>Formative Assessment Checklist</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>What Makes Formative Assessment Effective</li>
+  <li>Quick Check Techniques (0-5 minutes)</li>
+  <li>Observation Strategies</li>
+  <li>Digital Tools & Techniques</li>
+  <li>Subject-Specific Strategies</li>
+  <li>Assessment Planning Matrix</li>
+  <li>Implementation Schedule</li>
+  <li>Student Self-Assessment Tools</li>
+  <li>Data Collection & Analysis</li>
+  <li>Troubleshooting Common Issues</li>
+  <li>Building Assessment Culture</li>
+  <li>Quick Reference Guide</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"Assessment <strong>for</strong> learning, not <strong>of</strong> learning."<br>
+This checklist provides immediate strategies to check understanding and adjust instruction.</p>
+</blockquote>
+<h2>What Makes Formative Assessment Effective</h2>
+<h3>Core Principles</h3>
+<ul>
+<li><strong>Immediate:</strong> Provides real-time feedback</li>
+<li><strong>Actionable:</strong> Results inform next instructional steps</li>
+<li><strong>Low-stakes:</strong> No grades, just learning information</li>
+<li><strong>Student-friendly:</strong> Helps learners understand their progress</li>
+<li><strong>Efficient:</strong> Quick to implement and analyze</li>
+</ul>
+<h3>The Assessment Cycle</h3>
+<ol>
+<li><strong>Plan:</strong> Choose technique based on learning objective</li>
+<li><strong>Implement:</strong> Use during or right after instruction</li>
+<li><strong>Analyze:</strong> Look for patterns in responses</li>
+<li><strong>Adjust:</strong> Modify teaching based on results</li>
+<li><strong>Follow-up:</strong> Check if adjustments helped</li>
+</ol>
+<h2>Quick Check Techniques (0-5 minutes)</h2>
+<h3>✓ Thumbs Up/Down/Sideways</h3>
+<p><strong>When to use:</strong> After explaining a concept<br>
+<strong>How:</strong> Students show thumbs up (got it), down (confused), sideways (sort of)<br>
+<strong>Next steps:</strong> Thumbs down → reteach differently; Sideways → provide examples</p>
+<h3>✓ Exit Tickets</h3>
+<p><strong>When to use:</strong> Last 3 minutes of class<br>
+<strong>How:</strong> One question on paper or digital platform<br>
+<strong>Sample questions:</strong></p>
+<ul>
+<li>"What's one thing you learned today?"</li>
+<li>"What's still confusing?"</li>
+<li>"Rate your confidence 1-5 and explain why"</li>
+</ul>
+<h3>✓ Fist to Five</h3>
+<p><strong>When to use:</strong> Check confidence levels<br>
+<strong>How:</strong> 0 fingers (no understanding) to 5 fingers (could teach someone else)<br>
+<strong>Follow-up:</strong> 0-2 need reteaching; 3-4 need practice; 5 can peer tutor</p>
+<h3>✓ One Word Summary</h3>
+<p><strong>When to use:</strong> End of lesson or unit<br>
+<strong>How:</strong> Students write one word that captures the main idea<br>
+<strong>Analysis:</strong> Look for patterns, misconceptions, or gaps</p>
+<h3>✓ 3-2-1 Reflection</h3>
+<p><strong>Format:</strong></p>
+<ul>
+<li>3 things I learned</li>
+<li>2 things I found interesting</li>
+<li>1 question I still have</li>
+</ul>
+<h3>✓ Think-Pair-Share Response</h3>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Pose question (30 seconds thinking)</li>
+<li>Share with partner (2 minutes)</li>
+<li>Listen to sample responses</li>
+<li>Note common misconceptions</li>
+</ol>
+<h2>Observation Strategies</h2>
+<h3>✓ Gallery Walk</h3>
+<p><strong>Setup:</strong> Post student work around room<br>
+<strong>Process:</strong> Students view work, leave feedback on sticky notes<br>
+<strong>Teacher role:</strong> Observe discussions, note common errors</p>
+<h3>✓ Traffic Light Self-Assessment</h3>
+<p><strong>Red:</strong> I don't understand and need help<br>
+<strong>Yellow:</strong> I'm getting there but need practice<br>
+<strong>Green:</strong> I understand and can help others</p>
+<p><strong>Implementation:</strong> Use colored cards, digital polls, or hand signals</p>
+<h3>✓ Learning Stations Monitoring</h3>
+<p><strong>Strategy:</strong> Rotate through stations during independent work<br>
+<strong>Focus areas:</strong></p>
+<ul>
+<li>Who's struggling with which concepts?</li>
+<li>What questions keep coming up?</li>
+<li>Which students can peer tutor?</li>
+</ul>
+<h3>✓ Strategic Questioning</h3>
+<p>Instead of "Any questions?" try:</p>
+<ul>
+<li>"What questions do you have?"</li>
+<li>"Which part needs more explanation?"</li>
+<li>"Who can explain this in their own words?"</li>
+</ul>
+<h2>Digital Tools &#x26; Techniques</h2>
+<h3>✓ Real-Time Polling</h3>
+<p><strong>Tools:</strong> Mentimeter, Poll Everywhere, Kahoot<br>
+<strong>Best for:</strong> Multiple choice, true/false, word clouds<br>
+<strong>Advantage:</strong> Anonymous responses increase participation</p>
+<h3>✓ Digital Exit Tickets</h3>
+<p><strong>Tools:</strong> Google Forms, Padlet, Flipgrid<br>
+<strong>Questions to try:</strong></p>
+<ul>
+<li>"On a scale of 1-10, how confident are you with today's objective?"</li>
+<li>"What would you like more practice with?"</li>
+<li>"Explain today's concept to a friend in one sentence"</li>
+</ul>
+<h3>✓ Collaborative Documents</h3>
+<p><strong>Platform:</strong> Google Docs, Padlet, Jamboard<br>
+<strong>Use:</strong> Students add responses to shared document<br>
+<strong>Monitor:</strong> Watch entries in real-time, identify patterns</p>
+<h3>✓ Quick Quizzes</h3>
+<p><strong>Tools:</strong> Quizizz, Blooket, Gimkit<br>
+<strong>Format:</strong> 3-5 questions, immediate results<br>
+<strong>Focus:</strong> Current lesson objectives, not cumulative content</p>
+<h2>Subject-Specific Strategies</h2>
+<h3>Mathematics</h3>
+<h4>✓ Show Your Work Checks</h4>
+<ul>
+<li>Circulate during problem-solving</li>
+<li>Look for process, not just answers</li>
+<li>Note common calculation errors</li>
+</ul>
+<h4>✓ Math Talk Protocols</h4>
+<ul>
+<li>"I agree/disagree because..."</li>
+<li>"I'd like to add to ___'s idea..."</li>
+<li>"Can you explain your thinking?"</li>
+</ul>
+<h4>✓ Error Analysis</h4>
+<p>Present incorrect solution, ask students to find and fix mistakes</p>
+<h4>✓ Number Line Strategies</h4>
+<p>Students place their confidence on a number line (0-10)</p>
+<h3>Science</h3>
+<h4>✓ Predict-Observe-Explain</h4>
+<p>Before demonstrations:</p>
+<ol>
+<li>Students predict outcomes</li>
+<li>Observe what happens</li>
+<li>Explain discrepancies</li>
+</ol>
+<h4>✓ Concept Sketching</h4>
+<p>Draw and label scientific processes or structures</p>
+<h4>✓ Hypothesis Testing</h4>
+<p>Quick experiments with immediate result analysis</p>
+<h4>✓ Science Talks</h4>
+<p>"What do you notice?" and "What makes you say that?"</p>
+<h3>Language Arts</h3>
+<h4>✓ Reading Comprehension Checks</h4>
+<ul>
+<li>Summarize paragraph in 10 words</li>
+<li>Predict what happens next</li>
+<li>Identify main idea vs. details</li>
+</ul>
+<h4>✓ Writing Process Checks</h4>
+<ul>
+<li>Beginning, middle, end assessment</li>
+<li>Peer feedback protocols</li>
+<li>Self-editing checklists</li>
+</ul>
+<h4>✓ Vocabulary Checks</h4>
+<ul>
+<li>Use new word in a sentence</li>
+<li>Draw the word's meaning</li>
+<li>Connect to personal experience</li>
+</ul>
+<h4>✓ Discussion Protocols</h4>
+<ul>
+<li>Turn and talk stems</li>
+<li>Building on others' ideas</li>
+<li>Asking clarifying questions</li>
+</ul>
+<h3>Social Studies</h3>
+<h4>✓ Perspective Taking</h4>
+<p>"How might _____ view this event?"</p>
+<h4>✓ Cause and Effect Mapping</h4>
+<p>Quick graphic organizers during content delivery</p>
+<h4>✓ Current Connections</h4>
+<p>"How does this relate to today?"</p>
+<h4>✓ Timeline Positioning</h4>
+<p>Place events or concepts on class timeline</p>
+<h2>Assessment Planning Matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Learning Objective</th>
+<th>Quick Check</th>
+<th>During Activity</th>
+<th>Reflection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Understand main idea</td>
+<td>Thumbs check</td>
+<td>Turn and talk</td>
+<td>Exit ticket</td>
+</tr>
+<tr>
+<td>Apply math concept</td>
+<td>Show work scan</td>
+<td>Error analysis</td>
+<td>Confidence scale</td>
+</tr>
+<tr>
+<td>Recall vocabulary</td>
+<td>Word association</td>
+<td>Peer quiz</td>
+<td>3-2-1</td>
+</tr>
+<tr>
+<td>Analyze text</td>
+<td>Think aloud</td>
+<td>Annotation check</td>
+<td>Summary writing</td>
+</tr>
+</tbody>
+</table>
+<h2>Implementation Schedule</h2>
+<h3>Week 1-2: Foundation Building</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Choose 2 quick check techniques</li>
+<li class="task-list-item"><input type="checkbox" disabled> Try exit tickets daily</li>
+<li class="task-list-item"><input type="checkbox" disabled> Practice thumbs up/down signals</li>
+<li class="task-list-item"><input type="checkbox" disabled> Introduce confidence scales</li>
+</ul>
+<h3>Week 3-4: Expand Toolkit</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Add digital polling tool</li>
+<li class="task-list-item"><input type="checkbox" disabled> Try 3-2-1 reflections</li>
+<li class="task-list-item"><input type="checkbox" disabled> Implement think-pair-share</li>
+<li class="task-list-item"><input type="checkbox" disabled> Use traffic light system</li>
+</ul>
+<h3>Week 5-6: Subject Integration</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Choose subject-specific strategies</li>
+<li class="task-list-item"><input type="checkbox" disabled> Plan weekly assessment calendar</li>
+<li class="task-list-item"><input type="checkbox" disabled> Try gallery walks</li>
+<li class="task-list-item"><input type="checkbox" disabled> Use strategic questioning</li>
+</ul>
+<h3>Week 7-8: Refinement</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Analyze what's working best</li>
+<li class="task-list-item"><input type="checkbox" disabled> Streamline favorites</li>
+<li class="task-list-item"><input type="checkbox" disabled> Train students on protocols</li>
+<li class="task-list-item"><input type="checkbox" disabled> Create assessment routine</li>
+</ul>
+<h2>Student Self-Assessment Tools</h2>
+<h3>✓ Learning Target Tracker</h3>
+<p>Students rate their progress toward daily objectives:</p>
+<ul>
+<li>Not yet (1)</li>
+<li>Getting there (2)</li>
+<li>Got it (3)</li>
+<li>Can teach it (4)</li>
+</ul>
+<h3>✓ Reflection Stems</h3>
+<ul>
+<li>"I'm proud that I..."</li>
+<li>"I'm still working on..."</li>
+<li>"Next time I will..."</li>
+<li>"I need help with..."</li>
+</ul>
+<h3>✓ Goal Setting Sheets</h3>
+<p>Weekly goals with daily progress monitoring</p>
+<h3>✓ Portfolio Reflections</h3>
+<p>Students choose best work and explain why</p>
+<h2>Data Collection &#x26; Analysis</h2>
+<h3>Simple Tracking Systems</h3>
+<h4>Class Overview Grid</h4>
+<table>
+<thead>
+<tr>
+<th>Student</th>
+<th>Concept A</th>
+<th>Concept B</th>
+<th>Concept C</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alex</td>
+<td>✓</td>
+<td>?</td>
+<td>✓</td>
+<td>Needs support with B</td>
+</tr>
+<tr>
+<td>Jamie</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>Absent for C</td>
+</tr>
+</tbody>
+</table>
+<h4>Traffic Light Spreadsheet</h4>
+<p>Color-code student understanding:</p>
+<ul>
+<li>Green: Understands, can move forward</li>
+<li>Yellow: Partially understands, needs practice</li>
+<li>Red: Doesn't understand, needs reteaching</li>
+</ul>
+<h4>Weekly Patterns Log</h4>
+<p>Track which concepts need reteaching most often</p>
+<h3>Making Data Actionable</h3>
+<h4>Same Day Adjustments</h4>
+<ul>
+<li><strong>High confusion:</strong> Stop and reteach differently</li>
+<li><strong>Mixed understanding:</strong> Pair strong with struggling students</li>
+<li><strong>Most understand:</strong> Move forward, provide extension</li>
+</ul>
+<h4>Next Lesson Planning</h4>
+<ul>
+<li><strong>Common misconceptions:</strong> Address explicitly</li>
+<li><strong>Missing prerequisite:</strong> Back up and fill gaps</li>
+<li><strong>Ready for challenge:</strong> Prepare extension activities</li>
+</ul>
+<h4>Small Group Formation</h4>
+<p>Use assessment data to create flexible groups:</p>
+<ul>
+<li><strong>Intervention groups:</strong> Students with similar gaps</li>
+<li><strong>Practice groups:</strong> Students needing more time</li>
+<li><strong>Extension groups:</strong> Students ready for challenge</li>
+</ul>
+<h2>Troubleshooting Common Issues</h2>
+<h3>"Students won't respond honestly"</h3>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Emphasize no grades attached</li>
+<li>Use anonymous digital tools</li>
+<li>Model that confusion is normal</li>
+<li>Celebrate questions as learning opportunities</li>
+</ul>
+<h3>"Takes too much time"</h3>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Start with 30-second techniques</li>
+<li>Use digital tools for instant collection</li>
+<li>Incorporate into existing routines</li>
+<li>Focus on one technique until automatic</li>
+</ul>
+<h3>"Don't know what to do with information"</h3>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Plan 2-3 response options in advance</li>
+<li>Use simple tracking systems</li>
+<li>Focus on patterns, not individual responses</li>
+<li>Start small with obvious next steps</li>
+</ul>
+<h3>"Students give expected answers"</h3>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Use varied question formats</li>
+<li>Ask for explanations, not just answers</li>
+<li>Create safe spaces for admitting confusion</li>
+<li>Use peer assessment opportunities</li>
+</ul>
+<h2>Building Assessment Culture</h2>
+<h3>Student Ownership</h3>
+<ul>
+<li>Teach students why formative assessment helps them</li>
+<li>Involve them in creating success criteria</li>
+<li>Have them track their own progress</li>
+<li>Celebrate growth over achievement</li>
+</ul>
+<h3>Feedback Loops</h3>
+<ul>
+<li>Share class trends (without names)</li>
+<li>Explain how their responses changed your teaching</li>
+<li>Ask students what assessment methods work best for them</li>
+<li>Adjust techniques based on effectiveness</li>
+</ul>
+<h3>Colleague Collaboration</h3>
+<ul>
+<li>Share successful techniques with team</li>
+<li>Observe others using formative assessment</li>
+<li>Plan cross-curricular assessment strategies</li>
+<li>Create shared bank of effective prompts</li>
+</ul>
+<h2>Quick Reference Guide</h2>
+<h3>Daily Must-Haves</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> One quick check during instruction</li>
+<li class="task-list-item"><input type="checkbox" disabled> One end-of-lesson reflection</li>
+<li class="task-list-item"><input type="checkbox" disabled> Response plan for next day</li>
+</ul>
+<h3>Weekly Essentials</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Review assessment data patterns</li>
+<li class="task-list-item"><input type="checkbox" disabled> Plan adjustments for struggling concepts</li>
+<li class="task-list-item"><input type="checkbox" disabled> Try one new technique</li>
+<li class="task-list-item"><input type="checkbox" disabled> Student self-assessment opportunity</li>
+</ul>
+<h3>Monthly Reflection</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Which techniques work best with your students?</li>
+<li class="task-list-item"><input type="checkbox" disabled> What patterns do you notice in learning gaps?</li>
+<li class="task-list-item"><input type="checkbox" disabled> How has your instruction changed based on data?</li>
+<li class="task-list-item"><input type="checkbox" disabled> What new strategies will you try?</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

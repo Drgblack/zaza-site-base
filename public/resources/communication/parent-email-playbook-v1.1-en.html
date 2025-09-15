@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parent Email Playbook</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Parent Email Playbook</h1>
+  <div class="subtitle">Write with warmth, clarity, and confidence.</div>
+  <div class="badges"><span class="badge">Communication</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <h1>Parent Email Playbook</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>How this pack works</li>
+  <li>Core templates</li>
+  <li>Tricky scenarios (copy, paste, personalize)</li>
+  <li>Advanced templates</li>
+  <li>Closers library</li>
+  <li>Emergency communications</li>
+  <li>AI Assist prompts</li>
+  <li>Time-saving strategies</li>
+  <li>Quality checklist</li>
+  <li>Building long-term relationships</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"I know what to say—<strong>finding the words</strong> takes forever."<br>
+This pack gives you ready-to-send drafts and tone-safe phrasing.</p>
+</blockquote>
+<h2>How this pack works</h2>
+<ol>
+<li>Pick a <strong>template</strong> that fits the situation.</li>
+<li>Personalize the <strong>specifics</strong> (student, date, evidence).</li>
+<li>Choose a <strong>closer</strong> that matches tone.</li>
+<li>(Optional) Use <strong>AI Assist</strong> prompts to refine.</li>
+</ol>
+<h3>Tone Ladder (choose one)</h3>
+<ul>
+<li><strong>Warm:</strong> "I appreciate how you've been supporting…"</li>
+<li><strong>Neutral–professional:</strong> "I'm writing to share an update regarding…"</li>
+<li><strong>Firm but kind:</strong> "To support {{Student}}, we need a consistent routine at home and school…"</li>
+</ul>
+<h2>Core templates</h2>
+<h3>Positive update</h3>
+<p><strong>Subject:</strong> A quick positive note about {{Student}}<br>
+Hi {{Parent/Carer}},<br>
+{{Student}} showed great progress in {{topic}} today—specifically {{evidence}}.<br>
+This matters because {{impact}}.<br>
+<strong>Next step:</strong> We'll keep practicing {{strategy}}; a quick encouragement at home would help.<br>
+<em>Thanks for your support,</em><br>
+{{Teacher}}, {{Class/Year}}</p>
+<p><strong>Example in action:</strong></p>
+<blockquote>
+<p><strong>Subject:</strong> A quick positive note about Emma<br>
+Hi Ms. Johnson,<br>
+Emma showed great progress in reading comprehension today—specifically, she made three text-to-self connections during our discussion of "Wonder" and explained her thinking clearly to the group.<br>
+This matters because she's building the critical thinking skills that will serve her across all subjects.<br>
+<strong>Next step:</strong> We'll keep practicing making connections; asking "Does this remind you of anything?" during bedtime stories would help reinforce this skill.<br>
+<em>Thanks for your support,</em><br>
+Ms. Rodriguez, Year 5</p>
+</blockquote>
+<h3>General progress</h3>
+<p><strong>Subject:</strong> Update on {{Student}}'s learning in {{subject}}<br>
+Hello {{Parent/Carer}},<br>
+I wanted to update you on {{Student}}'s recent work in {{unit}}. I've seen {{evidence}}.<br>
+This shows {{impact}}.<br>
+<strong>Next step:</strong> We'll focus on {{target}}; at home, a short {{activity}} 2–3 times per week would be ideal.<br>
+<em>Warm regards,</em> {{Teacher}}</p>
+<p><strong>Example in action:</strong></p>
+<blockquote>
+<p><strong>Subject:</strong> Update on Marcus's learning in mathematics<br>
+Hello Mr. and Mrs. Chen,<br>
+I wanted to update you on Marcus's recent work in fractions. I've seen him successfully comparing fractions with different denominators using visual models and explaining his reasoning to classmates.<br>
+This shows he's developing strong conceptual understanding alongside procedural skills.<br>
+<strong>Next step:</strong> We'll focus on adding fractions with unlike denominators; having him help with cooking measurements 2–3 times per week would be ideal practice.<br>
+<em>Warm regards,</em> Mr. Thompson</p>
+</blockquote>
+<h2>Tricky scenarios (copy, paste, personalize)</h2>
+<h3>Late / incomplete work (supportive)</h3>
+<p><strong>Subject:</strong> Supporting {{Student}} with work completion<br>
+Hi {{Parent/Carer}},<br>
+I've noticed {{Student}} has been finding it challenging to complete {{assignments}} consistently. Rather than focusing on what's not working, let's build a system that sets them up for success.</p>
+<p><strong>At school, we'll:</strong></p>
+<ol>
+<li>Start with a 5-minute setup checklist</li>
+<li>Break tasks into smaller chunks with checkpoints</li>
+<li>Provide a quick teacher check-in halfway through</li>
+</ol>
+<p><strong>At home support:</strong> Could you help by reviewing the checklist each evening? I'll share a one-page version that takes just 2 minutes to complete together.</p>
+<p>This collaborative approach helps {{Student}} develop independence while feeling supported.</p>
+<p><em>Let's connect on {{day}} to see how it's going,</em><br>
+{{Teacher}}</p>
+<h3>Behaviour refocus (calm &#x26; clear)</h3>
+<p><strong>Subject:</strong> Working together to support {{Student}}<br>
+Hello {{Parent/Carer}},<br>
+I wanted to reach out about some patterns I've noticed with {{Student}} in our classroom. They're a valued member of our learning community, and I know we can work together to help them thrive.</p>
+<p><strong>What I'm seeing:</strong> {{Student}} sometimes struggles with {{specific behavior}} during {{context}}. This often happens when {{possible trigger}}.</p>
+<p><strong>Our classroom plan:</strong></p>
+<ul>
+<li>Use a short reset strategy (2-minute timer + quiet movement)</li>
+<li>Practice "ready to learn" routines during calm moments</li>
+<li>Celebrate small wins consistently</li>
+</ul>
+<p><strong>Your insight needed:</strong> What approaches work well at home when {{Student}} feels overwhelmed? We'd love to mirror successful strategies.</p>
+<p><em>Looking forward to partnering with you,</em><br>
+{{Teacher}}</p>
+<h3>Sensitive hygiene (discreet)</h3>
+<p><strong>Subject:</strong> Confidential note about {{Student}}<br>
+Dear {{Parent/Carer}},<br>
+I hope this message finds you well. I'm reaching out privately about a sensitive matter regarding {{Student}}.</p>
+<p>We've noticed that {{Student}} may benefit from a gentle reminder about {{hygiene topic}} before school. This is completely normal for students this age, and we want to address it discretely to support their confidence with peers.</p>
+<p><strong>Our approach:</strong> We'll support {{Student}} quietly at school with subtle reminders and access to supplies if needed.</p>
+<p><strong>Home support:</strong> A simple morning checklist might help establish routines. Happy to suggest specific strategies if that would be helpful.</p>
+<p>Please know this comes from a place of care for {{Student}}'s wellbeing and social confidence.</p>
+<p><em>Warm regards,</em><br>
+{{Teacher}}</p>
+<h2>Advanced templates</h2>
+<h3>Conference request (proactive)</h3>
+<p><strong>Subject:</strong> Let's celebrate {{Student}}'s growth together<br>
+Dear {{Parent/Carer}},<br>
+{{Student}} has been making wonderful progress in {{areas}}, and I'd love to share some specific examples with you in person.</p>
+<p><strong>What we'll discuss:</strong></p>
+<ul>
+<li>{{Student}}'s recent achievements in {{subject}}</li>
+<li>Strategies that are working well</li>
+<li>Goals for the next term</li>
+<li>Ways to extend learning at home</li>
+</ul>
+<p><strong>Meeting options:</strong></p>
+<ul>
+<li>{{Date 1}} at {{time}}</li>
+<li>{{Date 2}} at {{time}}</li>
+<li>Virtual option available</li>
+</ul>
+<p><strong>Preparation:</strong> Please bring any questions about {{Student}}'s learning or school experience. I'll have work samples and assessment data to share.</p>
+<p><em>Looking forward to our conversation,</em><br>
+{{Teacher}}</p>
+<h3>Follow-up after difficult conversation</h3>
+<p><strong>Subject:</strong> Thank you for our conversation about {{Student}}<br>
+Dear {{Parent/Carer}},<br>
+Thank you for taking time to meet with me {{day/date}}. I really value your partnership and insights about {{Student}}.</p>
+<p><strong>Our action plan:</strong></p>
+<ul>
+<li><strong>School:</strong> {{specific strategy teacher will implement}}</li>
+<li><strong>Home:</strong> {{specific strategy family will try}}</li>
+<li><strong>Check-in:</strong> We'll reconnect on {{date}} to review progress</li>
+</ul>
+<p><strong>Resources attached:</strong></p>
+<ul>
+<li>{{Resource 1}}: {{brief description}}</li>
+<li>{{Resource 2}}: {{brief description}}</li>
+</ul>
+<p>{{Student}} is fortunate to have such caring advocates. I'm confident that working together, we'll see positive changes.</p>
+<p><em>With appreciation,</em><br>
+{{Teacher}}</p>
+<h2>Closers library</h2>
+<h3>Warm closers</h3>
+<ul>
+<li><em>Thanks for your continued support.</em></li>
+<li><em>Grateful for your partnership in {{Student}}'s education.</em></li>
+<li><em>{{Student}} is lucky to have such engaged parents.</em></li>
+<li><em>Looking forward to {{Student}}'s continued growth.</em></li>
+</ul>
+<h3>Professional closers</h3>
+<ul>
+<li><em>Please feel free to reach out with any questions.</em></li>
+<li><em>Happy to adjust the plan based on what works at home.</em></li>
+<li><em>Let's touch base again on {{date}} to review progress.</em></li>
+<li><em>I'm here to support {{Student}}'s success in every way possible.</em></li>
+</ul>
+<h3>Action-oriented closers</h3>
+<ul>
+<li><em>Please let me know which option works best for your schedule.</em></li>
+<li><em>I'll follow up with {{specific item}} by {{date}}.</em></li>
+<li><em>Looking forward to hearing how this goes at home.</em></li>
+<li><em>Let's reconnect after you've had a chance to try this approach.</em></li>
+</ul>
+<h2>Emergency communications</h2>
+<h3>Urgent academic concern</h3>
+<p><strong>Subject:</strong> URGENT: Academic support needed for {{Student}}<br>
+Dear {{Parent/Carer}},<br>
+I need to discuss an urgent academic concern regarding {{Student}} in {{subject}}.</p>
+<p><strong>The situation:</strong> {{Student}} is significantly behind in {{specific skill/concept}} which impacts their ability to access current curriculum.</p>
+<p><strong>Immediate action needed:</strong></p>
+<ol>
+<li><strong>Assessment:</strong> Schedule evaluation for {{specific concern}}</li>
+<li><strong>Support:</strong> Begin intervention program {{details}}</li>
+<li><strong>Timeline:</strong> We need to act within {{timeframe}}</li>
+</ol>
+<p><strong>Next steps:</strong> Please call me at {{phone}} by {{date}} so we can discuss options and create an action plan.</p>
+<p>{{Student}}'s success is our shared priority. Early intervention makes a significant difference.</p>
+<p><em>Urgently yours,</em><br>
+{{Teacher}}</p>
+<h3>Safety concern</h3>
+<p><strong>Subject:</strong> Safety matter requiring immediate attention<br>
+Dear {{Parent/Carer}},<br>
+I need to inform you of a safety concern involving {{Student}} that occurred today at {{time}}.</p>
+<p><strong>What happened:</strong> {{Factual description without interpretation}}</p>
+<p><strong>Immediate actions taken:</strong></p>
+<ul>
+<li>{{Action 1}}</li>
+<li>{{Action 2}}</li>
+<li>{{Action 3}}</li>
+</ul>
+<p><strong>Required next steps:</strong></p>
+<ul>
+<li>Parent meeting scheduled for {{date/time}}</li>
+<li>{{Student}} will {{specific consequence/support}}</li>
+<li>Safety plan review needed</li>
+</ul>
+<p>Please contact the office at {{phone}} by {{time}} today to confirm your availability for tomorrow's meeting.</p>
+<p><em>Professionally yours,</em><br>
+{{Teacher}} and {{Administrator}}</p>
+<h2>AI Assist prompts</h2>
+<h3>Content generation</h3>
+<ul>
+<li>"Draft a warm, professional email for {{topic}} with one clear next step, 120–160 words."</li>
+<li>"Create three versions of this email with different tone levels (warm, neutral, firm but kind): {{paste draft}}"</li>
+<li>"Turn this teacher note into a parent-friendly email: {{paste notes}}"</li>
+</ul>
+<h3>Editing and refinement</h3>
+<ul>
+<li>"Shorten this to 120 words. Keep names/dates; simplify vocabulary to family-friendly language: {{paste email}}"</li>
+<li>"Make this email more specific by adding concrete examples: {{paste draft}}"</li>
+<li>"Adjust the tone to be more {{warm/professional/urgent}}: {{paste email}}"</li>
+</ul>
+<h3>Cultural adaptation</h3>
+<ul>
+<li>"Translate to {{language}} at A2–B1 reading level. Preserve names and dates: {{paste email}}"</li>
+<li>"Adapt this email for families who may not be familiar with {{school system/concept}}: {{paste draft}}"</li>
+<li>"Make this more culturally sensitive for {{context}}: {{paste email}}"</li>
+</ul>
+<h3>Template customization</h3>
+<ul>
+<li>"Create five variations of this template for different grade levels: {{paste template}}"</li>
+<li>"Generate subject line options (formal, friendly, urgent) for this email: {{paste content}}"</li>
+</ul>
+<h2>Time-saving strategies</h2>
+<h3>Email management system</h3>
+<ol>
+<li><strong>Templates folder:</strong> Save successful emails as drafts for quick customization</li>
+<li><strong>Contact groups:</strong> Create parent groups by class/grade for mass communications</li>
+<li><strong>Signature templates:</strong> Multiple signatures for different situations</li>
+<li><strong>Quick phrases:</strong> Save common expressions in text shortcuts</li>
+</ol>
+<h3>Batch communication</h3>
+<ul>
+<li><strong>Weekly updates:</strong> Send class newsletter with individual additions</li>
+<li><strong>Progress reports:</strong> Use similar structure for all students, personalize content</li>
+<li><strong>Event notifications:</strong> Create base template, customize by family needs</li>
+</ul>
+<h3>Response protocols</h3>
+<ul>
+<li><strong>24-hour rule:</strong> Acknowledge receipt within 24 hours, full response within 48</li>
+<li><strong>Escalation path:</strong> Know when to involve administration</li>
+<li><strong>Documentation:</strong> Save important emails to student records</li>
+</ul>
+<h2>Quality checklist</h2>
+<p>Before sending any email, verify:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Tone appropriate</strong> for situation and relationship</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Specific examples</strong> rather than general statements</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Clear next step</strong> or action item</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Professional but warm</strong> language throughout</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Spell-checked</strong> names and key terms</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Contact information</strong> included if response needed</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Attachment named clearly</strong> if included</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Privacy respected</strong> (no other student names)</li>
+</ul>
+<h2>Building long-term relationships</h2>
+<h3>Throughout the year</h3>
+<p><strong>September:</strong> Welcome emails setting positive tone
+<strong>October:</strong> First positive update emails
+<strong>January:</strong> Mid-year progress celebrations<br>
+<strong>March:</strong> Goal-setting partnerships
+<strong>June:</strong> Year-end appreciation and transition support</p>
+<h3>Relationship repair</h3>
+<p>When communication breaks down:</p>
+<ol>
+<li><strong>Acknowledge</strong> the miscommunication</li>
+<li><strong>Apologize</strong> for any confusion or hurt</li>
+<li><strong>Clarify</strong> your intended message</li>
+<li><strong>Commit</strong> to better communication going forward</li>
+<li><strong>Follow through</strong> consistently</li>
+</ol>
+<h3>Parent partnership principles</h3>
+<ul>
+<li><strong>Assume positive intent</strong> from all families</li>
+<li><strong>Honor family expertise</strong> about their child</li>
+<li><strong>Communicate regularly</strong> not just when problems arise</li>
+<li><strong>Invite collaboration</strong> in problem-solving</li>
+<li><strong>Celebrate growth</strong> together</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

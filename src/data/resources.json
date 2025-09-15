@@ -1,0 +1,334 @@
+[
+  {
+    "id": "ai-parent-comms",
+    "title": "Ai Parent Comms",
+    "path": "/resources/ai-parent-comms.pdf",
+    "bytes": 5034,
+    "sizeLabel": "4.92 KB",
+    "createdAt": "2025-09-15T11:31:03.567Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Professional communication templates and strategies for effective parent-teacher interactions using AI assistance.",
+    "category": "General",
+    "tags": [
+      "parent-communication",
+      "ai-tools",
+      "professional-development"
+    ],
+    "level": "intermediate",
+    "type": "guide",
+    "featured": true
+  },
+  {
+    "id": "lesson-plan-template-primary",
+    "title": "Lesson Plan Template Primary",
+    "path": "/resources/lesson-plan-template-primary.pdf",
+    "bytes": 6008,
+    "sizeLabel": "5.87 KB",
+    "createdAt": "2025-09-15T11:31:03.724Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+    "category": "General",
+    "tags": [
+      "lesson-planning",
+      "primary-education",
+      "templates",
+      "curriculum"
+    ],
+    "level": "beginner",
+    "type": "template",
+    "subject": "General",
+    "featured": true
+  },
+  {
+    "id": "teacher-ai-toolkit",
+    "title": "Teacher Ai Toolkit",
+    "path": "/resources/teacher-ai-toolkit.pdf",
+    "bytes": 4738,
+    "sizeLabel": "4.63 KB",
+    "createdAt": "2025-09-15T11:31:03.808Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
+    "category": "General",
+    "tags": [
+      "ai-integration",
+      "productivity",
+      "teaching-tools",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit",
+    "featured": true
+  },
+  {
+    "id": "teacher-self-care-guide",
+    "title": "Teacher Self Care Guide",
+    "path": "/resources/teacher-self-care-guide.pdf",
+    "bytes": 4333,
+    "sizeLabel": "4.23 KB",
+    "createdAt": "2025-09-15T11:31:03.825Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Essential self-care strategies and wellness practices for educators to prevent burnout and maintain work-life balance.",
+    "category": "General",
+    "tags": [
+      "self-care",
+      "wellness",
+      "work-life-balance",
+      "mental-health"
+    ],
+    "level": "beginner",
+    "type": "guide",
+    "featured": true
+  },
+  {
+    "id": "lesson-plan-template-primary-v1.0-en",
+    "title": "Lesson Plan Template Primary V1.0 En",
+    "path": "/resources/planning/lesson-plan-template-primary-v1.0-en.pdf",
+    "bytes": 2368,
+    "sizeLabel": "2.31 KB",
+    "createdAt": "2025-09-15T11:31:03.773Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+    "category": "Planning",
+    "tags": [
+      "lesson-planning",
+      "primary-education",
+      "templates",
+      "curriculum"
+    ],
+    "level": "beginner",
+    "type": "template",
+    "subject": "General",
+    "featured": true
+  },
+  {
+    "id": "assessment-rubrics-pack-v1.0-en",
+    "title": "Assessment Rubrics Pack V1.0 En",
+    "path": "/resources/assessment/assessment-rubrics-pack-v1.0-en.pdf",
+    "bytes": 2483,
+    "sizeLabel": "2.42 KB",
+    "createdAt": "2025-09-15T11:31:03.603Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "grading-prompts-toolkit-v1.0-en",
+    "title": "Grading Prompts Toolkit V1.0 En",
+    "path": "/resources/assessment/grading-prompts-toolkit-v1.0-en.pdf",
+    "bytes": 2151,
+    "sizeLabel": "2.1 KB",
+    "createdAt": "2025-09-15T11:31:03.614Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "report-comment-bank-v1.0-en",
+    "title": "Report Comment Bank V1.0 En",
+    "path": "/resources/assessment/report-comment-bank-v1.0-en.pdf",
+    "bytes": 3427,
+    "sizeLabel": "3.35 KB",
+    "createdAt": "2025-09-15T11:31:03.628Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "parent-email-playbook-v1.0-en",
+    "title": "Parent Email Playbook V1.0 En",
+    "path": "/resources/communication/parent-email-playbook-v1.0-en.pdf",
+    "bytes": 3462,
+    "sizeLabel": "3.38 KB",
+    "createdAt": "2025-09-15T11:31:03.682Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "translation-helpers-pack-v1.0-en",
+    "title": "Translation Helpers Pack V1.0 En",
+    "path": "/resources/communication/translation-helpers-pack-v1.0-en.pdf",
+    "bytes": 2187,
+    "sizeLabel": "2.14 KB",
+    "createdAt": "2025-09-15T11:31:03.690Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "ai-grading-prompts",
+    "title": "Ai Grading Prompts",
+    "path": "/resources/ai-grading-prompts.pdf",
+    "bytes": 5187,
+    "sizeLabel": "5.07 KB",
+    "createdAt": "2025-09-15T11:31:03.556Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Ready-to-use AI prompts for efficient and consistent grading that save hours while providing meaningful feedback to students.",
+    "category": "General",
+    "tags": [
+      "grading",
+      "ai-prompts",
+      "feedback",
+      "assessment",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit"
+  },
+  {
+    "id": "assessment-rubric-template",
+    "title": "Assessment Rubric Template",
+    "path": "/resources/assessment-rubric-template.pdf",
+    "bytes": 3910,
+    "sizeLabel": "3.82 KB",
+    "createdAt": "2025-09-15T11:31:03.639Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Professional rubric templates for various subjects and projects, designed to streamline assessment and provide clear expectations.",
+    "category": "General",
+    "tags": [
+      "rubrics",
+      "assessment",
+      "templates",
+      "grading",
+      "standards"
+    ],
+    "level": "beginner",
+    "type": "template"
+  },
+  {
+    "id": "classroom-routines",
+    "title": "Classroom Routines",
+    "path": "/resources/classroom-routines.pdf",
+    "bytes": 4593,
+    "sizeLabel": "4.49 KB",
+    "createdAt": "2025-09-15T11:31:03.673Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Proven classroom management routines and procedures that create a positive learning environment.",
+    "category": "General",
+    "tags": [
+      "classroom-management",
+      "routines",
+      "behavior",
+      "organization"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "formative-assessment-checklist",
+    "title": "Formative Assessment Checklist",
+    "path": "/resources/formative-assessment-checklist.pdf",
+    "bytes": 3077,
+    "sizeLabel": "3 KB",
+    "createdAt": "2025-09-15T11:31:03.698Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
+    "category": "General",
+    "tags": [
+      "formative-assessment",
+      "checklist",
+      "feedback",
+      "instruction"
+    ],
+    "level": "beginner",
+    "type": "checklist"
+  },
+  {
+    "id": "behavior-redirection-scripts-v1.0-en",
+    "title": "Behavior Redirection Scripts V1.0 En",
+    "path": "/resources/management/behavior-redirection-scripts-v1.0-en.pdf",
+    "bytes": 2406,
+    "sizeLabel": "2.35 KB",
+    "createdAt": "2025-09-15T11:31:03.740Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Management",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "differentiated-question-stems-v1.0-en",
+    "title": "Differentiated Question Stems V1.0 En",
+    "path": "/resources/planning/differentiated-question-stems-v1.0-en.pdf",
+    "bytes": 2588,
+    "sizeLabel": "2.53 KB",
+    "createdAt": "2025-09-15T11:31:03.765Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Planning",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "lesson-plan-template-secondary-v1.0-en",
+    "title": "Lesson Plan Template Secondary V1.0 En",
+    "path": "/resources/planning/lesson-plan-template-secondary-v1.0-en.pdf",
+    "bytes": 2412,
+    "sizeLabel": "2.36 KB",
+    "createdAt": "2025-09-15T11:31:03.782Z",
+    "lang": "en",
+    "version": "1.0",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Planning",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  }
+]

@@ -4,6 +4,7 @@
     "private":  true,
     "scripts":  {
                     "dev":  "next dev --turbopack -p 3010",
+                    "prebuild": "tsx scripts/build-resources.ts",
                     "build":  "cross-env NEXT_SKIP_TURBOPACK=1 TSC_COMPILE_ON_ERROR=true next build",
                     "start":  "next start",
                     "lint":  "eslint src/",
@@ -13,7 +14,10 @@
                     "test:e2e":  "playwright test",
                     "postbuild":  "echo \u0027Build completed successfully!\u0027",
                     "ui:review":  "node scripts/ui-review.mjs",
-                    "smoke:test":  "node scripts/smoke-test.js"
+                    "smoke:test":  "node scripts/smoke-test.js",
+                    "gen:resources:html": "tsx scripts/generate-resources.ts",
+                    "gen:resources:pdf": "tsx scripts/generate-resources-pdf.ts",
+                    "gen:resources": "npm run gen:resources:html && npm run gen:resources:pdf"
                 },
     "dependencies":  {
                          "@firebase/auth":  "^1.11.0",

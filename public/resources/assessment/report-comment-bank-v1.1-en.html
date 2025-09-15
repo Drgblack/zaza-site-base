@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report Comment Bank</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  
+  <h1>Report Comment Bank</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>The E-I-N Framework</li>
+  <li>English Language Arts</li>
+  <li>Mathematics</li>
+  <li>Science</li>
+  <li>Social Studies</li>
+  <li>Behaviour & Work Habits</li>
+  <li>AI Assist Prompts</li>
+  <li>Quality Assurance Checklist</li>
+  <li>Efficient Report Writing Strategies</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"Good report comments tell a story: Here's what I saw, here's what it means, here's where we're going next."</p>
+</blockquote>
+<h2>The E-I-N Framework</h2>
+<p>Every effective report comment follows this structure:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+<th>Example Phrases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>What you observed</td>
+<td>"Consistently demonstrates..." "Accurately completed..." "Confidently explains..."</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>What this shows about learning</td>
+<td>"This shows..." "Demonstrates..." "Indicates developing..."</td>
+</tr>
+<tr>
+<td><strong>Next</strong></td>
+<td>Specific next steps</td>
+<td>"Moving forward..." "Next term focus..." "To continue growing..."</td>
+</tr>
+</tbody>
+</table>
+<h2>English Language Arts</h2>
+<h3>Reading Comprehension</h3>
+<p><strong>Exceeding (three variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> Sarah consistently supports her ideas with precise textual evidence, seamlessly integrating quotations into written responses.<br>
+<strong>I:</strong> This demonstrates sophisticated analysis skills and deep understanding of author's craft.<br>
+<strong>N:</strong> Next term, she'll experiment with comparing themes across multiple texts to develop critical thinking further.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> During literature discussions, Marcus asks insightful questions about character motivation and makes thoughtful connections between texts.<br>
+<strong>I:</strong> This shows he's developing advanced analytical thinking and can synthesize complex ideas independently.<br>
+<strong>N:</strong> Moving forward, he'll explore how historical context influences literary themes in our novel study unit.</p>
+<p><em>Variant 3:</em><br>
+<strong>E:</strong> Emma identifies subtle symbolism in poetry and explains how literary devices impact reader understanding.<br>
+<strong>I:</strong> This indicates mature comprehension skills and confidence in literary interpretation.<br>
+<strong>N:</strong> She's ready to tackle more complex texts and will lead peer discussions in our book club format.</p>
+<p><strong>Meeting Standards (two variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> James uses relevant quotes to support his main ideas and shows clear understanding of plot and character development.<br>
+<strong>I:</strong> This demonstrates solid comprehension skills and growing confidence in textual analysis.<br>
+<strong>N:</strong> To strengthen his skills, he'll practice explaining the "why" behind character choices using textual evidence.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> Lily identifies key themes and makes personal connections to the texts we've studied this term.<br>
+<strong>I:</strong> This shows she's engaging meaningfully with literature and developing her own interpretive voice.<br>
+<strong>N:</strong> Next, she'll work on organizing her ideas more clearly in written responses using transition phrases.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Alex shows understanding of main events and can summarize stories accurately with some prompting.<br>
+<strong>I:</strong> This indicates he's building foundational comprehension skills and gaining confidence with guided support.<br>
+<strong>N:</strong> We'll continue practicing making predictions and asking questions while reading to deepen engagement with texts.</p>
+<h3>Writing</h3>
+<p><strong>Exceeding (three variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> Maya crafts engaging narratives with well-developed characters, varied sentence structures, and sophisticated vocabulary choices.<br>
+<strong>I:</strong> This demonstrates advanced writing skills and a strong sense of audience and purpose.<br>
+<strong>N:</strong> She'll explore different genres this term, focusing on adapting her voice for informative and persuasive writing styles.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> In persuasive essays, Jordan presents compelling arguments with relevant evidence and addresses counterarguments thoughtfully.<br>
+<strong>I:</strong> This shows excellent critical thinking and mature understanding of effective persuasion techniques.<br>
+<strong>N:</strong> Next, he'll refine his revision process by focusing on precise word choice and varied sentence openings.</p>
+<p><em>Variant 3:</em><br>
+<strong>E:</strong> Zoe demonstrates excellent organization in her writing, using transitions effectively and maintaining focus throughout longer pieces.<br>
+<strong>I:</strong> This indicates strong planning skills and understanding of how structure supports reader comprehension.<br>
+<strong>N:</strong> Moving forward, she'll experiment with more complex organizational patterns in her research projects.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Tom writes clear, focused paragraphs with appropriate topic sentences and supporting details.<br>
+<strong>I:</strong> This shows he understands basic paragraph structure and can communicate ideas effectively.<br>
+<strong>N:</strong> To strengthen his writing, he'll practice varying sentence beginnings and adding more descriptive language to engage readers.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Katie generates creative ideas for writing and includes relevant details with teacher support and graphic organizers.<br>
+<strong>I:</strong> This demonstrates growing confidence and willingness to express her thoughts in writing.<br>
+<strong>N:</strong> We'll continue using planning tools and focus on writing complete sentences with proper punctuation.</p>
+<h2>Mathematics</h2>
+<h3>Problem Solving &#x26; Reasoning</h3>
+<p><strong>Exceeding (three variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> Daniel applies multiple strategies to solve complex problems, clearly explains his mathematical reasoning, and checks solutions for reasonableness.<br>
+<strong>I:</strong> This demonstrates deep understanding of mathematical concepts and strong problem-solving skills.<br>
+<strong>N:</strong> He's ready for enrichment challenges involving multi-step problems and will mentor peers during math workshops.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> Sophie makes connections between different mathematical concepts, such as linking fractions, decimals, and percentages in real-world contexts.<br>
+<strong>I:</strong> This shows flexible thinking and ability to see relationships across mathematical domains.<br>
+<strong>N:</strong> Next term, she'll explore how mathematical patterns appear in other subjects like science and art.</p>
+<p><em>Variant 3:</em><br>
+<strong>E:</strong> Chen creates accurate mathematical models to represent problem situations and justifies his choice of operations clearly.<br>
+<strong>I:</strong> This indicates advanced mathematical thinking and confidence in tackling unfamiliar problems.<br>
+<strong>N:</strong> Moving forward, he'll investigate how the same mathematical principles apply to increasingly complex scenarios.</p>
+<p><strong>Meeting Standards (two variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> Ana chooses appropriate strategies for most problems and shows her work clearly using drawings, numbers, and words.<br>
+<strong>I:</strong> This demonstrates solid understanding of mathematical processes and growing computational fluency.<br>
+<strong>N:</strong> To continue developing, she'll practice explaining why her chosen strategy works and estimating to check answers.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> Pablo accurately completes multi-step problems and can explain his thinking when prompted by teacher questions.<br>
+<strong>I:</strong> This shows he's building confidence in mathematical reasoning and developing problem-solving persistence.<br>
+<strong>N:</strong> Next, he'll focus on identifying key information in word problems and selecting efficient solution methods.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Mia attempts problem-solving with encouragement and successfully solves one-step problems using manipulatives and visual models.<br>
+<strong>I:</strong> This indicates she's building foundational skills and gaining mathematical confidence with appropriate support.<br>
+<strong>N:</strong> We'll continue strengthening number sense through hands-on activities and practice with basic fact fluency.</p>
+<h3>Number Sense &#x26; Operations</h3>
+<p><strong>Exceeding</strong></p>
+<p><strong>E:</strong> Lucas demonstrates flexible thinking with numbers, uses mental math strategies efficiently, and explains multiple solution paths.<br>
+<strong>I:</strong> This shows strong number sense and deep understanding of numerical relationships.<br>
+<strong>N:</strong> He'll explore patterns in number systems and investigate how mathematical properties apply across different contexts.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Grace accurately performs operations with whole numbers and decimals, and shows understanding of place value concepts.<br>
+<strong>I:</strong> This demonstrates solid computational skills and developing number sense.<br>
+<strong>N:</strong> To continue growing, she'll apply these skills to real-world problems and practice estimation strategies.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> David shows growing understanding of number relationships and can complete basic operations with support tools.<br>
+<strong>I:</strong> This indicates building confidence and developing foundational mathematical concepts.<br>
+<strong>N:</strong> We'll continue practicing number facts and using concrete materials to strengthen understanding.</p>
+<h2>Science</h2>
+<h3>Scientific Inquiry &#x26; Investigation</h3>
+<p><strong>Exceeding (two variants)</strong></p>
+<p><em>Variant 1:</em><br>
+<strong>E:</strong> Isabella designs controlled experiments, makes detailed observations, and draws logical conclusions based on collected data.<br>
+<strong>I:</strong> This demonstrates sophisticated scientific thinking and understanding of the inquiry process.<br>
+<strong>N:</strong> She'll investigate more complex variables and explore how scientific methods apply across different fields of study.</p>
+<p><em>Variant 2:</em><br>
+<strong>E:</strong> Marcus asks thoughtful questions about natural phenomena, researches multiple sources, and communicates findings clearly using scientific vocabulary.<br>
+<strong>I:</strong> This shows curiosity, critical thinking, and growing expertise in scientific communication.<br>
+<strong>N:</strong> Next, he'll design his own investigations to test hypotheses and share results with authentic audiences.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Anna follows investigation procedures carefully, records accurate observations, and explains results using science concepts we've studied.<br>
+<strong>I:</strong> This demonstrates understanding of scientific processes and growing confidence in scientific reasoning.<br>
+<strong>N:</strong> To deepen her skills, she'll practice making predictions and explaining the "why" behind scientific phenomena.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Tyler participates actively in group investigations and makes basic observations with guided questions and support.<br>
+<strong>I:</strong> This shows developing interest in science and willingness to engage in the inquiry process.<br>
+<strong>N:</strong> We'll continue building science vocabulary and practicing making simple predictions before investigations.</p>
+<h3>Scientific Knowledge &#x26; Understanding</h3>
+<p><strong>Exceeding</strong></p>
+<p><strong>E:</strong> Samantha makes connections between scientific concepts across different units and applies knowledge to explain everyday phenomena.<br>
+<strong>I:</strong> This indicates deep conceptual understanding and ability to transfer learning to new situations.<br>
+<strong>N:</strong> Moving forward, she'll explore how scientific principles connect to current environmental and technological challenges.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Ryan demonstrates understanding of key science concepts and can give examples from our classroom investigations and observations.<br>
+<strong>I:</strong> This shows solid grasp of scientific content and ability to apply learning in familiar contexts.<br>
+<strong>N:</strong> Next, he'll practice using scientific vocabulary more precisely and making connections between related concepts.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Kara shows interest in science topics and recalls basic facts from our studies with some prompting and visual supports.<br>
+<strong>I:</strong> This demonstrates growing foundation knowledge and engagement with scientific content.<br>
+<strong>N:</strong> We'll continue building understanding through hands-on experiences and connecting science to her interests.</p>
+<h2>Social Studies</h2>
+<h3>Historical Thinking &#x26; Analysis</h3>
+<p><strong>Exceeding</strong></p>
+<p><strong>E:</strong> Ahmed analyzes primary sources critically, considers multiple perspectives on historical events, and makes thoughtful comparisons between past and present.<br>
+<strong>I:</strong> This demonstrates sophisticated historical thinking and understanding of how perspective shapes interpretation.<br>
+<strong>N:</strong> He'll investigate how historical events influenced each other and explore contemporary connections to historical patterns.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Fatima shows understanding of cause and effect in historical events and can explain why different groups had different experiences.<br>
+<strong>I:</strong> This demonstrates developing historical empathy and understanding of complexity in human experiences.<br>
+<strong>N:</strong> Next, she'll analyze how geographic factors influenced historical developments in our next unit.</p>
+<p><strong>Approaching Standards</strong></p>
+<p><strong>E:</strong> Carlos recalls key facts about historical periods and shows interest in stories about people from the past.<br>
+<strong>I:</strong> This indicates building foundation knowledge and engagement with historical content.<br>
+<strong>N:</strong> We'll continue using timelines and graphic organizers to strengthen understanding of chronological thinking.</p>
+<h3>Geographic Understanding</h3>
+<p><strong>Exceeding</strong></p>
+<p><strong>E:</strong> Priya reads and creates detailed maps, explains how physical features influence human settlement patterns, and makes connections between geography and culture.<br>
+<strong>I:</strong> This shows sophisticated understanding of geographic concepts and human-environment interactions.<br>
+<strong>N:</strong> She'll investigate how geographic factors influence current global issues and conflicts.</p>
+<p><strong>Meeting Standards</strong></p>
+<p><strong>E:</strong> Luis uses maps and geographic tools effectively and explains how location affects communities and their characteristics.<br>
+<strong>I:</strong> This demonstrates solid geographic thinking and understanding of spatial relationships.<br>
+<strong>N:</strong> Next, he'll explore how physical and human geography interact in different regions we're studying.</p>
+<h2>Behaviour &#x26; Work Habits</h2>
+<h3>Learning Skills &#x26; Responsibility</h3>
+<p><strong>Exemplary</strong></p>
+<p><strong>E:</strong> Ava consistently comes prepared for learning, manages her time effectively, and takes initiative to help classmates when appropriate.<br>
+<strong>I:</strong> This demonstrates excellent self-regulation skills and positive leadership qualities.<br>
+<strong>N:</strong> She'll continue modeling these behaviors and take on additional classroom responsibilities next term.</p>
+<p><strong>Developing Well</strong></p>
+<p><strong>E:</strong> Ben usually remembers to bring materials and follows classroom routines with occasional gentle reminders.<br>
+<strong>I:</strong> This shows growing independence and developing organizational skills.<br>
+<strong>N:</strong> We'll continue practicing daily organization routines and using visual reminders to build consistency.</p>
+<p><strong>Needs Support</strong></p>
+<p><strong>E:</strong> Maria benefits from structured support systems and responds well to clear expectations and regular check-ins.<br>
+<strong>I:</strong> This indicates she's learning important self-management skills with appropriate scaffolding.<br>
+<strong>N:</strong> We'll focus on breaking tasks into smaller steps and celebrating small improvements in organization.</p>
+<h3>Collaboration &#x26; Communication</h3>
+<p><strong>Exemplary</strong></p>
+<p><strong>E:</strong> Jake contributes thoughtfully to group discussions, listens respectfully to others' ideas, and helps resolve conflicts constructively.<br>
+<strong>I:</strong> This demonstrates excellent social skills and understanding of effective collaboration.<br>
+<strong>N:</strong> He'll take on leadership roles in group projects and help facilitate peer discussions.</p>
+<p><strong>Developing Well</strong></p>
+<p><strong>E:</strong> Sophia shares ideas appropriately and works cooperatively with different partners, showing increasing confidence in group settings.<br>
+<strong>I:</strong> This shows growing communication skills and positive relationship building.<br>
+<strong>N:</strong> Next, she'll practice giving specific feedback to peers and asking clarifying questions during discussions.</p>
+<p><strong>Needs Support</strong></p>
+<p><strong>E:</strong> Alex is learning to share talking time and listen to others' perspectives with teacher guidance and visual cues.<br>
+<strong>I:</strong> This indicates developing social awareness and willingness to learn collaboration skills.<br>
+<strong>N:</strong> We'll continue practicing turn-taking strategies and using sentence starters for respectful communication.</p>
+<h2>AI Assist Prompts</h2>
+<h3>Comment Generation</h3>
+<ul>
+<li>"Turn this rubric row + evidence into 3 comments (E-I-N), 80–100 words, warm and professional: {{paste rubric + observations}}"</li>
+<li>"Create variations of this comment for different performance levels: {{paste base comment}}"</li>
+<li>"Generate a report comment using this evidence: {{paste specific examples}} for {{grade level}} {{subject}}"</li>
+</ul>
+<h3>Comment Enhancement</h3>
+<ul>
+<li>"Make this comment more specific and evidence-based: {{paste generic comment}}"</li>
+<li>"Adjust tone to be more {{encouraging/professional/growth-focused}}: {{paste comment}}"</li>
+<li>"Shorten this comment to 80 words while keeping key information: {{paste long comment}}"</li>
+</ul>
+<h3>Personalization</h3>
+<ul>
+<li>"Personalize this template for a student who {{specific trait/challenge}}: {{paste template}}"</li>
+<li>"Adapt this comment for a {{grade level}} student in {{subject}}: {{paste comment}}"</li>
+<li>"Create three versions (high/medium/low achiever) of this comment: {{paste base}}"</li>
+</ul>
+<h2>Quality Assurance Checklist</h2>
+<p>Before finalizing any report comment:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Evidence specific</strong> to this student's work/behavior</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Impact clearly stated</strong> - what the evidence shows about learning</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Next steps concrete</strong> and achievable</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Tone appropriate</strong> - professional yet warm</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Length suitable</strong> - 70-110 words typically</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Student name used</strong> appropriately (1-2 times maximum)</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Grammar and spelling</strong> checked carefully</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Aligns with grades</strong> and other evidence</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Avoids comparison</strong> to other students</li>
+<li class="task-list-item"><input type="checkbox" disabled> <strong>Focuses on growth</strong> and potential</li>
+</ul>
+<h2>Efficient Report Writing Strategies</h2>
+<h3>Batch Processing</h3>
+<ol>
+<li><strong>Gather evidence first</strong> for all students in one subject</li>
+<li><strong>Write all "exceeding" comments</strong> before moving to next level</li>
+<li><strong>Use similar structures</strong> but vary specific examples</li>
+<li><strong>Save successful phrases</strong> for future use</li>
+</ol>
+<h3>Template Customization</h3>
+<ul>
+<li>Keep base templates for each performance level</li>
+<li>Personalize with specific evidence and examples</li>
+<li>Maintain consistent voice across all comments</li>
+<li>Build library of effective transition phrases</li>
+</ul>
+<h3>Time Management</h3>
+<ul>
+<li>Set timer for each comment (aim for 5-7 minutes)</li>
+<li>Write drafts first, edit later in separate pass</li>
+<li>Use voice-to-text for initial drafts when possible</li>
+<li>Review all comments as final step for consistency</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

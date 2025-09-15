@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../styles/blog-animations.css";
 
+/* CACHE BUST: Footer address must show Düsseldorf, Deutschland - 2025-09-15 06:00 */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -279,4 +281,4 @@
   .animate-scale-up {
     animation: scale-up 0.3s ease-out;
   }
-}
+}/* Force rebuild timestamp: 15 Sep 2025 07:07:13 */

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { Download } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const resources = [
   // AI Prompt Toolkits
@@ -158,20 +159,22 @@ const resources = [
 ];
 
 export function ResourcesPreview() {
+  const t = useTranslations('resources');
+  
   return (
     <section className="py-24 bg-white dark:bg-gray-900">
       <div className="container px-4 md:px-6">
         <div className="flex items-center justify-between mb-16">
           <div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Free Resources
+              {t('title')}
             </h2>
             <p className="mt-4 text-gray-500 md:text-xl dark:text-gray-400">
-              Everything you need to get started with AI in education
+              {t('subtitle')}
             </p>
           </div>
           <Button asChild>
-            <Link href="/resources">Explore All Resources</Link>
+            <Link href="/resources">{t('explore_all')}</Link>
           </Button>
         </div>
         
@@ -198,7 +201,7 @@ export function ResourcesPreview() {
                     rel="noopener noreferrer"
                     download={resource.type.includes('PDF') ? true : undefined}
                   >
-                    {resource.type.includes('PDF') ? 'Download PDF' : 'Access Resource'}
+                    {resource.type.includes('PDF') ? t('download_pdf') : t('access_resource')}
                   </a>
                 </Button>
               </CardContent>

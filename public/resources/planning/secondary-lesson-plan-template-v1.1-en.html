@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secondary Lesson Plan Template</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Secondary Lesson Plan Template</h1>
+  <div class="subtitle">Comprehensive lesson planning framework designed for middle and high school educators.</div>
+  <div class="badges"><span class="badge">Planning</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <h1>Secondary Lesson Plan Template</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>Template Overview</li>
+  <li>Lesson Planning Template</li>
+  <li>Subject-Specific Adaptations</li>
+  <li>Technology Integration Framework</li>
+  <li>Assessment Design Framework</li>
+  <li>Differentiation Strategies by Need</li>
+  <li>Planning Efficiency Tips</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"Great lessons don't happen by accident—they're <strong>designed</strong>."<br>
+This template provides the structure to create engaging, standards-aligned lessons for adolescent learners.</p>
+</blockquote>
+<h2>Template Overview</h2>
+<h3>Core Components</h3>
+<ol>
+<li><strong>Lesson Foundations</strong> (standards, objectives, assessment)</li>
+<li><strong>Student Context</strong> (prerequisites, differentiation needs)</li>
+<li><strong>Lesson Structure</strong> (timing, activities, materials)</li>
+<li><strong>Assessment Strategy</strong> (formative, summative, feedback)</li>
+<li><strong>Reflection &#x26; Next Steps</strong> (post-lesson analysis)</li>
+</ol>
+<h3>Flexible Elements</h3>
+<ul>
+<li><strong>Homework Integration</strong> (when appropriate)</li>
+<li><strong>Technology Tools</strong> (subject-specific)</li>
+<li><strong>Extension Activities</strong> (for varied pacing)</li>
+<li><strong>Cross-Curricular Connections</strong> (when relevant)</li>
+</ul>
+<h2>Lesson Planning Template</h2>
+<hr>
+<h3><strong>LESSON FOUNDATIONS</strong></h3>
+<p><strong>Subject:</strong> _______________  <strong>Grade Level:</strong> _______________  <strong>Duration:</strong> _______________</p>
+<p><strong>Unit/Chapter:</strong> _______________  <strong>Lesson #:</strong> _____ of _____</p>
+<h4>Standards Alignment</h4>
+<p><strong>Primary Standard:</strong>
+<em>[Write the main standard being addressed]</em></p>
+<p><strong>Supporting Standards:</strong>
+<em>[List 1-2 additional standards that connect to this lesson]</em></p>
+<h4>Learning Objectives</h4>
+<p><strong>Students will be able to (SWBAT):</strong></p>
+<h2><strong>Knowledge:</strong> <em>[What content will students know?]</em></h2>
+<ul>
+<li></li>
+</ul>
+<h2><strong>Skills:</strong> <em>[What will students be able to do?]</em></h2>
+<ul>
+<li></li>
+</ul>
+<h2><strong>Application:</strong> <em>[How will students use this learning?]</em></h2>
+<h4>Essential Question(s)</h4>
+<p><em>[The big question(s) that drive learning and connect to larger understanding]</em>
+1.
+2.</p>
+<h4>Academic Vocabulary</h4>
+<p><strong>New Terms:</strong> _______________
+<strong>Review Terms:</strong> _______________
+<strong>Key Phrases:</strong> _______________</p>
+<hr>
+<h3><strong>STUDENT CONTEXT</strong></h3>
+<h4>Prerequisites</h4>
+<h2><strong>Students should already know/be able to:</strong></h2>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<p><strong>If not, adjustment needed:</strong> _______________</p>
+<h4>Differentiation Planning</h4>
+<p><strong>Advanced Learners:</strong></p>
+<ul>
+<li>Extension activities: _______________</li>
+<li>Leadership roles: _______________</li>
+<li>Deeper questioning: _______________</li>
+</ul>
+<p><strong>Struggling Learners:</strong></p>
+<ul>
+<li>Modified materials: _______________</li>
+<li>Extra support: _______________</li>
+<li>Alternative assessments: _______________</li>
+</ul>
+<p><strong>English Language Learners:</strong></p>
+<ul>
+<li>Vocabulary support: _______________</li>
+<li>Visual aids: _______________</li>
+<li>Peer partnerships: _______________</li>
+</ul>
+<p><strong>Students with IEPs/504s:</strong></p>
+<ul>
+<li>Specific accommodations: _______________</li>
+<li>Modified expectations: _______________</li>
+<li>Assistive technology: _______________</li>
+</ul>
+<hr>
+<h3><strong>LESSON STRUCTURE</strong></h3>
+<h4>Materials &#x26; Technology</h4>
+<h2><strong>Teacher Materials:</strong></h2>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h2><strong>Student Materials:</strong></h2>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<p><strong>Technology:</strong></p>
+<ul>
+<li>Platform/software: _______________</li>
+<li>Student devices: _______________</li>
+<li>Backup plan: _______________</li>
+</ul>
+<h4>Lesson Flow</h4>
+<p><strong>OPENING (_____ minutes)</strong></p>
+<p><em>Hook/Engagement:</em>
+<em>[How will you capture attention and create interest?]</em></p>
+<p><em>Objective Sharing:</em>
+<em>[How will students know what they're learning and why?]</em></p>
+<p><em>Agenda Overview:</em>
+<em>[Brief preview of lesson structure]</em></p>
+<hr>
+<p><strong>DEVELOPMENT (_____ minutes)</strong></p>
+<p><em>Direct Instruction (if applicable):</em>
+<strong>Time:</strong> _____ minutes
+<strong>Content:</strong> _______________
+<strong>Teaching Strategy:</strong> _______________
+<strong>Check for Understanding:</strong> _______________</p>
+<p><em>Guided Practice:</em>
+<strong>Time:</strong> _____ minutes
+<strong>Activity:</strong> _______________
+<strong>Teacher Role:</strong> _______________
+<strong>Student Role:</strong> _______________
+<strong>Monitoring Strategy:</strong> _______________</p>
+<p><em>Independent/Collaborative Work:</em>
+<strong>Time:</strong> _____ minutes
+<strong>Task:</strong> _______________
+<strong>Groups/Individual:</strong> _______________
+<strong>Success Criteria:</strong> _______________
+<strong>Support Available:</strong> _______________</p>
+<hr>
+<p><strong>CLOSING (_____ minutes)</strong></p>
+<p><em>Synthesis:</em>
+<em>[How will students summarize or reflect on learning?]</em></p>
+<p><em>Assessment:</em>
+<em>[How will you check if objectives were met?]</em></p>
+<p><em>Preview:</em>
+<em>[Connection to next lesson or homework]</em></p>
+<hr>
+<h3><strong>ASSESSMENT STRATEGY</strong></h3>
+<h4>Formative Assessment (During Lesson)</h4>
+<p><strong>Technique:</strong> _______________
+<strong>Frequency:</strong> _______________
+<strong>Data Collection:</strong> _______________
+<strong>Immediate Response Plan:</strong> _______________</p>
+<h4>Summative Assessment (End of Learning)</h4>
+<p><strong>Type:</strong> _______________
+<strong>Timing:</strong> _______________
+<strong>Rubric/Criteria:</strong> _______________
+<strong>Feedback Timeline:</strong> _______________</p>
+<h4>Student Self-Assessment</h4>
+<p><strong>Method:</strong> _______________
+<strong>Timing:</strong> _______________
+<strong>Focus:</strong> _______________</p>
+<hr>
+<h3><strong>HOMEWORK &#x26; EXTENSIONS</strong></h3>
+<h4>Homework Assignment (if applicable)</h4>
+<p><strong>Task:</strong> _______________
+<strong>Purpose:</strong> _______________
+<strong>Time Expected:</strong> _______________
+<strong>Resources Needed:</strong> _______________
+<strong>Due Date:</strong> _______________</p>
+<h4>Extension Opportunities</h4>
+<p><strong>For Fast Finishers:</strong> _______________
+<strong>For Interested Students:</strong> _______________
+<strong>Cross-Curricular Connections:</strong> _______________</p>
+<hr>
+<h3><strong>SAFETY &#x26; MANAGEMENT CONSIDERATIONS</strong></h3>
+<h4>Classroom Management</h4>
+<p><strong>Anticipated Challenges:</strong> _______________
+<strong>Prevention Strategies:</strong> _______________
+<strong>Response Plans:</strong> _______________</p>
+<h4>Safety (if applicable)</h4>
+<p><strong>Equipment Safety:</strong> _______________
+<strong>Procedures:</strong> _______________
+<strong>Emergency Plans:</strong> _______________</p>
+<hr>
+<h3><strong>POST-LESSON REFLECTION</strong></h3>
+<h4>Lesson Effectiveness</h4>
+<h2><strong>What worked well?</strong></h2>
+<ul>
+<li></li>
+</ul>
+<h2><strong>What didn't work?</strong></h2>
+<ul>
+<li></li>
+</ul>
+<p><strong>Student Engagement:</strong></p>
+<ul>
+<li>High engagement during: _______________</li>
+<li>Low engagement during: _______________</li>
+<li>Reasons: _______________</li>
+</ul>
+<h4>Learning Outcomes</h4>
+<p><strong>Objective Achievement:</strong></p>
+<ul>
+<li>Fully met: _____% of students</li>
+<li>Partially met: _____% of students</li>
+<li>Not met: _____% of students</li>
+</ul>
+<h2><strong>Evidence:</strong></h2>
+<ul>
+<li></li>
+</ul>
+<h4>Next Steps</h4>
+<h2><strong>Immediate Adjustments:</strong></h2>
+<ul>
+<li></li>
+</ul>
+<p><strong>Tomorrow's Lesson:</strong></p>
+<ul>
+<li>Build on: _______________</li>
+<li>Reteach: _______________</li>
+<li>Extend: _______________</li>
+</ul>
+<p><strong>Long-term Planning:</strong></p>
+<ul>
+<li>Unit adjustments: _______________</li>
+<li>Resource needs: _______________</li>
+<li>Professional development: _______________</li>
+</ul>
+<hr>
+<h2>Subject-Specific Adaptations</h2>
+<h3>English Language Arts</h3>
+<h4>Additional Components:</h4>
+<p><strong>Text Complexity:</strong> _______________
+<strong>Reading Strategy Focus:</strong> _______________
+<strong>Writing Component:</strong> _______________
+<strong>Discussion Protocol:</strong> _______________</p>
+<h4>ELA-Specific Activities:</h4>
+<ul>
+<li><strong>Close reading:</strong> annotation strategies</li>
+<li><strong>Discussion:</strong> Socratic seminar, literature circles</li>
+<li><strong>Writing:</strong> process writing, peer review</li>
+<li><strong>Media literacy:</strong> text analysis, source evaluation</li>
+</ul>
+<h3>Mathematics</h3>
+<h4>Additional Components:</h4>
+<p><strong>Mathematical Practices:</strong> _______________
+<strong>Problem-Solving Strategy:</strong> _______________
+<strong>Misconception Anticipation:</strong> _______________
+<strong>Real-World Application:</strong> _______________</p>
+<h4>Math-Specific Activities:</h4>
+<ul>
+<li><strong>Number talks:</strong> mental math strategies</li>
+<li><strong>Problem-solving:</strong> multi-step, open-ended</li>
+<li><strong>Mathematical discourse:</strong> explain reasoning</li>
+<li><strong>Technology integration:</strong> graphing calculators, software</li>
+</ul>
+<h3>Science</h3>
+<h4>Additional Components:</h4>
+<p><strong>Lab Safety:</strong> _______________
+<strong>Scientific Method Phase:</strong> _______________
+<strong>Data Collection:</strong> _______________
+<strong>Inquiry Level:</strong> _______________</p>
+<h4>Science-Specific Activities:</h4>
+<ul>
+<li><strong>Investigations:</strong> hands-on experiments</li>
+<li><strong>Modeling:</strong> conceptual understanding</li>
+<li><strong>Data analysis:</strong> graphs, tables, conclusions</li>
+<li><strong>Scientific writing:</strong> lab reports, explanations</li>
+</ul>
+<h3>Social Studies</h3>
+<h4>Additional Components:</h4>
+<p><strong>Historical Thinking Skill:</strong> _______________
+<strong>Primary Source:</strong> _______________
+<strong>Perspective Analysis:</strong> _______________
+<strong>Current Events Connection:</strong> _______________</p>
+<h4>Social Studies-Specific Activities:</h4>
+<ul>
+<li><strong>Document analysis:</strong> primary sources</li>
+<li><strong>Perspective taking:</strong> multiple viewpoints</li>
+<li><strong>Timeline creation:</strong> cause and effect</li>
+<li><strong>Civic engagement:</strong> real-world applications</li>
+</ul>
+<h3>World Languages</h3>
+<h4>Additional Components:</h4>
+<p><strong>Target Language %:</strong> _______________
+<strong>Language Skills Focus:</strong> _______________
+<strong>Cultural Component:</strong> _______________
+<strong>Assessment Mode:</strong> _______________</p>
+<h4>Language-Specific Activities:</h4>
+<ul>
+<li><strong>Comprehensible input:</strong> listening, reading</li>
+<li><strong>Communication:</strong> speaking, writing</li>
+<li><strong>Cultural exploration:</strong> traditions, perspectives</li>
+<li><strong>Real-world application:</strong> authentic tasks</li>
+</ul>
+<h2>Technology Integration Framework</h2>
+<h3>Substitution</h3>
+<p><strong>Traditional Method:</strong> _______________
+<strong>Technology Replacement:</strong> _______________
+<strong>Added Value:</strong> _______________</p>
+<h3>Augmentation</h3>
+<p><strong>Enhancement:</strong> _______________
+<strong>Student Benefit:</strong> _______________
+<strong>Learning Improvement:</strong> _______________</p>
+<h3>Modification</h3>
+<p><strong>Task Redesign:</strong> _______________
+<strong>New Capabilities:</strong> _______________
+<strong>Learning Transformation:</strong> _______________</p>
+<h3>Redefinition</h3>
+<p><strong>Previously Impossible Task:</strong> _______________
+<strong>Technology Affordances:</strong> _______________
+<strong>Learning Revolution:</strong> _______________</p>
+<h2>Assessment Design Framework</h2>
+<h3>Formative Assessment Options</h3>
+<h4>Quick Checks (0-5 minutes)</h4>
+<ul>
+<li>Exit tickets</li>
+<li>Thumbs up/down</li>
+<li>One word summary</li>
+<li>3-2-1 reflection</li>
+</ul>
+<h4>Progress Monitoring (5-15 minutes)</h4>
+<ul>
+<li>Quiz (3-5 questions)</li>
+<li>Peer assessment</li>
+<li>Self-reflection</li>
+<li>Portfolio review</li>
+</ul>
+<h4>Deep Checks (15+ minutes)</h4>
+<ul>
+<li>Performance task</li>
+<li>Project milestone</li>
+<li>Presentation</li>
+<li>Writing sample</li>
+</ul>
+<h3>Summative Assessment Types</h3>
+<h4>Traditional Assessments</h4>
+<ul>
+<li><strong>Multiple choice:</strong> efficient, objective scoring</li>
+<li><strong>Short answer:</strong> focused content knowledge</li>
+<li><strong>Essay:</strong> complex thinking, writing skills</li>
+</ul>
+<h4>Performance Assessments</h4>
+<ul>
+<li><strong>Projects:</strong> sustained work over time</li>
+<li><strong>Presentations:</strong> communication skills</li>
+<li><strong>Lab reports:</strong> scientific thinking</li>
+<li><strong>Portfolios:</strong> growth over time</li>
+</ul>
+<h4>Authentic Assessments</h4>
+<ul>
+<li><strong>Real-world problems:</strong> application focus</li>
+<li><strong>Community connections:</strong> civic engagement</li>
+<li><strong>Professional simulations:</strong> career readiness</li>
+</ul>
+<h2>Differentiation Strategies by Need</h2>
+<h3>Content Differentiation</h3>
+<p><strong>Below Level:</strong></p>
+<ul>
+<li>Simplified texts</li>
+<li>Graphic organizers</li>
+<li>Chunked information</li>
+<li>Visual supports</li>
+</ul>
+<p><strong>On Level:</strong></p>
+<ul>
+<li>Grade-appropriate materials</li>
+<li>Varied modalities</li>
+<li>Choice in topics</li>
+<li>Collaborative learning</li>
+</ul>
+<p><strong>Above Level:</strong></p>
+<ul>
+<li>Complex texts</li>
+<li>Independent research</li>
+<li>Leadership roles</li>
+<li>Mentoring opportunities</li>
+</ul>
+<h3>Process Differentiation</h3>
+<p><strong>Learning Styles:</strong></p>
+<ul>
+<li>Visual learners: diagrams, charts, color-coding</li>
+<li>Auditory learners: discussions, music, read-alouds</li>
+<li>Kinesthetic learners: movement, hands-on, manipulatives</li>
+</ul>
+<p><strong>Multiple Intelligences:</strong></p>
+<ul>
+<li>Linguistic: writing, speaking, reading</li>
+<li>Logical: patterns, sequencing, problem-solving</li>
+<li>Spatial: visualizing, designing, creating</li>
+<li>Musical: rhythm, melody, sound patterns</li>
+</ul>
+<h3>Product Differentiation</h3>
+<p><strong>Ways to Show Learning:</strong></p>
+<ul>
+<li>Traditional: tests, papers, presentations</li>
+<li>Creative: artwork, videos, performances</li>
+<li>Technology: websites, apps, digital portfolios</li>
+<li>Service: community projects, teaching others</li>
+</ul>
+<h2>Planning Efficiency Tips</h2>
+<h3>Template Customization</h3>
+<ol>
+<li><strong>Save frequently used sections</strong> as quick-text</li>
+<li><strong>Create subject-specific versions</strong> with common elements</li>
+<li><strong>Develop unit templates</strong> for recurring structures</li>
+<li><strong>Use digital tools</strong> for easy copying and sharing</li>
+</ol>
+<h3>Collaborative Planning</h3>
+<ul>
+<li><strong>Grade-level teams:</strong> share objectives and assessments</li>
+<li><strong>Department meetings:</strong> align curriculum and standards</li>
+<li><strong>Professional learning communities:</strong> best practices</li>
+<li><strong>Online platforms:</strong> shared resources and ideas</li>
+</ul>
+<h3>Time Management</h3>
+<ul>
+<li><strong>Weekly planning blocks:</strong> dedicated uninterrupted time</li>
+<li><strong>Template reuse:</strong> adapt successful lessons</li>
+<li><strong>Resource banking:</strong> save materials for future use</li>
+<li><strong>Reflection integration:</strong> brief notes immediately after lessons</li>
+</ul>
+<h3>AI Assistance Prompts</h3>
+<h4>Lesson Planning Support</h4>
+<p>"Create a 50-minute {{subject}} lesson for {{grade level}} on {{topic}} that includes hands-on activities and formative assessment."</p>
+<h4>Differentiation Ideas</h4>
+<p>"Suggest 3 ways to differentiate {{specific lesson}} for students who {{specific need}}."</p>
+<h4>Assessment Creation</h4>
+<p>"Design a rubric for {{assignment type}} that assesses {{learning objectives}} for {{grade level}} students."</p>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

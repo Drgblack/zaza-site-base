@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primary Lesson Plan Template</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #111827;
+  border-radius: 8px;
+  page-break-inside: avoid;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: #F6F8FA;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  
+  <h1>Primary Lesson Plan Template</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>At a Glance Planning Box</li>
+  <li>The Primary Lesson Flow</li>
+  <li>Assessment Integration</li>
+  <li>Differentiation Strategies</li>
+  <li>Time Management Tips</li>
+  <li>Technology Integration Ideas</li>
+  <li>Sample Lesson Plans</li>
+  <li>AI Assist Prompts for Lesson Planning</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"Great primary lessons balance structure with flexibility—clear enough for you to follow, open enough for students to surprise you."</p>
+</blockquote>
+<h2>At a Glance Planning Box</h2>
+<h2>The Primary Lesson Flow</h2>
+<h3>1. Hook/Warm-up (5-8 minutes)</h3>
+<p><strong>Purpose:</strong> Activate prior knowledge and create curiosity</p>
+<p><strong>Effective Hook Ideas:</strong></p>
+<ul>
+<li><strong>Real-world problem:</strong> "The school store has 27 pencils. Mrs. Smith brings 35 more. Do we have enough for every student in Year 3?"</li>
+<li><strong>Quick demo:</strong> Show magic trick, science experiment, or surprising fact</li>
+<li><strong>Movement activity:</strong> Math facts dance, vocabulary actions, or stretch sequence</li>
+<li><strong>Mystery box/bag:</strong> Objects related to today's learning</li>
+<li><strong>Question of the day:</strong> Posted for students to discuss as they enter</li>
+</ul>
+<p><strong>Hook Planning Template:</strong></p>
+<pre><code>Hook Activity: _________________________________
+Materials Needed: _____________________________
+Expected Student Responses: ____________________
+Transition Statement: __________________________
+</code></pre>
+<p><strong>Example Hook (Mathematics):</strong>
+<em>Show two piggy banks with play money visible</em>
+"Bank A has 27 pounds, Bank B has 35 pounds. If we combine them, how much money do we have altogether? Talk to your partner about how you'd figure this out."</p>
+<h3>2. Learning Intention &#x26; Success Criteria (3-5 minutes)</h3>
+<p><strong>Purpose:</strong> Make learning transparent and give students ownership</p>
+<p><strong>Student-Friendly Formats:</strong></p>
+<ul>
+<li>"Today we will learn..."</li>
+<li>"By the end of this lesson, you'll be able to..."</li>
+<li>"Success looks like..."</li>
+<li>"You'll know you've got it when..."</li>
+</ul>
+<p><strong>Success Criteria Examples:</strong></p>
+<ul>
+<li>✓ I can solve addition problems step by step</li>
+<li>✓ I can explain when I need to regroup</li>
+<li>✓ I can check my answer makes sense</li>
+<li>✓ I can teach someone else my strategy</li>
+</ul>
+<h3>3. I Do - Teacher Modeling (8-12 minutes)</h3>
+<p><strong>Purpose:</strong> Show clear thinking process and demonstrate skills</p>
+<p><strong>Modeling Checklist:</strong></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Think aloud explicitly - show your mental process</li>
+<li class="task-list-item"><input type="checkbox" disabled> Use visual supports (board, manipulatives, diagrams)</li>
+<li class="task-list-item"><input type="checkbox" disabled> Address common misconceptions proactively</li>
+<li class="task-list-item"><input type="checkbox" disabled> Keep students passive but engaged (they watch and listen)</li>
+<li class="task-list-item"><input type="checkbox" disabled> Check for basic understanding with simple signals</li>
+</ul>
+<p><strong>Modeling Example (Addition with regrouping):</strong>
+"Watch me solve 27 + 35. First, I'll use my blocks to show 27..." <em>Think aloud through entire process, showing regrouping clearly</em></p>
+<p>"Let me try another one: 46 + 28. I notice I have more than 10 ones again, so I need to regroup..." <em>Repeat process with different numbers</em></p>
+<p><strong>Common Modeling Mistakes to Avoid:</strong></p>
+<ul>
+<li>Asking students to participate (save for "We Do")</li>
+<li>Going too fast through steps</li>
+<li>Assuming students see what you see</li>
+<li>Skipping the "why" behind each step</li>
+</ul>
+<h3>4. We Do - Guided Practice (12-18 minutes)</h3>
+<p><strong>Purpose:</strong> Practice together with support and feedback</p>
+<p><strong>Guided Practice Strategies:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>How it Works</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Think-Pair-Share</strong></td>
+<td>Individual thinking → partner discussion → class sharing</td>
+<td>All subjects</td>
+</tr>
+<tr>
+<td><strong>Choral Response</strong></td>
+<td>Whole class answers together on signal</td>
+<td>Math facts, vocabulary</td>
+</tr>
+<tr>
+<td><strong>Show Me</strong></td>
+<td>Students use whiteboards/manipulatives to show answers</td>
+<td>Math, science concepts</td>
+</tr>
+<tr>
+<td><strong>Turn and Teach</strong></td>
+<td>One student explains to partner what we just learned</td>
+<td>Checking understanding</td>
+</tr>
+<tr>
+<td><strong>Thumbs Check</strong></td>
+<td>Quick confidence check (thumbs up/down/sideways)</td>
+<td>Monitoring understanding</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Guided Practice Example:</strong>
+"Now let's try one together: 38 + 26. Everyone get your blocks ready... Show me 38 first... Good! Now what do we add? Show me 26... Now, let's see what happens when we combine them..."</p>
+<p><strong>Differentiation During Guided Practice:</strong></p>
+<ul>
+<li><strong>Extra support:</strong> Provide manipulatives, work with teacher aide</li>
+<li><strong>Challenge:</strong> Ask "What if..." questions, multiple solution methods</li>
+<li><strong>ELL support:</strong> Visual cues, partner support, key vocabulary displayed</li>
+</ul>
+<h3>5. You Do - Independent Practice (15-20 minutes)</h3>
+<p><strong>Purpose:</strong> Apply learning independently to build confidence</p>
+<p><strong>Independent Practice Options:</strong></p>
+<ul>
+<li><strong>Individual work:</strong> Worksheets, problem sets, writing tasks</li>
+<li><strong>Partner activities:</strong> Structured collaboration with defined roles</li>
+<li><strong>Choice boards:</strong> Multiple ways to practice the same skill</li>
+<li><strong>Games:</strong> Educational activities that reinforce learning</li>
+<li><strong>Creative application:</strong> Projects, drawings, real-world problems</li>
+</ul>
+<p><strong>Independent Practice Planning:</strong></p>
+<pre><code>Task Description: _____________________________
+Instructions (3 steps max): 
+1. ______________________________________
+2. ______________________________________  
+3. ______________________________________
+
+Success Criteria Reminder: ____________________
+Support Available: ___________________________
+What I'll observe: ____________________________
+Early Finisher Activity: ______________________
+</code></pre>
+<p><strong>Teacher Role During Independent Practice:</strong></p>
+<ul>
+<li>Circulate purposefully, not randomly</li>
+<li>Take anecdotal notes for assessment</li>
+<li>Provide individual feedback and support</li>
+<li>Avoid re-teaching to whole class (save for closure)</li>
+</ul>
+<h3>6. Closure &#x26; Assessment (5-10 minutes)</h3>
+<p><strong>Purpose:</strong> Consolidate learning and check understanding</p>
+<p><strong>Effective Exit Ticket Options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3-2-1</strong></td>
+<td>3 things learned, 2 questions, 1 connection</td>
+<td>All subjects</td>
+</tr>
+<tr>
+<td><strong>Problem of the Day</strong></td>
+<td>One problem using today's skill</td>
+<td>Math, science</td>
+</tr>
+<tr>
+<td><strong>Quick Draw</strong></td>
+<td>Sketch main concept with labels</td>
+<td>Science, social studies</td>
+</tr>
+<tr>
+<td><strong>Confidence Scale</strong></td>
+<td>Rate understanding 1-4 with evidence</td>
+<td>Any subject</td>
+</tr>
+<tr>
+<td><strong>Teach Your Pet</strong></td>
+<td>Explain concept as if teaching pet at home</td>
+<td>All subjects</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Closure Example Questions:</strong></p>
+<ul>
+<li>"What strategy helped you most today?"</li>
+<li>"When might you use this skill outside school?"</li>
+<li>"What was tricky about today's learning?"</li>
+<li>"How is today's learning connected to what we learned yesterday?"</li>
+</ul>
+<h2>Assessment Integration</h2>
+<h3>Formative Assessment Techniques</h3>
+<p><strong>Quick Checks (30 seconds - 2 minutes):</strong></p>
+<ul>
+<li>Thumbs up/down for understanding</li>
+<li>Show fingers 1-5 for confidence level</li>
+<li>Hold up whiteboards with answers</li>
+<li>Traffic light cups (red/yellow/green)</li>
+</ul>
+<p><strong>Medium Checks (3-5 minutes):</strong></p>
+<ul>
+<li>Exit tickets with 1-2 questions</li>
+<li>Turn and teach to partner</li>
+<li>Quick written explanation</li>
+<li>Draw and label diagram</li>
+</ul>
+<p><strong>Observation Focus Points:</strong></p>
+<ul>
+<li>Who needs additional support?</li>
+<li>Who's ready for extension?</li>
+<li>What misconceptions are emerging?</li>
+<li>How engaged are students?</li>
+</ul>
+<h3>Using Assessment Data Immediately</h3>
+<p><strong>During the lesson:</strong></p>
+<ul>
+<li>Adjust pacing based on student responses</li>
+<li>Provide extra examples if confusion evident</li>
+<li>Offer additional challenges if mastery clear</li>
+<li>Re-teach in different way if needed</li>
+</ul>
+<p><strong>For next lesson:</strong></p>
+<ul>
+<li>Plan intervention groups</li>
+<li>Adjust difficulty level</li>
+<li>Reteach specific concepts</li>
+<li>Celebrate growth and success</li>
+</ul>
+<h2>Differentiation Strategies</h2>
+<h3>For Students Who Need Extra Support</h3>
+<p><strong>Content modifications:</strong></p>
+<ul>
+<li>Reduce number of problems/questions</li>
+<li>Provide worked examples</li>
+<li>Use concrete manipulatives longer</li>
+<li>Break tasks into smaller steps</li>
+</ul>
+<p><strong>Process modifications:</strong></p>
+<ul>
+<li>Extended time for completion</li>
+<li>Partner support system</li>
+<li>Step-by-step visual guides</li>
+<li>Option to demonstrate understanding orally</li>
+</ul>
+<p><strong>Product modifications:</strong></p>
+<ul>
+<li>Alternative ways to show learning</li>
+<li>Technology supports for creation</li>
+<li>Choice in final format</li>
+<li>Emphasis on understanding over speed</li>
+</ul>
+<h3>For Advanced Learners</h3>
+<p><strong>Enrichment strategies:</strong></p>
+<ul>
+<li>"What if" questions to extend thinking</li>
+<li>Teaching opportunities with peers</li>
+<li>Connection to other subject areas</li>
+<li>Independent research projects</li>
+<li>Multiple solution methods</li>
+</ul>
+<p><strong>Acceleration options:</strong></p>
+<ul>
+<li>Moving to next concept when ready</li>
+<li>Leadership roles in group work</li>
+<li>Mentoring struggling classmates</li>
+<li>Self-directed learning time</li>
+</ul>
+<h3>For English Language Learners</h3>
+<p><strong>Language support:</strong></p>
+<ul>
+<li>Visual vocabulary cards</li>
+<li>Gestures and movement</li>
+<li>Home language connections when possible</li>
+<li>Peer translation support</li>
+<li>Focus on understanding over perfect English</li>
+</ul>
+<p><strong>Cultural responsiveness:</strong></p>
+<ul>
+<li>Value diverse problem-solving methods</li>
+<li>Connect to students' cultural experiences</li>
+<li>Provide multiple examples from different contexts</li>
+<li>Encourage sharing of cultural knowledge</li>
+</ul>
+<h2>Time Management Tips</h2>
+<h3>Pacing Strategies</h3>
+<ul>
+<li>Use visual timers for each section</li>
+<li>Plan buffer time for transitions</li>
+<li>Have extension activities ready</li>
+<li>Know what you can cut if running behind</li>
+</ul>
+<h3>Transition Techniques</h3>
+<ul>
+<li>Use consistent signals (chime, clapping pattern)</li>
+<li>Give 2-minute and 30-second warnings</li>
+<li>Practice routines regularly</li>
+<li>Make expectations clear</li>
+</ul>
+<h3>Backup Plans</h3>
+<ul>
+<li>Have materials ready for different scenarios</li>
+<li>Prepare shorter/longer versions of activities</li>
+<li>Know which parts are essential vs. nice-to-have</li>
+<li>Keep engaging games ready for unexpected free time</li>
+</ul>
+<h2>Technology Integration Ideas</h2>
+<h3>Low-tech options:</h3>
+<ul>
+<li>Document camera for sharing student work</li>
+<li>Audio recordings of student explanations</li>
+<li>Digital timer and music for transitions</li>
+<li>Classroom camera for recording demonstrations</li>
+</ul>
+<h3>High-tech options:</h3>
+<ul>
+<li>Interactive whiteboard activities</li>
+<li>Student response systems (Kahoot, Padlet)</li>
+<li>Digital manipulatives and simulations</li>
+<li>Video creation for student presentations</li>
+</ul>
+<h2>Sample Lesson Plans</h2>
+<h3>Mathematics Example: Place Value (Year 2)</h3>
+<p><strong>Objective:</strong> Students can identify the value of digits in 2-digit numbers</p>
+<p><strong>Hook (5 min):</strong> Mystery number game - "I'm thinking of a number with 3 tens and 7 ones..."</p>
+<p><strong>I Do (10 min):</strong> Use place value charts and blocks to show how 37 = 3 tens + 7 ones</p>
+<p><strong>We Do (15 min):</strong> Students use mini whiteboards to show place value for different numbers</p>
+<p><strong>You Do (15 min):</strong> Place value puzzles and games with partners</p>
+<p><strong>Closure (5 min):</strong> Exit ticket: "Draw 42 using tens and ones"</p>
+<h3>Science Example: Plant Parts (Year 1)</h3>
+<p><strong>Objective:</strong> Students can name and describe the function of basic plant parts</p>
+<p><strong>Hook (6 min):</strong> Real plants and magnifying glasses for observation</p>
+<p><strong>I Do (8 min):</strong> Label plant diagram while explaining each part's job</p>
+<p><strong>We Do (16 min):</strong> Students examine real plants and identify parts together</p>
+<p><strong>You Do (12 min):</strong> Draw and label their own plant with partner support</p>
+<p><strong>Closure (8 min):</strong> "Teach your plant" - explain one part's job to a partner</p>
+<h3>English Example: Story Structure (Year 3)</h3>
+<p><strong>Objective:</strong> Students can identify beginning, middle, and end in stories</p>
+<p><strong>Hook (5 min):</strong> Tell familiar story (Three Little Pigs) with dramatic pauses</p>
+<p><strong>I Do (10 min):</strong> Use story map to show clear beginning, middle, end</p>
+<p><strong>We Do (15 min):</strong> Read new short story together, stopping to identify parts</p>
+<p><strong>You Do (15 min):</strong> Students create story maps for independent reading books</p>
+<p><strong>Closure (5 min):</strong> Share one interesting middle event from their story</p>
+<h2>AI Assist Prompts for Lesson Planning</h2>
+<h3>Content Generation</h3>
+<ul>
+<li>"Generate 5 engaging hook activities for {{grade level}} {{subject}} lesson on {{topic}}"</li>
+<li>"Create three differentiated versions of this activity for different ability levels: {{paste activity}}"</li>
+<li>"Suggest real-world connections for teaching {{concept}} to {{grade level}} students"</li>
+</ul>
+<h3>Assessment Ideas</h3>
+<ul>
+<li>"Create 5 exit ticket options for {{grade level}} {{subject}} lesson on {{topic}}"</li>
+<li>"Generate formative assessment questions that check understanding of {{concept}}"</li>
+<li>"Design a quick confidence check activity for {{specific skill}}"</li>
+</ul>
+<h3>Differentiation Support</h3>
+<ul>
+<li>"Adapt this lesson for students who struggle with {{specific area}}: {{paste lesson outline}}"</li>
+<li>"Create extension activities for advanced learners in {{subject}} {{topic}}"</li>
+<li>"Suggest ELL supports for this lesson: {{paste lesson description}}"</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>
