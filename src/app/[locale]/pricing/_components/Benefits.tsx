@@ -34,7 +34,7 @@ export default function Benefits() {
             icon={item.icon}
             title={item.title}
             desc={item.desc}
-            delay={0.05 * i}
+            delay={0.1 + (i * 0.1)}
             index={i}
           />
         ))}

@@ -27,16 +27,16 @@ export default async function PricingPage({ params: { locale } }: Props) {
   ];
 
   return (
-    <main className="pb-16 space-y-8">
+    <main data-pricing-version="v2.1-final" className="pb-16 space-y-8">
       <Hero />
       <Benefits />
 
       {/* Plans grid with visual hierarchy */}
       <section id="plans" className="mx-auto mt-12 max-w-5xl grid gap-6 md:grid-cols-2 px-4">
         {/* Starter - Quiet/Secondary */}
-        <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition">
-          <h3 className="text-xl font-semibold text-white">Starter</h3>
-          <p className="text-2xl font-bold mt-2 text-white">€99<span className="text-sm">/year</span></p>
+        <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition-colors">
+          <h3 className="text-white font-semibold">{t('plans.starter.title') || 'Starter'}</h3>
+          <p className="mt-2 text-2xl font-bold text-white">€99<span className="text-sm">/year</span></p>
           <ul className="mt-4 space-y-2 text-sm text-white/90">
             {starterFeatures.map((feature) => (
               <li key={feature} className="flex items-start gap-2">
@@ -45,31 +45,35 @@ export default async function PricingPage({ params: { locale } }: Props) {
               </li>
             ))}
           </ul>
-          <StarterButton />
+          <button className="mt-5 w-full rounded-lg border border-white/25 px-4 py-2 text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" onClick={() => window?.gtag?.('event', 'click_pricing_choose_starter')}>
+            {t('cta.choose_starter')}
+          </button>
         </article>
 
         {/* Pro - Primary/Stand-out */}
-        <article className="relative rounded-xl p-6 ring-1 ring-white/10 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:ring-white/20 transition">
-          <span className="absolute -top-3 left-4 rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs text-white/85">
+        <article className="relative rounded-xl p-6 ring-1 ring-white/20 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:ring-white/30 transition-colors">
+          <span className="absolute -top-3 left-4 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/90">
             {t('plans.pro.best_value')}
           </span>
-          <h3 className="text-xl font-semibold text-white">Pro</h3>
-          <p className="text-2xl font-bold mt-2 text-white">€149<span className="text-sm">/year</span></p>
-          <ul className="mt-4 space-y-2 text-sm text-white/90">
+          <h3 className="text-white font-semibold">Pro</h3>
+          <p className="mt-2 text-2xl font-bold text-white">€149<span className="text-sm">/year</span></p>
+          <ul className="mt-4 space-y-2 text-sm text-white/95">
             {proFeatures.map((feature) => (
               <li key={feature} className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 text-white/70" />
+                <Check className="mt-0.5 h-4 w-4 text-white" />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
-          <ProButton />
+          <button className="mt-5 w-full rounded-lg bg-white text-[#18122b] px-4 py-2 font-medium hover:bg-white/90 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" onClick={() => window?.gtag?.('event', 'click_pricing_choose_pro')}>
+            {t('cta.choose_pro')}
+          </button>
         </article>
       </section>
 
       {/* Risk-Free banner with green highlight */}
       <section className="mx-auto mt-8 max-w-5xl px-4">
-        <div className="rounded-xl bg-[#10b981]/10 ring-1 ring-[#10b981]/20 p-5">
+        <div className="rounded-xl bg-[#10b981]/12 ring-1 ring-[#10b981]/25 p-5">
           <h3 className="font-semibold text-white">{t('risk_free.title')}</h3>
           <ul className="mt-2 space-y-1 text-sm text-white/90">
             <li className="flex items-start gap-2">
@@ -89,12 +93,10 @@ export default async function PricingPage({ params: { locale } }: Props) {
       </section>
 
       {/* Trust badges */}
-      <section className="mx-auto mt-8 max-w-5xl px-4">
-        <div className="grid md:grid-cols-3 gap-3 text-center text-sm text-white/70">
-          <div>{t('badges.money_back')}</div>
-          <div>{t('badges.stripe')}</div>
-          <div>{t('badges.trusted')}</div>
-        </div>
+      <section className="mx-auto max-w-5xl px-4 mt-8 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-white/70 text-center md:text-left">
+        <div>{t('badges.money_back')}</div>
+        <div>{t('badges.stripe')}</div>
+        <div>{t('badges.trusted')}</div>
       </section>
     </main>
   );
