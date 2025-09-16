@@ -74,76 +74,148 @@ export const PRICING: Record<Cadence, Record<PlanId, {
   },
 };
 
-// New suite-based pricing structure
-export const SUITE_PRICING: Record<SuiteKey, {
+// New suite-based pricing structure with billing cycles
+export type BillingCycle = 'annual' | 'monthly';
+
+export const SUITE_PRICING: Record<SuiteKey, Record<BillingCycle, {
   plans: {
     starter: { 
-      priceYear: number; 
+      price: number; 
+      priceSuffix: string;
       features: string[]; 
       ctaHref: string; 
       ctaLabel: string; 
     };
     pro: { 
-      priceYear: number; 
+      price: number; 
+      priceSuffix: string;
       features: string[]; 
       ctaHref: string; 
       ctaLabel: string; 
     };
   };
-}> = {
+}>> = {
   teacher: {
-    plans: {
-      starter: {
-        priceYear: 99,
-        features: [
-          'pricing.suites.teacher.features.comment_coach',
-          'pricing.suites.teacher.features.report_bank',
-          'pricing.suites.teacher.features.plan_templates',
-          'pricing.suites.teacher.features.export_docs',
-          'pricing.suites.teacher.features.classroom_notes'
-        ],
-        ctaHref: '/checkout?product=teacher-starter-annual',
-        ctaLabel: 'pricing.cta.choose_starter'
-      },
-      pro: {
-        priceYear: 149,
-        features: [
-          'pricing.suites.teacher.features.all_starter',
-          'pricing.suites.teacher.features.ai_rewriter',
-          'pricing.suites.teacher.features.curriculum_packs',
-          'pricing.suites.teacher.features.batch_exports',
-          'pricing.suites.teacher.features.priority_updates',
-          'pricing.suites.teacher.features.shared_templates'
-        ],
-        ctaHref: '/checkout?product=teacher-pro-annual',
-        ctaLabel: 'pricing.cta.choose_pro'
+    annual: {
+      plans: {
+        starter: {
+          price: 99,
+          priceSuffix: '/year',
+          features: [
+            'pricing.suites.teacher.features.comment_coach',
+            'pricing.suites.teacher.features.report_bank',
+            'pricing.suites.teacher.features.plan_templates',
+            'pricing.suites.teacher.features.export_docs',
+            'pricing.suites.teacher.features.classroom_notes'
+          ],
+          ctaHref: '/checkout?product=teacher-starter-annual',
+          ctaLabel: 'pricing.cta.choose_starter'
+        },
+        pro: {
+          price: 149,
+          priceSuffix: '/year',
+          features: [
+            'pricing.suites.teacher.features.all_starter',
+            'pricing.suites.teacher.features.ai_rewriter',
+            'pricing.suites.teacher.features.curriculum_packs',
+            'pricing.suites.teacher.features.batch_exports',
+            'pricing.suites.teacher.features.priority_updates',
+            'pricing.suites.teacher.features.shared_templates'
+          ],
+          ctaHref: '/checkout?product=teacher-pro-annual',
+          ctaLabel: 'pricing.cta.choose_pro'
+        }
+      }
+    },
+    monthly: {
+      plans: {
+        starter: {
+          price: 9.99,
+          priceSuffix: '/month',
+          features: [
+            'pricing.suites.teacher.features.comment_coach',
+            'pricing.suites.teacher.features.report_bank',
+            'pricing.suites.teacher.features.plan_templates',
+            'pricing.suites.teacher.features.export_docs',
+            'pricing.suites.teacher.features.classroom_notes'
+          ],
+          ctaHref: '/checkout?product=teacher-starter-monthly',
+          ctaLabel: 'pricing.cta.choose_starter'
+        },
+        pro: {
+          price: 14.99,
+          priceSuffix: '/month',
+          features: [
+            'pricing.suites.teacher.features.all_starter',
+            'pricing.suites.teacher.features.ai_rewriter',
+            'pricing.suites.teacher.features.curriculum_packs',
+            'pricing.suites.teacher.features.batch_exports',
+            'pricing.suites.teacher.features.priority_updates',
+            'pricing.suites.teacher.features.shared_templates'
+          ],
+          ctaHref: '/checkout?product=teacher-pro-monthly',
+          ctaLabel: 'pricing.cta.choose_pro'
+        }
       }
     }
   },
   close: {
-    plans: {
-      starter: {
-        priceYear: 179, // Annual pricing for Close Starter
-        features: [
-          'pricing.suites.close.features.close_agent',
-          'pricing.suites.close.features.email_manager',
-          'pricing.suites.close.features.browser_tool',
-          'pricing.suites.close.features.follow_up_sequences'
-        ],
-        ctaHref: '/checkout?product=close-starter-annual',
-        ctaLabel: 'pricing.cta.choose_starter'
-      },
-      pro: {
-        priceYear: 348, // Annual pricing for Close Pro
-        features: [
-          'pricing.suites.close.features.all_starter',
-          'pricing.suites.close.features.all_email_drafting',
-          'pricing.suites.close.features.crm_integration',
-          'pricing.suites.close.features.advanced_analytics',
-          'pricing.suites.close.features.priority_support'
-        ],
-        ctaHref: '/checkout?product=close-pro-annual',
-        ctaLabel: 'pricing.cta.choose_pro'
+    annual: {
+      plans: {
+        starter: {
+          price: 179,
+          priceSuffix: '/year',
+          features: [
+            'pricing.suites.close.features.close_agent',
+            'pricing.suites.close.features.email_manager',
+            'pricing.suites.close.features.browser_tool',
+            'pricing.suites.close.features.follow_up_sequences'
+          ],
+          ctaHref: '/checkout?product=close-starter-annual',
+          ctaLabel: 'pricing.cta.choose_starter'
+        },
+        pro: {
+          price: 348,
+          priceSuffix: '/year',
+          features: [
+            'pricing.suites.close.features.all_starter',
+            'pricing.suites.close.features.all_email_drafting',
+            'pricing.suites.close.features.crm_integration',
+            'pricing.suites.close.features.advanced_analytics',
+            'pricing.suites.close.features.priority_support'
+          ],
+          ctaHref: '/checkout?product=close-pro-annual',
+          ctaLabel: 'pricing.cta.choose_pro'
+        }
+      }
+    },
+    monthly: {
+      plans: {
+        starter: {
+          price: 14.99,
+          priceSuffix: '/month',
+          features: [
+            'pricing.suites.close.features.close_agent',
+            'pricing.suites.close.features.email_manager',
+            'pricing.suites.close.features.browser_tool',
+            'pricing.suites.close.features.follow_up_sequences'
+          ],
+          ctaHref: '/checkout?product=close-starter-monthly',
+          ctaLabel: 'pricing.cta.choose_starter'
+        },
+        pro: {
+          price: 29,
+          priceSuffix: '/month',
+          features: [
+            'pricing.suites.close.features.all_starter',
+            'pricing.suites.close.features.all_email_drafting',
+            'pricing.suites.close.features.crm_integration',
+            'pricing.suites.close.features.advanced_analytics',
+            'pricing.suites.close.features.priority_support'
+          ],
+          ctaHref: '/checkout?product=close-pro-monthly',
+          ctaLabel: 'pricing.cta.choose_pro'
+        }
       }
     }
   }
@@ -167,10 +239,14 @@ export function getSuiteFromSearchParams(searchParams?: { suite?: string }): Sui
   return searchParams?.suite === 'close' ? 'close' : 'teacher';
 }
 
-export function getSuiteData(suite: SuiteKey) {
-  return SUITE_PRICING[suite];
+export function getBillingCycleFromSearchParams(searchParams?: { billing?: string }): BillingCycle {
+  return searchParams?.billing === 'monthly' ? 'monthly' : 'annual';
 }
 
-export function formatSuitePrice(price: number): string {
-  return `€${price}`;
+export function getSuiteData(suite: SuiteKey, cycle: BillingCycle) {
+  return SUITE_PRICING[suite][cycle];
+}
+
+export function formatSuitePrice(price: number, suffix: string): string {
+  return `€${price}${suffix}`;
 }

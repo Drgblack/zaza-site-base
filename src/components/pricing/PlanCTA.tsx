@@ -1,23 +1,25 @@
 'use client';
 
-import { SuiteKey } from '@/lib/pricing';
+import { SuiteKey, BillingCycle } from '@/lib/pricing';
 import { useTranslations } from 'next-intl';
 
 interface PlanCTAProps {
   href: string;
   labelKey: string;
   suiteKey: SuiteKey;
+  billingCycle: BillingCycle;
   planType: 'starter' | 'pro';
   variant?: 'starter' | 'pro';
 }
 
-export default function PlanCTA({ href, labelKey, suiteKey, planType, variant = 'starter' }: PlanCTAProps) {
+export default function PlanCTA({ href, labelKey, suiteKey, billingCycle, planType, variant = 'starter' }: PlanCTAProps) {
   const t = useTranslations('pricing');
 
   const handleClick = () => {
     if (typeof window !== 'undefined' && 'gtag' in window) {
       (window as any).gtag('event', 'pricing_cta_clicked', {
         suite: suiteKey,
+        billing_cycle: billingCycle,
         plan: planType,
         event_category: 'pricing'
       });

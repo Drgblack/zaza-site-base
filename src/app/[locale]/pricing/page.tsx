@@ -2,19 +2,21 @@ import { getTranslations } from 'next-intl/server';
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
 import SuiteSwitch from '@/components/pricing/SuiteSwitch';
+import BillingCycleSwitch from '@/components/pricing/BillingCycleSwitch';
 import PlanCTA from '@/components/pricing/PlanCTA';
-import { SUITE_PRICING, getSuiteFromSearchParams, formatSuitePrice, type SuiteKey } from '@/lib/pricing';
+import { SUITE_PRICING, getSuiteFromSearchParams, getBillingCycleFromSearchParams, formatSuitePrice, type SuiteKey, type BillingCycle } from '@/lib/pricing';
 import { Check } from 'lucide-react';
 
 type Props = { 
   params: { locale: string };
-  searchParams?: { suite?: string };
+  searchParams?: { suite?: string; billing?: string };
 };
 
 export default async function PricingPage({ params: { locale }, searchParams }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
   const suiteKey = getSuiteFromSearchParams(searchParams);
-  const suiteData = SUITE_PRICING[suiteKey];
+  const billingCycle = getBillingCycleFromSearchParams(searchParams);
+  const suiteData = SUITE_PRICING[suiteKey][billingCycle];
 
   return (
     <main data-pricing-version="v3-pop-suites" className="pb-16 space-y-8">
@@ -24,12 +26,13 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
       {/* Plans section with suite switcher */}
       <section id="plans" className="mx-auto mt-6 max-w-5xl px-4">
         <SuiteSwitch initialSuite={suiteKey} />
+        <BillingCycleSwitch initialCycle={billingCycle} />
         <div className="grid gap-6 md:grid-cols-2">
           {/* Starter Plan */}
           <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition-colors">
             <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? 'Starter' : 'Close Agent'}</h3>
             <p className="mt-2 text-2xl font-bold text-white">
-              {formatSuitePrice(suiteData.plans.starter.priceYear)}<span className="text-sm">/year</span>
+              {formatSuitePrice(suiteData.plans.starter.price, suiteData.plans.starter.priceSuffix)}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-white/90">
               {suiteData.plans.starter.features.map((featureKey) => (
@@ -43,6 +46,7 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
               href={suiteData.plans.starter.ctaHref}
               labelKey={suiteData.plans.starter.ctaLabel}
               suiteKey={suiteKey}
+              billingCycle={billingCycle}
               planType="starter"
               variant="starter"
             />
@@ -65,7 +69,7 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
               </span>
               <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? 'Pro' : 'Close Suite'}</h3>
               <p className="mt-2 text-2xl font-bold text-white">
-                {formatSuitePrice(suiteData.plans.pro.priceYear)}<span className="text-sm">/year</span>
+                {formatSuitePrice(suiteData.plans.pro.price, suiteData.plans.pro.priceSuffix)}
               </p>
               <ul className="mt-4 space-y-2 text-sm text-white/95">
                 {suiteData.plans.pro.features.map((featureKey) => (
@@ -79,6 +83,7 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
                 href={suiteData.plans.pro.ctaHref}
                 labelKey={suiteData.plans.pro.ctaLabel}
                 suiteKey={suiteKey}
+                billingCycle={billingCycle}
                 planType="pro"
                 variant="pro"
               />
