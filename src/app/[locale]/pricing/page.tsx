@@ -45,9 +45,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
               </li>
             ))}
           </ul>
-          <button className="mt-5 w-full rounded-lg border border-white/25 px-4 py-2 text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" onClick={() => window?.gtag?.('event', 'click_pricing_choose_starter')}>
-            {t('cta.choose_starter')}
-          </button>
+          <StarterButton />
         </article>
 
         {/* Pro - Primary/Stand-out */}
@@ -65,9 +63,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
               </li>
             ))}
           </ul>
-          <button className="mt-5 w-full rounded-lg bg-white text-[#18122b] px-4 py-2 font-medium hover:bg-white/90 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" onClick={() => window?.gtag?.('event', 'click_pricing_choose_pro')}>
-            {t('cta.choose_pro')}
-          </button>
+          <ProButton />
         </article>
       </section>
 
