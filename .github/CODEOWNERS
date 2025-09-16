@@ -13,9 +13,14 @@
 /tsconfig.json @Drgblack
 /package.json @Drgblack
 
-# Content and assets
+# Content and assets - CRITICAL PROTECTION
 /content/ @Drgblack
 /public/ @Drgblack
+/resources-src/** @Drgblack
+/public/resources/** @Drgblack
+/content/blog/** @Drgblack
+/blog/** @Drgblack
+/posts/** @Drgblack
 
 # CI/CD and scripts
 /.github/ @Drgblack

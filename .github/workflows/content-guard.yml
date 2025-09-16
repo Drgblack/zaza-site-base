@@ -1,0 +1,40 @@
+name: Content Guard
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Generate resources (if needed)
+        run: npm run gen:resources || true
+      - name: Verify resources manifest + PDFs
+        run: |
+          node -e "
+          const fs=require('fs'),p=v=>fs.existsSync(v);
+          if(!p('public/resources/resources.manifest.json')){process.exitCode=1;console.error('Missing resources.manifest.json');}
+          const man=JSON.parse(fs.readFileSync('public/resources/resources.manifest.json','utf8'));
+          if(!Array.isArray(man) || man.length<4){process.exitCode=1;console.error('Expected >=4 resources in manifest, got:', man.length);}
+          for(const r of man){
+            const pdf = 'public' + r.pdf;
+            if(!p(pdf)){process.exitCode=1;console.error('Missing PDF:', pdf); continue;}
+            const s = fs.statSync(pdf).size;
+            if(s<20000){process.exitCode=1;console.error('PDF too small:', pdf, s+'B, expected >=20KB');}
+          }
+          console.log('✅ Resources check passed:', man.length, 'resources verified');
+          "
+      - name: Verify blog posts exist and are substantial
+        run: |
+          node -e "
+          const fs=require('fs');
+          const base = ['content/blog','blog','posts'].find(d=>fs.existsSync(d));
+          if(!base){process.exitCode=1;console.error('No blog content folder found');}
+          const posts = fs.readdirSync(base).filter(f=>/\.(md|mdx)$/.test(f));
+          if(posts.length<3){process.exitCode=1;console.error('Expected >=3 blog posts, got:', posts.length);}
+          console.log('✅ Blog check passed:', posts.length, 'posts found');
+          "
