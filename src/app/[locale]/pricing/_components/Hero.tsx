@@ -6,11 +6,11 @@ export default function Hero() {
   const t = useTranslations('pricing');
 
   return (
-    <section className="relative isolate overflow-hidden rounded-b-2xl bg-gradient-to-b from-[#2a2140] via-[#1e1736] to-[#0c0a18]">
+    <section className="relative isolate overflow-hidden rounded-b-2xl bg-[radial-gradient(1200px_400px_at_50%_-200px,rgba(217,70,239,.3),transparent),linear-gradient(180deg,#2a2140_0%,#151228_100%)]">
       {/* floating blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-16 h-72 w-72 rounded-full bg-[#6d28d9]/25 blur-3xl animate-pulse-slow" />
-        <div className="absolute top-16 -right-24 h-80 w-80 rounded-full bg-[#06b6d4]/20 blur-3xl animate-pulse-slower" />
+        <div className="absolute -top-24 -left-20 h-80 w-80 rounded-full bg-[#6d28d9]/35 blur-3xl animate-pulse-slow" />
+        <div className="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-[#06b6d4]/25 blur-3xl animate-pulse-slower" />
       </div>
       <div className="relative mx-auto max-w-5xl px-4 pt-24 md:pt-28 pb-12 text-center">
         <a 

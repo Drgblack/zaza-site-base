@@ -78,3 +78,80 @@ export const pricingConfig: PricingConfig = {
 };
 
 export const closeSuiteUrl = "https://close.com"; // Replace with actual Close URL
+
+export const suites = {
+  teacher: {
+    badge: 'Annual is best value',
+    plans: [
+      { 
+        id: 'starter', 
+        name: 'Starter', 
+        price: '€99', 
+        cadence: '/year', 
+        features: [
+          'Comment Coach',
+          'Report Bank', 
+          'Plan templates',
+          'Export to DOC/PDF',
+          'Classroom notes locker'
+        ] 
+      },
+      { 
+        id: 'pro', 
+        name: 'Pro', 
+        price: '€149', 
+        cadence: '/year', 
+        best: true, 
+        features: [
+          'All Starter features',
+          'Full AI Rewriter/Planner',
+          'Curriculum packs',
+          'Batch exports',
+          'Priority updates',
+          'Shared templates'
+        ] 
+      },
+    ],
+    ctas: { 
+      starter: '/signup?plan=teacher-starter', 
+      pro: '/signup?plan=teacher-pro' 
+    },
+  },
+  close: {
+    badge: 'Monthly available',
+    plans: [
+      { 
+        id: 'close-starter', 
+        name: 'Close Agent', 
+        price: '€14.99', 
+        cadence: '/month', 
+        features: [
+          'AI communication assistant',
+          'Email manager',
+          'Browser tool',
+          'Unlimited follow-up sequences'
+        ] 
+      },
+      { 
+        id: 'close-pro', 
+        name: 'Close Suite', 
+        price: '€29', 
+        cadence: '/month', 
+        best: true, 
+        features: [
+          'All email drafting',
+          'CRM integration',
+          'Advanced analytics',
+          'Priority support'
+        ] 
+      },
+    ],
+    ctas: { 
+      starter: '/signup?plan=close-agent', 
+      pro: '/signup?plan=close-suite' 
+    },
+  },
+} as const;
+
+export type SuiteKey = keyof typeof suites;
+export type Plan = typeof suites[SuiteKey]['plans'][number];

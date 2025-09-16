@@ -137,6 +137,19 @@
   animation: pulse-slower 6s ease-in-out infinite;
 }
 
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 8s ease-in-out infinite;
+}
+
 /* Stagger Animation Utilities */
 .stagger-animation > * {
   opacity: 0;
@@ -255,7 +268,8 @@
   .animate-scale-in,
   .animate-fade-in,
   .animate-pulse-slow,
-  .animate-pulse-slower {
+  .animate-pulse-slower,
+  .animate-gradient-x {
     animation: none;
     opacity: 1;
     transform: none;

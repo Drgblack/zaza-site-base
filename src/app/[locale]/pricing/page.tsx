@@ -27,7 +27,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
   ];
 
   return (
-    <main data-pricing-version="v2.2-pop" className="pb-16 space-y-8">
+    <main data-pricing-version="v3-pop-suites" className="pb-16 space-y-8">
       <Hero />
       <Benefits />
 
@@ -49,9 +49,9 @@ export default async function PricingPage({ params: { locale } }: Props) {
         </article>
 
         {/* Pro - Primary/Stand-out */}
-        <article className="relative rounded-2xl p-6 ring-1 ring-white/20 bg-white/5 backdrop-blur hover:ring-white/30 transition">
+        <article className="relative rounded-2xl p-6 ring-1 ring-white/18 bg-white/5 backdrop-blur">
           {/* halo */}
-          <div aria-hidden className="pointer-events-none absolute -inset-px rounded-2xl bg-[radial-gradient(120px_90px_at_80%_0%,rgba(217,70,239,.25),transparent),radial-gradient(140px_100px_at_0%_80%,rgba(6,182,212,.18),transparent)] blur-2xl" />
+          <div aria-hidden className="pointer-events-none absolute -inset-px rounded-2xl blur-2xl bg-[conic-gradient(from_120deg,rgba(109,40,217,.28),rgba(217,70,239,.24),rgba(6,182,212,.22),transparent)]" />
           <div className="relative">
           <span className="absolute -top-3 left-4 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/90">
             {t('plans.pro.best_value')}
