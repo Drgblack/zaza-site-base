@@ -1,4 +1,12 @@
-﻿# The Secret to Confident Parent Reports
+---
+author: Dr. Greg Blackburn
+authorBio: >-
+  Founder of Zaza Technologies, PhD in Professional Education, 20+ years in
+  learning & development
+featuredImage: >-
+  https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+---
+# The Secret to Confident Parent Reports
 
 *"I need to write 32 progress reports by Friday, and I honestly don't know where to start with some of these kids."*
 

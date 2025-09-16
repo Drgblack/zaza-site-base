@@ -1,12 +1,19 @@
-﻿---
-title: "5 Phrases That Turn Parent Emails From Stressful to Supportive"
-description: "Transform difficult parent conversations with these proven phrases that build collaboration and trust instead of defensiveness."
-date: "2024-12-10"
-author: "Zaza Team"
-category: "Parent Communication"
+---
+title: 5 Phrases That Turn Parent Emails From Stressful to Supportive
+description: >-
+  Transform difficult parent conversations with these proven phrases that build
+  collaboration and trust instead of defensiveness.
+date: '2024-12-10'
+author: Dr. Greg Blackburn
+category: Parent Communication
 readingTime: 5
-image: "/images/blog/default.jpg"
-imageAlt: "Parent and teacher collaboration"
+image: /images/blog/default.jpg
+imageAlt: Parent and teacher collaboration
+authorBio: >-
+  Founder of Zaza Technologies, PhD in Professional Education, 20+ years in
+  learning & development
+featuredImage: >-
+  https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop
 ---
 
 # 5 Phrases That Turn Parent Emails From Stressful to Supportive

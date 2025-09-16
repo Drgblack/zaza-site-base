@@ -1,12 +1,19 @@
-﻿---
-title: "Less Time Writing, More Time Living"
-description: "Reclaim your evenings and weekends with AI-powered tools that handle administrative tasks, so you can focus on what matters most in teaching."
-date: "2024-12-15"
-author: "Zaza Team"
-category: "Teacher Tips"
+---
+title: 'Less Time Writing, More Time Living'
+description: >-
+  Reclaim your evenings and weekends with AI-powered tools that handle
+  administrative tasks, so you can focus on what matters most in teaching.
+date: '2024-12-15'
+author: Dr. Greg Blackburn
+category: Teacher Tips
 readingTime: 6
-image: "/images/blog/default.jpg"
-imageAlt: "Teacher working late on administrative tasks"
+image: /images/blog/default.jpg
+imageAlt: Teacher working late on administrative tasks
+authorBio: >-
+  Founder of Zaza Technologies, PhD in Professional Education, 20+ years in
+  learning & development
+featuredImage: >-
+  https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
 ---
 
 # Less Time Writing, More Time Living
