@@ -150,22 +150,22 @@
     "zaza_pass": {
       "badge_annual_best_value": "Annual is best value",
       "title": "Zaza Pass",
-      "subtitle": "Your annual teacher membership for Promptly + pro tools, premium templates, mobile apps, priority updates, and support.",
+      "subtitle": "Your annual teacher membership for Promptly + pro tools",
       "tiles": {
         "minutes_to_quality": "Minutes to quality comments",
-        "minutes_to_quality_desc": "Write professional parent comments and reports without weekend burnout.",
+        "minutes_to_quality_desc": "Turn notes into professional, parent-ready comments in minutes.",
         "plans_ready": "Plans ready to export",
-        "plans_ready_desc": "Structured plan templates with DOC/PDF export for easy sharing.",
+        "plans_ready_desc": "Lesson plans export cleanly to DOC/PDF in one click.",
         "remembers_classes": "Remembers your classes",
-        "remembers_classes_desc": "Keep notes, comment banks, and reusable templates in one place."
+        "remembers_classes_desc": "Keep context across terms and subjects for faster writing."
       }
     },
 
     "risk_free": {
       "title": "Risk-Free 30-Day Trial",
-      "point1": "Try Promptly completely risk-free.",
-      "point2": "If you're not 100% satisfied within 30 days, we'll refund every penny.",
-      "point3": "No questions asked."
+      "point1": "Full refund within 30 days",
+      "point2": "Cancel anytime — no questions asked",
+      "point3": "No student data stored"
     },
 
     "plans": {
