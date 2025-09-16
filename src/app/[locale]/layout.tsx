@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { NextIntlClientProvider, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { Header } from '@/components/site/header';
 import { Footer } from '@/components/site/footer';
 import { ZaraAssistant } from '@/components/ai/zara-assistant';
