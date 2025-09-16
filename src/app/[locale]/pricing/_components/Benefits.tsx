@@ -35,6 +35,7 @@ export default function Benefits() {
             title={item.title}
             desc={item.desc}
             delay={0.05 * i}
+            index={i}
           />
         ))}
       </div>

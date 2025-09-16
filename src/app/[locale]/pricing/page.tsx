@@ -1,63 +1,105 @@
 import { getTranslations } from 'next-intl/server';
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
-import RiskFree from '@/components/sections/pricing/RiskFree';
+import { Check } from 'lucide-react';
 
 type Props = { params: { locale: string } };
 
 export default async function PricingPage({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
 
+  const starterFeatures = [
+    'Comment Coach',
+    'Report Bank', 
+    'Plan templates',
+    'Export to DOC/PDF',
+    'Classroom notes locker'
+  ];
+
+  const proFeatures = [
+    'All Starter features',
+    'Full AI Rewriter/Planner',
+    'Curriculum packs',
+    'Batch exports',
+    'Priority updates',
+    'Shared templates'
+  ];
+
   return (
-    <main className="pb-16">
+    <main className="pb-16 space-y-8">
       <Hero />
       <Benefits />
 
-      {/* Plans grid with improved styling */}
-      <section className="mx-auto mt-10 max-w-5xl grid gap-6 md:grid-cols-2 px-4">
-        <article className="rounded-xl border bg-white ring-1 ring-white/10 hover:ring-white/20 transition p-6">
-          <h3 className="text-xl font-semibold">Starter</h3>
-          <p className="text-2xl font-bold mt-2">€99<span className="text-sm">/year</span></p>
-          <ul className="mt-4 text-sm space-y-2">
-            <li>✔ Comment Coach</li>
-            <li>✔ Report Bank</li>
-            <li>✔ Plan templates</li>
-            <li>✔ Export to DOC/PDF</li>
-            <li>✔ Classroom notes locker</li>
+      {/* Plans grid with visual hierarchy */}
+      <section id="plans" className="mx-auto mt-12 max-w-5xl grid gap-6 md:grid-cols-2 px-4">
+        {/* Starter - Quiet/Secondary */}
+        <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition">
+          <h3 className="text-xl font-semibold text-white">Starter</h3>
+          <p className="text-2xl font-bold mt-2 text-white">€99<span className="text-sm">/year</span></p>
+          <ul className="mt-4 space-y-2 text-sm text-white/90">
+            {starterFeatures.map((feature) => (
+              <li key={feature} className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 text-white/70" />
+                <span>{feature}</span>
+              </li>
+            ))}
           </ul>
-          <button className="bg-white text-[#1c1530] hover:bg-white/90 transition font-semibold rounded-lg px-4 py-2 mt-5 w-full">
+          <button 
+            onClick={() => window?.gtag?.('event', 'click_pricing_choose_starter')}
+            className="mt-5 w-full h-11 rounded-lg border border-white/20 px-4 py-2 text-white hover:bg-white/10 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
             {t('cta.choose_starter')}
           </button>
         </article>
 
-        <article className="rounded-xl border bg-white ring-1 ring-orange-500/30 hover:ring-orange-500/40 transition p-6">
-          <div className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs mb-2 bg-orange-100 text-orange-800">
+        {/* Pro - Primary/Stand-out */}
+        <article className="relative rounded-xl p-6 ring-1 ring-white/10 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:ring-white/20 transition">
+          <span className="absolute -top-3 left-4 rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-xs text-white/85">
             {t('plans.pro.best_value')}
-          </div>
-          <h3 className="text-xl font-semibold">Pro</h3>
-          <p className="text-2xl font-bold mt-2">€149<span className="text-sm">/year</span></p>
-          <ul className="mt-4 text-sm space-y-2">
-            <li>✔ All Starter features</li>
-            <li>✔ Full AI Rewriter/Planner</li>
-            <li>✔ Curriculum packs</li>
-            <li>✔ Batch exports</li>
-            <li>✔ Priority updates</li>
-            <li>✔ Shared templates</li>
+          </span>
+          <h3 className="text-xl font-semibold text-white">Pro</h3>
+          <p className="text-2xl font-bold mt-2 text-white">€149<span className="text-sm">/year</span></p>
+          <ul className="mt-4 space-y-2 text-sm text-white/90">
+            {proFeatures.map((feature) => (
+              <li key={feature} className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 text-white/70" />
+                <span>{feature}</span>
+              </li>
+            ))}
           </ul>
-          <button className="bg-[#2a2140] text-white hover:bg-[#2a2140]/90 transition font-semibold rounded-lg px-4 py-2 mt-5 w-full">
+          <button 
+            onClick={() => window?.gtag?.('event', 'click_pricing_choose_pro')}
+            className="mt-5 w-full h-11 rounded-lg bg-white text-[#18122b] px-4 py-2 font-medium hover:bg-white/90 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
             {t('cta.choose_pro')}
           </button>
         </article>
       </section>
 
-      {/* Risk free section */}
-      <section className="mx-auto mt-10 max-w-5xl px-4">
-        <RiskFree />
+      {/* Risk-Free banner with green highlight */}
+      <section className="mx-auto mt-8 max-w-5xl px-4">
+        <div className="rounded-xl bg-[#10b981]/10 ring-1 ring-[#10b981]/20 p-5">
+          <h3 className="font-semibold text-white">{t('risk_free.title')}</h3>
+          <ul className="mt-2 space-y-1 text-sm text-white/90">
+            <li className="flex items-start gap-2">
+              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
+              <span>{t('risk_free.point1')}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
+              <span>{t('risk_free.point2')}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
+              <span>{t('risk_free.point3')}</span>
+            </li>
+          </ul>
+        </div>
       </section>
 
       {/* Trust badges */}
       <section className="mx-auto mt-8 max-w-5xl px-4">
-        <div className="grid md:grid-cols-3 gap-3 text-center text-sm text-muted-foreground">
+        <div className="grid md:grid-cols-3 gap-3 text-center text-sm text-white/70">
           <div>{t('badges.money_back')}</div>
           <div>{t('badges.stripe')}</div>
           <div>{t('badges.trusted')}</div>
