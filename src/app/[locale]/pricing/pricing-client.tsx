@@ -76,7 +76,7 @@ export function PricingPageClient() {
           <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{t('zaza_pass_explainer_title')}</h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">{t('zaza_pass_explainer_tag')}</p>
           <div className="grid md:grid-cols-3 gap-6">
-            {t.raw('zaza_pass_explainer_points').map((point: string, index: number) => (
+            {(Array.isArray(t.raw('zaza_pass_explainer_points')) ? t.raw('zaza_pass_explainer_points') : []).map((point: string, index: number) => (
               <div key={index} className="flex items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
                 <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
                   <Check className="h-4 w-4 text-white" />
