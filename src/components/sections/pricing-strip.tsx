@@ -48,7 +48,7 @@ export function PricingStrip() {
               >
                 {plan.badge === 'best_value' && (
                   <Badge className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white px-6 py-2 text-sm font-black shadow-lg">
-                    {pricing('badge_best_value')}
+                    {pricing('plans.pro.best_value')}
                   </Badge>
                 )}
                 
@@ -112,7 +112,7 @@ export function PricingStrip() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {plan.id === 'starter' ? pricing('cta_choose_starter') : pricing('cta_choose_pro')}
+                      {plan.id === 'starter' ? pricing('cta.choose_starter') : pricing('cta.choose_pro')}
                     </a>
                   </Button>
                 </CardContent>
