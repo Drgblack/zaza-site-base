@@ -2,6 +2,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { PRICING } from '@/lib/pricing';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { softwareApplicationSchema, organizationSchema } from '@/components/seo/structured-data-schemas';
+import PricingExplainerZazaPass from '@/components/pricing/PricingExplainerZazaPass';
+import RiskFreeBand from '@/components/pricing/RiskFreeBand';
 import type { Metadata } from 'next';
 
 type Props = {
@@ -25,58 +27,70 @@ export default async function PricingPage({params}: Props) {
 
   return (
     <>
-      <div className="px-4">
-        {/* Hero */}
-        <section className="max-w-5xl mx-auto text-center pt-14">
-          <h1 className="text-4xl md:text-5xl font-bold">{t('headline')}</h1>
-          <p className="mt-3 text-slate-400">{t('subhead')}</p>
-          <p className="mt-2 text-xs text-slate-500">
-            {t('trust_badge_guarantee')} · {t('trust_badge_secure')} · {t('trust_badge_trusted')}
+      <section className="relative pt-24 md:pt-28 pb-16">
+        <div className="container mx-auto px-4 max-w-6xl">
+          {/* Hero */}
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mt-5">
+              {t('headline')}
+            </h1>
+            <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+              {t('subhead')}
+            </p>
+          </div>
+
+          {/* Zaza Pass explainer */}
+          <div className="text-center">
+            <PricingExplainerZazaPass />
+          </div>
+
+          {/* Cards – Annual only */}
+          <section className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 mt-10">
+            {/* Starter */}
+            <PricingCard
+              title={t('plans.starter.name')}
+              price={`€${starter.price}`}
+              suffix="/year"
+              bullets={starter.bullets}
+              ctaLabel={t('cta.choose_starter')}
+              ctaHref={starter.stripeCheckoutUrl}
+            />
+
+            {/* Pro */}
+            <PricingCard
+              title={t('plans.pro.name')}
+              price={`€${pro.price}`}
+              suffix="/year"
+              bullets={pro.bullets}
+              ctaLabel={t('cta.choose_pro')}
+              ctaHref={pro.stripeCheckoutUrl}
+              badge={t('plans.pro.best_value')}
+              featured
+            />
+          </section>
+
+          <p className="mt-4 text-xs text-slate-500 text-center">
+            {t('annual_saves')}
           </p>
-        </section>
 
-        {/* Zaza Pass explainer */}
-        <section className="max-w-4xl mx-auto mt-12 text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/30">
-            {t('zaza_pass_badge')}
-          </span>
-          <h2 className="mt-4 text-2xl md:text-3xl font-bold">{t('zaza_pass_explainer_title')}</h2>
-          <p className="mt-2 text-slate-400">{t('zaza_pass_explainer_tag')}</p>
-        </section>
+          {/* Risk-free band */}
+          <RiskFreeBand />
 
-        {/* Cards – Annual only (toggle to Monthly lives on full pricing if you later enable it) */}
-        <section className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 mt-10">
-          {/* Starter */}
-          <PricingCard
-            title={t('card_starter')}
-            price={`€${starter.price}`}
-            suffix="/year"
-            bullets={starter.bullets}
-            ctaLabel={t('cta_choose_starter')}
-            ctaHref={starter.stripeCheckoutUrl}
-          />
+          {/* Trust badges */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600 dark:text-slate-300">
+            <div className="rounded-xl border border-slate-200/60 dark:border-slate-700/50 p-4 bg-white/70 dark:bg-slate-900/50 text-center">
+              {t('badges.money_back')}
+            </div>
+            <div className="rounded-xl border border-slate-200/60 dark:border-slate-700/50 p-4 bg-white/70 dark:bg-slate-900/50 text-center">
+              {t('badges.stripe')}
+            </div>
+            <div className="rounded-xl border border-slate-200/60 dark:border-slate-700/50 p-4 bg-white/70 dark:bg-slate-900/50 text-center">
+              {t('badges.trusted')}
+            </div>
+          </div>
 
-          {/* Pro */}
-          <PricingCard
-            title={t('card_pro')}
-            price={`€${pro.price}`}
-            suffix="/year"
-            bullets={pro.bullets}
-            ctaLabel={t('cta_choose_pro')}
-            ctaHref={pro.stripeCheckoutUrl}
-            badge={t('badge_best_value')}
-            featured
-          />
-        </section>
-
-        <p className="text-center text-sm text-slate-400 mt-3">{t('saves_line')}</p>
-
-        {/* App stores row */}
-        <section className="max-w-3xl mx-auto mt-10 text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full bg-slate-100/5 text-slate-300 border border-slate-100/10">
-            {t('cta_use_on_the_go')}
-          </span>
-          <div className="mt-4 flex items-center justify-center gap-3">
+          {/* App store buttons (consistent sizing) */}
+          <div className="mt-10 flex items-center justify-center gap-4">
             <a href="https://apps.apple.com/app/promptly-teacher-assistant/id6738104361" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
               <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" className="h-12 w-auto" />
             </a>
@@ -84,19 +98,45 @@ export default async function PricingPage({params}: Props) {
               <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" className="h-12 w-auto" />
             </a>
           </div>
-        </section>
-
-        {/* Trust & risk-free */}
-        <section className="max-w-5xl mx-auto mt-14 text-center">
-          <h3 className="text-xl font-semibold">{t('risk_free_title')}</h3>
-          <p className="mt-2 text-slate-400">{t('risk_free_copy')}</p>
-        </section>
-
-        {/* Data row */}
-        <p className="max-w-3xl mx-auto mt-12 text-center text-slate-500 text-sm">{t('data_row')}</p>
-      </div>
+        </div>
+      </section>
       
-      {/* Structured Data for SEO */}
+      {/* Structured data for SEO (Starter + Pro annual) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "Promptly — Starter (Annual)",
+              "brand": { "@type": "Brand", "name": "Zaza Promptly" },
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "EUR",
+                "price": "99",
+                "priceValidUntil": "2026-12-31",
+                "availability": "https://schema.org/InStock"
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "Promptly — Pro (Annual)",
+              "brand": { "@type": "Brand", "name": "Zaza Promptly" },
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "EUR",
+                "price": "149",
+                "priceValidUntil": "2026-12-31",
+                "availability": "https://schema.org/InStock"
+              }
+            }
+          ])
+        }}
+      />
+      
+      {/* Original structured data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -120,18 +160,18 @@ function PricingCard({
   ctaLabel:string; ctaHref:string; badge?:string; featured?:boolean;
 }) {
   return (
-    <div className={`rounded-2xl border p-6 bg-slate-900/40 ${featured ? 'border-orange-400/40 shadow-[0_0_0_2px_rgba(251,146,60,.2)]' : 'border-slate-700/60'}`}>
+    <div className={`rounded-2xl border p-6 ${featured ? 'border-orange-400/40 shadow-[0_0_0_2px_rgba(251,146,60,.2)] bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/50 dark:to-amber-950/50' : 'border-slate-200/60 dark:border-slate-700/50 bg-white/70 dark:bg-slate-900/50'}`}>
       {badge && (
-        <div className="mb-3 inline-flex text-[11px] font-bold px-3 py-1 rounded-full bg-orange-500/15 text-orange-400 border border-orange-500/30">
+        <div className="mb-3 inline-flex text-[11px] font-bold px-3 py-1 rounded-full bg-orange-500/15 text-orange-700 border border-orange-500/30">
           {badge}
         </div>
       )}
       <h3 className="text-lg font-semibold mb-2">{title}</h3>
       <div className="text-4xl font-black">{price}<span className="text-base font-semibold text-slate-400">{suffix}</span></div>
-      <ul className="mt-5 space-y-2 text-sm text-slate-300">
-        {bullets.map((b)=> (<li key={b} className="flex items-start gap-2"><span>✓</span><span>{b}</span></li>))}
+      <ul className="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+        {bullets.map((b)=> (<li key={b} className="flex items-start gap-2"><span className="text-emerald-600">✓</span><span>{b}</span></li>))}
       </ul>
-      <a href={ctaHref} className={`mt-6 inline-flex w-full justify-center rounded-xl px-4 py-3 font-semibold ${featured ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-slate-100 text-slate-900 hover:bg-white'}`}>
+      <a href={ctaHref} className={`mt-6 inline-flex w-full justify-center rounded-xl px-4 py-3 font-semibold transition-colors ${featured ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
         {ctaLabel}
       </a>
     </div>
