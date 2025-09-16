@@ -137,6 +137,9 @@
     "headline": "Simple, Transparent Pricing",
     "subhead": "Choose the plan that saves you time every week. Annual membership gives teachers the best value—plus a 30-day money-back guarantee.",
     "annual_saves": "Annual saves ~2 months vs. monthly.",
+    "annual_toggle": "Annual",
+    "monthly_toggle": "Monthly",
+    "cta_try_free": "Try Free",
 
     "cta": {
       "choose_starter": "Choose Starter",
