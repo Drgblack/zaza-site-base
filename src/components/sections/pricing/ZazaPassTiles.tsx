@@ -1,5 +1,4 @@
 'use client';
-
 import { useTranslations } from 'next-intl';
 import { Zap, ClipboardList, Users } from 'lucide-react';
 

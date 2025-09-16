@@ -2,10 +2,9 @@ import { getTranslations } from 'next-intl/server';
 import ZazaPassTiles from '@/components/sections/pricing/ZazaPassTiles';
 import RiskFree from '@/components/sections/pricing/RiskFree';
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = { params: { locale: string } };
 
-export default async function PricingPage({ params }: Props) {
-  const { locale } = await params;
+export default async function PricingPage({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
 
   return (
@@ -15,7 +14,6 @@ export default async function PricingPage({ params }: Props) {
         <p className="mt-3 text-muted-foreground">{t('subhead')}</p>
       </header>
 
-      {/* Zaza Pass */}
       <section className="mb-8">
         <div className="mx-auto max-w-2xl text-center mb-4">
           <div className="inline-flex items-center rounded-full border px-3 py-1 text-xs mb-2">
@@ -27,7 +25,6 @@ export default async function PricingPage({ params }: Props) {
         <ZazaPassTiles />
       </section>
 
-      {/* Plans */}
       <section className="grid md:grid-cols-2 gap-6 mb-10">
         <article className="rounded-xl border p-6">
           <h3 className="text-xl font-semibold">Starter</h3>
@@ -60,12 +57,10 @@ export default async function PricingPage({ params }: Props) {
         </article>
       </section>
 
-      {/* Risk free */}
       <section className="mb-8">
         <RiskFree />
       </section>
 
-      {/* Trusted badges */}
       <section className="grid md:grid-cols-3 gap-3 text-center text-sm text-muted-foreground">
         <div>{t('badges.money_back')}</div>
         <div>{t('badges.stripe')}</div>

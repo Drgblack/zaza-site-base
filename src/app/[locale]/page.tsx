@@ -542,7 +542,6 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* 5. Pricing CTA - Now showing annual plans */}
-      {/* PricingStrip removed - will be replaced with clean component */}
 
       {/* 6. FAQ Comparison Table */}
       <FAQComparisonTable />
