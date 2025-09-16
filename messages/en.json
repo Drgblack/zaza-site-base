@@ -154,52 +154,33 @@
       "teacher": {
         "name": "Teacher Suite",
         "badge": "Annual is best value",
-        "plans": {
-          "starter": {
-            "name": "Starter",
-            "features": [
-              "Comment Coach",
-              "Report Bank",
-              "Plan templates", 
-              "Export to DOC/PDF",
-              "Classroom notes locker"
-            ]
-          },
-          "pro": {
-            "name": "Pro",
-            "features": [
-              "All Starter features",
-              "Full AI Rewriter/Planner",
-              "Curriculum packs",
-              "Batch exports",
-              "Priority updates",
-              "Shared templates"
-            ]
-          }
+        "features": {
+          "comment_coach": "Comment Coach",
+          "report_bank": "Report Bank",
+          "plan_templates": "Plan templates",
+          "export_docs": "Export to DOC/PDF",
+          "classroom_notes": "Classroom notes locker",
+          "all_starter": "All Starter features",
+          "ai_rewriter": "Full AI Rewriter/Planner",
+          "curriculum_packs": "Curriculum packs",
+          "batch_exports": "Batch exports",
+          "priority_updates": "Priority updates",
+          "shared_templates": "Shared templates"
         }
       },
       "close": {
         "name": "Close Suite", 
         "badge": "Monthly available",
-        "plans": {
-          "starter": {
-            "name": "Close Agent",
-            "features": [
-              "AI communication assistant",
-              "Email manager",
-              "Browser tool",
-              "Unlimited follow-up sequences"
-            ]
-          },
-          "pro": {
-            "name": "Close Suite",
-            "features": [
-              "All email drafting",
-              "CRM integration", 
-              "Advanced analytics",
-              "Priority support"
-            ]
-          }
+        "features": {
+          "close_agent": "Close Agent – AI assistant",
+          "email_manager": "Close Inbox – email manager",
+          "browser_tool": "Browser tool",
+          "follow_up_sequences": "Unlimited follow-up sequences",
+          "all_starter": "All Starter features",
+          "all_email_drafting": "All email drafting",
+          "crm_integration": "CRM integration",
+          "advanced_analytics": "Advanced analytics",
+          "priority_support": "Priority support"
         }
       }
     },
