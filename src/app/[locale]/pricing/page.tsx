@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
-import SuiteSwitcher from '@/components/pricing/SuiteSwitch';
+import SuiteSwitch from '@/components/pricing/SuiteSwitch';
+import PlanCTA from '@/components/pricing/PlanCTA';
 import { SUITE_PRICING, getSuiteFromSearchParams, formatSuitePrice, type SuiteKey } from '@/lib/pricing';
 import { Check } from 'lucide-react';
 
@@ -22,7 +23,7 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
 
       {/* Plans section with suite switcher */}
       <section id="plans" className="mx-auto mt-6 max-w-5xl px-4">
-        <SuiteSwitcher initialSuite={suiteKey} />
+        <SuiteSwitch initialSuite={suiteKey} />
         <div className="grid gap-6 md:grid-cols-2">
           {/* Starter Plan */}
           <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition-colors">
@@ -38,21 +39,13 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
                 </li>
               ))}
             </ul>
-            <a
+            <PlanCTA
               href={suiteData.plans.starter.ctaHref}
-              className="mt-5 w-full inline-block text-center rounded-full border border-white/25 px-4 py-2 text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              onClick={() => {
-                if (typeof window !== 'undefined' && 'gtag' in window) {
-                  (window as any).gtag('event', 'pricing_cta_clicked', {
-                    suite: suiteKey,
-                    plan: 'starter',
-                    event_category: 'pricing'
-                  });
-                }
-              }}
-            >
-              {t(suiteData.plans.starter.ctaLabel)}
-            </a>
+              labelKey={suiteData.plans.starter.ctaLabel}
+              suiteKey={suiteKey}
+              planType="starter"
+              variant="starter"
+            />
           </article>
 
           {/* Pro Plan */}
@@ -82,25 +75,13 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
                   </li>
                 ))}
               </ul>
-              <a
+              <PlanCTA
                 href={suiteData.plans.pro.ctaHref}
-                className={`mt-5 w-full inline-block text-center rounded-full px-4 py-2 font-medium text-white transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                  suiteKey === 'close'
-                    ? 'bg-[linear-gradient(90deg,#6366f1,#8b5cf6,#6366f1)] [background-size:200%_100%] animate-gradient-x shadow-[0_10px_28px_rgba(99,102,241,.45)] hover:shadow-[0_14px_34px_rgba(99,102,241,.6)]'
-                    : 'bg-[linear-gradient(90deg,#6d28d9,#d946ef,#06b6d4)] [background-size:200%_100%] animate-gradient-x shadow-[0_10px_28px_rgba(109,40,217,.45)] hover:shadow-[0_14px_34px_rgba(109,40,217,.6)]'
-                }`}
-                onClick={() => {
-                  if (typeof window !== 'undefined' && 'gtag' in window) {
-                    (window as any).gtag('event', 'pricing_cta_clicked', {
-                      suite: suiteKey,
-                      plan: 'pro',
-                      event_category: 'pricing'
-                    });
-                  }
-                }}
-              >
-                {t(suiteData.plans.pro.ctaLabel)}
-              </a>
+                labelKey={suiteData.plans.pro.ctaLabel}
+                suiteKey={suiteKey}
+                planType="pro"
+                variant="pro"
+              />
             </div>
           </article>
         </div>

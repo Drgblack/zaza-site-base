@@ -8,7 +8,7 @@ interface SuiteSwitcherProps {
   initialSuite?: SuiteKey;
 }
 
-export default function SuiteSwitcher({ initialSuite = 'teacher' }: SuiteSwitcherProps) {
+export default function SuiteSwitch({ initialSuite = 'teacher' }: SuiteSwitcherProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [suite, setSuite] = useState<SuiteKey>(initialSuite);
@@ -17,8 +17,10 @@ export default function SuiteSwitcher({ initialSuite = 'teacher' }: SuiteSwitche
   // Sync with URL on mount and URL changes
   useEffect(() => {
     const urlSuite = searchParams.get('suite') === 'close' ? 'close' : 'teacher';
-    setSuite(urlSuite);
-  }, [searchParams]);
+    if (urlSuite !== suite) {
+      setSuite(urlSuite);
+    }
+  }, [searchParams, suite]);
 
   const selectSuite = (nextSuite: SuiteKey) => {
     if (nextSuite === suite) return;
