@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
+import { StarterButton, ProButton } from './_components/PlanButtons';
 import { Check } from 'lucide-react';
 
 type Props = { params: { locale: string } };
@@ -44,12 +45,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
               </li>
             ))}
           </ul>
-          <button 
-            onClick={() => window?.gtag?.('event', 'click_pricing_choose_starter')}
-            className="mt-5 w-full h-11 rounded-lg border border-white/20 px-4 py-2 text-white hover:bg-white/10 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            {t('cta.choose_starter')}
-          </button>
+          <StarterButton />
         </article>
 
         {/* Pro - Primary/Stand-out */}
@@ -67,12 +63,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
               </li>
             ))}
           </ul>
-          <button 
-            onClick={() => window?.gtag?.('event', 'click_pricing_choose_pro')}
-            className="mt-5 w-full h-11 rounded-lg bg-white text-[#18122b] px-4 py-2 font-medium hover:bg-white/90 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            {t('cta.choose_pro')}
-          </button>
+          <ProButton />
         </article>
       </section>
 
