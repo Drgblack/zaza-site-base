@@ -27,7 +27,7 @@ export default async function PricingPage({ params: { locale } }: Props) {
   ];
 
   return (
-    <main data-pricing-version="v2.1-final" className="pb-16 space-y-8">
+    <main data-pricing-version="v2.2-pop" className="pb-16 space-y-8">
       <Hero />
       <Benefits />
 
@@ -49,7 +49,10 @@ export default async function PricingPage({ params: { locale } }: Props) {
         </article>
 
         {/* Pro - Primary/Stand-out */}
-        <article className="relative rounded-xl p-6 ring-1 ring-white/20 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:ring-white/30 transition-colors">
+        <article className="relative rounded-2xl p-6 ring-1 ring-white/20 bg-white/5 backdrop-blur hover:ring-white/30 transition">
+          {/* halo */}
+          <div aria-hidden className="pointer-events-none absolute -inset-px rounded-2xl bg-[radial-gradient(120px_90px_at_80%_0%,rgba(217,70,239,.25),transparent),radial-gradient(140px_100px_at_0%_80%,rgba(6,182,212,.18),transparent)] blur-2xl" />
+          <div className="relative">
           <span className="absolute -top-3 left-4 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/90">
             {t('plans.pro.best_value')}
           </span>
@@ -58,18 +61,19 @@ export default async function PricingPage({ params: { locale } }: Props) {
           <ul className="mt-4 space-y-2 text-sm text-white/95">
             {proFeatures.map((feature) => (
               <li key={feature} className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 text-white" />
+                <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
           <ProButton />
+          </div>
         </article>
       </section>
 
       {/* Risk-Free banner with green highlight */}
       <section className="mx-auto mt-8 max-w-5xl px-4">
-        <div className="rounded-xl bg-[#10b981]/12 ring-1 ring-[#10b981]/25 p-5">
+        <div className="rounded-xl p-5 ring-1 ring-[#10b981]/25 bg-gradient-to-br from-[#10b981]/12 to-transparent">
           <h3 className="font-semibold text-white">{t('risk_free.title')}</h3>
           <ul className="mt-2 space-y-1 text-sm text-white/90">
             <li className="flex items-start gap-2">
@@ -89,7 +93,8 @@ export default async function PricingPage({ params: { locale } }: Props) {
       </section>
 
       {/* Trust badges */}
-      <section className="mx-auto max-w-5xl px-4 mt-8 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-white/70 text-center md:text-left">
+      <div className="mx-auto mt-10 h-px max-w-5xl bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+      <section className="mx-auto max-w-5xl px-4 mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-white/75 text-center md:text-left">
         <div>{t('badges.money_back')}</div>
         <div>{t('badges.stripe')}</div>
         <div>{t('badges.trusted')}</div>
