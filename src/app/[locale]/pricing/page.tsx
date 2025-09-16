@@ -2,7 +2,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { PRICING } from '@/lib/pricing';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { softwareApplicationSchema, organizationSchema } from '@/components/seo/structured-data-schemas';
-import PricingExplainerZazaPass from '@/components/pricing/PricingExplainerZazaPass';
+import ZazaPassExplainer from '@/components/sections/pricing/zaza-pass-explainer';
 import RiskFreeBand from '@/components/pricing/RiskFreeBand';
 import type { Metadata } from 'next';
 
@@ -41,7 +41,7 @@ export default async function PricingPage({params}: Props) {
 
           {/* Zaza Pass explainer */}
           <div className="text-center">
-            <PricingExplainerZazaPass />
+            <ZazaPassExplainer />
           </div>
 
           {/* Cards – Annual only */}

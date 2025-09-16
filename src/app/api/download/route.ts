@@ -15,10 +15,10 @@ export async function GET(request: NextRequest) {
       case 'logos':
         // Add logo files to ZIP
         try {
-          const logoSvg = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.svg'));
-          zip.file('zaza-logo.svg', logoSvg);
+          const logoPng = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.png'));
+          zip.file('zaza-logo.png', logoPng);
         } catch {
-          console.log('SVG logo not found, skipping');
+          console.log('PNG logo not found, skipping');
         }
 
         try {
@@ -31,9 +31,8 @@ export async function GET(request: NextRequest) {
         // Add a readme file
         zip.file('README.txt', `Zaza Promptly Logo Package
 
-This package contains logo files for Zaza Promptly in multiple formats:
-- SVG format for scalable web use
-- PNG format for general use
+This package contains logo files for Zaza Promptly in PNG format:
+- PNG format for web and general use
 
 Usage Guidelines:
 - Minimum width: 120px
@@ -100,8 +99,8 @@ For additional screenshots or specific views, contact: press@zazatechnologies.co
       case 'media-kit':
         // Complete media kit with all assets
         try {
-          const logoSvg = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.svg'));
-          zip.folder('logos')?.file('zaza-logo.svg', logoSvg);
+          const logoPng = await fs.readFile(path.join(publicPath, 'media-kit/logos/zaza-logo.png'));
+          zip.folder('logos')?.file('zaza-logo.png', logoPng);
         } catch (error) { console.error('Error in /api/download:', error); }
 
         try {

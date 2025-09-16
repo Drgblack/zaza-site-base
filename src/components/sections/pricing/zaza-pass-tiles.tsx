@@ -1,39 +1,51 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { Zap, ClipboardList, Users } from 'lucide-react';
+import { Sparkles, ClipboardList, BookOpen } from 'lucide-react';
 
 export default function ZazaPassTiles() {
   const t = useTranslations('pricing');
+  
+  // Guard against bad keys during development
+  const tt = (key: string) => {
+    const v = t(key as any);
+    if (!v || v.includes('pricing.') || v.includes('pricing_')) {
+      throw new Error(`Pricing i18n misuse: key="${key}" value="${v}"`);
+    }
+    return v;
+  };
 
   const tiles = [
     {
-      icon: Zap,
-      title: t('zaza_pass.tiles.minutes_to_quality'),
-      desc:  t('zaza_pass.tiles.minutes_to_quality_desc'),
+      icon: <Sparkles className="h-5 w-5" />,
+      title: tt('zaza_pass.tiles.minutes_to_quality'),
+      desc: tt('zaza_pass.tiles.minutes_to_quality_desc'),
     },
     {
-      icon: ClipboardList,
-      title: t('zaza_pass.tiles.plans_ready'),
-      desc:  t('zaza_pass.tiles.plans_ready_desc'),
+      icon: <ClipboardList className="h-5 w-5" />,
+      title: tt('zaza_pass.tiles.plans_ready'),
+      desc: tt('zaza_pass.tiles.plans_ready_desc'),
     },
     {
-      icon: Users,
-      title: t('zaza_pass.tiles.remembers_classes'),
-      desc:  t('zaza_pass.tiles.remembers_classes_desc'),
+      icon: <BookOpen className="h-5 w-5" />,
+      title: tt('zaza_pass.tiles.remembers_classes'),
+      desc: tt('zaza_pass.tiles.remembers_classes_desc'),
     },
   ];
 
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
       {tiles.map((tile, i) => (
-        <div key={i} className="flex flex-col items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
-          <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
-            <tile.icon className="h-4 w-4 text-white" />
+        <div
+          key={i}
+          className="rounded-xl border border-slate-200/60 dark:border-slate-700/50 p-4 bg-white/70 dark:bg-slate-900/50"
+        >
+          <div className="flex items-center gap-2 font-semibold">
+            <span className="text-slate-700 dark:text-slate-200">{tile.icon}</span>
+            <span>{tile.title}</span>
           </div>
-          <div className="text-center">
-            <div className="text-gray-800 dark:text-gray-200 font-medium">{tile.title}</div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{tile.desc}</p>
-          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            {tile.desc}
+          </p>
         </div>
       ))}
     </div>
