@@ -134,22 +134,48 @@
     "reset": "Reset"
   },
   "pricing": {
-    "headline": "Choose the plan that saves you time every week",
-    "subhead": "Annual plans give teachers the best value. Monthly is available if you prefer.",
-    "zaza_pass_badge": "Best value for teachers",
+    "headline": "Simple, Transparent Pricing",
+    "subhead": "Choose the plan that saves you time every week. Annual gives teachers the best value.",
+    "trust_badge_guarantee": "30-day money-back guarantee",
+    "trust_badge_secure": "Secure payments by Stripe",
+    "trust_badge_trusted": "Trusted by 10,000+ teachers",
+
+    "zaza_pass_badge": "Annual is best value",
     "zaza_pass_explainer_title": "Zaza Pass",
-    "zaza_pass_explainer_tag": "Annual is the best value for teachers",
+    "zaza_pass_explainer_tag": "Your annual teacher membership for Promptly + pro tools",
     "zaza_pass_explainer_points": [
       "Minutes to quality comments",
       "Plans ready to export",
       "Remembers your classes"
     ],
+
     "annual_toggle": "Annual",
     "monthly_toggle": "Monthly",
+    "saves_line": "Annual saves ~2 months vs. monthly.",
+
+    "card_starter": "Starter",
+    "card_pro": "Pro",
     "badge_best_value": "Best value",
+
     "cta_choose_starter": "Choose Starter",
     "cta_choose_pro": "Choose Pro",
     "cta_try_free": "Start Free Trial",
+    "cta_use_on_the_go": "Use Promptly on the go",
+
+    "risk_free_title": "Risk-Free 30-Day Trial",
+    "risk_free_copy": "Try Promptly completely risk-free. If you're not 100% satisfied within 30 days, we'll refund every penny, no questions asked.",
+
+    "diff_title": "See the Difference",
+    "data_row": "Your data stays yours. One-click export to DOC and PDF.",
+
+    "faq_title": "Frequently Asked Questions",
+    "faq_q_monthly": "Can I pay monthly?",
+    "faq_a_monthly": "Yes. Monthly is available. Annual is the best value for teachers.",
+    "faq_q_invoices": "Invoices and reimbursement",
+    "faq_a_invoices": "Yes. Download invoices. PO budgets supported.",
+    "faq_q_cancel": "What happens if I cancel?",
+    "faq_a_cancel": "You keep access until the end of your period. Drafts remain in your account.",
+
     "guarantee": "30-day money-back guarantee",
     "secure": "Secure payments by Stripe",
     "trusted": "Trusted by 10,000+ teachers"
