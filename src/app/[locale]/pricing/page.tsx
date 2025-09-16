@@ -1,5 +1,6 @@
-import {getTranslations} from 'next-intl/server';
-import ZazaPassTiles from '@/components/sections/pricing/ZazaPassTiles';
+import { getTranslations } from 'next-intl/server';
+import Hero from './_components/Hero';
+import Benefits from './_components/Benefits';
 import RiskFree from '@/components/sections/pricing/RiskFree';
 
 type Props = { params: { locale: string } };
@@ -8,26 +9,13 @@ export default async function PricingPage({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
 
   return (
-    <main className="container mx-auto max-w-5xl px-4 py-12"
-          data-pricing-version="v4-final">
-      <header className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold">{t('headline')}</h1>
-        <p className="mt-3 text-muted-foreground">{t('subhead')}</p>
-      </header>
+    <main className="pb-16">
+      <Hero />
+      <Benefits />
 
-      <section className="mb-8">
-        <div className="mx-auto max-w-2xl text-center mb-4">
-          <div className="inline-flex items-center rounded-full border px-3 py-1 text-xs mb-2">
-            {t('zaza_pass.badge_annual_best_value')}
-          </div>
-          <h2 className="text-2xl font-semibold">{t('zaza_pass.title')}</h2>
-          <p className="text-muted-foreground">{t('zaza_pass.subtitle')}</p>
-        </div>
-        <ZazaPassTiles />
-      </section>
-
-      <section className="grid md:grid-cols-2 gap-6 mb-10">
-        <article className="rounded-xl border p-6">
+      {/* Plans grid with improved styling */}
+      <section className="mx-auto mt-10 max-w-5xl grid gap-6 md:grid-cols-2 px-4">
+        <article className="rounded-xl border bg-white ring-1 ring-white/10 hover:ring-white/20 transition p-6">
           <h3 className="text-xl font-semibold">Starter</h3>
           <p className="text-2xl font-bold mt-2">€99<span className="text-sm">/year</span></p>
           <ul className="mt-4 text-sm space-y-2">
@@ -37,11 +25,13 @@ export default async function PricingPage({ params: { locale } }: Props) {
             <li>✔ Export to DOC/PDF</li>
             <li>✔ Classroom notes locker</li>
           </ul>
-          <button className="btn btn-primary mt-5 w-full">{t('cta.choose_starter')}</button>
+          <button className="bg-white text-[#1c1530] hover:bg-white/90 transition font-semibold rounded-lg px-4 py-2 mt-5 w-full">
+            {t('cta.choose_starter')}
+          </button>
         </article>
 
-        <article className="rounded-xl border p-6 ring-1 ring-orange-500/30">
-          <div className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs mb-2">
+        <article className="rounded-xl border bg-white ring-1 ring-orange-500/30 hover:ring-orange-500/40 transition p-6">
+          <div className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs mb-2 bg-orange-100 text-orange-800">
             {t('plans.pro.best_value')}
           </div>
           <h3 className="text-xl font-semibold">Pro</h3>
@@ -54,18 +44,24 @@ export default async function PricingPage({ params: { locale } }: Props) {
             <li>✔ Priority updates</li>
             <li>✔ Shared templates</li>
           </ul>
-          <button className="btn btn-primary mt-5 w-full">{t('cta.choose_pro')}</button>
+          <button className="bg-[#2a2140] text-white hover:bg-[#2a2140]/90 transition font-semibold rounded-lg px-4 py-2 mt-5 w-full">
+            {t('cta.choose_pro')}
+          </button>
         </article>
       </section>
 
-      <section className="mb-8">
+      {/* Risk free section */}
+      <section className="mx-auto mt-10 max-w-5xl px-4">
         <RiskFree />
       </section>
 
-      <section className="grid md:grid-cols-3 gap-3 text-center text-sm text-muted-foreground">
-        <div>{t('badges.money_back')}</div>
-        <div>{t('badges.stripe')}</div>
-        <div>{t('badges.trusted')}</div>
+      {/* Trust badges */}
+      <section className="mx-auto mt-8 max-w-5xl px-4">
+        <div className="grid md:grid-cols-3 gap-3 text-center text-sm text-muted-foreground">
+          <div>{t('badges.money_back')}</div>
+          <div>{t('badges.stripe')}</div>
+          <div>{t('badges.trusted')}</div>
+        </div>
       </section>
     </main>
   );

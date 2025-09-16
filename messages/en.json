@@ -126,8 +126,12 @@
     "subhead": "Choose the plan that saves you time every week. Annual membership gives teachers the best value—plus a 30-day money-back guarantee.",
     "zaza_pass": {
       "badge_annual_best_value": "Annual is best value",
+      "hero_desc": "Zaza Pass is your annual teacher membership. Get Promptly plus pro tools that save 5+ hours every week—backed by a 30-day money-back guarantee.",
+      "hero_badge": "Annual is best value",
       "title": "Zaza Pass",
       "subtitle": "Your annual teacher membership for Promptly + pro tools",
+      "cta_primary": "Choose Zaza Pass",
+      "cta_secondary": "See everything you get",
       "tiles": {
         "minutes_to_quality": "Minutes to quality comments",
         "minutes_to_quality_desc": "Turn notes into professional, parent-ready comments in minutes.",
@@ -146,7 +150,9 @@
     },
     "cta": {
       "choose_starter": "Choose Starter",
-      "choose_pro": "Choose Pro"
+      "choose_pro": "Choose Pro",
+      "learn_more": "Learn more",
+      "get_started": "Get started"
     },
     "badges": {
       "money_back": "30-day money-back guarantee",
