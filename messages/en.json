@@ -150,6 +150,59 @@
         "best_value": "Best value"
       }
     },
+    "suites": {
+      "teacher": {
+        "name": "Teacher Suite",
+        "badge": "Annual is best value",
+        "plans": {
+          "starter": {
+            "name": "Starter",
+            "features": [
+              "Comment Coach",
+              "Report Bank",
+              "Plan templates", 
+              "Export to DOC/PDF",
+              "Classroom notes locker"
+            ]
+          },
+          "pro": {
+            "name": "Pro",
+            "features": [
+              "All Starter features",
+              "Full AI Rewriter/Planner",
+              "Curriculum packs",
+              "Batch exports",
+              "Priority updates",
+              "Shared templates"
+            ]
+          }
+        }
+      },
+      "close": {
+        "name": "Close Suite", 
+        "badge": "Monthly available",
+        "plans": {
+          "starter": {
+            "name": "Close Agent",
+            "features": [
+              "AI communication assistant",
+              "Email manager",
+              "Browser tool",
+              "Unlimited follow-up sequences"
+            ]
+          },
+          "pro": {
+            "name": "Close Suite",
+            "features": [
+              "All email drafting",
+              "CRM integration", 
+              "Advanced analytics",
+              "Priority support"
+            ]
+          }
+        }
+      }
+    },
     "risk_free": {
       "title": "Risk-Free 30-Day Trial",
       "point1": "Full refund within 30 days",
