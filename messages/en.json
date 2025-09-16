@@ -132,5 +132,33 @@
     "clear": "Clear",
     "apply": "Apply",
     "reset": "Reset"
+  },
+  "pricing": {
+    "headline": "Choose the plan that saves you time every week",
+    "subhead": "Annual plans give teachers the best value. Monthly is available if you prefer.",
+    "zaza_pass_badge": "Best value for teachers",
+    "zaza_pass_explainer_title": "Zaza Pass",
+    "zaza_pass_explainer_tag": "Annual is the best value for teachers",
+    "zaza_pass_explainer_points": [
+      "Minutes to quality comments",
+      "Plans ready to export",
+      "Remembers your classes"
+    ],
+    "annual_toggle": "Annual",
+    "monthly_toggle": "Monthly",
+    "badge_best_value": "Best value",
+    "cta_choose_starter": "Choose Starter",
+    "cta_choose_pro": "Choose Pro",
+    "cta_try_free": "Start Free Trial",
+    "guarantee": "30-day money-back guarantee",
+    "secure": "Secure payments by Stripe",
+    "trusted": "Trusted by 10,000+ teachers"
+  },
+  "home": {
+    "pricing_banner_title": "Start free, stay affordable",
+    "pricing_banner_copy": "Every teacher deserves time back. Choose the plan that fits your needs.",
+    "pricing_primary_cta": "Start Free Trial",
+    "pricing_secondary_cta": "See Pricing",
+    "zaza_pass_microcopy": "Annual saves you ~2 months vs. monthly."
   }
 }

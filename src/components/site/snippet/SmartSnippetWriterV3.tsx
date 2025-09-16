@@ -170,7 +170,9 @@ export default function SmartSnippetWriterV3() {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(preview);
-    } catch {}
+    } catch {
+      // Clipboard API not available or permission denied
+    }
   };
 
   const resetAll = () => {

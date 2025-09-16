@@ -5,7 +5,8 @@
       "Bash(npm --version)",
       "Bash(sed:*)",
       "Bash(cat:*)",
-      "Bash(git rev-parse:*)"
+      "Bash(git rev-parse:*)",
+      "Bash(timeout:*)"
     ],
     "deny": []
   }

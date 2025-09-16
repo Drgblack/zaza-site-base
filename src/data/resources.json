@@ -1,0 +1,373 @@
+[
+  {
+    "id": "teacher-ai-toolkit-v1.1-en",
+    "title": "Teacher Ai Toolkit V1.1 En",
+    "path": "/resources/ai-tools/teacher-ai-toolkit-v1.1-en.pdf",
+    "bytes": 226692,
+    "sizeLabel": "221.38 KB",
+    "createdAt": "2025-09-16T00:46:41.806Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Comprehensive toolkit for integrating AI tools into daily teaching practices, saving hours of preparation time.",
+    "category": "Ai-tools",
+    "tags": [
+      "ai-integration",
+      "productivity",
+      "teaching-tools",
+      "time-saving"
+    ],
+    "level": "intermediate",
+    "type": "toolkit",
+    "featured": true
+  },
+  {
+    "id": "lesson-plan-template-primary-v1.1-en",
+    "title": "Lesson Plan Template Primary V1.1 En",
+    "path": "/resources/planning/lesson-plan-template-primary-v1.1-en.pdf",
+    "bytes": 179479,
+    "sizeLabel": "175.27 KB",
+    "createdAt": "2025-09-16T00:46:41.970Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Complete lesson planning template designed for primary school teachers with AI-powered suggestions and structured sections.",
+    "category": "Planning",
+    "tags": [
+      "lesson-planning",
+      "primary-education",
+      "templates",
+      "curriculum"
+    ],
+    "level": "beginner",
+    "type": "template",
+    "subject": "General",
+    "featured": true
+  },
+  {
+    "id": "assessment-rubrics-pack-v1.1-en",
+    "title": "Assessment Rubrics Pack V1.1 En",
+    "path": "/resources/assessment/assessment-rubrics-pack-v1.1-en.pdf",
+    "bytes": 142183,
+    "sizeLabel": "138.85 KB",
+    "createdAt": "2025-09-16T00:46:41.818Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "differentiated-question-stems-v1.2-en",
+    "title": "Differentiated Question Stems V1.2 En",
+    "path": "/resources/assessment/differentiated-question-stems-v1.2-en.pdf",
+    "bytes": 106593,
+    "sizeLabel": "104.09 KB",
+    "createdAt": "2025-09-16T00:46:41.827Z",
+    "lang": "en",
+    "version": "1.2",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "exit-ticket-bank-v1.3-en",
+    "title": "Exit Ticket Bank V1.3 En",
+    "path": "/resources/assessment/exit-ticket-bank-v1.3-en.pdf",
+    "bytes": 114617,
+    "sizeLabel": "111.93 KB",
+    "createdAt": "2025-09-16T00:46:41.836Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "formative-assessment-checklist-v1.1-en",
+    "title": "Formative Assessment Checklist V1.1 En",
+    "path": "/resources/assessment/formative-assessment-checklist-v1.1-en.pdf",
+    "bytes": 198541,
+    "sizeLabel": "193.89 KB",
+    "createdAt": "2025-09-16T00:46:41.845Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Quick-reference checklist for implementing effective formative assessment strategies that inform instruction and improve learning.",
+    "category": "Assessment",
+    "tags": [
+      "formative-assessment",
+      "checklist",
+      "feedback",
+      "instruction"
+    ],
+    "level": "beginner",
+    "type": "checklist"
+  },
+  {
+    "id": "report-comment-bank-v1.1-en",
+    "title": "Report Comment Bank V1.1 En",
+    "path": "/resources/assessment/report-comment-bank-v1.1-en.pdf",
+    "bytes": 128632,
+    "sizeLabel": "125.62 KB",
+    "createdAt": "2025-09-16T00:46:41.854Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "report-writing-framework-v1.2-en",
+    "title": "Report Writing Framework V1.2 En",
+    "path": "/resources/assessment/report-writing-framework-v1.2-en.pdf",
+    "bytes": 106808,
+    "sizeLabel": "104.3 KB",
+    "createdAt": "2025-09-16T00:46:41.863Z",
+    "lang": "en",
+    "version": "1.2",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "report-writing-starters-closers-v1.3-en",
+    "title": "Report Writing Starters Closers V1.3 En",
+    "path": "/resources/assessment/report-writing-starters-closers-v1.3-en.pdf",
+    "bytes": 148173,
+    "sizeLabel": "144.7 KB",
+    "createdAt": "2025-09-16T00:46:41.872Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Assessment",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "iep-accommodation-phrases-pack-v1.3-en",
+    "title": "Iep Accommodation Phrases Pack V1.3 En",
+    "path": "/resources/communication/iep-accommodation-phrases-pack-v1.3-en.pdf",
+    "bytes": 117694,
+    "sizeLabel": "114.94 KB",
+    "createdAt": "2025-09-16T00:46:41.883Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "parent-email-checklist-v1.2-en",
+    "title": "Parent Email Checklist V1.2 En",
+    "path": "/resources/communication/parent-email-checklist-v1.2-en.pdf",
+    "bytes": 102432,
+    "sizeLabel": "100.03 KB",
+    "createdAt": "2025-09-16T00:46:41.892Z",
+    "lang": "en",
+    "version": "1.2",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "parent-email-playbook-v1.1-en",
+    "title": "Parent Email Playbook V1.1 En",
+    "path": "/resources/communication/parent-email-playbook-v1.1-en.pdf",
+    "bytes": 167204,
+    "sizeLabel": "163.29 KB",
+    "createdAt": "2025-09-16T00:46:41.900Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "phone-call-scripts-parents-v1.3-en",
+    "title": "Phone Call Scripts Parents V1.3 En",
+    "path": "/resources/communication/phone-call-scripts-parents-v1.3-en.pdf",
+    "bytes": 119657,
+    "sizeLabel": "116.85 KB",
+    "createdAt": "2025-09-16T00:46:41.909Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "translation-helpers-pack-v1.2-en",
+    "title": "Translation Helpers Pack V1.2 En",
+    "path": "/resources/communication/translation-helpers-pack-v1.2-en.pdf",
+    "bytes": 108970,
+    "sizeLabel": "106.42 KB",
+    "createdAt": "2025-09-16T00:46:41.918Z",
+    "lang": "en",
+    "version": "1.2",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Communication",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "behavior-redirection-scripts-v1.2-en",
+    "title": "Behavior Redirection Scripts V1.2 En",
+    "path": "/resources/management/behavior-redirection-scripts-v1.2-en.pdf",
+    "bytes": 111439,
+    "sizeLabel": "108.83 KB",
+    "createdAt": "2025-09-16T00:46:41.927Z",
+    "lang": "en",
+    "version": "1.2",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Management",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "classroom-routines-guide-v1.1-en",
+    "title": "Classroom Routines Guide V1.1 En",
+    "path": "/resources/management/classroom-routines-guide-v1.1-en.pdf",
+    "bytes": 208060,
+    "sizeLabel": "203.18 KB",
+    "createdAt": "2025-09-16T00:46:41.935Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Proven classroom management routines and procedures that create a positive learning environment.",
+    "category": "Management",
+    "tags": [
+      "classroom-management",
+      "routines",
+      "behavior",
+      "organization"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "seating-plan-templates-routines-v1.3-en",
+    "title": "Seating Plan Templates Routines V1.3 En",
+    "path": "/resources/management/seating-plan-templates-routines-v1.3-en.pdf",
+    "bytes": 182084,
+    "sizeLabel": "177.82 KB",
+    "createdAt": "2025-09-16T00:46:41.944Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Management",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "ai-prompts-subject-planning-v1.3-en",
+    "title": "Ai Prompts Subject Planning V1.3 En",
+    "path": "/resources/planning/ai-prompts-subject-planning-v1.3-en.pdf",
+    "bytes": 151772,
+    "sizeLabel": "148.21 KB",
+    "createdAt": "2025-09-16T00:46:41.952Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Planning",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "differentiation-menu-by-need-v1.3-en",
+    "title": "Differentiation Menu By Need V1.3 En",
+    "path": "/resources/planning/differentiation-menu-by-need-v1.3-en.pdf",
+    "bytes": 153825,
+    "sizeLabel": "150.22 KB",
+    "createdAt": "2025-09-16T00:46:41.961Z",
+    "lang": "en",
+    "version": "1.3",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Planning",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  },
+  {
+    "id": "secondary-lesson-plan-template-v1.1-en",
+    "title": "Secondary Lesson Plan Template V1.1 En",
+    "path": "/resources/planning/secondary-lesson-plan-template-v1.1-en.pdf",
+    "bytes": 177215,
+    "sizeLabel": "173.06 KB",
+    "createdAt": "2025-09-16T00:46:41.978Z",
+    "lang": "en",
+    "version": "1.1",
+    "description": "Educational resource for teachers and educators.",
+    "category": "Planning",
+    "tags": [
+      "teaching",
+      "education"
+    ],
+    "level": "beginner",
+    "type": "guide"
+  }
+]
