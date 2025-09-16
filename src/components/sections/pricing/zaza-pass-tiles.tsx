@@ -4,31 +4,22 @@ import { Sparkles, ClipboardList, BookOpen } from 'lucide-react';
 
 export default function ZazaPassTiles() {
   const t = useTranslations('pricing');
-  
-  // Guard against bad keys during development
-  const tt = (key: string) => {
-    const v = t(key as any);
-    if (!v || v.includes('pricing.') || v.includes('pricing_')) {
-      throw new Error(`Pricing i18n misuse: key="${key}" value="${v}"`);
-    }
-    return v;
-  };
 
   const tiles = [
     {
       icon: <Sparkles className="h-5 w-5" />,
-      title: tt('zaza_pass.tiles.minutes_to_quality'),
-      desc: tt('zaza_pass.tiles.minutes_to_quality_desc'),
+      title: t('zaza_pass.tiles.minutes_to_quality'),
+      desc: t('zaza_pass.tiles.minutes_to_quality_desc'),
     },
     {
       icon: <ClipboardList className="h-5 w-5" />,
-      title: tt('zaza_pass.tiles.plans_ready'),
-      desc: tt('zaza_pass.tiles.plans_ready_desc'),
+      title: t('zaza_pass.tiles.plans_ready'),
+      desc: t('zaza_pass.tiles.plans_ready_desc'),
     },
     {
       icon: <BookOpen className="h-5 w-5" />,
-      title: tt('zaza_pass.tiles.remembers_classes'),
-      desc: tt('zaza_pass.tiles.remembers_classes_desc'),
+      title: t('zaza_pass.tiles.remembers_classes'),
+      desc: t('zaza_pass.tiles.remembers_classes_desc'),
     },
   ];
 

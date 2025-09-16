@@ -84,18 +84,6 @@
     "our_team": "Our Team",
     "our_values": "Our Values"
   },
-  "pricing": {
-    "title": "Pricing",
-    "subtitle": "Choose the plan that's right for you",
-    "free_plan": "Free Plan",
-    "pro_plan": "Pro Plan",
-    "enterprise_plan": "Enterprise Plan",
-    "monthly": "Monthly",
-    "yearly": "Yearly",
-    "save": "Save",
-    "get_started": "Get Started",
-    "contact_sales": "Contact Sales"
-  },
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Everything you need to know about Zaza Promptly"
