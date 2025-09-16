@@ -1,12 +1,14 @@
 // src/components/zara/useZara.ts
 import { useCallback, useRef, useState } from "react";
-import type { ZaraRequest, ZaraResponse, ZaraContext, ZaraPrefs } from "./types";
+import type { ZaraRequest, ZaraResponse } from "./types";
+import { useZaraLimits } from './useZaraLimits';
 
 export function useZara() {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [last, setLast] = useState<ZaraResponse | null>(null);
   const activeTextAreaRef = useRef<HTMLTextAreaElement | HTMLDivElement | null>(null);
+  const { isLimited, remaining, trackUsage, dailyLimit } = useZaraLimits();
 
   const setTarget = useCallback((el: HTMLTextAreaElement | HTMLDivElement | null) => {
     activeTextAreaRef.current = el;
@@ -33,22 +35,56 @@ export function useZara() {
     }
   }, []);
 
-  const callZara = useCallback(async (message: string, context?: ZaraContext, userPrefs?: ZaraPrefs) => {
-    setBusy(true);
+  const copyToClipboard = useCallback(async (text: string) => {
     try {
-      const payload: ZaraRequest = { message, context, userPrefs };
-      const r = await fetch("/api/zara/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = (await r.json()) as ZaraResponse;
-      setLast(data);
-      return data;
-    } finally {
-      setBusy(false);
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
     }
   }, []);
 
-  return { open, setOpen, busy, last, setLast, insertAtCursor, callZara, setTarget };
+  const callZara = useCallback(async (request: ZaraRequest): Promise<ZaraResponse | null> => {
+    if (isLimited) {
+      return null;
+    }
+
+    setBusy(true);
+    try {
+      const r = await fetch("/api/zara", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request),
+      });
+      
+      if (!r.ok) {
+        throw new Error(`API error: ${r.status}`);
+      }
+      
+      const data = await r.json() as ZaraResponse;
+      setLast(data);
+      trackUsage();
+      return data;
+    } catch (error) {
+      console.error('Zara API error:', error);
+      return null;
+    } finally {
+      setBusy(false);
+    }
+  }, [isLimited, trackUsage]);
+
+  return { 
+    open, 
+    setOpen, 
+    busy, 
+    last, 
+    setLast, 
+    insertAtCursor, 
+    copyToClipboard,
+    callZara, 
+    setTarget,
+    isLimited,
+    remaining,
+    dailyLimit
+  };
 }

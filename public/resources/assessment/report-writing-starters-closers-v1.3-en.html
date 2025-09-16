@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report Writing Starters & Closers</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: rgba(250, 250, 250, 0.9) !important;
+  color: #111827 !important;
+  border-radius: 8px;
+  page-break-inside: avoid;
+  mix-blend-mode: normal !important;
+  z-index: 1;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(2, 6, 23, 0.05) !important;
+  color: #0f172a !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  mix-blend-mode: normal !important;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Report Writing Starters & Closers</h1>
+  <div class="subtitle">High-utility sentence stems and professional closers for efficient, effective report card writing.</div>
+  <div class="badges"><span class="badge">Assessment</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>Academic Performance Starters</li>
+  <li>Social-Emotional Starters</li>
+  <li>Subject-Specific Frameworks</li>
+  <li>Professional Closers</li>
+  <li>Transition & Connection Phrases</li>
+  <li>Constructive Feedback Starters</li>
+  </ol>
+</div>
+<h2>Academic Performance Starters</h2>
+<h3>Meeting Expectations</h3>
+<p><strong>Solid Performance</strong></p>
+<ul>
+<li>"[Student] demonstrates a solid understanding of..."</li>
+<li>"Consistently applies [skill] across various contexts..."</li>
+<li>"Shows reliable progress in [subject area]..."</li>
+<li>"Effectively uses strategies taught for..."</li>
+<li>"Maintains steady growth in..."</li>
+</ul>
+<p><strong>Active Participation</strong></p>
+<ul>
+<li>"Actively engages in [activity type] and..."</li>
+<li>"Contributes thoughtfully to class discussions about..."</li>
+<li>"Shows enthusiasm for learning when..."</li>
+<li>"Participates willingly in group activities involving..."</li>
+<li>"Demonstrates curiosity by asking questions about..."</li>
+</ul>
+<h3>Exceeding Expectations</h3>
+<p><strong>Advanced Understanding</strong></p>
+<ul>
+<li>"Demonstrates exceptional grasp of complex concepts in..."</li>
+<li>"Consistently applies higher-order thinking skills to..."</li>
+<li>"Shows sophisticated understanding by..."</li>
+<li>"Independently extends learning beyond grade-level expectations in..."</li>
+<li>"Demonstrates mastery of [skill] and applies it to new situations..."</li>
+</ul>
+<p><strong>Leadership Qualities</strong></p>
+<ul>
+<li>"Takes initiative in [context] by..."</li>
+<li>"Naturally emerges as a leader when..."</li>
+<li>"Supports classmates' learning through..."</li>
+<li>"Shows responsibility by consistently..."</li>
+<li>"Demonstrates independence in..."</li>
+</ul>
+<h3>Working Toward Expectations</h3>
+<p><strong>Developing Skills</strong></p>
+<ul>
+<li>"Is developing confidence in [skill area] and..."</li>
+<li>"Shows improvement in [area] with continued practice..."</li>
+<li>"Benefits from guided practice when..."</li>
+<li>"Makes steady progress toward [goal] with support..."</li>
+<li>"Is building foundational skills in..."</li>
+</ul>
+<p><strong>Support Needs</strong></p>
+<ul>
+<li>"Performs best in [context] and would benefit from..."</li>
+<li>"Shows understanding when provided with [accommodation]..."</li>
+<li>"Responds positively to [strategy] and..."</li>
+<li>"Demonstrates potential in [area] with additional practice in..."</li>
+<li>"Benefits from explicit instruction in..."</li>
+</ul>
+<h2>Social-Emotional Starters</h2>
+<h3>Interpersonal Skills</h3>
+<p><strong>Positive Interactions</strong></p>
+<ul>
+<li>"Builds positive relationships with peers by..."</li>
+<li>"Shows kindness and empathy when..."</li>
+<li>"Collaborates effectively in group settings..."</li>
+<li>"Demonstrates respect for others through..."</li>
+<li>"Creates an inclusive environment by..."</li>
+</ul>
+<p><strong>Communication Skills</strong></p>
+<ul>
+<li>"Expresses ideas clearly and respectfully when..."</li>
+<li>"Listens actively to others and..."</li>
+<li>"Shares thoughts confidently during..."</li>
+<li>"Shows respect for different viewpoints by..."</li>
+<li>"Communicates needs appropriately through..."</li>
+</ul>
+<h3>Personal Development</h3>
+<p><strong>Self-Regulation</strong></p>
+<ul>
+<li>"Manages emotions effectively by..."</li>
+<li>"Shows increasing self-control when..."</li>
+<li>"Demonstrates resilience by..."</li>
+<li>"Takes responsibility for actions and..."</li>
+<li>"Shows maturity in handling..."</li>
+</ul>
+<p><strong>Work Habits</strong></p>
+<ul>
+<li>"Approaches tasks with [positive quality] and..."</li>
+<li>"Demonstrates persistence when faced with..."</li>
+<li>"Shows organizational skills by..."</li>
+<li>"Takes pride in work quality and..."</li>
+<li>"Manages time effectively during..."</li>
+</ul>
+<h2>Subject-Specific Frameworks</h2>
+<h3>Reading &#x26; Language Arts</h3>
+<p><strong>Comprehension</strong></p>
+<ul>
+<li>"Demonstrates strong comprehension skills by identifying..."</li>
+<li>"Makes meaningful connections between texts and..."</li>
+<li>"Uses context clues effectively to..."</li>
+<li>"Shows growth in inferential thinking when..."</li>
+<li>"Engages with various text types and..."</li>
+</ul>
+<p><strong>Writing Development</strong></p>
+<ul>
+<li>"Expresses ideas clearly in written form through..."</li>
+<li>"Shows improvement in [writing element] by..."</li>
+<li>"Uses grade-level vocabulary effectively when..."</li>
+<li>"Demonstrates understanding of writing process by..."</li>
+<li>"Incorporates feedback successfully to..."</li>
+</ul>
+<h3>Mathematics</h3>
+<p><strong>Problem-Solving</strong></p>
+<ul>
+<li>"Approaches mathematical problems systematically by..."</li>
+<li>"Demonstrates number sense through..."</li>
+<li>"Uses multiple strategies to solve..."</li>
+<li>"Shows computational fluency in..."</li>
+<li>"Explains mathematical thinking clearly when..."</li>
+</ul>
+<p><strong>Mathematical Practices</strong></p>
+<ul>
+<li>"Perseveres through challenging problems and..."</li>
+<li>"Makes connections between mathematical concepts by..."</li>
+<li>"Uses mathematical vocabulary accurately to..."</li>
+<li>"Represents mathematical ideas through..."</li>
+<li>"Shows precision in calculations and..."</li>
+</ul>
+<h3>Science</h3>
+<p><strong>Scientific Thinking</strong></p>
+<ul>
+<li>"Demonstrates scientific inquiry skills by..."</li>
+<li>"Makes careful observations and..."</li>
+<li>"Forms logical hypotheses about..."</li>
+<li>"Uses scientific vocabulary accurately when..."</li>
+<li>"Shows curiosity about natural phenomena through..."</li>
+</ul>
+<p><strong>Investigation Skills</strong></p>
+<ul>
+<li>"Conducts experiments systematically and..."</li>
+<li>"Records data accurately during..."</li>
+<li>"Draws reasonable conclusions from..."</li>
+<li>"Applies scientific concepts to..."</li>
+<li>"Shows understanding of [concept] by..."</li>
+</ul>
+<h2>Professional Closers</h2>
+<h3>Growth &#x26; Future Focus</h3>
+<p><strong>Encouraging Progress</strong></p>
+<ul>
+<li>"With continued practice, [Student] will build confidence in..."</li>
+<li>"I look forward to seeing [Student]'s continued growth in..."</li>
+<li>"[Student]'s positive attitude will serve them well as they..."</li>
+<li>"Building on current strengths, [Student] is ready to..."</li>
+<li>"The foundation [Student] has built this year prepares them for..."</li>
+</ul>
+<p><strong>Collaborative Partnership</strong></p>
+<ul>
+<li>"I appreciate your support in helping [Student] develop..."</li>
+<li>"Please continue to encourage [Student]'s efforts in..."</li>
+<li>"Working together, we can help [Student] achieve..."</li>
+<li>"Thank you for reinforcing at home the skills we practice at school..."</li>
+<li>"I welcome the opportunity to discuss [Student]'s progress further..."</li>
+</ul>
+<h3>Celebrating Strengths</h3>
+<p><strong>Individual Recognition</strong></p>
+<ul>
+<li>"[Student]'s [positive quality] is a gift to our classroom community."</li>
+<li>"It has been a joy to watch [Student] grow in confidence this year."</li>
+<li>"[Student]'s curiosity and enthusiasm make learning engaging for everyone."</li>
+<li>"I am impressed by [Student]'s commitment to improvement."</li>
+<li>"[Student]'s unique perspective enriches our classroom discussions."</li>
+</ul>
+<p><strong>Character Recognition</strong></p>
+<ul>
+<li>"[Student] demonstrates integrity and responsibility daily."</li>
+<li>"The kindness [Student] shows to others reflects strong character."</li>
+<li>"[Student]'s perseverance in facing challenges is admirable."</li>
+<li>"I appreciate [Student]'s positive contributions to our learning community."</li>
+<li>"[Student]'s respectful nature makes them a pleasure to teach."</li>
+</ul>
+<h2>Transition &#x26; Connection Phrases</h2>
+<h3>Linking Ideas</h3>
+<ul>
+<li>"Additionally, [Student]..."</li>
+<li>"In contrast to [area], [Student] shows..."</li>
+<li>"Building on this foundation, [Student]..."</li>
+<li>"Similarly, in [subject area], [Student]..."</li>
+<li>"This strength also transfers to..."</li>
+</ul>
+<h3>Providing Context</h3>
+<ul>
+<li>"When given appropriate supports, [Student]..."</li>
+<li>"In structured environments, [Student]..."</li>
+<li>"During independent work time, [Student]..."</li>
+<li>"Through collaborative activities, [Student]..."</li>
+<li>"With consistent practice, [Student]..."</li>
+</ul>
+<h3>Explaining Growth</h3>
+<ul>
+<li>"Over the course of this term, [Student] has..."</li>
+<li>"Since the beginning of the year, [Student] shows..."</li>
+<li>"Recent observations indicate that [Student]..."</li>
+<li>"Current evidence suggests [Student] is..."</li>
+<li>"Moving forward, [Student] would benefit from..."</li>
+</ul>
+<h2>Constructive Feedback Starters</h2>
+<h3>Areas for Growth (Positive Frame)</h3>
+<p><strong>Academic Development</strong></p>
+<ul>
+<li>"To further strengthen skills in [area], [Student] would benefit from..."</li>
+<li>"[Student] is ready to take the next step in [subject] by..."</li>
+<li>"Continued focus on [skill] will help [Student]..."</li>
+<li>"Additional practice in [area] will build [Student]'s confidence..."</li>
+<li>"With support in [area], [Student] will be able to..."</li>
+</ul>
+<p><strong>Behavioral Goals</strong></p>
+<ul>
+<li>"[Student] is learning to manage [behavior] more effectively and..."</li>
+<li>"We are working together to help [Student] develop..."</li>
+<li>"[Student] shows awareness of the need to improve..."</li>
+<li>"With continued guidance, [Student] will strengthen..."</li>
+<li>"[Student] responds well to reminders about..."</li>
+</ul>
+<h3>Parent Partnership</h3>
+<p><strong>Home Support Suggestions</strong></p>
+<ul>
+<li>"At home, you can support [Student]'s learning by..."</li>
+<li>"Encouraging [Student] to practice [skill] through..."</li>
+<li>"Reading together about [topic] would strengthen..."</li>
+<li>"Discussing [Student]'s school experiences helps..."</li>
+<li>"Celebrating small improvements in [area] will..."</li>
+</ul>
+<p><strong>Communication Appreciation</strong></p>
+<ul>
+<li>"Thank you for maintaining open communication about..."</li>
+<li>"I appreciate your partnership in supporting [Student]'s..."</li>
+<li>"Your insights about [Student] help me provide..."</li>
+<li>"Working together, we have helped [Student]..."</li>
+<li>"I value your collaboration in..."</li>
+</ul>
+<blockquote>
+<p><strong>Time-Saving Tip:</strong> Create a personal bank of your most-used starters and closers. Copy and paste, then customize with specific details for each student.</p>
+</blockquote>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

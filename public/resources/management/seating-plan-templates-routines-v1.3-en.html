@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seating Plan Templates + Routines</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: rgba(250, 250, 250, 0.9) !important;
+  color: #111827 !important;
+  border-radius: 8px;
+  page-break-inside: avoid;
+  mix-blend-mode: normal !important;
+  z-index: 1;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(2, 6, 23, 0.05) !important;
+  color: #0f172a !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  mix-blend-mode: normal !important;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Seating Plan Templates + Routines</h1>
+  <div class="subtitle">Printable seating chart templates and classroom routines for effective arrangement and management.</div>
+  <div class="badges"><span class="badge">Management</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>Template Options</li>
+  <li>Strategic Placement Guidelines</li>
+  <li>Seating Change Routines</li>
+  <li>Arrangement for Different Activities</li>
+  <li>Classroom Traffic Patterns</li>
+  <li>Special Considerations</li>
+  <li>Monthly Seating Review</li>
+  </ol>
+</div>
+<h2>Template Options</h2>
+<h3>Standard Grid Arrangements</h3>
+<p><strong>Traditional Rows (24 students)</strong></p>
+<pre><code>    Teacher Desk
+    
+[1] [2] [3] [4] [5] [6]
+[7] [8] [9] [10][11][12]
+[13][14][15][16][17][18]
+[19][20][21][22][23][24]
+
+    Student Entry
+</code></pre>
+<p><strong>Groups of 4 (24 students)</strong></p>
+<pre><code>    Teacher Area
+    
+[1] [2]  [5] [6]  [9] [10]
+[3] [4]  [7] [8]  [11][12]
+
+[13][14] [17][18] [21][22]
+[15][16] [19][20] [23][24]
+
+    Entry/Resources
+</code></pre>
+<p><strong>U-Shape Configuration (20 students)</strong></p>
+<pre><code>     Teacher Station
+     
+[1]                   [11]
+[2]                   [12]
+[3]                   [13]
+[4]                   [14]
+[5] [6] [7] [8] [9] [10]
+
+    Central Space
+</code></pre>
+<h3>Flexible Arrangements</h3>
+<p><strong>Learning Stations (28 students)</strong></p>
+<pre><code>Reading    Math       Science
+Corner     Station    Lab
+[1-4]     [5-8]      [9-12]
+
+    Central Discussion Area
+
+Writing    Art/Make   Tech
+Station    Space      Station  
+[13-16]   [17-20]    [21-24]
+
+Quiet/Individual Work: [25-28]
+</code></pre>
+<h2>Strategic Placement Guidelines</h2>
+<h3>Academic Considerations</h3>
+<p><strong>High-Need Students</strong></p>
+<ul>
+<li>Front and center for easy teacher access</li>
+<li>Near positive role models</li>
+<li>Away from high-traffic areas</li>
+<li>Close to necessary resources</li>
+</ul>
+<p><strong>Advanced Learners</strong></p>
+<ul>
+<li>Mixed throughout room to support peers</li>
+<li>Near extension materials</li>
+<li>In positions to help with cleanup/setup</li>
+<li>Access to independent work spaces</li>
+</ul>
+<p><strong>ELL Students</strong></p>
+<ul>
+<li>Near bilingual peers when possible</li>
+<li>Clear sight lines to visual aids</li>
+<li>Away from noisy equipment</li>
+<li>Close to word walls and resources</li>
+</ul>
+<h3>Social/Behavioral Factors</h3>
+<p><strong>Talkative Students</strong></p>
+<ul>
+<li>Separate from best friends initially</li>
+<li>Near students who model good listening</li>
+<li>Strategic placement for easy eye contact with teacher</li>
+<li>Away from doorways and high-stimulation areas</li>
+</ul>
+<p><strong>Shy/Anxious Students</strong></p>
+<ul>
+<li>Near friendly, inclusive classmates</li>
+<li>Not directly in front (reduce pressure)</li>
+<li>Close to "safe" spaces (reading corner, teacher desk)</li>
+<li>With partners who will include them naturally</li>
+</ul>
+<p><strong>Students with ADHD</strong></p>
+<ul>
+<li>Front of room with clear path to teacher</li>
+<li>Away from high-traffic areas</li>
+<li>Near calm, focused students</li>
+<li>Access to movement breaks/fidget space</li>
+</ul>
+<h2>Seating Change Routines</h2>
+<h3>Weekly Rotation System</h3>
+<p><strong>Monday Morning Protocol</strong></p>
+<ol>
+<li>Display new seating chart on board</li>
+<li>Students find their name tag at new seat</li>
+<li>5-minute "neighbor introduction" activity</li>
+<li>Review expectations for new groups</li>
+<li>Practice movement between seats</li>
+</ol>
+<p><strong>Smooth Transition Tips</strong></p>
+<ul>
+<li>Change seats during specials (PE, Art, Music)</li>
+<li>Use student helpers to place name tags</li>
+<li>Create excitement: "New Learning Partners!"</li>
+<li>Have materials already in place</li>
+<li>Practice the first transition slowly</li>
+</ul>
+<h3>Partner/Group Formation</h3>
+<p><strong>Quick Pairing Methods</strong></p>
+<ul>
+<li>Clock partners (12 different partners assigned)</li>
+<li>Playing card groups (all hearts together)</li>
+<li>Birthday line-up, then count off</li>
+<li>Find someone wearing similar colors</li>
+<li>Academic level partnerships</li>
+</ul>
+<p><strong>Group Assignment Strategies</strong></p>
+<ul>
+<li>Mix ability levels intentionally</li>
+<li>Include one strong leader per group</li>
+<li>Balance personalities (quiet + outgoing)</li>
+<li>Consider friendships but avoid cliques</li>
+<li>Rotate group roles weekly</li>
+</ul>
+<h2>Arrangement for Different Activities</h2>
+<h3>Discussion-Based Learning</h3>
+<p><strong>Optimal Setup</strong></p>
+<ul>
+<li>Circle or U-shape for eye contact</li>
+<li>Remove physical barriers</li>
+<li>Ensure everyone can see speaker</li>
+<li>Teacher position varies (not just front)</li>
+<li>Easy movement for teacher circulation</li>
+</ul>
+<p><strong>Quick Transition</strong>
+"When I say 'discussion circle,' please move your chair to form our learning circle. You have 90 seconds. Go!"</p>
+<h3>Independent Work Time</h3>
+<p><strong>Focus Arrangement</strong></p>
+<ul>
+<li>Facing same direction (minimal distractions)</li>
+<li>Adequate personal space (arm's length)</li>
+<li>Clear sight lines to teacher</li>
+<li>Easy access to supplies</li>
+<li>Designated quiet zones</li>
+</ul>
+<p><strong>Noise Management</strong></p>
+<ul>
+<li>Use hand signals for questions</li>
+<li>"Ask 3 before me" rule</li>
+<li>Soft classical music as sound buffer</li>
+<li>Whisper voices only</li>
+</ul>
+<h3>Collaborative Projects</h3>
+<p><strong>Project Mode Setup</strong></p>
+<ul>
+<li>Tables of 3-4 students</li>
+<li>Materials station easily accessible</li>
+<li>Wall space for posting work</li>
+<li>Floor space for large projects</li>
+<li>Technology access as needed</li>
+</ul>
+<p><strong>Resource Management</strong></p>
+<ul>
+<li>One supplies manager per group</li>
+<li>Color-coded materials by group</li>
+<li>Clean-up assignments posted</li>
+<li>Timer for transitions</li>
+<li>Storage system for ongoing work</li>
+</ul>
+<h2>Classroom Traffic Patterns</h2>
+<h3>High-Traffic Areas to Avoid</h3>
+<ul>
+<li>Doorways and exits</li>
+<li>Teacher's desk</li>
+<li>Pencil sharpener</li>
+<li>Supply areas</li>
+<li>Technology stations</li>
+</ul>
+<h3>Optimal Flow Design</h3>
+<pre><code>Entry Door → Homework Turn-in → 
+Assigned Seats → Learning Stations → 
+Supply Areas → Exit Door
+</code></pre>
+<h3>Movement Procedures</h3>
+<p><strong>Getting Supplies</strong></p>
+<ol>
+<li>Table leader collects for group</li>
+<li>Maximum 2 students at station</li>
+<li>"Excuse me" for passing others</li>
+<li>Return extra materials immediately</li>
+</ol>
+<p><strong>Bathroom/Water Breaks</strong></p>
+<ul>
+<li>Hand signal system (no verbal requests)</li>
+<li>Maximum 1 student out at time</li>
+<li>Sign-out procedure for accountability</li>
+<li>Emergency passes for urgent needs</li>
+</ul>
+<h2>Special Considerations</h2>
+<h3>Technology Integration</h3>
+<p><strong>Device Management</strong></p>
+<ul>
+<li>Charging stations near walls</li>
+<li>Cable management (tape down cords)</li>
+<li>Device storage during non-tech time</li>
+<li>Partner sharing systems</li>
+<li>Tech helper rotations</li>
+</ul>
+<h3>Accessibility Needs</h3>
+<p><strong>Physical Accommodations</strong></p>
+<ul>
+<li>Wheelchair accessible pathways</li>
+<li>Adjustable height surfaces</li>
+<li>Good lighting for vision needs</li>
+<li>Proximity to assistive technology</li>
+<li>Easy exit access</li>
+</ul>
+<p><strong>Learning Accommodations</strong></p>
+<ul>
+<li>Quiet spaces for sensory breaks</li>
+<li>Alternative seating options (stability balls, standing desks)</li>
+<li>Clear sight lines to teacher/board</li>
+<li>Reduced visual distractions</li>
+<li>Fidget-friendly areas</li>
+</ul>
+<h2>Monthly Seating Review</h2>
+<h3>Assessment Questions</h3>
+<ol>
+<li>Are academic goals being met?</li>
+<li>Have social conflicts decreased?</li>
+<li>Do students feel comfortable asking questions?</li>
+<li>Is classroom management easier or harder?</li>
+<li>Are quieter students participating more?</li>
+</ol>
+<h3>Data to Track</h3>
+<ul>
+<li>Student participation rates</li>
+<li>Behavioral incidents by seating area</li>
+<li>Academic performance by arrangement</li>
+<li>Student satisfaction surveys</li>
+<li>Time spent on transitions</li>
+</ul>
+<h3>Adjustment Indicators</h3>
+<ul>
+<li>Increase in off-task behavior</li>
+<li>Social conflicts between neighbors</li>
+<li>Students asking to move</li>
+<li>Academic performance changes</li>
+<li>Teacher stress with current system</li>
+</ul>
+<blockquote>
+<p><strong>Remember:</strong> The best seating plan is the one that works for your specific students and teaching style. Be willing to adjust frequently, especially early in the year.</p>
+</blockquote>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

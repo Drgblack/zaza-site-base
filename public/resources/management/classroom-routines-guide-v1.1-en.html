@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classroom Routines Guide</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: rgba(250, 250, 250, 0.9) !important;
+  color: #111827 !important;
+  border-radius: 8px;
+  page-break-inside: avoid;
+  mix-blend-mode: normal !important;
+  z-index: 1;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(2, 6, 23, 0.05) !important;
+  color: #0f172a !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  mix-blend-mode: normal !important;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Classroom Routines Guide</h1>
+  <div class="subtitle">Proven classroom routines that save time, reduce stress, and create a calm learning environment.</div>
+  <div class="badges"><span class="badge">Management</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <h1>Classroom Routines Guide</h1>
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>The Science of Classroom Routines</li>
+  <li>Foundation Routines (Week 1-2)</li>
+  <li>Instructional Routines (Week 3-4)</li>
+  <li>Management Routines (Week 5-6)</li>
+  <li>Advanced Routines (Week 7-8)</li>
+  <li>Building Routine Success</li>
+  <li>Age-Specific Adaptations</li>
+  <li>Monthly Routine Review</li>
+  </ol>
+</div>
+
+<blockquote>
+<p>"Routines aren't about control—they're about <strong>freedom</strong>."<br>
+When procedures run smoothly, you and your students are free to focus on learning.</p>
+</blockquote>
+<h2>The Science of Classroom Routines</h2>
+<h3>Why Routines Matter</h3>
+<p><strong>For Students:</strong></p>
+<ul>
+<li>Reduce cognitive load (brain power saved for learning)</li>
+<li>Increase sense of safety and predictability</li>
+<li>Build independence and responsibility</li>
+<li>Create equity (everyone knows expectations)</li>
+</ul>
+<p><strong>For Teachers:</strong></p>
+<ul>
+<li>Save time on transitions and management</li>
+<li>Reduce decision fatigue</li>
+<li>Prevent behavioral issues before they start</li>
+<li>Create consistent learning environment</li>
+</ul>
+<h3>Routine vs. Procedure</h3>
+<ul>
+<li><strong>Routine:</strong> Automatic behavior (students do without prompting)</li>
+<li><strong>Procedure:</strong> Step-by-step process being learned</li>
+</ul>
+<p><strong>Goal:</strong> Transform procedures into routines through consistent practice</p>
+<h2>Foundation Routines (Week 1-2)</h2>
+<h3>Morning Entry Routine</h3>
+<p><strong>The Challenge:</strong> Students enter chaotically, day starts with confusion</p>
+<p><strong>The Routine:</strong></p>
+<ol>
+<li><strong>Silent entry</strong> (first 5 minutes)</li>
+<li><strong>Unpack systematically</strong> (backpack → homework → supplies)</li>
+<li><strong>Check morning message</strong> (on board or screen)</li>
+<li><strong>Begin bell work</strong> (review or preview activity)</li>
+<li><strong>Teacher circulates</strong> (greets students, checks homework)</li>
+</ol>
+<p><strong>Teaching Tips:</strong></p>
+<ul>
+<li>Practice for 3-5 days explicitly</li>
+<li>Use timer and gentle reminders</li>
+<li>Celebrate successful mornings</li>
+<li>Address problems privately, not publicly</li>
+</ul>
+<p><strong>Sample Morning Message:</strong></p>
+<pre><code>Good morning, Room 12!
+Today is Tuesday, October 15th
+We'll explore fractions in math
+Remember: Science project due Friday
+Please complete problems 1-5 in your math journal
+</code></pre>
+<h3>Attention Signal</h3>
+<p><strong>The Challenge:</strong> Getting 25+ students quiet quickly</p>
+<p><strong>Options That Work:</strong></p>
+<h4>Clap Pattern</h4>
+<ul>
+<li>Teacher claps rhythm</li>
+<li>Students clap back and freeze</li>
+<li>Escalate complexity if needed</li>
+</ul>
+<h4>Countdown</h4>
+<ul>
+<li>"5 - finish your sentence"</li>
+<li>"4 - eyes on me"</li>
+<li>"3 - hands empty"</li>
+<li>"2 - bodies still"</li>
+<li>"1 - ready to learn"</li>
+</ul>
+<h4>Call and Response</h4>
+<ul>
+<li>Teacher: "Criss-cross"</li>
+<li>Students: "Apple sauce" (and sit properly)</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Choose ONE method, stick with it</li>
+<li>Practice when students aren't excited</li>
+<li>Wait for 100% compliance before continuing</li>
+<li>Thank students for quick response</li>
+</ul>
+<h3>Dismissal Routine</h3>
+<p><strong>The Challenge:</strong> Ending class calmly and organized</p>
+<p><strong>The Routine:</strong></p>
+<ol>
+<li><strong>Two-minute warning</strong> (finish current task)</li>
+<li><strong>Pack up procedure</strong> (books first, then supplies)</li>
+<li><strong>Chair placement</strong> (push in or stack)</li>
+<li><strong>Ready position</strong> (hands folded, eyes forward)</li>
+<li><strong>Dismiss by rows/groups</strong> (not all at once)</li>
+</ol>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Never dismiss during chaos</li>
+<li>Students earn dismissal through calm behavior</li>
+<li>Pack up time is silent or very quiet</li>
+<li>Release students only when ready</li>
+</ul>
+<h2>Instructional Routines (Week 3-4)</h2>
+<h3>Transition Between Activities</h3>
+<p><strong>The Magic Window:</strong> Most disruptions happen during transitions</p>
+<p><strong>The 3-Step Transition:</strong></p>
+<ol>
+<li><strong>Close current activity</strong> (clear instruction about stopping)</li>
+<li><strong>Prepare for next</strong> (get materials, move if needed)</li>
+<li><strong>Open new activity</strong> (clear instruction about starting)</li>
+</ol>
+<p><strong>Verbal Routine:</strong></p>
+<ul>
+<li>"In 30 seconds, we'll transition to math"</li>
+<li>"Please finish your sentence and close your books"</li>
+<li>"Get your math journal and pencil ready"</li>
+<li>"When I say go, we'll begin problem #1"</li>
+</ul>
+<p><strong>Non-Verbal Signals:</strong></p>
+<ul>
+<li>Lights off/on = attention needed</li>
+<li>Hand raised = students raise hands too</li>
+<li>Point to schedule = reference what's next</li>
+</ul>
+<h3>Group Work Setup</h3>
+<p><strong>The Challenge:</strong> Group work becomes chaos without clear procedures</p>
+<p><strong>Before Groups Form:</strong></p>
+<ol>
+<li><strong>Explain the task</strong> clearly (what, how long, expected outcome)</li>
+<li><strong>Assign roles</strong> (facilitator, recorder, timekeeper, materials manager)</li>
+<li><strong>Set volume level</strong> (whisper, partner voice, or presentation voice)</li>
+<li><strong>Share signal</strong> for regrouping (music stops, lights flash)</li>
+</ol>
+<p><strong>Group Formation Strategies:</strong></p>
+<ul>
+<li><strong>Clock partners:</strong> Each student has 12 partners (one for each hour)</li>
+<li><strong>Playing cards:</strong> Same number = group, same suit = pair</li>
+<li><strong>Puzzle pieces:</strong> Pieces that fit together form groups</li>
+<li><strong>Teacher choice:</strong> Based on learning needs and social dynamics</li>
+</ul>
+<h3>Independent Work Routine</h3>
+<p><strong>The Goal:</strong> Students work productively without constant teacher direction</p>
+<p><strong>The Setup:</strong></p>
+<ol>
+<li><strong>Clear expectations</strong> (what to do when finished, noise level)</li>
+<li><strong>Help protocol</strong> (ask 3 before me, use help sign)</li>
+<li><strong>Materials available</strong> (pencils, paper, references)</li>
+<li><strong>Timer visible</strong> (shows how much time remains)</li>
+</ol>
+<p><strong>Help Hierarchy:</strong></p>
+<ol>
+<li><strong>Reread directions</strong></li>
+<li><strong>Ask table partner</strong></li>
+<li><strong>Check class resources</strong> (word wall, reference sheets)</li>
+<li><strong>Raise help signal</strong> (colored cup, hand signal)</li>
+</ol>
+<h3>Reading/Silent Work</h3>
+<p><strong>The Expectation:</strong> True independent engagement</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><strong>Book selection ready</strong> (each student has appropriate book)</li>
+<li><strong>Reading spot established</strong> (desk, carpet area, reading corner)</li>
+<li><strong>Silent signal</strong> (no talking, no movement except page turning)</li>
+<li><strong>Time boundaries</strong> clear (15 minutes, until timer rings)</li>
+</ul>
+<p><strong>Early Finisher Options:</strong></p>
+<ul>
+<li>Read another book</li>
+<li>Write in reading journal</li>
+<li>Complete silent extension activity</li>
+<li>Review previous assignments</li>
+</ul>
+<h2>Management Routines (Week 5-6)</h2>
+<h3>Bathroom and Water Breaks</h3>
+<p><strong>The System:</strong> Minimize disruption while meeting student needs</p>
+<p><strong>Hand Signal Method:</strong></p>
+<ul>
+<li>1 finger = bathroom (urgent)</li>
+<li>2 fingers = water fountain</li>
+<li>Teacher nods = yes, head shake = wait</li>
+</ul>
+<p><strong>Pass System:</strong></p>
+<ul>
+<li>Only 1 student out at a time</li>
+<li>Take hall pass</li>
+<li>Return within 5 minutes</li>
+<li>No breaks during direct instruction</li>
+</ul>
+<p><strong>Scheduled Breaks:</strong></p>
+<ul>
+<li>Primary: Every 45-60 minutes</li>
+<li>Secondary: Between class periods</li>
+<li>Emergency protocol for urgent needs</li>
+</ul>
+<h3>Supply Management</h3>
+<p><strong>The Goal:</strong> Students get what they need without disrupting learning</p>
+<p><strong>Pencil Protocol:</strong></p>
+<ul>
+<li>Pencil cups at each table</li>
+<li>Broken pencil → trade for working pencil</li>
+<li>Sharpening only at designated times</li>
+<li>Personal pencils stay in desk/backpack</li>
+</ul>
+<p><strong>Materials Distribution:</strong></p>
+<ul>
+<li><strong>Materials manager</strong> role for each table</li>
+<li><strong>Color-coded bins</strong> for different supplies</li>
+<li><strong>"Take what you need" guideline</strong> (not grab everything)</li>
+<li><strong>Clean-up signal</strong> to return materials</li>
+</ul>
+<h3>Turn-In Procedures</h3>
+<p><strong>The Challenge:</strong> Collecting work efficiently without losing papers</p>
+<p><strong>Collection Systems:</strong></p>
+<ul>
+<li><strong>Subject bins</strong> labeled clearly (Math, Science, etc.)</li>
+<li><strong>Table captains</strong> collect and submit</li>
+<li><strong>Color-coded trays</strong> for different assignments</li>
+<li><strong>Digital submission</strong> when possible</li>
+</ul>
+<p><strong>Homework Turn-In:</strong></p>
+<ol>
+<li>Students place in designated bin during morning routine</li>
+<li>Homework monitor checks for completion</li>
+<li>Missing assignments logged immediately</li>
+<li>Late work has separate location</li>
+</ol>
+<h3>Technology Routines</h3>
+<p><strong>Device Distribution:</strong></p>
+<ol>
+<li><strong>Row leaders</strong> collect devices</li>
+<li><strong>Handle with care</strong> reminder each time</li>
+<li><strong>Login immediately</strong> when device is received</li>
+<li><strong>Hands off keyboard</strong> until instruction given</li>
+</ol>
+<p><strong>Usage Expectations:</strong></p>
+<ul>
+<li>Screens down when teacher talking</li>
+<li>One tab/app open at a time</li>
+<li>Help neighbors before calling teacher</li>
+<li>Save work frequently</li>
+</ul>
+<p><strong>End of Session:</strong></p>
+<ol>
+<li><strong>Save and close</strong> all work</li>
+<li><strong>Logout completely</strong></li>
+<li><strong>Clean screen</strong> if needed</li>
+<li><strong>Return to charging station</strong></li>
+</ol>
+<h2>Advanced Routines (Week 7-8)</h2>
+<h3>Substitute Teacher Routine</h3>
+<p><strong>The Plan:</strong> Your class runs smoothly even when you're away</p>
+<p><strong>Student Jobs:</strong></p>
+<ul>
+<li><strong>Class manager:</strong> Explains routines to substitute</li>
+<li><strong>Schedule keeper:</strong> Tracks timing of activities</li>
+<li><strong>Materials helper:</strong> Knows where everything is</li>
+<li><strong>Technology assistant:</strong> Handles device issues</li>
+</ul>
+<p><strong>Substitute Folder Contents:</strong></p>
+<ul>
+<li>Class schedule with times</li>
+<li>Student seating chart with helpful notes</li>
+<li>Emergency procedures and contacts</li>
+<li>Behavior management tips specific to your class</li>
+<li>List of reliable student helpers</li>
+</ul>
+<h3>Assessment Routines</h3>
+<p><strong>Test-Taking Procedures:</strong></p>
+<ol>
+<li><strong>Clear desk completely</strong> except allowed materials</li>
+<li><strong>Name and date</strong> on paper first</li>
+<li><strong>Read all directions</strong> before beginning</li>
+<li><strong>Raise hand</strong> for questions (no talking)</li>
+<li><strong>Eyes on own paper</strong> always</li>
+</ol>
+<p><strong>Finished Early Protocol:</strong></p>
+<ul>
+<li>Review answers quietly</li>
+<li>Read independently</li>
+<li>Complete quiet extension work</li>
+<li>No movement until everyone finishes</li>
+</ul>
+<h3>Emergency Routines</h3>
+<p><strong>Fire Drill:</strong></p>
+<ol>
+<li><strong>Stop immediately</strong> (leave everything)</li>
+<li><strong>Form line</strong> at door quickly and quietly</li>
+<li><strong>Follow designated route</strong> (posted by door)</li>
+<li><strong>Stay with class</strong> outside</li>
+<li><strong>Wait for all-clear</strong> signal</li>
+</ol>
+<p><strong>Lockdown Procedure:</strong></p>
+<ol>
+<li><strong>Lights off</strong> immediately</li>
+<li><strong>Move away from windows/door</strong></li>
+<li><strong>Silent and still</strong> until all-clear</li>
+<li><strong>Follow teacher directions</strong> exactly</li>
+</ol>
+<h2>Building Routine Success</h2>
+<h3>Teaching Phase (Days 1-10)</h3>
+<p><strong>Explicit Instruction:</strong></p>
+<ol>
+<li><strong>Model the routine</strong> step by step</li>
+<li><strong>Practice with students</strong> (guided practice)</li>
+<li><strong>Explain the "why"</strong> behind each step</li>
+<li><strong>Anticipate problems</strong> and address them</li>
+</ol>
+<p><strong>Daily Reinforcement:</strong></p>
+<ul>
+<li>Practice routines even when unnecessary</li>
+<li>Celebrate successful completion</li>
+<li>Reteach immediately when needed</li>
+<li>Stay consistent with expectations</li>
+</ul>
+<h3>Maintenance Phase (Ongoing)</h3>
+<p><strong>Gentle Reminders:</strong></p>
+<ul>
+<li>"Remember our transition routine"</li>
+<li>"Let's practice that again"</li>
+<li>"Who can remind us of step 3?"</li>
+</ul>
+<p><strong>Positive Reinforcement:</strong></p>
+<ul>
+<li>"I noticed everyone followed our dismissal routine perfectly"</li>
+<li>"Table 4 is ready—great job with materials"</li>
+<li>"Thank you for using our quiet signal"</li>
+</ul>
+<p><strong>Periodic Review:</strong></p>
+<ul>
+<li>Weekly routine check-ins</li>
+<li>Student feedback on what's working</li>
+<li>Adjust routines that aren't serving their purpose</li>
+<li>Add new routines only when current ones are solid</li>
+</ul>
+<h3>Troubleshooting Common Issues</h3>
+<p><strong>Students "forget" routines:</strong></p>
+<ul>
+<li>Practice more frequently</li>
+<li>Post visual reminders</li>
+<li>Use peer helpers</li>
+<li>Break routine into smaller steps</li>
+</ul>
+<p><strong>Routines take too long:</strong></p>
+<ul>
+<li>Simplify steps</li>
+<li>Remove unnecessary components</li>
+<li>Practice during calm times</li>
+<li>Set reasonable time expectations</li>
+</ul>
+<p><strong>Some students resist routines:</strong></p>
+<ul>
+<li>Involve resistant students in leadership roles</li>
+<li>Explain benefits more clearly</li>
+<li>Check if routine actually makes sense</li>
+<li>Consider individual modifications</li>
+</ul>
+<h2>Age-Specific Adaptations</h2>
+<h3>Primary Grades (K-2)</h3>
+<p><strong>Modifications:</strong></p>
+<ul>
+<li>Use more visual cues and songs</li>
+<li>Practice routines multiple times daily</li>
+<li>Keep steps simple (3-4 maximum)</li>
+<li>Build in movement and brain breaks</li>
+</ul>
+<p><strong>Example Transitions:</strong></p>
+<ul>
+<li>Sing cleanup song while tidying</li>
+<li>Use hand signals for bathroom needs</li>
+<li>March or tiptoe to carpet area</li>
+<li>Count down from 10 for attention</li>
+</ul>
+<h3>Elementary (Grades 3-5)</h3>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Students can help create classroom routines</li>
+<li>Assign student jobs and rotate weekly</li>
+<li>Use timers for transition challenges</li>
+<li>Incorporate student choice when possible</li>
+</ul>
+<p><strong>Leadership Opportunities:</strong></p>
+<ul>
+<li>Line leader, door holder, materials manager</li>
+<li>Technology helper, substitute assistant</li>
+<li>Peer tutors during independent work</li>
+</ul>
+<h3>Secondary (Grades 6-12)</h3>
+<p><strong>Expectations:</strong></p>
+<ul>
+<li>Routines should be efficient and respectful</li>
+<li>Students take more ownership</li>
+<li>Less teacher direction, more student responsibility</li>
+<li>Focus on time management and preparation</li>
+</ul>
+<p><strong>Advanced Procedures:</strong></p>
+<ul>
+<li>Digital assignment submission</li>
+<li>Independent research protocols</li>
+<li>Collaborative project management</li>
+<li>Self-assessment and reflection routines</li>
+</ul>
+<h2>Monthly Routine Review</h2>
+<h3>What's Working Well?</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Which routines run smoothly without reminders?</li>
+<li class="task-list-item"><input type="checkbox" disabled> What positive changes have you noticed in classroom climate?</li>
+<li class="task-list-item"><input type="checkbox" disabled> Which routines save the most time?</li>
+</ul>
+<h3>What Needs Adjustment?</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Which routines require frequent reteaching?</li>
+<li class="task-list-item"><input type="checkbox" disabled> What barriers prevent smooth implementation?</li>
+<li class="task-list-item"><input type="checkbox" disabled> Which routines actually create more work?</li>
+</ul>
+<h3>Student Feedback</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Ask students which routines help them learn best</li>
+<li class="task-list-item"><input type="checkbox" disabled> Get input on timing and procedures</li>
+<li class="task-list-item"><input type="checkbox" disabled> Include student voice in routine modifications</li>
+</ul>
+<h3>Planning Ahead</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> What new routines might help?</li>
+<li class="task-list-item"><input type="checkbox" disabled> Which current routines can be refined?</li>
+<li class="task-list-item"><input type="checkbox" disabled> How can students take more ownership?</li>
+</ul>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>
