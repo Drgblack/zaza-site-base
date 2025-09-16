@@ -124,16 +124,6 @@
   "pricing": {
     "headline": "Simple, Transparent Pricing",
     "subhead": "Choose the plan that saves you time every week. Annual membership gives teachers the best value—plus a 30-day money-back guarantee.",
-    "annual_saves": "Annual saves ~2 months vs. monthly.",
-    "annual_toggle": "Annual",
-    "monthly_toggle": "Monthly",
-    "cta_try_free": "Try Free",
-
-    "cta": {
-      "choose_starter": "Choose Starter",
-      "choose_pro": "Choose Pro",
-      "start_free_trial": "Start Free Trial"
-    },
 
     "zaza_pass": {
       "badge_annual_best_value": "Annual is best value",
@@ -149,6 +139,10 @@
       }
     },
 
+    "plans": {
+      "pro": { "best_value": "Best value" }
+    },
+
     "risk_free": {
       "title": "Risk-Free 30-Day Trial",
       "point1": "Full refund within 30 days",
@@ -156,31 +150,9 @@
       "point3": "No student data stored"
     },
 
-    "plans": {
-      "starter": {
-        "name": "Starter",
-        "price_label": "€99/year",
-        "features": [
-          "Comment Coach",
-          "Report Bank",
-          "Lesson plan templates",
-          "Export to DOC/PDF",
-          "Classroom notes locker"
-        ]
-      },
-      "pro": {
-        "name": "Pro",
-        "price_label": "€149/year",
-        "best_value": "Best value",
-        "features": [
-          "Everything in Starter",
-          "Full AI Rewriter & Planner",
-          "Curriculum packs",
-          "Batch exports",
-          "Priority updates",
-          "Shared templates"
-        ]
-      }
+    "cta": {
+      "choose_starter": "Choose Starter",
+      "choose_pro": "Choose Pro"
     },
 
     "badges": {
