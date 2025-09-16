@@ -17,7 +17,6 @@ import { UrgencyBanner } from '@/components/cro/urgency-banner';
 import { ExitIntentModal } from '@/components/cro/exit-intent-modal';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { organizationSchema, softwareApplicationSchema, faqSchema } from '@/components/seo/structured-data-schemas';
-import { PricingStrip } from '@/components/sections/pricing-strip';
 import { FAQComparisonTable } from '@/components/seo/faq-comparison-table';
 import type { Metadata } from 'next';
 
@@ -543,7 +542,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* 5. Pricing CTA - Now showing annual plans */}
-      <PricingStrip />
+      {/* PricingStrip removed - will be replaced with clean component */}
 
       {/* 6. FAQ Comparison Table */}
       <FAQComparisonTable />
