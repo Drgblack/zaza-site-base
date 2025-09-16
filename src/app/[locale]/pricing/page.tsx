@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import {getTranslations} from 'next-intl/server';
 import ZazaPassTiles from '@/components/sections/pricing/ZazaPassTiles';
 import RiskFree from '@/components/sections/pricing/RiskFree';
 
@@ -8,7 +8,8 @@ export default async function PricingPage({ params: { locale } }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
 
   return (
-    <main data-pricing-version="hard-reset-v3" className="container mx-auto max-w-5xl px-4 py-12">
+    <main className="container mx-auto max-w-5xl px-4 py-12"
+          data-pricing-version="v4-final">
       <header className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-bold">{t('headline')}</h1>
         <p className="mt-3 text-muted-foreground">{t('subhead')}</p>
