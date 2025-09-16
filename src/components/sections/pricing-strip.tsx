@@ -48,7 +48,7 @@ export function PricingStrip() {
               >
                 {plan.badge === 'best_value' && (
                   <Badge className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white px-6 py-2 text-sm font-black shadow-lg">
-                    {pricing('badge_best_value')}
+                    {pricing('plans.pro.best_value')}
                   </Badge>
                 )}
                 
@@ -112,7 +112,7 @@ export function PricingStrip() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {plan.id === 'starter' ? pricing('cta_choose_starter') : pricing('cta_choose_pro')}
+                      {plan.id === 'starter' ? pricing('cta.choose_starter') : pricing('cta.choose_pro')}
                     </a>
                   </Button>
                 </CardContent>
@@ -158,15 +158,15 @@ export function PricingStrip() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                <span>{pricing('guarantee')}</span>
+                <span>{pricing('badges.money_back')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span>{pricing('secure')}</span>
+                <span>{pricing('badges.stripe')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                <span>{pricing('trusted')}</span>
+                <span>{pricing('badges.trusted')}</span>
               </div>
             </div>
           </div>

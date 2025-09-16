@@ -51,15 +51,15 @@ export function PricingPageClient() {
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Shield className="h-4 w-4 text-green-500" />
-                <span>{t('guarantee')}</span>
+                <span>{t('badges.money_back')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <CreditCard className="h-4 w-4 text-blue-500" />
-                <span>{t('secure')}</span>
+                <span>{t('badges.stripe')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Users className="h-4 w-4 text-purple-500" />
-                <span>{t('trusted')}</span>
+                <span>{t('badges.trusted')}</span>
               </div>
             </div>
           </div>
@@ -71,19 +71,38 @@ export function PricingPageClient() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 border-2 border-orange-200 dark:border-orange-700/50 text-sm font-bold text-orange-800 dark:text-orange-200 shadow-lg mb-6">
             <Heart className="w-5 h-5 mr-2" />
-            {t('zaza_pass_badge')}
+            {t('zaza_pass.badge_annual_best_value')}
           </div>
-          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{t('zaza_pass_explainer_title')}</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">{t('zaza_pass_explainer_tag')}</p>
+          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{t('zaza_pass.title')}</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">{t('zaza_pass.subtitle')}</p>
           <div className="grid md:grid-cols-3 gap-6">
-            {(Array.isArray(t.raw('zaza_pass_explainer_points')) ? t.raw('zaza_pass_explainer_points') : []).map((point: string, index: number) => (
-              <div key={index} className="flex items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
-                <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
-                  <Check className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-gray-800 dark:text-gray-200 font-medium">{point}</span>
+            <div className="flex flex-col items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
+              <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
+                <Check className="h-4 w-4 text-white" />
               </div>
-            ))}
+              <div className="text-center">
+                <div className="text-gray-800 dark:text-gray-200 font-medium">{t('zaza_pass.tiles.minutes_to_quality')}</div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t('zaza_pass.tiles.minutes_to_quality_desc')}</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
+              <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
+                <Check className="h-4 w-4 text-white" />
+              </div>
+              <div className="text-center">
+                <div className="text-gray-800 dark:text-gray-200 font-medium">{t('zaza_pass.tiles.plans_ready')}</div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t('zaza_pass.tiles.plans_ready_desc')}</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
+              <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
+                <Check className="h-4 w-4 text-white" />
+              </div>
+              <div className="text-center">
+                <div className="text-gray-800 dark:text-gray-200 font-medium">{t('zaza_pass.tiles.remembers_classes')}</div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t('zaza_pass.tiles.remembers_classes_desc')}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -129,7 +148,7 @@ export function PricingPageClient() {
               >
                 {plan.badge === 'best_value' && (
                   <Badge className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white px-6 py-2 text-sm font-black shadow-lg">
-                    {t('badge_best_value')}
+                    {t('plans.pro.best_value')}
                   </Badge>
                 )}
                 
@@ -183,7 +202,7 @@ export function PricingPageClient() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {plan.id === 'starter' ? t('cta_choose_starter') : t('cta_choose_pro')}
+                      {plan.id === 'starter' ? t('cta.choose_starter') : t('cta.choose_pro')}
                     </a>
                   </Button>
                 </CardContent>
@@ -379,7 +398,7 @@ export function PricingPageClient() {
             </Button>
           </div>
           <p className="text-sm opacity-75 mt-6">
-            No credit card required • Cancel anytime • {t('guarantee')}
+            No credit card required • Cancel anytime • {t('badges.money_back')}
           </p>
         </div>
       </section>
