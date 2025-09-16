@@ -46,7 +46,8 @@ export default async function HomePage({ params }: Props) {
   const { locale } = params;
   setRequestLocale(locale);
 
-  const hero = await getTranslations('hero'); // Force rebuild: Get your Sundays back
+  const hero = await getTranslations('hero');
+  const home = await getTranslations('home');
 
   return (
     <div className="flex flex-col">
@@ -102,27 +103,6 @@ export default async function HomePage({ params }: Props) {
                   {hero('subtitle')}
                 </p>
 
-                {/* Specific value proposition */}
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 rounded-2xl p-6 border border-green-200/50 dark:border-green-800/30">
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-semibold">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-green-600 dark:text-green-400">Parent emails</div>
-                      <div className="text-slate-600 dark:text-slate-400">15 min → 30 sec</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400">Report comments</div>
-                      <div className="text-slate-600 dark:text-slate-400">10 min → 20 sec</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-purple-600 dark:text-purple-400">Student feedback</div>
-                      <div className="text-slate-600 dark:text-slate-400">8 min → 15 sec</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-orange-600 dark:text-orange-400">Staff notes</div>
-                      <div className="text-slate-600 dark:text-slate-400">12 min → 25 sec</div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -207,51 +187,58 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 2. FAQ Section - Q&A Structure as per Master Prompt */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+      {/* 2. Problem Section - New */}
+      <section className="py-24 bg-slate-50 dark:bg-slate-900">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white mb-8">
+            {home('problem_heading')}
+          </h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
+            {home('problem_body')}
+          </p>
+        </div>
+      </section>
+
+      {/* 3. Solution Section - Updated copy */}
+      <section className="py-24 bg-white dark:bg-slate-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.05),transparent_70%)]" />
 
         <div className="max-w-6xl mx-auto px-4 relative">
           <div className="text-center space-y-8 mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 text-sm font-medium text-purple-700 dark:text-purple-300">
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Common Teacher Questions
-            </div>
-
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-              How can Promptly actually help?
+              {home('solution_heading')}
             </h2>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-3">
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg text-slate-900 dark:text-white">Save hours every week</CardTitle>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">{home('solution_card1_title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-700 dark:text-slate-300">
-                    Stop spending evenings and weekends drafting parent emails and reports. Get clear, professional drafts in minutes.
+                    {home('solution_card1_desc')}
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg text-slate-900 dark:text-white">Stress less about tone</CardTitle>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">{home('solution_card2_title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-700 dark:text-slate-300">
-                    Promptly suggests warm, professional wording that builds trust with parents - no more overthinking.
+                    {home('solution_card2_desc')}
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-lg text-slate-900 dark:text-white">Support for every teacher</CardTitle>
+                  <CardTitle className="text-lg text-slate-900 dark:text-white">{home('solution_card3_title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-700 dark:text-slate-300">
-                    Instant translations, rewrites, and closing lines make communication easier no matter the context.
+                    {home('solution_card3_desc')}
                   </p>
                 </CardContent>
               </Card>
@@ -260,7 +247,30 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 3. Solution / How It Works */}
+      {/* 4. Outcomes Section - New */}
+      <section className="py-24 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white mb-12 text-center">
+            {home('outcomes_heading')}
+          </h2>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="text-3xl">⏳</div>
+              <p className="text-xl text-slate-700 dark:text-slate-300 font-medium">{home('outcomes_item1')}</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="text-3xl">😌</div>
+              <p className="text-xl text-slate-700 dark:text-slate-300 font-medium">{home('outcomes_item2')}</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="text-3xl">💡</div>
+              <p className="text-xl text-slate-700 dark:text-slate-300 font-medium">{home('outcomes_item3')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Solution / How It Works */}
       <section className="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-cyan-950/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(16,185,129,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(6,182,212,0.12),transparent_50%)]" />
@@ -409,13 +419,13 @@ export default async function HomePage({ params }: Props) {
                 Teacher testimonials
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
-                Trusted by teachers who value their time
+                {home('testimonials_heading')}
               </h2>
               <p className="text-xl text-slate-700 dark:text-slate-200 max-w-3xl mx-auto">
                 From new teachers to seasoned educators, Promptly helps reclaim hours and reduce stress.
               </p>
             </div>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-8 md:grid-cols-3">
               <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
@@ -427,12 +437,12 @@ export default async function HomePage({ params }: Props) {
                       className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
                     />
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-slate-100">Sarah M.</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">Year 6 Teacher, UK</p>
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">{home('testimonials_1_name')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{home('testimonials_1_role')}</p>
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;Promptly handles all my communication - parent emails, report cards, student feedback. Cut my Sunday admin from 4 hours to 1!&rdquo;
+                    &ldquo;{home('testimonials_1_quote')}&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
                     <div className="text-xs text-green-600 dark:text-green-400 font-semibold">All communication types</div>
@@ -448,12 +458,12 @@ export default async function HomePage({ params }: Props) {
                       className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
                     />
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-slate-100">Marcus J.</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">High School Math, CA</p>
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">{home('testimonials_2_name')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{home('testimonials_2_role')}</p>
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;From report card comments to staff updates - Promptly gets the tone right every time. No more staring at blank screens.&rdquo;
+                    &ldquo;{home('testimonials_2_quote')}&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
                     <div className="text-xs text-blue-600 dark:text-blue-400 font-semibold">Uses for everything</div>
@@ -469,36 +479,15 @@ export default async function HomePage({ params }: Props) {
                       className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
                     />
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-slate-100">Jennifer K.</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">Elementary, TX</p>
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">{home('testimonials_3_name')}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{home('testimonials_3_role')}</p>
                     </div>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;Whether it's parent messages, student feedback, or staff notes - the responses are always professional and caring.&rdquo;
+                    &ldquo;{home('testimonials_3_quote')}&rdquo;
                   </p>
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
                     <div className="text-xs text-purple-600 dark:text-purple-400 font-semibold">Perfect every time</div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-all duration-300 border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:-translate-y-1">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
-                      alt="David"
-                      className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-800"
-                    />
-                    <div>
-                      <p className="font-semibold text-slate-900 dark:text-slate-100">David R.</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">Middle School, NY</p>
-                    </div>
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 font-medium mb-3">
-                    &ldquo;From term reports to quick behavior notes - it understands every type of teacher communication. Saves me hours weekly.&rdquo;
-                  </p>
-                  <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                    <div className="text-xs text-orange-600 dark:text-orange-400 font-semibold">5+ hours saved weekly</div>
                   </div>
                 </CardContent>
               </Card>
@@ -541,9 +530,120 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 5. Pricing CTA - Now showing annual plans */}
+      {/* 5. Pricing Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-purple-50 dark:from-slate-900 dark:to-purple-900/20">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white mb-6">
+              {home('pricing_banner_title')}
+            </h2>
+            <p className="text-xl text-slate-700 dark:text-slate-200 max-w-2xl mx-auto">
+              {home('pricing_banner_copy')}
+            </p>
+          </div>
+          
+          <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
+            <Card className="border-2 border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300">
+              <CardHeader className="text-center">
+                <CardTitle className="text-xl">Starter (Free)</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                  5 free replies per month. Great for trying it out.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-2 border-purple-500 relative transform scale-105 shadow-xl">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Most Popular
+              </div>
+              <CardHeader className="text-center pt-8">
+                <CardTitle className="text-xl">Pro</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                  Unlimited messages + tone + translation tools.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-2 border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300">
+              <CardHeader className="text-center">
+                <CardTitle className="text-xl">Enterprise (For Schools)</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                  Bulk licensing, admin dashboards, onboarding.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="text-center mt-12">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-purple-500 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+              asChild
+            >
+              <a href="/pricing">Compare Plans</a>
+            </Button>
+          </div>
+        </div>
+      </section>
 
-      {/* 6. FAQ Comparison Table */}
+      {/* 6. Competitive Section - Promptly vs ChatGPT */}
+      <section className="py-24 bg-white dark:bg-slate-800">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white mb-6">
+            {home('compare_heading')}
+          </h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 mb-12">
+            {home('compare_subhead')}
+          </p>
+          
+          <div className="grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
+            <div className="text-left space-y-4 p-6 rounded-xl bg-slate-50 dark:bg-slate-900">
+              <h3 className="font-bold text-xl text-slate-900 dark:text-white">ChatGPT</h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✗</span>
+                  <span>Generic responses</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✗</span>
+                  <span>No education guardrails</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✗</span>
+                  <span>Requires prompt engineering</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="text-left space-y-4 p-6 rounded-xl bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-200 dark:border-purple-700">
+              <h3 className="font-bold text-xl text-slate-900 dark:text-white">Promptly</h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500">✓</span>
+                  <span>Built for teachers</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500">✓</span>
+                  <span>Education-safe language</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500">✓</span>
+                  <span>Works instantly</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQ Comparison Table */}
       <FAQComparisonTable />
 
       {/* 6.6. Cross-App CTA Banner */}
@@ -563,10 +663,10 @@ export default async function HomePage({ params }: Props) {
           <div className="mx-auto max-w-5xl text-center space-y-12">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
-                Imagine Sunday afternoons <span className="italic">free</span>
+                {home('closing_heading')}
               </h2>
               <p className="text-xl md:text-2xl opacity-95 leading-relaxed max-w-4xl mx-auto">
-                Release every hour, email, and parent update back to yourself. Promptly makes it possible.
+                {home('closing_body')}
               </p>
             </div>
 
@@ -582,7 +682,7 @@ export default async function HomePage({ params }: Props) {
               >
                 <a href="#snippet-tool">
                   <Zap className="w-5 h-5 mr-2" />
-                  Try Promptly Free
+                  {home('closing_cta_primary')}
                 </a>
               </Button>
               <Button
@@ -591,11 +691,11 @@ export default async function HomePage({ params }: Props) {
                 className="text-white border-white hover:bg-white/10 backdrop-blur px-8 py-4 text-lg font-semibold rounded-xl hover:border-white/80 transition-all duration-300"
                 asChild
               >
-                <a href="/pricing">See Pricing →</a>
+                <a href="/pricing">{home('closing_cta_secondary')}</a>
               </Button>
             </div>
 
-            <p className="text-lg opacity-75 italic">
+            <p className="text-lg opacity-75">
               Trusted by teachers who save hours every week - and finally reclaim their evenings.
             </p>
           </div>
