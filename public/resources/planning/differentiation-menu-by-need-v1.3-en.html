@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Differentiation Menu by Need</title>
+  <style>
+    /* Promptly — PDF Style Guide v1.1
+   Modern, teacher-friendly, print-optimized theme
+   Supports: covers, TOC, callouts, quotes, tables, fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Page setup for A4 print */
+@page {
+  size: A4;
+  margin: 24mm 18mm 18mm 18mm;
+  
+  @bottom-center {
+    content: "Zaza Technologies, Gumbertstraße 150, 40229 Düsseldorf, Deutschland";
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+  
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #6b7280;
+  }
+}
+
+/* CSS Variables - Promptly Brand Colors */
+:root {
+  --ink: #0b1220;
+  --muted: #5b647a;
+  --paper: #ffffff;
+  --bg: #f8fafc;
+  --brand: #7c3aed;
+  --accent: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --font-primary: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-fallback: 'Noto Sans', ui-sans-serif, sans-serif;
+}
+
+/* Base styles */
+html, body {
+  font-family: var(--font-primary);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Honor authored colors for print */
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 32px 0 12px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 24px 0 8px 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0 6px 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+p, li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* Cover Block */
+.cover {
+  text-align: center;
+  margin: 40px 0 48px 0;
+  padding: 32px 0;
+  page-break-after: avoid;
+}
+
+.cover h1 {
+  font-size: 40px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-weight: 400;
+}
+
+.cover .badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0 0;
+}
+
+/* Title blocks */
+.title {
+  margin: 16px 0 24px 0;
+  page-break-after: avoid;
+}
+
+.title .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0 32px 0;
+  border: 1px solid var(--border);
+  page-break-inside: avoid;
+}
+
+.toc h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.toc li {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Callouts with Icons */
+.callout,
+.prompt,
+.highlight {
+  position: relative;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  background: rgba(250, 250, 250, 0.9) !important;
+  color: #111827 !important;
+  border-radius: 8px;
+  page-break-inside: avoid;
+  mix-blend-mode: normal !important;
+  z-index: 1;
+}
+
+.callout {
+  border-left: 4px solid var(--brand);
+  background: #faf5ff;
+}
+
+.callout strong {
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.callout.tip {
+  border-left-color: var(--success);
+  background: #ecfdf5;
+}
+
+/* Remove any overlaying pseudoelements that could cover text */
+.callout::before,
+.prompt::before,
+.highlight::before {
+  position: static;
+  margin-right: .5rem;
+  background: transparent;
+}
+
+.callout.tip::before {
+  content: "💡 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.warn {
+  border-left-color: var(--warning);
+  background: #fff7ed;
+}
+
+.callout.warn::before {
+  content: "⚠️ ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.callout.note {
+  border-left-color: var(--accent);
+  background: #eff6ff;
+}
+
+.callout.note::before {
+  content: "📝 ";
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Quotes with Opening Mark */
+blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #C7D2FE;
+  background: #F8FAFF;
+  color: #0F172A;
+  border-radius: 6px;
+  font-style: italic;
+  position: relative;
+  page-break-inside: avoid;
+}
+
+blockquote::before {
+  content: """;
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  opacity: 0.5;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+blockquote p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Key-Value Grid */
+.kv {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  font-size: 13px;
+}
+
+.kv > div:nth-child(odd) {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.kv > div:nth-child(even) {
+  color: var(--muted);
+}
+
+/* Lists */
+ul, ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+/* Code blocks - light theme for print */
+pre, code {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(2, 6, 23, 0.05) !important;
+  color: #0f172a !important;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  mix-blend-mode: normal !important;
+}
+
+pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Highlights */
+mark {
+  background: #FEF3C7;
+  color: #111827;
+  padding: 0 .15rem;
+  border-radius: 2px;
+}
+
+/* Figures and Images */
+.figure {
+  margin: 20px 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figcap {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Footer */
+.footer {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Page breaks */
+.page-break {
+  page-break-before: always;
+}
+
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 16px; }
+  
+  .callout, blockquote, table, .figure {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper margins for binding */
+  @page :left {
+    margin-left: 24mm;
+    margin-right: 18mm;
+  }
+  
+  @page :right {
+    margin-left: 18mm;
+    margin-right: 24mm;
+  }
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.m-0 { margin: 0 !important; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+  <h1>Differentiation Menu by Need</h1>
+  <div class="subtitle">Practical differentiation strategies organized by student needs: EAL, SEND, advanced learners, and time-poor lessons.</div>
+  <div class="badges"><span class="badge">Planning</span></div>
+</div>
+
+<hr class="m-0" />
+
+  <div class="toc">
+  <h3>Contents</h3>
+  <ol>
+  <li>English as an Additional Language (EAL)</li>
+  <li>Special Educational Needs and Disabilities (SEND)</li>
+  <li>Advanced Learners</li>
+  <li>Time-Poor Lesson Strategies</li>
+  <li>Universal Design Principles</li>
+  <li>Quick Reference Planning Template</li>
+  </ol>
+</div>
+<h2>English as an Additional Language (EAL)</h2>
+<h3>Content Modifications</h3>
+<p><strong>Text Adaptations</strong></p>
+<ul>
+<li>Provide bilingual glossaries for key terms</li>
+<li>Use graphic organizers with visual cues</li>
+<li>Offer texts at multiple reading levels</li>
+<li>Include picture books on grade-level topics</li>
+<li>Create vocab cards with images and L1 translation</li>
+</ul>
+<p><strong>Language Scaffolds</strong></p>
+<ul>
+<li>Sentence starters for written responses</li>
+<li>Word banks for fill-in-the-blank activities</li>
+<li>Translation apps for complex concepts</li>
+<li>Peer partnerships with bilingual students</li>
+<li>Recording of instructions for playback</li>
+</ul>
+<h3>Process Adjustments</h3>
+<p><strong>Speaking Opportunities</strong></p>
+<ul>
+<li>Think-pair-share before whole group</li>
+<li>Small group discussions before presentations</li>
+<li>Option to respond in L1 first, then English</li>
+<li>Rehearsal time for oral responses</li>
+<li>Visual supports during speaking tasks</li>
+</ul>
+<p><strong>Writing Support</strong></p>
+<ul>
+<li>Graphic organizers for essay structure</li>
+<li>Allow drawing to show understanding</li>
+<li>Accept responses in L1 with English summary</li>
+<li>Peer editing with language focus</li>
+<li>Extended time for written tasks</li>
+</ul>
+<h3>Product Options</h3>
+<p><strong>Alternative Assessments</strong></p>
+<ul>
+<li>Oral presentations with visual aids</li>
+<li>Demonstrate understanding through art/music</li>
+<li>Portfolio collection over time</li>
+<li>Peer teaching in small groups</li>
+<li>Digital storytelling with images</li>
+</ul>
+<blockquote>
+<p><strong>Cultural Note:</strong> Honor students' cultural knowledge as an asset, not a deficit.</p>
+</blockquote>
+<h2>Special Educational Needs and Disabilities (SEND)</h2>
+<h3>Learning Disabilities</h3>
+<p><strong>Reading Support</strong></p>
+<ul>
+<li>Audio versions of texts</li>
+<li>Larger fonts and increased spacing</li>
+<li>Colored overlays to reduce visual stress</li>
+<li>Break longer texts into chunks</li>
+<li>Highlight key information</li>
+</ul>
+<p><strong>Writing Accommodations</strong></p>
+<ul>
+<li>Word prediction software</li>
+<li>Graphic organizers for planning</li>
+<li>Scribe services for complex tasks</li>
+<li>Speech-to-text technology</li>
+<li>Alternative keyboards or writing tools</li>
+</ul>
+<p><strong>Math Modifications</strong></p>
+<ul>
+<li>Manipulatives for abstract concepts</li>
+<li>Calculator use when appropriate</li>
+<li>Graph paper for organization</li>
+<li>Visual fraction models</li>
+<li>Real-world problem contexts</li>
+</ul>
+<h3>Attention and Focus Needs</h3>
+<p><strong>Environmental Changes</strong></p>
+<ul>
+<li>Preferential seating near teacher</li>
+<li>Fidget tools for kinesthetic needs</li>
+<li>Noise-canceling headphones available</li>
+<li>Movement breaks every 15-20 minutes</li>
+<li>Clear, clutter-free workspace</li>
+</ul>
+<p><strong>Task Modifications</strong></p>
+<ul>
+<li>Break assignments into smaller chunks</li>
+<li>Use timers for work periods</li>
+<li>Provide checklists for multi-step tasks</li>
+<li>Allow standing or flexible seating</li>
+<li>Offer choice in task order</li>
+</ul>
+<p><strong>Behavioral Supports</strong></p>
+<ul>
+<li>Visual schedules and routines</li>
+<li>Self-monitoring charts</li>
+<li>Clear expectations with examples</li>
+<li>Consistent consequences and rewards</li>
+<li>Social stories for challenging situations</li>
+</ul>
+<h3>Sensory Processing Needs</h3>
+<p><strong>Sensory Breaks</strong></p>
+<ul>
+<li>Quiet corner with soft lighting</li>
+<li>Sensory bin with varied textures</li>
+<li>Weighted lap pads or blankets</li>
+<li>Noise-reducing headphones</li>
+<li>Movement activities (wall push-ups, jumping)</li>
+</ul>
+<p><strong>Environmental Modifications</strong></p>
+<ul>
+<li>Adjust lighting (avoid fluorescent when possible)</li>
+<li>Reduce auditory distractions</li>
+<li>Provide alternative seating options</li>
+<li>Use visual schedules and cues</li>
+<li>Offer sensory tools (stress balls, fidgets)</li>
+</ul>
+<h2>Advanced Learners</h2>
+<h3>Depth and Complexity</h3>
+<p><strong>Higher-Order Thinking</strong></p>
+<ul>
+<li>Analyze patterns and relationships</li>
+<li>Evaluate multiple perspectives</li>
+<li>Create original solutions to problems</li>
+<li>Synthesize information from multiple sources</li>
+<li>Apply learning to novel situations</li>
+</ul>
+<p><strong>Independent Study Projects</strong></p>
+<ul>
+<li>Student-chosen research topics</li>
+<li>Mentorship with community experts</li>
+<li>Creation of teaching materials for peers</li>
+<li>Real-world problem-solving</li>
+<li>Cross-curricular investigations</li>
+</ul>
+<h3>Acceleration Options</h3>
+<p><strong>Curriculum Compacting</strong></p>
+<ul>
+<li>Pre-assessment to identify mastery</li>
+<li>Skip repetitive practice activities</li>
+<li>Move to next level concepts</li>
+<li>Independent learning contracts</li>
+<li>Flexible pacing through units</li>
+</ul>
+<p><strong>Enrichment Activities</strong></p>
+<ul>
+<li>Leadership roles in group projects</li>
+<li>Peer tutoring opportunities</li>
+<li>Extension menus with choice</li>
+<li>Creative challenges and competitions</li>
+<li>Technology integration projects</li>
+</ul>
+<h3>Product Differentiation</h3>
+<p><strong>Creative Outputs</strong></p>
+<ul>
+<li>Multimedia presentations</li>
+<li>Original games or simulations</li>
+<li>Artistic interpretations</li>
+<li>Written publications (blog, magazine)</li>
+<li>Community presentations</li>
+</ul>
+<blockquote>
+<p><strong>Avoid:</strong> Just giving more work. Focus on depth, not quantity.</p>
+</blockquote>
+<h2>Time-Poor Lesson Strategies</h2>
+<h3>5-Minute Modifications</h3>
+<p><strong>Quick Accommodations</strong></p>
+<ul>
+<li>Pre-made sentence stems</li>
+<li>Partner instead of individual work</li>
+<li>Visual aids already prepared</li>
+<li>Choice boards for activity options</li>
+<li>Exit tickets instead of formal assessment</li>
+</ul>
+<p><strong>Technology Shortcuts</strong></p>
+<ul>
+<li>QR codes linking to differentiated resources</li>
+<li>Pre-recorded instruction videos</li>
+<li>Digital graphic organizers</li>
+<li>Voice recording for responses</li>
+<li>Online collaboration tools</li>
+</ul>
+<h3>Flexible Grouping</h3>
+<p><strong>Instant Groups</strong></p>
+<ul>
+<li>Playing card sorting (hearts, diamonds, clubs, spades)</li>
+<li>Birth month groupings</li>
+<li>Count off by learning style</li>
+<li>Clock partners (pre-assigned)</li>
+<li>Color-coded name tags</li>
+</ul>
+<p><strong>Task Stations</strong></p>
+<ul>
+<li>Must-do, should-do, could-do activities</li>
+<li>Choice boards with varying difficulty</li>
+<li>Learning contracts with options</li>
+<li>Tiered assignments by readiness</li>
+<li>Interest-based activity menus</li>
+</ul>
+<h3>Low-Prep Differentiation</h3>
+<p><strong>Universal Strategies</strong></p>
+<ul>
+<li>Think-pair-share (everyone included)</li>
+<li>Exit tickets with three difficulty levels</li>
+<li>Journal responses with prompts</li>
+<li>Sketch-to-stretch understanding</li>
+<li>One-minute partner teaching</li>
+</ul>
+<p><strong>Assessment Alternatives</strong></p>
+<ul>
+<li>Thumbs up/down understanding check</li>
+<li>Traffic light self-assessment (red/yellow/green)</li>
+<li>Quick sketch of main idea</li>
+<li>Tell a neighbor summary</li>
+<li>Question generation instead of answers</li>
+</ul>
+<h2>Universal Design Principles</h2>
+<h3>Multiple Means of Representation</h3>
+<ul>
+<li>Visual, auditory, and kinesthetic input</li>
+<li>Various text formats and sizes</li>
+<li>Real-world examples and connections</li>
+<li>Multiple languages when possible</li>
+<li>Varied complexity levels</li>
+</ul>
+<h3>Multiple Means of Engagement</h3>
+<ul>
+<li>Choice in topics or approaches</li>
+<li>Cultural relevance and connections</li>
+<li>Appropriate challenge level</li>
+<li>Clear goals and expectations</li>
+<li>Opportunities for collaboration</li>
+</ul>
+<h3>Multiple Means of Expression</h3>
+<ul>
+<li>Writing, speaking, drawing, building</li>
+<li>Technology-enhanced presentations</li>
+<li>Performance and demonstration</li>
+<li>Portfolio collections</li>
+<li>Peer teaching opportunities</li>
+</ul>
+<h2>Quick Reference Planning Template</h2>
+<p><strong>Before the Lesson:</strong></p>
+<ol>
+<li>What are my learning objectives?</li>
+<li>What barriers might prevent student access?</li>
+<li>What supports can I prepare in advance?</li>
+<li>How can I offer choice?</li>
+</ol>
+<p><strong>During the Lesson:</strong></p>
+<ol>
+<li>Check for understanding frequently</li>
+<li>Provide wait time for processing</li>
+<li>Offer additional supports as needed</li>
+<li>Encourage peer collaboration</li>
+</ol>
+<p><strong>After the Lesson:</strong></p>
+<ol>
+<li>What worked well?</li>
+<li>Who needs additional support?</li>
+<li>What can I adjust for next time?</li>
+<li>How did students demonstrate learning?</li>
+</ol>
+<blockquote>
+<p><strong>Remember:</strong> Start small and build your differentiation toolkit over time. One new strategy per lesson is manageable and sustainable.</p>
+</blockquote>
+
+  
+  <div class="footer">
+    © Zaza Technologies — Teacher resources. Use within your school. Not for resale.
+  </div>
+</body>
+</html>

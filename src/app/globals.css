@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../styles/blog-animations.css";
 
+/* CACHE BUST: Footer address must show Düsseldorf, Deutschland - 2025-09-15 06:00 */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -105,6 +107,18 @@
     animation: netflix-fade-in 0.6s ease-out;
   }
 
+  /* Fix unreadable <select> options */
+  select, select option {
+    color: rgb(15 23 42);           /* slate-900 */
+    background-color: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    select, select option {
+      color: rgb(241 245 249);      /* slate-100 */
+      background-color: rgb(2 6 23);/* slate-950-ish */
+    }
+  }
+
   /* Staggered animation for grid items */
   .netflix-stagger-1 { animation-delay: 0.1s; }
   .netflix-stagger-2 { animation-delay: 0.2s; }
@@ -112,6 +126,13 @@
   .netflix-stagger-4 { animation-delay: 0.4s; }
   .netflix-stagger-5 { animation-delay: 0.5s; }
   .netflix-stagger-6 { animation-delay: 0.6s; }
+
+  /* Hard wrap long URLs/words inside preview boxes just in case */
+  .snippet-prewrap {
+    white-space: pre-wrap;      /* preserve spaces/newlines */
+    word-break: break-word;     /* break long tokens */
+    overflow-wrap: anywhere;    /* modern fallback */
+  }
 
   /* Smooth image loading */
   @keyframes netflix-image-load {
@@ -279,4 +300,4 @@
   .animate-scale-up {
     animation: scale-up 0.3s ease-out;
   }
-}
+}/* Force rebuild timestamp: 15 Sep 2025 07:07:13 */

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
   Shield, 
   CreditCard, 
@@ -13,21 +14,20 @@ import {
   Database,
   Clock,
   FileText,
-  Download
+  Download,
+  Check,
+  MessageCircle
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { TrustBadges } from '@/components/site/trust-badges';
-import { AnnualToggle } from '@/components/ui/annual-toggle';
-import { ZazaTierCard } from '@/components/pricing/zaza-tier-card';
-import { PricingFAQ } from '@/components/pricing/pricing-faq';
-import { pricingConfig, closeSuiteUrl, PricingTier } from '@/lib/pricingConfig';
+import { PRICING, getAllPlans, formatPrice, type Cadence } from '@/lib/pricing';
 
 export function PricingPageClient() {
-  const [isAnnual, setIsAnnual] = useState(true);
-
-  const handleTierSelect = (tier: PricingTier) => {
-    // Handle tier selection - integrate with Stripe checkout
-    console.log('Selected tier:', tier, 'Annual:', isAnnual);
-  };
+  const [cadence, setCadence] = useState<Cadence>('annual');
+  const t = useTranslations('pricing');
+  const home = useTranslations('home');
+  
+  const plans = getAllPlans(cadence);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -41,150 +41,195 @@ export function PricingPageClient() {
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white">
-              Choose the plan that saves you{" "}
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">time every week</span>
+              {t('headline')}
             </h1>
             <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Annual plans give teachers the best value. Monthly is available if you prefer.
-            </p>
-            <p className="mt-4 text-lg text-gray-700 dark:text-gray-200 font-medium">
-              Save hours every week on parent comments and reports
+              {t('subhead')}
             </p>
             
             {/* Trust Indicators */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Shield className="h-4 w-4 text-green-500" />
-                <span>30-day money-back guarantee</span>
+                <span>{t('guarantee')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <CreditCard className="h-4 w-4 text-blue-500" />
-                <span>Secure payments by Stripe</span>
+                <span>{t('secure')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Users className="h-4 w-4 text-purple-500" />
-                <span>Trusted by 10,000+ teachers</span>
+                <span>{t('trusted')}</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Benefits Strip */}
-      <section className="py-12 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            {pricingConfig.benefits.map((benefit, index) => (
-              <div 
-                key={index} 
-                className="group space-y-4 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 bg-white dark:bg-gray-800"
-                style={{
-                  animationDelay: `${index * 100}ms`
-                }}
-              >
-                <div className="flex justify-center">
-                  <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors duration-300">
-                    {index === 0 && <Clock className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
-                    {index === 1 && <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
-                    {index === 2 && <Database className="h-8 w-8 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300" />}
-                  </div>
+      {/* Zaza Pass Explainer */}
+      <section className="py-16 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-950/40 dark:via-amber-950/30 dark:to-yellow-950/40">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 border-2 border-orange-200 dark:border-orange-700/50 text-sm font-bold text-orange-800 dark:text-orange-200 shadow-lg mb-6">
+            <Heart className="w-5 h-5 mr-2" />
+            {t('zaza_pass_badge')}
+          </div>
+          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{t('zaza_pass_explainer_title')}</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">{t('zaza_pass_explainer_tag')}</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {t.raw('zaza_pass_explainer_points').map((point: string, index: number) => (
+              <div key={index} className="flex items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 rounded-xl border border-orange-200 dark:border-orange-700">
+                <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center">
+                  <Check className="h-4 w-4 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
-                  {benefit}
-                </h3>
+                <span className="text-gray-800 dark:text-gray-200 font-medium">{point}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Zaza Pass Pricing */}
+      {/* Pricing Cards */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Zaza Pass</h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
-              Annual is the best value for teachers
-            </p>
-            
-            {/* Annual Toggle */}
-            <AnnualToggle 
-              isAnnual={isAnnual} 
-              onToggle={setIsAnnual}
-              className="mb-8"
-            />
+            {/* Annual/Monthly Toggle */}
+            <div className="inline-flex items-center bg-gray-100 dark:bg-gray-800 rounded-full p-1 mb-8">
+              <button
+                onClick={() => setCadence('annual')}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  cadence === 'annual'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                {t('annual_toggle')}
+              </button>
+              <button
+                onClick={() => setCadence('monthly')}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  cadence === 'monthly'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                {t('monthly_toggle')}
+              </button>
+            </div>
           </div>
           
           <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {pricingConfig.tiers.map((tier, index) => (
-              <ZazaTierCard
-                key={index}
-                tier={tier}
-                isAnnual={isAnnual}
-                onSelect={handleTierSelect}
-              />
+            {plans.map((plan) => (
+              <Card 
+                key={plan.id}
+                className={`relative backdrop-blur-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ${
+                  plan.badge === 'best_value' 
+                    ? 'border-3 border-orange-300 dark:border-orange-500/70 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-950/60 dark:via-amber-950/60 dark:to-yellow-950/60 shadow-2xl scale-105'
+                    : 'border-2 border-blue-200 dark:border-blue-700/50 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50'
+                }`}
+              >
+                {plan.badge === 'best_value' && (
+                  <Badge className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white px-6 py-2 text-sm font-black shadow-lg">
+                    {t('badge_best_value')}
+                  </Badge>
+                )}
+                
+                <CardHeader className={`pb-6 ${plan.badge === 'best_value' ? 'pt-8' : 'pt-6'}`}>
+                  <CardTitle className={`text-2xl flex items-center gap-2 ${
+                    plan.badge === 'best_value' 
+                      ? 'text-orange-800 dark:text-orange-200' 
+                      : 'text-blue-800 dark:text-blue-200'
+                  }`}>
+                    {plan.id === 'starter' ? 'Starter' : 'Pro'}
+                  </CardTitle>
+                  <div className={`text-5xl font-black ${
+                    plan.badge === 'best_value' 
+                      ? 'text-orange-600 dark:text-orange-400' 
+                      : 'text-blue-600 dark:text-blue-400'
+                  }`}>
+                    €{plan.price}<span className={`text-2xl font-bold ${
+                      plan.badge === 'best_value' 
+                        ? 'text-orange-700 dark:text-orange-300' 
+                        : 'text-blue-700 dark:text-blue-300'
+                    }`}>{plan.priceSuffix}</span>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-6">
+                  <ul className="space-y-4 text-sm">
+                    {plan.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center shadow-sm ${
+                          plan.badge === 'best_value'
+                            ? 'bg-gradient-to-br from-orange-400 to-amber-500'
+                            : 'bg-gradient-to-br from-blue-400 to-indigo-500'
+                        }`}>
+                          <Check className="h-4 w-4 text-white font-bold" />
+                        </div>
+                        <span className="text-slate-800 dark:text-slate-200 font-bold">✓ {bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    className={`w-full font-bold py-4 shadow-xl text-lg transition-all duration-300 ${
+                      plan.badge === 'best_value'
+                        ? 'bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:via-amber-600 hover:to-orange-700 text-white transform hover:scale-105'
+                        : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white'
+                    }`}
+                    asChild
+                  >
+                    <a
+                      href={plan.stripeCheckoutUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {plan.id === 'starter' ? t('cta_choose_starter') : t('cta_choose_pro')}
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
           
           {/* App Store Buttons */}
           <div className="text-center mt-12">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 border border-purple-200 dark:border-purple-700/50 text-sm font-medium text-purple-700 dark:text-purple-300 mb-6">
-              <Download className="w-4 h-4 mr-2" />
-              Download the mobile app
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/40 dark:to-amber-900/40 border border-orange-200 dark:border-orange-700/50 text-sm font-medium text-orange-700 dark:text-orange-300 mb-6">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Use Promptly on the go
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               Take Zaza with you anywhere
             </h3>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a 
-                href="https://apps.apple.com/app/promptly-teacher-assistant/id6738104361" 
+            <div className="flex items-center gap-3 justify-center">
+              <a
+                href="https://apps.apple.com/app/promptly-teacher-assistant/id6738104361"
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
+                aria-label="Download on the App Store"
+                className="inline-flex"
               >
-                <img 
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
-                  alt="Download on the App Store" 
-                  className="h-16 w-48 object-contain"
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="Download on the App Store"
+                  className="h-12 w-auto"
+                  loading="lazy"
                 />
               </a>
-              <a 
-                href="https://play.google.com/store/apps/details?id=com.promptly.teacher" 
+              <a
+                href="https://play.google.com/store/apps/details?id=com.promptly.teacher"
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
+                aria-label="Get it on Google Play"
+                className="inline-flex"
               >
-                <img 
-                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
-                  alt="Get it on Google Play" 
-                  className="h-16 w-48 object-contain"
+                <img
+                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                  alt="Get it on Google Play"
+                  className="h-12 w-auto"
+                  loading="lazy"
                 />
               </a>
             </div>
-          </div>
-          
-          {/* Footnotes */}
-          <div className="text-center mt-8 space-y-1">
-            {pricingConfig.footnotes.map((footnote, index) => (
-              <p key={index} className="text-sm text-gray-500 dark:text-gray-400">
-                {footnote}
-              </p>
-            ))}
-          </div>
-          
-          {/* Close Suite Link */}
-          <div className="text-center mt-8">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Teams in real estate or legal{' '}
-              <a 
-                href={closeSuiteUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:text-purple-700 underline"
-              >
-                See Close Suite
-              </a>
-            </p>
           </div>
         </div>
       </section>
@@ -251,7 +296,23 @@ export function PricingPageClient() {
       {/* FAQ Section */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4">
-          <PricingFAQ faqItems={pricingConfig.faq} />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+          </div>
+          <div className="space-y-6">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Can I pay monthly?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Yes. Monthly is available. Annual is the best value for teachers.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Invoices and reimbursement</h3>
+              <p className="text-gray-600 dark:text-gray-300">Yes. Download invoices. PD budgets supported.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">What happens if I cancel?</h3>
+              <p className="text-gray-600 dark:text-gray-300">You keep access until the end of your period. Drafts remain in your account.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -307,7 +368,7 @@ export function PricingPageClient() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100">
-              Start Free Trial
+              {t('cta_try_free')}
             </Button>
             <Button 
               size="lg" 
@@ -318,7 +379,7 @@ export function PricingPageClient() {
             </Button>
           </div>
           <p className="text-sm opacity-75 mt-6">
-            No credit card required • Cancel anytime • 30-day money-back guarantee
+            No credit card required • Cancel anytime • {t('guarantee')}
           </p>
         </div>
       </section>
