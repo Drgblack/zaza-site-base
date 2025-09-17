@@ -10,7 +10,10 @@
       "Bash(gh api:*)",
       "Bash(git rm:*)",
       "Bash(FORCE_COLOR=0 npm run build)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(tsx scripts/restore-blog-content.ts:*)",
+      "Bash(git restore:*)",
+      "Bash(git ls-tree:*)"
     ],
     "deny": []
   }

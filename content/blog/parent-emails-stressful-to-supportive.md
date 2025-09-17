@@ -1,3 +1,17 @@
+---
+author: greg-blackburn
+slug: parent-emails-stressful-to-supportive
+excerpt: 5 Phrases That Turn Parent Emails From Stressful to Supportive...
+cover:
+  src: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+  alt: undefined - Educational blog post cover image
+  width: 1600
+  height: 900
+seo:
+  image: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+---
 # 5 Phrases That Turn Parent Emails From Stressful to Supportive
 
 *Let's be honest – we've all been there. You're crafting an email to a parent about their child's behavior or academic performance, and you're staring at the screen, second-guessing every word. Will this sound too harsh? Too soft? Professional but not cold?*

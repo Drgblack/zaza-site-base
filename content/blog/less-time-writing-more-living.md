@@ -1,3 +1,17 @@
+---
+author: greg-blackburn
+slug: less-time-writing-more-living
+excerpt: 'Less Time Writing, More Time Living...'
+cover:
+  src: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+  alt: undefined - Educational blog post cover image
+  width: 1600
+  height: 900
+seo:
+  image: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+---
 # Less Time Writing, More Time Living
 
 *It's 9:47 PM on a Tuesday. Your family is asleep. The house is quiet except for the soft clicking of your laptop keys as you craft yet another parent email, trying to find the perfect words to explain why Jake had a rough day without making his mom feel like she's failing.*

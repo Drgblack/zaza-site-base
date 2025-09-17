@@ -1,3 +1,17 @@
+---
+author: greg-blackburn
+slug: secret-confident-parent-reports
+excerpt: The Secret to Confident Parent Reports...
+cover:
+  src: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+  alt: undefined - Educational blog post cover image
+  width: 1600
+  height: 900
+seo:
+  image: >-
+    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+---
 # The Secret to Confident Parent Reports
 
 *"I need to write 32 progress reports by Friday, and I honestly don't know where to start with some of these kids."*

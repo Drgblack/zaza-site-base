@@ -1,16 +1,44 @@
 ---
-title: "10 Time-Saving Tips Every Teacher Needs to Know"
-description: "Practical strategies and tools to reclaim your weekends and reduce administrative burden while maintaining teaching quality."
-category: "Teaching Tips"
-tags: ["time management", "productivity", "teacher wellness", "work-life balance"]
-author: "Sarah Johnson"
-authorBio: "Veteran educator with 15 years of classroom experience and a passion for teacher efficiency."
-publishDate: "2024-11-28"
-readingTime: "6 min read"
-featuredImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop"
+title: 10 Time-Saving Tips Every Teacher Needs to Know
+description: >-
+  Practical strategies and tools to reclaim your weekends and reduce
+  administrative burden while maintaining teaching quality.
+category: Teaching Tips
+tags:
+  - time management
+  - productivity
+  - teacher wellness
+  - work-life balance
+author: greg-blackburn
+authorBio: >-
+  Veteran educator with 15 years of classroom experience and a passion for
+  teacher efficiency.
+publishDate: '2024-11-28'
+readingTime: 6 min read
+featuredImage: >-
+  https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop
 featured: false
-seoKeywords: ["time management for teachers", "teacher productivity", "teaching efficiency", "teacher tips", "work-life balance"]
-slug: "time-saving-teacher-tips"
+seoKeywords:
+  - time management for teachers
+  - teacher productivity
+  - teaching efficiency
+  - teacher tips
+  - work-life balance
+slug: time-saving-teacher-tips
+excerpt: >-
+  Practical strategies and tools to reclaim your weekends and reduce
+  administrative burden while maintaining teaching quality.
+cover:
+  src: >-
+    https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop
+  alt: >-
+    10 Time-Saving Tips Every Teacher Needs to Know - Educational blog post
+    cover image
+  width: 1600
+  height: 900
+seo:
+  image: >-
+    https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop
 ---
 
 # 10 Time-Saving Tips Every Teacher Needs to Know
