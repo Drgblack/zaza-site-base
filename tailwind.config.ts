@@ -19,6 +19,11 @@ const config: Config = {
     },
     extend: {
       colors: {
+        brand: {
+          50:'#f4f0ff',100:'#e8ddff',200:'#d2bfff',300:'#b190ff',
+          400:'#8a5eff',500:'#6e38ff',600:'#5a27f5',700:'#4a20cf',
+          800:'#3c1aa9',900:'#2f1586'
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -57,6 +62,9 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      maxWidth: { 
+        'measure':'72ch' 
       },
       keyframes: {
         "accordion-down": {

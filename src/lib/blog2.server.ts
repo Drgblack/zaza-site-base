@@ -44,12 +44,29 @@ export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> 
         continue;
       }
       
+      // Enforce author guard - default to greg-blackburn
+      const author = data.author ?? 'greg-blackburn';
+      
+      // Enforce cover guard - replace placeholder/default images
+      let image = data.image ?? data.heroImage ?? data.featuredImage ?? null;
+      if (image && (image.includes('default') || image.includes('placeholder'))) {
+        // Replace with a unique Unsplash image based on slug hash
+        const fallbackImages = [
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop'
+        ];
+        const hashCode = slug.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
+        image = fallbackImages[Math.abs(hashCode) % fallbackImages.length];
+      }
+      
       posts.push({
         slug,
         title: data.title ?? slug,
         date: data.date ?? '',
         excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
-        image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
+        image,
         mtime: stats.mtime,
         draft: data.draft === true
       });
@@ -86,12 +103,29 @@ export async function getPostBySlug(slug: string, includeDrafts?: boolean): Prom
       return null;
     }
 
+    // Enforce author guard - default to greg-blackburn
+    const author = data.author ?? 'greg-blackburn';
+    
+    // Enforce cover guard - replace placeholder/default images
+    let image = data.image ?? data.heroImage ?? data.featuredImage ?? null;
+    if (image && (image.includes('default') || image.includes('placeholder'))) {
+      // Replace with a unique Unsplash image based on slug hash
+      const fallbackImages = [
+        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop'
+      ];
+      const hashCode = slug.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
+      image = fallbackImages[Math.abs(hashCode) % fallbackImages.length];
+    }
+
     return {
       slug,
       title: data.title ?? slug,
       date: data.date ?? '',
       excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
-      image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
+      image,
       draft: data.draft === true,
       content: content // Include full MDX content
     };

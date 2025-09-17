@@ -7,8 +7,11 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { components } from '@/components/mdx';
-import Prose from '@/components/blog/Prose';
-import PostCTA from '@/components/blog/PostCTA';
+import PostLayout from '@/components/blog/PostLayout';
+import Callout from '@/components/blog/mdx/Callout';
+import PullQuote from '@/components/blog/mdx/PullQuote';
+import Checklist from '@/components/blog/mdx/Checklist';
+import Divider from '@/components/blog/mdx/Divider';
 
 type Props = {
   params: Promise<{
@@ -110,11 +113,10 @@ export default async function Page({ params }: { params: { locale: string; slug:
           </div>
         )}
 
-        {/* Article Content */}
+        {/* Article Content with Rich MDX Components */}
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-          {/* Full MDX content rendering with enhanced Prose wrapper */}
           {post.content ? (
-            <Prose>
+            <PostLayout>
               <div suppressHydrationWarning>
                 <MDXRemote 
                   source={post.content}
@@ -124,12 +126,18 @@ export default async function Page({ params }: { params: { locale: string; slug:
                       rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
                     },
                   }}
-                  components={components}
+                  components={{
+                    ...components,
+                    Callout,
+                    PullQuote,
+                    Checklist,
+                    Divider,
+                  }}
                 />
               </div>
-            </Prose>
+            </PostLayout>
           ) : (
-            <Prose>
+            <PostLayout>
               <div className="space-y-4">
                 <p>
                   {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
@@ -138,12 +146,9 @@ export default async function Page({ params }: { params: { locale: string; slug:
                   Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
                 </p>
               </div>
-            </Prose>
+            </PostLayout>
           )}
         </div>
-
-        {/* Post CTA */}
-        <PostCTA />
 
         {/* Author Bio */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mt-12">

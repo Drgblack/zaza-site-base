@@ -5,6 +5,7 @@ import { getAllPosts } from '@/lib/blog2.server';
 import Image from 'next/image';
 import { Clock, User, Calendar } from 'lucide-react';
 import { NewsletterForm } from './newsletter-form';
+import BlogSearchClient from '@/components/blog/BlogSearchClient';
 
 export const dynamic = "error";
 export const revalidate = false;
@@ -76,72 +77,9 @@ export default async function BlogPage({params}: Props) {
         </div>
       </div>
 
-      {/* Blog Posts Grid */}
+      {/* Blog Posts Grid with Search */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allPosts.map((post) => (
-            <article key={post.slug} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1">
-              {/* Post Image */}
-              <div className="relative h-48 bg-gradient-to-r from-purple-100 to-blue-100">
-                {post.image ? (
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-4xl">📚</div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="p-6">
-                {/* Category & Reading Time */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                    Education
-                  </span>
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <Clock className="w-4 h-4 mr-1" />
-                    5 min read
-                  </div>
-                </div>
-                
-                {/* Title */}
-                <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
-                  {post.title}
-                </h2>
-                
-                {/* Description */}
-                <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-                  {post.excerpt || 'Transform your teaching with AI-powered tools and strategies...'}
-                </p>
-                
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="flex items-center text-sm text-gray-500">
-                    <User className="w-4 h-4 mr-1" />
-                    Dr. Greg Blackburn
-                  </div>
-                  <div className="flex items-center text-sm text-gray-500">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {post.date ? new Date(post.date).toLocaleDateString() : 'Recent'}
-                  </div>
-                </div>
-                
-                {/* Read More Link */}
-                <Link 
-                  href={`/blog/${post.slug}`}
-                  className="inline-flex items-center mt-4 text-purple-600 hover:text-purple-700 font-medium text-sm group-hover:underline"
-                >
-                  Read More →
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        <BlogSearchClient posts={allPosts} />
       </div>
 
       {/* Stay Updated CTA */}
