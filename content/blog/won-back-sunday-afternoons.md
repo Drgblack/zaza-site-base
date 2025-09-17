@@ -151,3 +151,5 @@ The only difference? I do it all in a fraction of the time, which means I have e
 ---
 
 *Ready to join thousands of teachers who've reclaimed their weekends? **Join thousands of teachers using Promptly** and discover how much time you can save while improving your communication quality.*
+
+CTA_OK_MARKER
