@@ -25,6 +25,8 @@ export type PostMeta = {
   mtime?: Date;
   draft?: boolean;
   content?: string; // Add full content for single post view
+  tags?: string[];
+  category?: string;
 };
 
 export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> {
@@ -68,7 +70,9 @@ export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> 
         excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
         image,
         mtime: stats.mtime,
-        draft: data.draft === true
+        draft: data.draft === true,
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        category: data.category || null
       });
     } catch (e) {
       console.error('[blog] skipping', slug, e);
@@ -127,7 +131,9 @@ export async function getPostBySlug(slug: string, includeDrafts?: boolean): Prom
       excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
       image,
       draft: data.draft === true,
-      content: content // Include full MDX content
+      content: content, // Include full MDX content
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      category: data.category || null
     };
   } catch (e) {
     console.error('[blog] Failed to get post by slug', slug, e);
