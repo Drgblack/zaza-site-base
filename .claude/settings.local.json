@@ -28,7 +28,10 @@
       "Bash(git merge:*)",
       "Bash(pnpm run:*)",
       "Bash(pnpm add:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(where node)",
+      "Bash(where pnpm)",
+      "Bash(pnpm install:*)"
     ],
     "deny": []
   }
