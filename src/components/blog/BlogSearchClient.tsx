@@ -2,18 +2,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
-
-// Simple search implementation without external dependencies
-function simpleSearch(posts: any[], query: string) {
-  if (!query) return posts
-  
-  const lowerQuery = query.toLowerCase()
-  return posts.filter(post => 
-    post.title?.toLowerCase().includes(lowerQuery) ||
-    post.excerpt?.toLowerCase().includes(lowerQuery) ||
-    post.tags?.some((tag: string) => tag.toLowerCase().includes(lowerQuery))
-  )
-}
+import Fuse from 'fuse.js'
 
 function PostCard({ post }: { post: any }) {
   return (
@@ -69,8 +58,11 @@ function PostCard({ post }: { post: any }) {
 
 export default function BlogSearchClient({ posts }:{ posts: Array<any> }) {
   const [q, setQ] = useState('')
-  
-  const results = useMemo(() => simpleSearch(posts, q), [posts, q])
+  const fuse = useMemo(()=> new Fuse(posts, {
+    keys:['title','excerpt','tags'], threshold:0.34, ignoreLocation:true
+  }), [posts])
+
+  const results = q ? fuse.search(q).map(r=>r.item) : posts
 
   return (
     <>

@@ -13,7 +13,10 @@
       "Bash(touch:*)",
       "Bash(tsx scripts/restore-blog-content.ts:*)",
       "Bash(git restore:*)",
-      "Bash(git ls-tree:*)"
+      "Bash(git ls-tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(git branch:*)",
+      "Bash(npm install:*)"
     ],
     "deny": []
   }
