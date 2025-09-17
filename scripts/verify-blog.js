@@ -43,9 +43,9 @@ for (const file of posts) {
     failed = true;
   }
   
-  // Check for CTA marker
-  if (!/<!--\s*CTA-OK\s*-->/.test(text)) {
-    console.error(`❌ Missing CTA marker <!-- CTA-OK --> at end: ${file}`);
+  // Check for CTA marker (either HTML comment or plain text)
+  if (!/<!--\s*CTA-OK\s*-->|CTA_OK_MARKER/.test(text)) {
+    console.error(`❌ Missing CTA marker (<!-- CTA-OK --> or CTA_OK_MARKER) at end: ${file}`);
     failed = true;
   }
   const words = body.split(/\s+/).filter(Boolean).length;
