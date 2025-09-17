@@ -19,7 +19,7 @@
                     "gen:resources:pdf": "tsx scripts/generate-resources-pdf.ts",
                     "gen:resources": "npm run gen:resources:html && npm run gen:resources:pdf",
     "verify:content": "node scripts/verify-content.js",
-    "verify:blog": "node scripts/verify-blog.js",
+    "verify:blog": "node scripts/verify-blog.mjs",
     "precommit": "npm run verify:content"
                 },
     "dependencies":  {

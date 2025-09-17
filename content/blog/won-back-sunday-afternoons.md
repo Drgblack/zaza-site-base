@@ -1,17 +1,3 @@
----
-author: greg-blackburn
-slug: won-back-sunday-afternoons
-excerpt: How I Won Back My Sunday Afternoons...
-cover:
-  src: >-
-    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
-  alt: undefined - Educational blog post cover image
-  width: 1600
-  height: 900
-seo:
-  image: >-
-    https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
----
 # How I Won Back My Sunday Afternoons
 
 *Three months ago, I spent every Sunday afternoon hunched over my laptop, writing progress reports and responding to parent emails. My family learned to tiptoe around me as I stressed over finding the right words for each student evaluation.*

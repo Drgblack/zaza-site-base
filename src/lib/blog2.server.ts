@@ -24,6 +24,7 @@ export type PostMeta = {
   image?: string | null;
   mtime?: Date;
   draft?: boolean;
+  content?: string; // Add full content for single post view
 };
 
 export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> {
@@ -91,7 +92,8 @@ export async function getPostBySlug(slug: string, includeDrafts?: boolean): Prom
       date: data.date ?? '',
       excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
       image: data.image ?? data.heroImage ?? data.featuredImage ?? null,
-      draft: data.draft === true
+      draft: data.draft === true,
+      content: content // Include full MDX content
     };
   } catch (e) {
     console.error('[blog] Failed to get post by slug', slug, e);

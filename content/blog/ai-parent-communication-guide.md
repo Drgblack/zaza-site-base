@@ -1,44 +1,16 @@
 ---
-title: The Ultimate Guide to AI-Powered Parent Communication
-description: >-
-  Learn how AI tools can transform your parent communication, save hours of
-  work, and improve relationships with families.
-category: AI Tools
-tags:
-  - parent communication
-  - AI
-  - teaching efficiency
-  - time management
-author: greg-blackburn
-authorBio: >-
-  Educational technology experts passionate about helping teachers save time and
-  improve outcomes.
-publishDate: '2024-12-01'
-readingTime: 8 min read
-featuredImage: >-
-  https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop
+title: "The Ultimate Guide to AI-Powered Parent Communication"
+description: "Learn how AI tools can transform your parent communication, save hours of work, and improve relationships with families."
+category: "AI Tools"
+tags: ["parent communication", "AI", "teaching efficiency", "time management"]
+author: "Zaza Team"
+authorBio: "Educational technology experts passionate about helping teachers save time and improve outcomes."
+publishDate: "2024-12-01"
+readingTime: "8 min read"
+featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop"
 featured: true
-seoKeywords:
-  - AI parent communication
-  - teacher tools
-  - parent-teacher communication
-  - AI for teachers
-  - educational technology
-slug: ai-parent-communication-guide
-excerpt: >-
-  Learn how AI tools can transform your parent communication, save hours of
-  work, and improve relationships with families.
-cover:
-  src: >-
-    https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop
-  alt: >-
-    The Ultimate Guide to AI-Powered Parent Communication - Educational blog
-    post cover image
-  width: 1600
-  height: 900
-seo:
-  image: >-
-    https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop
+seoKeywords: ["AI parent communication", "teacher tools", "parent-teacher communication", "AI for teachers", "educational technology"]
+slug: "ai-parent-communication-guide"
 ---
 
 # The Ultimate Guide to AI-Powered Parent Communication

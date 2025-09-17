@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 import {Link} from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllSlugs } from '@/lib/blog2.server';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 type Props = {
   params: Promise<{
@@ -38,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
-      authors: ['Zaza Team'],
+      authors: ['Dr. Greg Blackburn'],
       images: post.image ? [post.image] : undefined,
     },
   };
@@ -80,7 +84,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
           
           <div className="flex items-center justify-between border-t border-b border-gray-200 py-4">
             <div className="text-sm text-gray-600">
-              By <span className="font-medium text-gray-900">Zaza Team</span>
+              By <span className="font-medium text-gray-900">Dr. Greg Blackburn</span>
             </div>
             <time className="text-sm text-gray-600" dateTime={post.date}>
               {post.date ? new Date(post.date).toLocaleDateString('en-US', {
@@ -106,15 +110,29 @@ export default async function Page({ params }: { params: { locale: string; slug:
         {/* Article Content */}
         <div className="prose prose-lg max-w-none">
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            {/* Simplified content rendering - showing excerpt for now */}
-            <div className="space-y-4 text-gray-700">
-              <p className="leading-relaxed">
-                {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
-              </p>
-              <p className="leading-relaxed">
-                Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
-              </p>
-            </div>
+            {/* Full MDX content rendering */}
+            {post.content ? (
+              <div className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
+                <MDXRemote 
+                  source={post.content}
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+                    },
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="space-y-4 text-gray-700">
+                <p className="leading-relaxed">
+                  {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
+                </p>
+                <p className="leading-relaxed">
+                  Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -124,8 +142,9 @@ export default async function Page({ params }: { params: { locale: string; slug:
             About the Author
           </h3>
           <p className="text-gray-600">
-            The Zaza Team consists of passionate educators and AI advocates helping teachers 
-            transform their classrooms with innovative technology.
+            Dr. Greg Blackburn is a PhD-qualified educator and founder of Zaza Technologies. 
+            With over 20 years in learning & development, he helps teachers integrate AI 
+            technology into their classrooms effectively and safely.
           </p>
         </div>
 
