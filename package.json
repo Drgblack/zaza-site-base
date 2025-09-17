@@ -20,6 +20,7 @@
                     "gen:resources": "npm run gen:resources:html && npm run gen:resources:pdf",
     "verify:content": "node scripts/verify-content.js",
     "verify:blog": "node scripts/verify-blog.mjs",
+    "verify:posts": "node scripts/verify-posts.mjs",
     "precommit": "npm run verify:content"
                 },
     "dependencies":  {

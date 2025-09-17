@@ -1,24 +1,24 @@
 // MDX Components for blog posts
 
 interface CalloutProps {
-  type?: 'tip' | 'warning' | 'info' | 'error';
+  variant?: 'note' | 'tip' | 'warning' | 'error';
   title?: string;
   children: React.ReactNode;
 }
 
-export function Callout({ type = 'info', title, children }: CalloutProps) {
-  const colors = {
-    tip: 'bg-green-50 border-green-200 text-green-800',
-    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
-    error: 'bg-red-50 border-red-200 text-red-800',
+export function Callout({ variant = 'note', title, children }: CalloutProps) {
+  const variants = {
+    note: 'bg-blue-50 border-blue-200 text-blue-900 border-l-blue-500',
+    tip: 'bg-emerald-50 border-emerald-200 text-emerald-900 border-l-emerald-500',
+    warning: 'bg-amber-50 border-amber-200 text-amber-900 border-l-amber-500',
+    error: 'bg-red-50 border-red-200 text-red-900 border-l-red-500',
   };
 
   return (
-    <div className={`p-4 rounded-lg border-l-4 mb-6 ${colors[type]}`}>
-      {title && <h4 className="font-semibold mb-2">{title}</h4>}
-      <div>{children}</div>
-    </div>
+    <aside className={`not-prose rounded-xl border border-l-4 p-6 my-6 ${variants[variant]}`}>
+      {title && <div className="mb-2 text-sm font-semibold uppercase tracking-wide opacity-80">{title}</div>}
+      <div className="text-sm leading-relaxed">{children}</div>
+    </aside>
   );
 }
 
@@ -75,9 +75,58 @@ export function ZazaCTA({ title, description }: ZazaCTAProps) {
   );
 }
 
+// PullQuote component for highlighting key quotes
+interface PullQuoteProps {
+  children: React.ReactNode;
+  author?: string;
+}
+
+export function PullQuote({ children, author }: PullQuoteProps) {
+  return (
+    <blockquote className="not-prose my-8 rounded-2xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 p-8 border-l-4 border-purple-500">
+      <div className="text-xl font-medium leading-relaxed text-gray-900 mb-4">
+        {children}
+      </div>
+      {author && (
+        <cite className="text-sm font-medium text-gray-600 not-italic">
+          — {author}
+        </cite>
+      )}
+    </blockquote>
+  );
+}
+
+// Figure component for enhanced images with captions
+interface FigureProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+}
+
+export function Figure({ src, alt, caption, className = "" }: FigureProps) {
+  return (
+    <figure className={`not-prose my-8 ${className}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img 
+        src={src} 
+        alt={alt} 
+        className="w-full rounded-xl shadow-lg" 
+      />
+      {caption && (
+        <figcaption className="mt-3 text-sm text-gray-600 text-center">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 // Export all components for MDX
 export const components = {
   Callout,
   PromptBox,
   ZazaCTA,
+  PullQuote,
+  Figure,
 };

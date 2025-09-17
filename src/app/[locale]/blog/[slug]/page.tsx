@@ -7,6 +7,8 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { components } from '@/components/mdx';
+import Prose from '@/components/blog/Prose';
+import PostCTA from '@/components/blog/PostCTA';
 
 type Props = {
   params: Promise<{
@@ -109,56 +111,39 @@ export default async function Page({ params }: { params: { locale: string; slug:
         )}
 
         {/* Article Content */}
-        <div className="prose prose-lg max-w-none">
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            {/* Full MDX content rendering */}
-            {post.content ? (
-              <div className="blog-content prose prose-lg max-w-none" style={{
-                '--tw-prose-body': '#111827',
-                '--tw-prose-headings': '#111827', 
-                '--tw-prose-lead': '#111827',
-                '--tw-prose-links': '#2563eb',
-                '--tw-prose-bold': '#111827',
-                '--tw-prose-counters': '#6b7280',
-                '--tw-prose-bullets': '#d1d5db',
-                '--tw-prose-hr': '#e5e7eb',
-                '--tw-prose-quotes': '#111827',
-                '--tw-prose-quote-borders': '#e5e7eb',
-                '--tw-prose-captions': '#6b7280',
-                '--tw-prose-kbd': '#111827',
-                '--tw-prose-kbd-shadows': '17 24 39',
-                '--tw-prose-code': '#7c3aed',
-                '--tw-prose-pre-code': '#e5e7eb',
-                '--tw-prose-pre-bg': '#1f2937',
-                '--tw-prose-th-borders': '#d1d5db',
-                '--tw-prose-td-borders': '#e5e7eb',
-                color: '#111827'
-              } as React.CSSProperties}>
-                <div suppressHydrationWarning>
-                  <MDXRemote 
-                    source={post.content}
-                    options={{
-                      mdxOptions: {
-                        remarkPlugins: [remarkGfm],
-                        rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
-                      },
-                    }}
-                    components={components}
-                  />
-                </div>
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          {/* Full MDX content rendering with enhanced Prose wrapper */}
+          {post.content ? (
+            <Prose>
+              <div suppressHydrationWarning>
+                <MDXRemote 
+                  source={post.content}
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                      rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
+                    },
+                  }}
+                  components={components}
+                />
               </div>
-            ) : (
-              <div className="space-y-4 text-gray-900">
-                <p className="leading-relaxed">
+            </Prose>
+          ) : (
+            <Prose>
+              <div className="space-y-4">
+                <p>
                   {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
                 </p>
-                <p className="leading-relaxed">
+                <p>
                   Transform your lesson planning, student engagement, and administrative tasks with AI-powered tools that understand the unique challenges of education. This guide covers practical strategies you can implement immediately.
                 </p>
               </div>
-            )}
-          </div>
+            </Prose>
+          )}
         </div>
+
+        {/* Post CTA */}
+        <PostCTA />
 
         {/* Author Bio */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mt-12">
