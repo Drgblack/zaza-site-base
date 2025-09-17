@@ -1,30 +1,16 @@
 ---
-title: The Ultimate Guide to AI-Powered Parent Communication
-description: >-
-  Learn how AI tools can transform your parent communication, save hours of
-  work, and improve relationships with families.
-category: AI Tools
-tags:
-  - parent communication
-  - AI
-  - teaching efficiency
-  - time management
-author: Dr. Greg Blackburn
-authorBio: >-
-  Founder of Zaza Technologies, PhD in Professional Education, 20+ years in
-  learning & development
-publishDate: '2024-12-01'
-readingTime: 8 min read
-featuredImage: >-
-  https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop
+title: "The Ultimate Guide to AI-Powered Parent Communication"
+description: "Learn how AI tools can transform your parent communication, save hours of work, and improve relationships with families."
+category: "AI Tools"
+tags: ["parent communication", "AI", "teaching efficiency", "time management"]
+author: "Zaza Team"
+authorBio: "Educational technology experts passionate about helping teachers save time and improve outcomes."
+publishDate: "2024-12-01"
+readingTime: "8 min read"
+featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop"
 featured: true
-seoKeywords:
-  - AI parent communication
-  - teacher tools
-  - parent-teacher communication
-  - AI for teachers
-  - educational technology
-slug: ai-parent-communication-guide
+seoKeywords: ["AI parent communication", "teacher tools", "parent-teacher communication", "AI for teachers", "educational technology"]
+slug: "ai-parent-communication-guide"
 ---
 
 # The Ultimate Guide to AI-Powered Parent Communication
@@ -144,7 +130,7 @@ Ready to transform your parent communication? Start with these three steps:
 2. **Create templates** for your most common communication types
 3. **Track your time savings** and communication effectiveness
 
-The goal isn't to replace the human element in teaching â€“ it's to give you back precious time so you can focus on what matters most: inspiring and supporting your students.
+The goal isn't to replace the human element in teaching – it's to give you back precious time so you can focus on what matters most: inspiring and supporting your students.
 
 ---
 

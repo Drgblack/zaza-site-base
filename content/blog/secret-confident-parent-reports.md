@@ -1,11 +1,3 @@
----
-author: Dr. Greg Blackburn
-authorBio: >-
-  Founder of Zaza Technologies, PhD in Professional Education, 20+ years in
-  learning & development
-featuredImage: >-
-  https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
----
 # The Secret to Confident Parent Reports
 
 *"I need to write 32 progress reports by Friday, and I honestly don't know where to start with some of these kids."*
@@ -17,11 +9,11 @@ featuredImage: >-
 ## Why Parent Reports Feel So Hard
 
 Let's acknowledge the real challenges:
-- **The pressure to be perfect** â€“ these documents become part of permanent records
-- **Finding the right tone** â€“ honest but not discouraging
-- **Time constraints** â€“ quality takes time we don't have
-- **Different family dynamics** â€“ what works for one family might not for another
-- **Covering everything** â€“ academic progress, social development, effort, areas for growth
+- **The pressure to be perfect** – these documents become part of permanent records
+- **Finding the right tone** – honest but not discouraging
+- **Time constraints** – quality takes time we don't have
+- **Different family dynamics** – what works for one family might not for another
+- **Covering everything** – academic progress, social development, effort, areas for growth
 
 No wonder we feel overwhelmed.
 
@@ -29,7 +21,7 @@ No wonder we feel overwhelmed.
 
 After years of refinement (and plenty of trial and error), I've developed a framework that takes the guesswork out of report writing. Here's the system that changed everything:
 
-### Step 1: The Foundation â€“ Gather Your Evidence
+### Step 1: The Foundation – Gather Your Evidence
 
 Before you write a single word, collect specific examples:
 - **Academic evidence:** Test scores, assignment samples, participation notes
@@ -39,7 +31,7 @@ Before you write a single word, collect specific examples:
 
 **Pro tip:** Keep an ongoing "wins file" for each student throughout the term. Even 30 seconds per week documenting positive moments pays huge dividends during report time.
 
-### Step 2: The Structure â€“ The Three-Part Formula
+### Step 2: The Structure – The Three-Part Formula
 
 Every effective parent report follows this structure:
 
@@ -47,9 +39,9 @@ Every effective parent report follows this structure:
 2. **Navigate Growth Areas** (Where we're headed next)
 3. **Partner Forward** (How we'll work together)
 
-This isn't just about being positive â€“ it's about creating a narrative that parents can follow and engage with.
+This isn't just about being positive – it's about creating a narrative that parents can follow and engage with.
 
-### Step 3: The Language â€“ Specific Over General
+### Step 3: The Language – Specific Over General
 
 **Instead of:** "Sarah is a good student"
 **Write:** "Sarah consistently demonstrates strong comprehension skills, as evidenced by her thoughtful responses during literature discussions and her detailed character analysis in our recent novel study."
@@ -57,9 +49,9 @@ This isn't just about being positive â€“ it's about creating a narrative th
 **Instead of:** "Needs improvement in math"
 **Write:** "We're focusing on building Marcus's confidence with multi-step word problems. He shows excellent computational skills and is ready to tackle more complex problem-solving strategies."
 
-### Step 4: The Balance â€“ Growth-Focused Honesty
+### Step 4: The Balance – Growth-Focused Honesty
 
-Here's where many teachers struggle â€“ how do you address real concerns while maintaining encouragement? The secret is **growth-focused framing**.
+Here's where many teachers struggle – how do you address real concerns while maintaining encouragement? The secret is **growth-focused framing**.
 
 **Traditional approach:** "Emma struggles with organization"
 **Growth-focused approach:** "We're building Emma's organizational systems. She's shown improvement in keeping track of her materials, and our next focus is developing consistent homework routines."
@@ -104,12 +96,12 @@ Here's what happens when you master this system:
 
 **Week 1:** You feel more confident about the quality of your reports
 **Week 2:** You start finishing reports faster because you have a clear structure
-**Week 3:** Parent feedback improves â€“ they feel more informed and engaged
+**Week 3:** Parent feedback improves – they feel more informed and engaged
 **Week 4:** You realize you actually look forward to writing reports because you know they'll be good
 
 ## Building Parent Partnerships Through Reports
 
-The best parent reports don't just document progress â€“ they build partnerships. When parents receive reports that are specific, honest, and growth-focused, they become your allies in supporting their child's education.
+The best parent reports don't just document progress – they build partnerships. When parents receive reports that are specific, honest, and growth-focused, they become your allies in supporting their child's education.
 
 **Strong parent report characteristics:**
 - Parents can visualize their child in your classroom
@@ -136,9 +128,9 @@ Ready to transform your report writing confidence? Here's your step-by-step plan
 
 ## The Bottom Line
 
-Confident parent reports aren't about being perfect â€“ they're about being systematic, specific, and growth-focused. When you have a clear framework and the right tools to support you, report writing transforms from a dreaded task into a meaningful opportunity to celebrate students and build family partnerships.
+Confident parent reports aren't about being perfect – they're about being systematic, specific, and growth-focused. When you have a clear framework and the right tools to support you, report writing transforms from a dreaded task into a meaningful opportunity to celebrate students and build family partnerships.
 
-**Your confidence in report writing directly impacts the quality of your family relationships** â€“ and that impacts everything else in your classroom.
+**Your confidence in report writing directly impacts the quality of your family relationships** – and that impacts everything else in your classroom.
 
 ---
 

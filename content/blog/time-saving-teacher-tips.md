@@ -1,30 +1,16 @@
 ---
-title: 10 Time-Saving Tips Every Teacher Needs to Know
-description: >-
-  Practical strategies and tools to reclaim your weekends and reduce
-  administrative burden while maintaining teaching quality.
-category: Teaching Tips
-tags:
-  - time management
-  - productivity
-  - teacher wellness
-  - work-life balance
-author: Sarah Johnson
-authorBio: >-
-  Veteran educator with 15 years of classroom experience and a passion for
-  teacher efficiency.
-date: '2024-11-28'
-readingTime: 6 min read
-featuredImage: >-
-  https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop
+title: "10 Time-Saving Tips Every Teacher Needs to Know"
+description: "Practical strategies and tools to reclaim your weekends and reduce administrative burden while maintaining teaching quality."
+category: "Teaching Tips"
+tags: ["time management", "productivity", "teacher wellness", "work-life balance"]
+author: "Sarah Johnson"
+authorBio: "Veteran educator with 15 years of classroom experience and a passion for teacher efficiency."
+publishDate: "2024-11-28"
+readingTime: "6 min read"
+featuredImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop"
 featured: false
-seoKeywords:
-  - time management for teachers
-  - teacher productivity
-  - teaching efficiency
-  - teacher tips
-  - work-life balance
-slug: time-saving-teacher-tips
+seoKeywords: ["time management for teachers", "teacher productivity", "teaching efficiency", "teacher tips", "work-life balance"]
+slug: "time-saving-teacher-tips"
 ---
 
 # 10 Time-Saving Tips Every Teacher Needs to Know
@@ -146,15 +132,15 @@ Assess what's working and refine your approach.
 ## The Compound Effect
 
 Small time savings add up quickly:
-- **5 minutes saved per parent email** Ã— 20 emails = 100 minutes weekly
-- **10 minutes saved on grading** Ã— 5 subjects = 50 minutes weekly
-- **15 minutes better organization** Ã— 5 days = 75 minutes weekly
+- **5 minutes saved per parent email** × 20 emails = 100 minutes weekly
+- **10 minutes saved on grading** × 5 subjects = 50 minutes weekly
+- **15 minutes better organization** × 5 days = 75 minutes weekly
 
 **Total weekly savings: 3+ hours to spend on what matters most**
 
 ## Remember: You're Not Alone
 
-Efficient teaching isn't about doing everything perfectly-it's about doing the right things well. Start with one strategy, master it, then add another.
+Efficient teaching isn't about doing everything perfectly—it's about doing the right things well. Start with one strategy, master it, then add another.
 
 Your weekends, family time, and mental health are worth the investment in these systems.
 
