@@ -16,7 +16,11 @@
       "Bash(git ls-tree:*)",
       "Bash(mkdir:*)",
       "Bash(git branch:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(node:*)"
     ],
     "deny": []
   }
