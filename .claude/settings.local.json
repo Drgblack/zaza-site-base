@@ -20,7 +20,8 @@
       "Bash(npm run build:*)",
       "Bash(npx next lint:*)",
       "Bash(npx tsc:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

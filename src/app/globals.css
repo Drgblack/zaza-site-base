@@ -325,4 +325,42 @@
   .animate-scale-up {
     animation: scale-up 0.3s ease-out;
   }
-}/* Force rebuild timestamp: 15 Sep 2025 07:07:13 */
+}
+
+/* ---- BLOG READABILITY GUARD (LIGHT MODE) ------------------------------- */
+
+/* Base body text inside prose: ensure a readable dark color in light theme */
+.prose :where(p, li, blockquote, table, th, td, code, pre, span, strong, em, a):not(:where(.not-prose *)) {
+  color: rgb(24 24 27); /* zinc-900 */
+}
+
+/* If anything inside prose uses text-white, force it back to a dark readable color */
+.prose :where(.text-white, [style*="color:white"], [style*="color: #fff"], [style*="color:#fff"]) {
+  color: rgb(24 24 27) !important;
+}
+
+/* Inline code: light background + dark text (readable on white) */
+.prose code:not(pre code) {
+  background: #f6f7f8;
+  color: #111827;
+  padding: .2rem .35rem;
+  border-radius: .35rem;
+}
+
+/* Code blocks: make sure text and bg have contrast (pick one style) */
+.prose pre {
+  background: #0b0e14;     /* dark slate */
+  color: #f3f4f6;          /* off-white text */
+  border-radius: .5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+/* Links readable in light theme */
+.prose a { color: #6e38ff; }
+.prose a:hover { color: #592dce; }
+
+/* Don't invert by accident */
+.prose.prose-invert { color: inherit; }
+
+/* Force rebuild timestamp: 15 Sep 2025 07:07:13 */
