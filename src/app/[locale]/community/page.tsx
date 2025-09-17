@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { CommunityStats } from '@/components/community/community-stats';
 
 export const metadata: Metadata = {
   title: 'Community - Zaza Promptly',
@@ -13,11 +14,6 @@ type Props = {
 export default async function Page({params}: Props) {
   const {locale} = await params;
   const t = await getTranslations('community');
-  const stats = [
-    { value: '2,500+', label: t('stats.teachers') },
-    { value: '150+',   label: t('stats.resources') },
-    { value: '500+',   label: t('stats.success_stories') },
-  ];
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -35,15 +31,8 @@ export default async function Page({params}: Props) {
           </p>
         </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">{stat.value}</div>
-              <div className="text-gray-600">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+        {/* Enhanced Stats Section */}
+        <CommunityStats />
 
         {/* CTA Section */}
         <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
