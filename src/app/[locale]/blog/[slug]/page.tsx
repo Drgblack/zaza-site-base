@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { components } from '@/components/mdx';
 
 type Props = {
   params: Promise<{
@@ -122,6 +123,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
                         rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
                       },
                     }}
+                    components={components}
                   />
                 </div>
               </div>
