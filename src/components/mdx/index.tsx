@@ -107,7 +107,7 @@ interface FigureProps {
 export function Figure({ src, alt, caption, className = "" }: FigureProps) {
   return (
     <figure className={`not-prose my-8 ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {/* eslint-disable-next-line */}
       <img 
         src={src} 
         alt={alt} 
