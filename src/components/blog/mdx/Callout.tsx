@@ -4,14 +4,16 @@ import { AlertTriangle, Info, Sparkles, AlertOctagon } from 'lucide-react'
 const styles = {
   info:    'bg-blue-50 border-blue-200 text-blue-900',
   tip:     'bg-emerald-50 border-emerald-200 text-emerald-900',
+  success: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+  warning: 'bg-amber-50 border-amber-200 text-amber-900',
   warn:    'bg-amber-50 border-amber-200 text-amber-900',
   danger:  'bg-rose-50 border-rose-200 text-rose-900',
 }
-const icons = { info: Info, tip: Sparkles, warn: AlertTriangle, danger: AlertOctagon }
+const icons = { info: Info, tip: Sparkles, success: Sparkles, warning: AlertTriangle, warn: AlertTriangle, danger: AlertOctagon }
 
 export default function Callout(
   { type='info', title, children }:
-  { type?: 'info'|'tip'|'warn'|'danger'; title?: string; children: React.ReactNode }
+  { type?: 'info'|'tip'|'success'|'warning'|'warn'|'danger'; title?: string; children: React.ReactNode }
 ){
   const Icon = icons[type]
   return (

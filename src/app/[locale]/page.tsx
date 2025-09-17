@@ -8,6 +8,8 @@ import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Calcula
 import SmartSnippetWriterV3 from '@/components/site/snippet/SmartSnippetWriterV3';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
+import ImageCarousel from '@/components/site/ImageCarousel';
+import { heroImages } from '@/lib/hero-images';
 import ZaraClient from '@/components/zara/ZaraClient';
 import { ROICalculator } from '@/components/site/roi-calculator';
 import { StickyCTA } from '@/components/site/sticky-cta';
@@ -153,8 +155,13 @@ export default async function HomePage({ params }: Props) {
                   {/* Glow effect */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 rounded-3xl blur-2xl opacity-20" />
 
-                  {/* Main image container with rotating images */}
-                  <RotatingHeroImage />
+                  {/* Main image container with carousel */}
+                  <ImageCarousel 
+                    images={heroImages}
+                    autoPlay={true}
+                    interval={5000}
+                    className="rounded-3xl overflow-hidden shadow-2xl"
+                  />
 
                   {/* Floating stats cards */}
                   <div className="absolute -top-4 -left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
