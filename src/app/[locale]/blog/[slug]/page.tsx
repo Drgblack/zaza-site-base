@@ -113,15 +113,17 @@ export default async function Page({ params }: { params: { locale: string; slug:
             {/* Full MDX content rendering */}
             {post.content ? (
               <div className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
-                <MDXRemote 
-                  source={post.content}
-                  options={{
-                    mdxOptions: {
-                      remarkPlugins: [remarkGfm],
-                      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-                    },
-                  }}
-                />
+                <div suppressHydrationWarning>
+                  <MDXRemote 
+                    source={post.content}
+                    options={{
+                      mdxOptions: {
+                        remarkPlugins: [remarkGfm],
+                        rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
+                      },
+                    }}
+                  />
+                </div>
               </div>
             ) : (
               <div className="space-y-4 text-gray-700">
