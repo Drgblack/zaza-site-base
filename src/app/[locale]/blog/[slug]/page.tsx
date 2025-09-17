@@ -113,7 +113,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             {/* Full MDX content rendering */}
             {post.content ? (
-              <div className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
+              <div className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
                 <div suppressHydrationWarning>
                   <MDXRemote 
                     source={post.content}
@@ -128,7 +128,7 @@ export default async function Page({ params }: { params: { locale: string; slug:
                 </div>
               </div>
             ) : (
-              <div className="space-y-4 text-gray-700">
+              <div className="space-y-4 text-gray-900">
                 <p className="leading-relaxed">
                   {post.excerpt || 'This comprehensive guide explores the latest AI tools and techniques for modern educators. Learn how to transform your teaching practice with cutting-edge artificial intelligence solutions designed specifically for classroom use.'}
                 </p>

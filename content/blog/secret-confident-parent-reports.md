@@ -1,3 +1,16 @@
+---
+author: greg-blackburn
+cover:
+  src: >-
+    https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=800&h=400&fit=crop
+  alt: Article cover
+  width: 1600
+  height: 900
+featuredImage: >-
+  https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=800&h=400&fit=crop
+isPublished: true
+isDraft: false
+---
 # The Secret to Confident Parent Reports
 
 *"I need to write 32 progress reports by Friday, and I honestly don't know where to start with some of these kids."*

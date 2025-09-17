@@ -123,7 +123,7 @@ export default async function BlogPage({params}: Props) {
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div className="flex items-center text-sm text-gray-500">
                     <User className="w-4 h-4 mr-1" />
-                    Zaza Team
+                    Dr. Greg Blackburn
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
                     <Calendar className="w-4 h-4 mr-1" />

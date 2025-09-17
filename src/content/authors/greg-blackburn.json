@@ -1,7 +1,12 @@
 {
+  "slug": "greg-blackburn",
   "id": "greg-blackburn",
   "name": "Dr. Greg Blackburn",
-  "bio": "PhD in Professional Education; 20+ years in learning & development.",
-  "avatar": "/authors/greg-blackburn.jpg",
-  "role": "Author"
+  "bio": "PhD in Professional Education, 20+ years in learning & development. Helping teachers integrate AI responsibly.",
+  "avatar": "/images/authors/greg-blackburn.jpg",
+  "role": "Author",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/greg-blackburn",
+    "x": "https://x.com/greg_blackburn"
+  }
 }
