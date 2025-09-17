@@ -1,6 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { CommunityStats } from '@/components/community/community-stats';
+import { Impact } from '@/components/sections/community/Impact';
+import { Contributors } from '@/components/sections/community/Contributors';
+import { CommunityCTA } from '@/components/sections/community/CTA';
 
 export const metadata: Metadata = {
   title: 'Community - Zaza Promptly',
@@ -11,45 +13,34 @@ type Props = {
   params: Promise<{locale: string}>;
 };
 
-export default async function Page({params}: Props) {
+export default async function CommunityPage({params}: Props) {
   const {locale} = await params;
   const t = await getTranslations('community');
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+    <main className="relative">
+      {/* soft backdrop */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background via-background to-background/80" />
+
+      {/* page container */}
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 md:pt-28">
+        <header className="text-center mb-8 sm:mb-10 md:mb-14 space-y-3 md:space-y-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
             {t('title')}
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-muted-foreground max-w-3xl mx-auto">
             {t('description')}
           </p>
-        </div>
+        </header>
 
-        {/* Enhanced Stats Section */}
-        <CommunityStats />
-
-        {/* CTA Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Ready to Transform Your Teaching?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of educators who are already using AI to save time, improve communication, and enhance student learning.
-          </p>
-          <a 
-            href="https://teach.zazatechnologies.com"
-            className="bg-purple-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:bg-purple-700 transition-colors inline-block"
-          >
-            {t('cta')}
-          </a>
-        </div>
+        {/* sections */}
+        <Impact />
+        <Contributors />
+        <CommunityCTA />
       </div>
-    </div>
+    </main>
   );
 }

@@ -92,12 +92,33 @@
     "title": "Community",
     "subtitle": "Connect with fellow educators",
     "description": "Join thousands of educators who are using AI to transform their teaching practice. Share resources, get support, and learn from each other's experiences.",
+    "impact": {
+      "badge": "Global Community Impact",
+      "title": "Making a Difference",
+      "desc": "See how our global community of educators is transforming classrooms and saving precious time",
+      "teachers": "Active Teachers",
+      "resources": "Shared Resources", 
+      "downloads": "Total Downloads",
+      "rating": "Average Rating",
+      "countries": "Countries",
+      "time_saved": "Time Saved"
+    },
+    "contributors": {
+      "badge": "Community Spotlight",
+      "title": "Top Contributors",
+      "desc": "Meet the incredible educators who are leading our community and inspiring thousands of teachers worldwide"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Teaching?",
+      "desc": "Join thousands of educators who are already using AI to save time, improve communication, and enhance student learning.",
+      "primary": "Get Started Today",
+      "secondary": "See Resources"
+    },
     "stats": {
       "teachers": "Active Teachers",
       "resources": "Shared Resources",
       "success_stories": "Success Stories"
     },
-    "cta": "Get Started Today",
     "join_discord": "Join Discord",
     "join_facebook": "Join Facebook Group"
   },
