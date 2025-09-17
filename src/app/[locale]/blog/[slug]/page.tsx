@@ -6,7 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { components } from '@/components/mdx';
+import { components, PromptBox, ZazaCTA } from '@/components/mdx';
 import PostLayout from '@/components/blog/PostLayout';
 import Callout from '@/components/blog/mdx/Callout';
 import PullQuote from '@/components/blog/mdx/PullQuote';
@@ -132,6 +132,8 @@ export default async function Page({ params }: { params: { locale: string; slug:
                     PullQuote,
                     Checklist,
                     Divider,
+                    PromptBox,
+                    ZazaCTA,
                   }}
                 />
               </div>
