@@ -148,3 +148,5 @@ Confident parent reports aren't about being perfect – they're about being syst
 ---
 
 *Ready to write parent reports with complete confidence? **Meet Zara, your AI assistant** and discover how professional, personalized reports can be completed in half the time with twice the impact.*
+
+<!-- CTA-OK -->

@@ -112,3 +112,5 @@ The next time you need to reach out to a parent about a concern, try incorporati
 ---
 
 *Ready to transform your parent communication? **Try Promptly free today** and discover how AI can help you craft messages that build partnerships, not problems.*
+
+<!-- CTA-OK -->

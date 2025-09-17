@@ -42,6 +42,12 @@ for (const file of posts) {
     console.error(`❌ Disallowed white text found in: ${file}`);
     failed = true;
   }
+  
+  // Check for CTA marker
+  if (!/<!--\s*CTA-OK\s*-->/.test(text)) {
+    console.error(`❌ Missing CTA marker <!-- CTA-OK --> at end: ${file}`);
+    failed = true;
+  }
   const words = body.split(/\s+/).filter(Boolean).length;
   if (words < 600) { console.error(`Too short (<600 words): ${file} (${words})`); failed = true; }
   const mSlug = text.match(/slug:\s*["']?([a-z0-9-]+)["']?/i);

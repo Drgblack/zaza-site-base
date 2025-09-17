@@ -157,3 +157,5 @@ The goal isn't to replace the human element in teaching – it's to give you bac
 ---
 
 *Want to try AI-powered parent communication? Start with Zaza Promptly's free plan and generate up to 5 professional messages per month.*
+
+<!-- CTA-OK -->
