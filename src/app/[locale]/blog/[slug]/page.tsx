@@ -113,7 +113,27 @@ export default async function Page({ params }: { params: { locale: string; slug:
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             {/* Full MDX content rendering */}
             {post.content ? (
-              <div className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
+              <div className="blog-content prose prose-lg max-w-none" style={{
+                '--tw-prose-body': '#111827',
+                '--tw-prose-headings': '#111827', 
+                '--tw-prose-lead': '#111827',
+                '--tw-prose-links': '#2563eb',
+                '--tw-prose-bold': '#111827',
+                '--tw-prose-counters': '#6b7280',
+                '--tw-prose-bullets': '#d1d5db',
+                '--tw-prose-hr': '#e5e7eb',
+                '--tw-prose-quotes': '#111827',
+                '--tw-prose-quote-borders': '#e5e7eb',
+                '--tw-prose-captions': '#6b7280',
+                '--tw-prose-kbd': '#111827',
+                '--tw-prose-kbd-shadows': '17 24 39',
+                '--tw-prose-code': '#7c3aed',
+                '--tw-prose-pre-code': '#e5e7eb',
+                '--tw-prose-pre-bg': '#1f2937',
+                '--tw-prose-th-borders': '#d1d5db',
+                '--tw-prose-td-borders': '#e5e7eb',
+                color: '#111827'
+              } as React.CSSProperties}>
                 <div suppressHydrationWarning>
                   <MDXRemote 
                     source={post.content}
