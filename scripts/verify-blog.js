@@ -2,19 +2,46 @@
 /* Run with: node scripts/verify-blog.js */
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
-const posts = glob.sync('src/content/blog/**/*.mdx').concat(glob.sync('content/blog/**/*.mdx'));
+// Simple recursive directory walk to find MDX files
+function findMdxFiles(dir) {
+  const files = [];
+  if (!fs.existsSync(dir)) return files;
+  
+  const items = fs.readdirSync(dir);
+  for (const item of items) {
+    const fullPath = path.join(dir, item);
+    const stat = fs.statSync(fullPath);
+    if (stat.isDirectory()) {
+      files.push(...findMdxFiles(fullPath));
+    } else if (item.endsWith('.mdx') || item.endsWith('.md')) {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
+const posts = findMdxFiles('content/blog');
 let failed = false;
 
 const slugs = new Set();
 const covers = new Set();
+
+function checkWhiteText(md) {
+  return /text-white|color:\s*white|color:\s*#fff/i.test(md);
+}
 
 for (const file of posts) {
   const text = fs.readFileSync(file, 'utf8');
   const fm = text.split('---');
   if (fm.length < 3) { console.error(`Missing front-matter: ${file}`); failed = true; continue; }
   const body = fm.slice(2).join('---').trim();
+  
+  // Check for disallowed white text
+  if (checkWhiteText(text)) {
+    console.error(`❌ Disallowed white text found in: ${file}`);
+    failed = true;
+  }
   const words = body.split(/\s+/).filter(Boolean).length;
   if (words < 600) { console.error(`Too short (<600 words): ${file} (${words})`); failed = true; }
   const mSlug = text.match(/slug:\s*["']?([a-z0-9-]+)["']?/i);
@@ -50,4 +77,4 @@ for (const file of posts) {
 }
 
 if (failed) { process.exit(1); }
-console.log('✅ Blog content OK');
+console.log('✅ Blog content OK - no white text issues');

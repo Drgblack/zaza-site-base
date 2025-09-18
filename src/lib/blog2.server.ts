@@ -25,6 +25,8 @@ export type PostMeta = {
   mtime?: Date;
   draft?: boolean;
   content?: string; // Add full content for single post view
+  tags?: string[];
+  category?: string;
 };
 
 export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> {
@@ -52,7 +54,7 @@ export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> 
       if (image && (image.includes('default') || image.includes('placeholder'))) {
         // Replace with a unique Unsplash image based on slug hash
         const fallbackImages = [
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=400&fit=crop',
           'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=400&fit=crop',
           'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=400&fit=crop',
           'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop'
@@ -68,7 +70,9 @@ export async function getAllPosts(includeDrafts?: boolean): Promise<PostMeta[]> 
         excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
         image,
         mtime: stats.mtime,
-        draft: data.draft === true
+        draft: data.draft === true,
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        category: data.category || null
       });
     } catch (e) {
       console.error('[blog] skipping', slug, e);
@@ -111,7 +115,7 @@ export async function getPostBySlug(slug: string, includeDrafts?: boolean): Prom
     if (image && (image.includes('default') || image.includes('placeholder'))) {
       // Replace with a unique Unsplash image based on slug hash
       const fallbackImages = [
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=400&fit=crop',
         'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=400&fit=crop',
         'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=400&fit=crop',
         'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop'
@@ -127,7 +131,9 @@ export async function getPostBySlug(slug: string, includeDrafts?: boolean): Prom
       excerpt: data.excerpt ?? data.description ?? content.slice(0, 180),
       image,
       draft: data.draft === true,
-      content: content // Include full MDX content
+      content: content, // Include full MDX content
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      category: data.category || null
     };
   } catch (e) {
     console.error('[blog] Failed to get post by slug', slug, e);

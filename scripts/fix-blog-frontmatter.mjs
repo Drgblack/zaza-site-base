@@ -31,7 +31,7 @@ const UNIQUE_IMAGES = [
   'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop',
   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop',
   'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop',
+  'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=400&fit=crop',
   'https://images.unsplash.com/photo-1573164574511-73c773193279?w=800&h=400&fit=crop',
   'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=400&fit=crop',
   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&fit=crop',
