@@ -5,13 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2, Plus, Eye } from 'lucide-react';
+import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { STARTERS, type Starter } from '@/data/snippet-presets';
-import { polish } from '@/lib/snippetPolish';
 
 const MAX_FREE_PER_MONTH = 5;
 
@@ -272,7 +270,11 @@ Please feel free to reach out if you have any questions. Thanks for being such a
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         e.preventDefault();
-        draft.trim() ? handleImprove() : handleGenerate();
+        if (draft.trim()) {
+          handleImprove();
+        } else {
+          handleGenerate();
+        }
       } else if (e.key === 'v' && !e.metaKey && !e.ctrlKey && document.activeElement?.tagName !== 'TEXTAREA') {
         e.preventDefault();
         handleNewVariation();

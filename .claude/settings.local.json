@@ -27,7 +27,12 @@
       "Bash(git add:*)",
       "Bash(ls:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(npx tsc:*)",
+      "Bash(TSC_COMPILE_ON_ERROR=true npm run build)",
+      "Bash(pnpm run lint:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": []
   }
