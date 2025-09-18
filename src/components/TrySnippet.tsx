@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectPortal } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -662,38 +662,34 @@ export default function TrySnippet() {
 
                     <div>
                       <Label htmlFor="tone" className="text-sm font-medium">Tone</Label>
-                      <Select value={tone} onValueChange={setTone} modal={false}>
+                      <Select value={tone} onValueChange={setTone}>
                         <SelectTrigger className="mt-1">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectPortal>
-                          <SelectContent className="z-50 max-h-72 overflow-auto" position="popper" sideOffset={6}>
-                            <SelectItem value="Supportive">Supportive</SelectItem>
-                            <SelectItem value="Concise">Concise</SelectItem>
-                            <SelectItem value="Friendly">Friendly</SelectItem>
-                            <SelectItem value="Formal">Formal</SelectItem>
-                            <SelectItem value="Warm-professional">Warm-professional</SelectItem>
-                          </SelectContent>
-                        </SelectPortal>
+                        <SelectContent className="z-50 max-h-72 overflow-auto" position="popper" sideOffset={6}>
+                          <SelectItem value="Supportive">Supportive</SelectItem>
+                          <SelectItem value="Concise">Concise</SelectItem>
+                          <SelectItem value="Friendly">Friendly</SelectItem>
+                          <SelectItem value="Formal">Formal</SelectItem>
+                          <SelectItem value="Warm-professional">Warm-professional</SelectItem>
+                        </SelectContent>
                       </Select>
                     </div>
                   </div>
 
                   <div>
                     <Label htmlFor="language" className="text-sm font-medium">Language</Label>
-                    <Select value={language} onValueChange={setLanguage} modal={false}>
+                    <Select value={language} onValueChange={setLanguage}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectPortal>
-                        <SelectContent className="z-50 max-h-72 overflow-auto" position="popper" sideOffset={6}>
-                          <SelectItem value="English">English</SelectItem>
-                          <SelectItem value="German">German</SelectItem>
-                          <SelectItem value="Spanish">Spanish</SelectItem>
-                          <SelectItem value="French">French</SelectItem>
-                          <SelectItem value="Italian">Italian</SelectItem>
-                        </SelectContent>
-                      </SelectPortal>
+                      <SelectContent className="z-50 max-h-72 overflow-auto" position="popper" sideOffset={6}>
+                        <SelectItem value="English">English</SelectItem>
+                        <SelectItem value="German">German</SelectItem>
+                        <SelectItem value="Spanish">Spanish</SelectItem>
+                        <SelectItem value="French">French</SelectItem>
+                        <SelectItem value="Italian">Italian</SelectItem>
+                      </SelectContent>
                     </Select>
                   </div>
 
