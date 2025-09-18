@@ -5,7 +5,7 @@ import { getAllPosts } from '@/lib/blog2.server';
 import Image from 'next/image';
 import { Clock, User, Calendar } from 'lucide-react';
 import { NewsletterForm } from './newsletter-form';
-import BlogSearchClient from '@/components/blog/BlogSearchClient';
+// import BlogSearchClient from '@/components/blog/BlogSearchClient'; // TODO: Fix fuse.js dependency
 
 export const dynamic = "error";
 export const revalidate = false;
@@ -79,7 +79,7 @@ export default async function BlogPage({params}: Props) {
 
       {/* Blog Posts Grid with Search */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <BlogSearchClient posts={allPosts} />
+        {/* <BlogSearchClient posts={allPosts} /> TODO: Fix fuse.js dependency */}
       </div>
 
       {/* Stay Updated CTA */}
