@@ -33,7 +33,9 @@
       "Bash(where pnpm)",
       "Bash(pnpm install:*)",
       "Bash($env:NEXT_PUBLIC_SITE_URL = \"https://zazateach.com\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(set PUPPETEER_SKIP_DOWNLOAD=true)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }

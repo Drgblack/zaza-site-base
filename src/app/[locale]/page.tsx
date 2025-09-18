@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Calculator } from 'lucide-react';
 import SmartSnippetWriterV3 from '@/components/site/snippet/SmartSnippetWriterV3';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
-import { RotatingHeroImage } from '@/components/site/rotating-hero-image';
+import HeroCarousel from '@/components/site/HeroCarousel';
 // Removed ImageCarousel and heroImages imports
 import ZaraClient from '@/components/zara/ZaraClient';
 import { ROICalculator } from '@/components/site/roi-calculator';
@@ -168,51 +168,9 @@ export default async function HomePage({ params }: Props) {
               </div>
             </div>
 
-            {/* Right side - Hero image */}
+            {/* Right side - Hero Carousel */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-md lg:max-w-lg">
-                <div className="relative">
-                  {/* Glow effect */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 rounded-3xl blur-2xl opacity-20" />
-
-                  {/* Main image container */}
-                  <div className="rounded-3xl overflow-hidden shadow-2xl">
-                    <Image
-                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop"
-                      alt="AI-powered teaching tools for modern educators"
-                      width={600}
-                      height={400}
-                      className="w-full h-auto object-cover"
-                      priority
-                    />
-                  </div>
-
-                  {/* Floating stats cards */}
-                  <div className="absolute -top-4 -left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                        <Check className="w-5 h-5 text-green-600 dark:text-green-400" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">2,847</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">Messages saved</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute -bottom-4 -right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                        <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">892h</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">Time saved</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HeroCarousel />
             </div>
           </div>
         </div>
