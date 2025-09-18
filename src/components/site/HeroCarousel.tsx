@@ -6,9 +6,9 @@ import { ChevronLeft, ChevronRight, Check, Clock } from 'lucide-react';
 
 const heroImages = [
   {
-    src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-    alt: "Modern classroom with engaged students using technology",
-    caption: "Modern Learning"
+    src: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=600&h=400&fit=crop",
+    alt: "Female teacher teaching enthusiastic children in a bright classroom",
+    caption: "Teaching in Action"
   },
   {
     src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop", 
