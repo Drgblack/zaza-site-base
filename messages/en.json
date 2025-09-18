@@ -9,7 +9,13 @@
     "faq": "FAQ",
     "company": "Company",
     "press": "Press",
-    "contact": "Contact"
+    "contact": "Contact",
+    "ourSolutions": "Our Solutions",
+    "learningCentre": "Learning Centre",
+    "aboutUs": "About Us",
+    "tryZazaPromptly": "Try Zaza Promptly",
+    "tryZazaTeach": "Try Zaza Teach",
+    "language": "Language"
   },
   "hero": {
     "title": "AI-powered tools for modern educators",
@@ -75,7 +81,16 @@
     "download_file": "Download",
     "view": "View",
     "free": "Free",
-    "premium": "Premium"
+    "premium": "Premium",
+    "breadcrumb": {
+      "home": "Home",
+      "resources": "Resources"
+    },
+    "usageNote": "These resources are free for classroom use. Please keep the footer credit and do not resell.",
+    "downloadTip": {
+      "label": "Tip:",
+      "text": "Click 'View & Print' to open in a new tab, then use Ctrl+P (Cmd+P on Mac) and select 'Save as PDF' for your own PDF copy."
+    }
   },
   "about": {
     "title": "About Zaza Promptly",
@@ -86,18 +101,43 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about Zaza Promptly"
+    "subtitle": "Everything you need to know about Zaza Promptly",
+    "breadcrumb": {
+      "home": "Home",
+      "faqs": "FAQs"
+    }
   },
   "community": {
     "title": "Community",
     "subtitle": "Connect with fellow educators",
     "description": "Join thousands of educators who are using AI to transform their teaching practice. Share resources, get support, and learn from each other's experiences.",
+    "impact": {
+      "badge": "Global Community Impact",
+      "title": "Making a Difference",
+      "desc": "See how our global community of educators is transforming classrooms and saving precious time",
+      "teachers": "Active Teachers",
+      "resources": "Shared Resources", 
+      "downloads": "Total Downloads",
+      "rating": "Average Rating",
+      "countries": "Countries",
+      "time_saved": "Time Saved"
+    },
+    "contributors": {
+      "badge": "Community Spotlight",
+      "title": "Top Contributors",
+      "desc": "Meet the incredible educators who are leading our community and inspiring thousands of teachers worldwide"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Teaching?",
+      "desc": "Join thousands of educators who are already using AI to save time, improve communication, and enhance student learning.",
+      "primary": "Get Started Today",
+      "secondary": "See Resources"
+    },
     "stats": {
       "teachers": "Active Teachers",
       "resources": "Shared Resources",
       "success_stories": "Success Stories"
     },
-    "cta": "Get Started Today",
     "join_discord": "Join Discord",
     "join_facebook": "Join Facebook Group"
   },
@@ -122,89 +162,61 @@
     "reset": "Reset"
   },
   "pricing": {
-    "headline": "Simple, Transparent Pricing",
-    "subhead": "Choose the plan that saves you time every week. Annual membership gives teachers the best value—plus a 30-day money-back guarantee.",
-    "zaza_pass": {
-      "badge_annual_best_value": "Annual is best value",
-      "hero_desc": "Zaza Pass is your annual teacher membership. Get Promptly plus pro tools that save 5+ hours every week—backed by a 30-day money-back guarantee.",
-      "hero_badge": "Annual is best value",
-      "title": "Zaza Pass",
-      "subtitle": "Your annual teacher membership for Promptly + pro tools",
-      "cta_primary": "Choose Zaza Pass",
-      "cta_secondary": "See everything you get",
-      "tiles": {
-        "minutes_to_quality": "Minutes to quality comments",
-        "minutes_to_quality_desc": "Turn notes into professional, parent-ready comments in minutes.",
-        "plans_ready": "Plans ready to export",
-        "plans_ready_desc": "Export clean DOC/PDF in one click.",
-        "remembers_classes": "Remembers your classes",
-        "remembers_classes_desc": "Keep context across terms and subjects for faster writing."
-      }
+    "title": "Simple, Transparent Pricing",
+    "badge": "Annual is best value",
+    "hero_explainer": "Zaza Pass is your annual teacher membership. Get Promptly plus pro tools that save 5+ hours every week—backed by a 30-day money-back guarantee.",
+
+    "switch": {
+      "teacher": "Teacher Suite",
+      "close": "Close Suite",
+      "annual": "Annual (save 15%)",
+      "monthly": "Monthly"
     },
+
     "plans": {
       "starter": {
-        "title": "Starter"
+        "label": "Starter",
+        "price": "€99",
+        "per": "year",
+        "cta": "Choose Starter",
+        "bullets": [
+          "Comment Coach",
+          "Report Bank",
+          "Plan templates",
+          "Export to DOC/PDF",
+          "Classroom notes locker"
+        ]
       },
       "pro": {
-        "title": "Pro",
-        "best_value": "Best value"
+        "label": "Pro",
+        "badge": "Best value",
+        "price": "€149",
+        "per": "year",
+        "cta": "Choose Pro",
+        "bullets": [
+          "All Starter features",
+          "Full AI Rewriter/Planner",
+          "Curriculum packs",
+          "Batch exports",
+          "Priority updates",
+          "Shared templates"
+        ]
       }
     },
-    "suites": {
-      "teacher": {
-        "name": "Teacher Suite",
-        "badge": "Annual is best value",
-        "features": {
-          "comment_coach": "Comment Coach",
-          "report_bank": "Report Bank",
-          "plan_templates": "Plan templates",
-          "export_docs": "Export to DOC/PDF",
-          "classroom_notes": "Classroom notes locker",
-          "all_starter": "All Starter features",
-          "ai_rewriter": "Full AI Rewriter/Planner",
-          "curriculum_packs": "Curriculum packs",
-          "batch_exports": "Batch exports",
-          "priority_updates": "Priority updates",
-          "shared_templates": "Shared templates"
-        }
-      },
-      "close": {
-        "name": "Close Suite", 
-        "badge": "Monthly available",
-        "features": {
-          "close_agent": "Close Agent – AI assistant",
-          "email_manager": "Close Inbox – email manager",
-          "browser_tool": "Browser tool",
-          "follow_up_sequences": "Unlimited follow-up sequences",
-          "all_starter": "All Starter features",
-          "all_email_drafting": "All email drafting",
-          "crm_integration": "CRM integration",
-          "advanced_analytics": "Advanced analytics",
-          "priority_support": "Priority support"
-        }
-      }
-    },
+
     "risk_free": {
       "title": "Risk-Free 30-Day Trial",
-      "point1": "Full refund within 30 days",
-      "point2": "Cancel anytime — no questions asked",
-      "point3": "No student data stored"
+      "points": [
+        "Full refund within 30 days",
+        "Cancel anytime — no questions asked",
+        "No student data stored"
+      ]
     },
-    "cta": {
-      "choose_starter": "Choose Starter",
-      "choose_pro": "Choose Pro",
-      "learn_more": "Learn more",
-      "get_started": "Get started"
-    },
-    "badges": {
-      "money_back": "30-day money-back guarantee",
-      "stripe": "Secure payments by Stripe",
-      "trusted": "Trusted by 10,000+ teachers"
-    },
-    "billing": {
-      "annual": "Annual",
-      "monthly": "Monthly",
-      "save_percent": "Save 15%"
+
+    "footnotes": {
+      "g1": "30-day money-back guarantee",
+      "g2": "Secure payments by Stripe",
+      "g3": "Trusted by 10,000+ teachers"
     }
   },
   "home": {
@@ -243,5 +255,36 @@
     "closing_cta_primary": "Try Promptly Free",
     "closing_cta_secondary": "See Plans",
     "closing_tagline": "Join thousands of teachers who've already reclaimed their time"
+  },
+  "aboutFounder": {
+    "metaTitle": "About the Founder - Dr. Greg Blackburn | Zaza Teach",
+    "metaDescription": "Dr. Greg Blackburn, Founder & CEO of Zaza Technologies. From Tasmanian trades to PhD at City, University of London - a career dedicated to helping teachers thrive.",
+    "ogDescription": "Education transformed Greg's life. Now his mission is to help teachers thrive - with empathetic, pedagogically sound AI.",
+    "ogImageAlt": "Dr. Greg Blackburn, Founder of Zaza Technologies",
+    "jobTitle": "Founder & CEO",
+    "personDescription": "Education technology entrepreneur with PhD in Professional Education and over 20 years of experience in learning and development.",
+    "breadcrumb": {
+      "home": "Home",
+      "aboutFounder": "About Founder"
+    }
+  },
+  "footer": {
+    "products": "Products",
+    "resources": "Resources", 
+    "company": "Company",
+    "blog": "Blog",
+    "freeResources": "Free Resources",
+    "faqs": "FAQs",
+    "support": "Support",
+    "contact": "Contact",
+    "aboutFounder": "About the Founder",
+    "visionMission": "Vision & Mission",
+    "productList": "Zaza Product List",
+    "featureRequest": "Feature Request",
+    "privacy": "Privacy & Data Policy",
+    "terms": "Terms of Service",
+    "comingSoon": "Coming Soon",
+    "copyright": "© 2025 Zaza Technologies UG (haftungsbeschränkt). All rights reserved.",
+    "tagline": "Made with 💙 by teachers, for teachers."
   }
 }

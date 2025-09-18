@@ -1,0 +1,7 @@
+policy: allow
+homepage: https://zazapromptly.com/
+product: https://zazapromptly.com/tool/zaza-promptly
+facts: https://zazapromptly.com/facts
+pricing: https://zazapromptly.com/pricing
+ai-usage: https://zazapromptly.com/ai-usage
+sitemap: https://zazapromptly.com/sitemap.xml

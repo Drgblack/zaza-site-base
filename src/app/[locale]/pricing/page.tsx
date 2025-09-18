@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
 import SuiteSwitch from '@/components/pricing/SuiteSwitch';
@@ -6,20 +7,110 @@ import BillingCycleSwitch from '@/components/pricing/BillingCycleSwitch';
 import PlanCTA from '@/components/pricing/PlanCTA';
 import { SUITE_PRICING, getSuiteFromSearchParams, getBillingCycleFromSearchParams, formatSuitePrice, type SuiteKey, type BillingCycle } from '@/lib/pricing';
 import { Check } from 'lucide-react';
+import { canonical } from "@/lib/site";
+import { SoftwareApplicationJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
+
+export const metadata: Metadata = {
+  title: "Pricing - Simple, Transparent Plans | Zaza Promptly",
+  description: "Affordable AI tools for teachers. Start at €99/year with 14-day free trial and 30-day money-back guarantee. Save 3-5 hours per week.",
+  alternates: { canonical: canonical("/pricing") },
+  openGraph: {
+    title: "Pricing - Simple, Transparent Plans | Zaza Promptly",
+    description: "Affordable AI tools for teachers. Start at €99/year with 14-day free trial and 30-day money-back guarantee.",
+    url: canonical("/pricing"),
+  },
+};
 
 type Props = { 
   params: { locale: string };
   searchParams?: { suite?: string; billing?: string };
 };
 
+const pricingFAQs = [
+  {
+    question: "Is there a free trial and refund policy?",
+    answer: "Yes. Try Zaza Promptly free for 14 days. All plans include a 30-day money-back guarantee."
+  },
+  {
+    question: "Is Zaza Promptly safe for schools (GDPR)?",
+    answer: "Zaza Promptly is designed with educator privacy in mind. We don't store student data and follow GDPR-conscious practices suitable for EU schools."
+  },
+  {
+    question: "How much time can teachers save?",
+    answer: "Most teachers report saving 3–5 hours per week across lesson planning, report comments, and parent communication."
+  },
+  {
+    question: "Can I export clean documents?",
+    answer: "Yes. Export clean DOC/PDF in one click for easy sharing or archiving."
+  }
+];
+
+// Safety helper to prevent raw keys from rendering
+function BulletList({ items }: { items: string[] }) {
+  const safe = (s: string) => (s?.includes('.') && s.startsWith('pricing') ? '' : s);
+  return (
+    <ul className="space-y-2">
+      {items.map((s, i) => safe(s) && (
+        <li key={i} className="flex items-start gap-2">
+          <Check className="mt-0.5 h-4 w-4 text-white/70" />
+          <span className="text-sm text-white/90">{safe(s)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function BulletListPro({ items }: { items: string[] }) {
+  const safe = (s: string) => (s?.includes('.') && s.startsWith('pricing') ? '' : s);
+  return (
+    <ul className="space-y-2">
+      {items.map((s, i) => safe(s) && (
+        <li key={i} className="flex items-start gap-2">
+          <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
+          <span className="text-sm text-white/95">{safe(s)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function RiskFreeBullets({ items }: { items: string[] }) {
+  const safe = (s: string) => (s?.includes('.') && s.startsWith('pricing') ? '' : s);
+  return (
+    <ul className="mt-2 space-y-1 text-sm text-white/90">
+      {items.map((s, i) => safe(s) && (
+        <li key={i} className="flex items-start gap-2">
+          <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
+          <span>{safe(s)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function PricingPage({ params: { locale }, searchParams }: Props) {
   const t = await getTranslations({ locale, namespace: 'pricing' });
   const suiteKey = getSuiteFromSearchParams(searchParams);
   const billingCycle = getBillingCycleFromSearchParams(searchParams);
   const suiteData = SUITE_PRICING[suiteKey][billingCycle];
+  
+  // Use the simple array-based approach from translations for Teacher Suite
+  // For Close Suite, use hardcoded features since it's a different product
+  const starterBullets = suiteKey === 'teacher' 
+    ? t.raw('plans.starter.bullets') as string[]
+    : ['Close Agent – AI assistant', 'Close Inbox – email manager', 'Browser tool', 'Unlimited follow-up sequences'];
+    
+  const proBullets = suiteKey === 'teacher'
+    ? t.raw('plans.pro.bullets') as string[]
+    : ['All Starter features', 'All email drafting', 'CRM integration', 'Advanced analytics', 'Priority support'];
+    
+  const riskFreePoints = t.raw('risk_free.points') as string[];
 
   return (
-    <main data-pricing-version="v3-pop-suites" className="pb-16 space-y-8">
+    <main data-pricing-version="v4-clean" className="pb-16 space-y-8">
+      <SoftwareApplicationJsonLd pageUrl={canonical("/pricing")} />
+      <FAQJsonLd faqs={pricingFAQs} />
+      
       <Hero />
       <Benefits />
 
@@ -30,26 +121,21 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
         <div className="grid gap-6 md:grid-cols-2">
           {/* Starter Plan */}
           <article className="rounded-xl ring-1 ring-white/10 p-6 bg-white/2 hover:ring-white/20 transition-colors">
-            <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? 'Starter' : 'Close Agent'}</h3>
+            <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? t('plans.starter.label') : 'Close Agent'}</h3>
             <p className="mt-2 text-2xl font-bold text-white">
               {formatSuitePrice(suiteData.plans.starter.price, suiteData.plans.starter.priceSuffix)}
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-white/90">
-              {suiteData.plans.starter.features.map((featureKey) => (
-                <li key={featureKey} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 text-white/70" />
-                  <span>{t(featureKey)}</span>
-                </li>
-              ))}
-            </ul>
-            <PlanCTA
-              href={suiteData.plans.starter.ctaHref}
-              labelKey={suiteData.plans.starter.ctaLabel}
-              suiteKey={suiteKey}
-              billingCycle={billingCycle}
-              planType="starter"
-              variant="starter"
-            />
+            <div className="mt-4">
+              <BulletList items={starterBullets} />
+            </div>
+            <div className="mt-6">
+              <a 
+                href={suiteData.plans.starter.ctaHref}
+                className="block w-full rounded-lg bg-white/10 hover:bg-white/15 text-white font-semibold py-3 px-4 border border-white/20 transition-colors text-center"
+              >
+                {t('plans.starter.cta')}
+              </a>
+            </div>
           </article>
 
           {/* Pro Plan */}
@@ -65,28 +151,23 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
             }`} />
             <div className="relative">
               <span className="absolute -top-3 left-4 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/90">
-                {t('plans.pro.best_value')}
+                {t('plans.pro.badge')}
               </span>
-              <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? 'Pro' : 'Close Suite'}</h3>
+              <h3 className="text-white font-semibold">{suiteKey === 'teacher' ? t('plans.pro.label') : 'Close Suite'}</h3>
               <p className="mt-2 text-2xl font-bold text-white">
                 {formatSuitePrice(suiteData.plans.pro.price, suiteData.plans.pro.priceSuffix)}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-white/95">
-                {suiteData.plans.pro.features.map((featureKey) => (
-                  <li key={featureKey} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
-                    <span>{t(featureKey)}</span>
-                  </li>
-                ))}
-              </ul>
-              <PlanCTA
-                href={suiteData.plans.pro.ctaHref}
-                labelKey={suiteData.plans.pro.ctaLabel}
-                suiteKey={suiteKey}
-                billingCycle={billingCycle}
-                planType="pro"
-                variant="pro"
-              />
+              <div className="mt-4">
+                <BulletListPro items={proBullets} />
+              </div>
+              <div className="mt-6">
+                <a 
+                  href={suiteData.plans.pro.ctaHref}
+                  className="block w-full rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold py-3 px-4 transition-all shadow-lg text-center"
+                >
+                  {t('plans.pro.cta')}
+                </a>
+              </div>
             </div>
           </article>
         </div>
@@ -96,29 +177,16 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
       <section className="mx-auto mt-8 max-w-5xl px-4">
         <div className="rounded-xl p-5 ring-1 ring-[#10b981]/25 bg-gradient-to-br from-[#10b981]/12 to-transparent">
           <h3 className="font-semibold text-white">{t('risk_free.title')}</h3>
-          <ul className="mt-2 space-y-1 text-sm text-white/90">
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
-              <span>{t('risk_free.point1')}</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
-              <span>{t('risk_free.point2')}</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 text-[#10b981]" />
-              <span>{t('risk_free.point3')}</span>
-            </li>
-          </ul>
+          <RiskFreeBullets items={riskFreePoints} />
         </div>
       </section>
 
       {/* Trust badges */}
       <div className="mx-auto mt-10 h-px max-w-5xl bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       <section className="mx-auto max-w-5xl px-4 mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-white/75 text-center md:text-left">
-        <div>{t('badges.money_back')}</div>
-        <div>{t('badges.stripe')}</div>
-        <div>{t('badges.trusted')}</div>
+        <div>{t('footnotes.g1')}</div>
+        <div>{t('footnotes.g2')}</div>
+        <div>{t('footnotes.g3')}</div>
       </section>
     </main>
   );

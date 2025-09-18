@@ -4,7 +4,28 @@
 const nextConfig = {
   async redirects() {
     return [
-      { source: "/", destination: "/en", permanent: true }
+      // Root redirect to default locale
+      { source: "/", destination: "/en", permanent: true },
+      
+      // Host redirects for SEO canonicalization
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.zazapromptly.com" }],
+        destination: "https://zazapromptly.com/:path*",
+        permanent: true
+      },
+      {
+        source: "/:path*", 
+        has: [{ type: "host", value: "zaza-site-base.vercel.app" }],
+        destination: "https://zazapromptly.com/:path*",
+        permanent: true
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "zaza-site-base-git-main.vercel.app" }],
+        destination: "https://zazapromptly.com/:path*",
+        permanent: true
+      }
     ];
   },
   // Image optimization settings for blog images
