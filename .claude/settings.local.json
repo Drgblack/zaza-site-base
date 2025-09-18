@@ -22,7 +22,10 @@
       "Bash(npx next:*)",
       "Bash(pnpm add:*)",
       "Bash(yarn add fuse.js)",
-      "Bash(vercel:*)"
+      "Bash(vercel:*)",
+      "Bash(pnpm install:*)",
+      "Bash(git add:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }
