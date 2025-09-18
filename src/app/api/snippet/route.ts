@@ -1,19 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { snippetSystem, buildUserPrompt } from '@/lib/snippetPrompt';
 import { polish, fallbackMessage } from '@/lib/textPostProcess';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
-      topic = '',
-      student = '',
-      positives = '',
-      focus = '',
-      nextSteps = '',
-      tone = 'supportive',
-      format = 'email',
-      language = 'English'
+      student = ''
     } = body;
 
     // TODO: Integrate with actual LLM API (OpenAI, Anthropic, etc.)

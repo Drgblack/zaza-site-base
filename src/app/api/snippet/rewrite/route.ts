@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { rewriteSystem, buildUserPrompt } from '@/lib/snippetPrompt';
 import { polish } from '@/lib/textPostProcess';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
-      originalText = '',
-      tone = 'supportive',
-      format = 'email',
-      student = ''
+      originalText = ''
     } = body;
 
     if (!originalText.trim()) {

@@ -67,7 +67,7 @@ export default function TrySnippet({ className }: TrySnippetProps) {
   const [student, setStudent] = useState('Max');
   const [tone, setTone] = useState<string>('supportive');
   const [language, setLanguage] = useState('English');
-  const [format, setFormat] = useState<'email' | 'sms'>('email');
+  const [format, _setFormat] = useState<'email' | 'sms'>('email');
   
   // Advanced options (hidden by default)
   const [showMore, setShowMore] = useState(false);
@@ -91,7 +91,7 @@ export default function TrySnippet({ className }: TrySnippetProps) {
     if (!output && messages > 0) {
       handleGenerate();
     }
-  }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [messages, output]); // Added missing dependency
 
   const handleGenerate = async () => {
     if (!useMessage()) return;
