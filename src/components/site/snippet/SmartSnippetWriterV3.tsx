@@ -1,7 +1,8 @@
 'use client';
 
 import React, {useMemo, useState, useEffect, useRef} from 'react';
-import TrySnippet from '@/components/TrySnippet';
+import TrySnippetLegacy from '@/components/TrySnippetLegacy';
+import TrySnippetMinimal from '@/components/TrySnippetMinimal';
 import { Copy, RefreshCw, Sparkles, Lock, Info, Share2, Mail, MessageCircle, Link2, Download } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
@@ -17,6 +18,7 @@ const SHOW_WATERMARK =
   (process.env.NEXT_PUBLIC_SNIPPET_WATERMARK ?? '1') === '1';
 
 const HOTFIX_ENABLED = process.env.NEXT_PUBLIC_SNIPPET_HOTFIX === 'true';
+const MINIMAL_ENABLED = process.env.NEXT_PUBLIC_SNIPPET_MINIMAL === 'true';
 
 /* ---------- Utilities ---------- */
 function todayKey() {
@@ -241,9 +243,14 @@ function composeSnippet(opts: {
 /* ---------- Component ---------- */
 
 export default function SmartSnippetWriterV3() {
+  // Use MINIMAL component if feature flag is enabled
+  if (MINIMAL_ENABLED) {
+    return <TrySnippetMinimal />;
+  }
+  
   // Use HOTFIX component if feature flag is enabled
   if (HOTFIX_ENABLED) {
-    return <TrySnippet />;
+    return <TrySnippetLegacy />;
   }
 
   const {credits, spend} = useDailyCredits('zp_snippet_v3', FREE_DAILY_CREDITS);

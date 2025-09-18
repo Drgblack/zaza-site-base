@@ -8,7 +8,7 @@ export type Starter = {
 export const STARTERS: Starter[] = [
   {
     id: "behaviour",
-    label: "Behaviour update",
+    label: "Behaviour",
     topic: "classroom behaviour",
     seed: {
       positives: "kind to classmates",
@@ -18,7 +18,7 @@ export const STARTERS: Starter[] = [
   },
   {
     id: "praise",
-    label: "Praise note",
+    label: "Praise",
     topic: "progress praise",
     seed: {
       positives: "great effort in writing",
@@ -28,7 +28,7 @@ export const STARTERS: Starter[] = [
   },
   {
     id: "homework",
-    label: "Missing homework",
+    label: "Homework",
     topic: "homework follow-up",
     seed: {
       positives: "participates in class",

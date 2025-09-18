@@ -1,7 +1,5 @@
 export function polish(text: string): string {
-  let t = text.trim()
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/\s{2,}/g, " ");
+  let t = text.trim().replace(/\n{3,}/g, "\n\n").replace(/\s{2,}/g, " ");
   
   // Capitalize sentence starts
   t = t.replace(/(^|[.!?]\s+)([a-z])/g, (_, p, c) => (p || "") + c.toUpperCase());
@@ -15,11 +13,11 @@ export function polish(text: string): string {
   return t;
 }
 
-export function failsRubric(t: string, format: "email" | "sms"): boolean {
+export function failsRubric(t: string, fmt: "email" | "sms"): boolean {
   const banned = /\b(lazy|disruptive|disorder|diagnos|blame|bad kid)\b/i.test(t);
   const wc = t.split(/\s+/).filter(Boolean).length;
-  const tooLong = format === "sms" ? wc > 80 : wc > 130;
-  const tooShort = format === "sms" ? wc < 40 : wc < 80;
+  const tooLong = fmt === "sms" ? wc > 80 : wc > 130;
+  const tooShort = fmt === "sms" ? wc < 40 : wc < 80;
   
   return banned || tooLong || tooShort;
 }
