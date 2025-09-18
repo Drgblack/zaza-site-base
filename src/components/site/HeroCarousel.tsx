@@ -6,29 +6,29 @@ import { ChevronLeft, ChevronRight, Check, Clock } from 'lucide-react';
 
 const heroImages = [
   {
-    src: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=600&h=400&fit=crop",
-    alt: "Female teacher teaching enthusiastic children in a bright classroom",
-    caption: "Teaching in Action"
+    src: "/images/carousel images/pexels-max-fischer-5212345.jpg",
+    alt: "Teacher guiding young students in hands-on learning activity",
+    caption: "Hands-On Learning"
   },
   {
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop", 
-    alt: "Happy teachers collaborating in a bright classroom",
-    caption: "Teacher Collaboration"
+    src: "/images/carousel images/pexels-max-fischer-5212663.jpg", 
+    alt: "Teacher working one-on-one with student, providing personalized support",
+    caption: "Individual Support"
   },
   {
-    src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop",
-    alt: "Students working together in small groups",
-    caption: "Student Engagement"
+    src: "/images/carousel images/pexels-max-fischer-5212700.jpg",
+    alt: "Students collaborating and working together on group projects",
+    caption: "Collaborative Learning"
   },
   {
-    src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop",
-    alt: "Teacher helping individual student with supportive guidance", 
-    caption: "Personal Support"
+    src: "/images/carousel images/pexels-yankrukov-8613089.jpg",
+    alt: "Teacher engaging with diverse group of attentive students", 
+    caption: "Inclusive Classroom"
   },
   {
-    src: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=400&fit=crop",
-    alt: "Bright, welcoming school environment with natural light",
-    caption: "Learning Environment"
+    src: "/images/carousel images/tim-gouw-KigTvXqetXA-unsplash.jpg",
+    alt: "Modern classroom setting with students using technology for learning",
+    caption: "Digital Learning"
   }
 ];
 

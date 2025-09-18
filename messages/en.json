@@ -9,7 +9,13 @@
     "faq": "FAQ",
     "company": "Company",
     "press": "Press",
-    "contact": "Contact"
+    "contact": "Contact",
+    "ourSolutions": "Our Solutions",
+    "learningCentre": "Learning Centre",
+    "aboutUs": "About Us",
+    "tryZazaPromptly": "Try Zaza Promptly",
+    "tryZazaTeach": "Try Zaza Teach",
+    "language": "Language"
   },
   "hero": {
     "title": "AI-powered tools for modern educators",
@@ -75,7 +81,16 @@
     "download_file": "Download",
     "view": "View",
     "free": "Free",
-    "premium": "Premium"
+    "premium": "Premium",
+    "breadcrumb": {
+      "home": "Home",
+      "resources": "Resources"
+    },
+    "usageNote": "These resources are free for classroom use. Please keep the footer credit and do not resell.",
+    "downloadTip": {
+      "label": "Tip:",
+      "text": "Click 'View & Print' to open in a new tab, then use Ctrl+P (Cmd+P on Mac) and select 'Save as PDF' for your own PDF copy."
+    }
   },
   "about": {
     "title": "About Zaza Promptly",
@@ -86,7 +101,11 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about Zaza Promptly"
+    "subtitle": "Everything you need to know about Zaza Promptly",
+    "breadcrumb": {
+      "home": "Home",
+      "faqs": "FAQs"
+    }
   },
   "community": {
     "title": "Community",
@@ -236,5 +255,36 @@
     "closing_cta_primary": "Try Promptly Free",
     "closing_cta_secondary": "See Plans",
     "closing_tagline": "Join thousands of teachers who've already reclaimed their time"
+  },
+  "aboutFounder": {
+    "metaTitle": "About the Founder - Dr. Greg Blackburn | Zaza Teach",
+    "metaDescription": "Dr. Greg Blackburn, Founder & CEO of Zaza Technologies. From Tasmanian trades to PhD at City, University of London - a career dedicated to helping teachers thrive.",
+    "ogDescription": "Education transformed Greg's life. Now his mission is to help teachers thrive - with empathetic, pedagogically sound AI.",
+    "ogImageAlt": "Dr. Greg Blackburn, Founder of Zaza Technologies",
+    "jobTitle": "Founder & CEO",
+    "personDescription": "Education technology entrepreneur with PhD in Professional Education and over 20 years of experience in learning and development.",
+    "breadcrumb": {
+      "home": "Home",
+      "aboutFounder": "About Founder"
+    }
+  },
+  "footer": {
+    "products": "Products",
+    "resources": "Resources", 
+    "company": "Company",
+    "blog": "Blog",
+    "freeResources": "Free Resources",
+    "faqs": "FAQs",
+    "support": "Support",
+    "contact": "Contact",
+    "aboutFounder": "About the Founder",
+    "visionMission": "Vision & Mission",
+    "productList": "Zaza Product List",
+    "featureRequest": "Feature Request",
+    "privacy": "Privacy & Data Policy",
+    "terms": "Terms of Service",
+    "comingSoon": "Coming Soon",
+    "copyright": "© 2025 Zaza Technologies UG (haftungsbeschränkt). All rights reserved.",
+    "tagline": "Made with 💙 by teachers, for teachers."
   }
 }

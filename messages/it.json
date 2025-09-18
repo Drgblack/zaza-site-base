@@ -9,7 +9,13 @@
     "faq": "FAQ",
     "company": "Azienda",
     "press": "Stampa",
-    "contact": "Contatto"
+    "contact": "Contatto",
+    "ourSolutions": "Le nostre soluzioni",
+    "learningCentre": "Centro di apprendimento",
+    "aboutUs": "Chi siamo",
+    "tryZazaPromptly": "Prova Zaza Promptly",
+    "tryZazaTeach": "Prova Zaza Teach",
+    "language": "Lingua"
   },
   "hero": {
     "title": "Strumenti alimentati dall'IA per educatori moderni",
@@ -57,7 +63,11 @@
     "published": "Pubblicato",
     "category": "Categoria",
     "share": "Condividi",
-    "related_posts": "Post correlati"
+    "related_posts": "Post correlati",
+    "breadcrumb": {
+      "home": "Home",
+      "blog": "Blog"
+    }
   },
   "resources": {
     "title": "Risorse per educatori",
@@ -65,7 +75,16 @@
     "download": "Scarica",
     "view": "Visualizza",
     "free": "Gratuito",
-    "premium": "Premium"
+    "premium": "Premium",
+    "breadcrumb": {
+      "home": "Home",
+      "resources": "Risorse"
+    },
+    "usageNote": "Queste risorse sono gratuite per l'uso in classe. Si prega di mantenere il credito del piè di pagina e di non rivendere.",
+    "downloadTip": {
+      "label": "Suggerimento:",
+      "text": "Fai clic su 'Visualizza e stampa' per aprire in una nuova scheda, quindi usa Ctrl+P (Cmd+P su Mac) e seleziona 'Salva come PDF' per la tua copia PDF."
+    }
   },
   "about": {
     "title": "Chi è Zaza Promptly",
@@ -88,7 +107,11 @@
   },
   "faq": {
     "title": "Domande frequenti",
-    "subtitle": "Tutto quello che devi sapere su Zaza Promptly"
+    "subtitle": "Tutto quello che devi sapere su Zaza Promptly",
+    "breadcrumb": {
+      "home": "Home",
+      "faqs": "FAQ"
+    }
   },
   "community": {
     "title": "Comunità",
@@ -115,5 +138,36 @@
     "clear": "Cancella",
     "apply": "Applica",
     "reset": "Reimposta"
+  },
+  "aboutFounder": {
+    "metaTitle": "Chi è il fondatore - Dr. Greg Blackburn | Zaza Teach",
+    "metaDescription": "Dr. Greg Blackburn, Fondatore e CEO di Zaza Technologies. Dai mestieri della Tasmania al dottorato presso City, University of London - una carriera dedicata ad aiutare gli insegnanti a prosperare.",
+    "ogDescription": "L'istruzione ha trasformato la vita di Greg. Ora la sua missione è aiutare gli insegnanti a prosperare - con un'IA empatica e pedagogicamente valida.",
+    "ogImageAlt": "Dr. Greg Blackburn, Fondatore di Zaza Technologies",
+    "jobTitle": "Fondatore e CEO",
+    "personDescription": "Imprenditore di tecnologia educativa con dottorato in Educazione Professionale e oltre 20 anni di esperienza nell'apprendimento e sviluppo.",
+    "breadcrumb": {
+      "home": "Home",
+      "aboutFounder": "Chi è il fondatore"
+    }
+  },
+  "footer": {
+    "products": "Prodotti",
+    "resources": "Risorse", 
+    "company": "Azienda",
+    "blog": "Blog",
+    "freeResources": "Risorse gratuite",
+    "faqs": "Domande frequenti",
+    "support": "Supporto",
+    "contact": "Contatto",
+    "aboutFounder": "Chi è il fondatore",
+    "visionMission": "Visione e missione",
+    "productList": "Lista prodotti Zaza",
+    "featureRequest": "Richiesta funzionalità",
+    "privacy": "Politica sulla privacy e sui dati",
+    "terms": "Termini di servizio",
+    "comingSoon": "Prossimamente",
+    "copyright": "© 2025 Zaza Technologies UG (haftungsbeschränkt). Tutti i diritti riservati.",
+    "tagline": "Creato con 💙 da insegnanti, per insegnanti."
   }
 }
