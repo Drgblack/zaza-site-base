@@ -216,7 +216,7 @@ function composeSnippet(opts: {
   let body = safeJoin([p1, p2, p3, p4, p5], '\n\n');
 
   // Enhanced length shaping with quality checks
-  let words = body.split(/\s+/);
+  const words = body.split(/\s+/);
   const maxWords = format === 'sms' ? 80 : 130;
   
   if (words.length > maxWords) {
