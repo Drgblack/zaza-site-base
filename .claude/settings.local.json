@@ -31,7 +31,9 @@
       "Bash(rm:*)",
       "Bash(where node)",
       "Bash(where pnpm)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash($env:NEXT_PUBLIC_SITE_URL = \"https://zazateach.com\")",
+      "Bash(powershell:*)"
     ],
     "deny": []
   }

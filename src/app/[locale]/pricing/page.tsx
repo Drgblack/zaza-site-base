@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
 import Hero from './_components/Hero';
 import Benefits from './_components/Benefits';
 import SuiteSwitch from '@/components/pricing/SuiteSwitch';
@@ -6,11 +7,43 @@ import BillingCycleSwitch from '@/components/pricing/BillingCycleSwitch';
 import PlanCTA from '@/components/pricing/PlanCTA';
 import { SUITE_PRICING, getSuiteFromSearchParams, getBillingCycleFromSearchParams, formatSuitePrice, type SuiteKey, type BillingCycle } from '@/lib/pricing';
 import { Check } from 'lucide-react';
+import { canonical } from "@/lib/site";
+import { SoftwareApplicationJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
+
+export const metadata: Metadata = {
+  title: "Pricing - Simple, Transparent Plans | Zaza Promptly",
+  description: "Affordable AI tools for teachers. Start at €99/year with 14-day free trial and 30-day money-back guarantee. Save 3-5 hours per week.",
+  alternates: { canonical: canonical("/pricing") },
+  openGraph: {
+    title: "Pricing - Simple, Transparent Plans | Zaza Promptly",
+    description: "Affordable AI tools for teachers. Start at €99/year with 14-day free trial and 30-day money-back guarantee.",
+    url: canonical("/pricing"),
+  },
+};
 
 type Props = { 
   params: { locale: string };
   searchParams?: { suite?: string; billing?: string };
 };
+
+const pricingFAQs = [
+  {
+    question: "Is there a free trial and refund policy?",
+    answer: "Yes. Try Zaza Promptly free for 14 days. All plans include a 30-day money-back guarantee."
+  },
+  {
+    question: "Is Zaza Promptly safe for schools (GDPR)?",
+    answer: "Zaza Promptly is designed with educator privacy in mind. We don't store student data and follow GDPR-conscious practices suitable for EU schools."
+  },
+  {
+    question: "How much time can teachers save?",
+    answer: "Most teachers report saving 3–5 hours per week across lesson planning, report comments, and parent communication."
+  },
+  {
+    question: "Can I export clean documents?",
+    answer: "Yes. Export clean DOC/PDF in one click for easy sharing or archiving."
+  }
+];
 
 // Safety helper to prevent raw keys from rendering
 function BulletList({ items }: { items: string[] }) {
@@ -75,6 +108,9 @@ export default async function PricingPage({ params: { locale }, searchParams }: 
 
   return (
     <main data-pricing-version="v4-clean" className="pb-16 space-y-8">
+      <SoftwareApplicationJsonLd pageUrl={canonical("/pricing")} />
+      <FAQJsonLd faqs={pricingFAQs} />
+      
       <Hero />
       <Benefits />
 

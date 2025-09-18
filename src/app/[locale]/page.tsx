@@ -19,11 +19,32 @@ import { ExitIntentModal } from '@/components/cro/exit-intent-modal';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { organizationSchema, softwareApplicationSchema, faqSchema } from '@/components/seo/structured-data-schemas';
 import { FAQComparisonTable } from '@/components/seo/faq-comparison-table';
+import { OrganizationJsonLd, WebsiteJsonLd, SoftwareApplicationJsonLd, FAQJsonLd } from '@/components/seo/JsonLd';
+import { canonical } from '@/lib/site';
 import type { Metadata } from 'next';
 
 type Props = {
   params: { locale: 'en' | 'de' | 'fr' | 'es' | 'it' };
 };
+
+const homeFAQs = [
+  {
+    question: "How much time do teachers typically save with Zaza Promptly?",
+    answer: "Most teachers report saving 3-5 hours per week across lesson planning, report comments, and parent communication tasks."
+  },
+  {
+    question: "Is Zaza Promptly safe for schools and GDPR-compliant?",
+    answer: "Yes. Zaza Promptly is designed with GDPR-conscious practices and does not store student data, making it suitable for EU schools."
+  },
+  {
+    question: "How is Zaza Promptly different from ChatGPT for teachers?",
+    answer: "Unlike generic AI tools, Zaza Promptly is built specifically for educators with teacher-focused templates, education-safe language, and classroom-ready features."
+  },
+  {
+    question: "Is there a free trial available?",
+    answer: "Yes. Try Zaza Promptly free for 14 days with no credit card required, plus a 30-day money-back guarantee on all paid plans."
+  }
+];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = params;
@@ -715,19 +736,11 @@ export default async function HomePage({ params }: Props) {
       {/* Security Badges */}
       <SecurityBadges />
 
-      {/* Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      {/* Enhanced Structured Data for SEO */}
+      <OrganizationJsonLd />
+      <WebsiteJsonLd />
+      <SoftwareApplicationJsonLd pageUrl={canonical(`/${locale === 'en' ? '' : locale}`)} />
+      <FAQJsonLd faqs={homeFAQs} />
 
       {/* Sticky CTA */}
       <StickyCTA />
