@@ -1,115 +1,94 @@
-/**
- * World-class snippet prompts and configuration
- */
+export const SYSTEM_PROMPT = `
+You are Promptly's Comment Agent. You write short, parent-ready messages that teachers can send now.
 
-export const snippetSystem = `
-You are Promptly's Comment Agent. Write short, parent-ready messages teachers can send now.
-
-Rules:
-- Kind, specific, factual – never blame, diagnose, or label.
-- Short sentences, average ≤ 14 words. Reading level grade 6–8.
+Non-negotiables:
+- Kind, specific, factual; never blame, diagnose, or label.
+- Short sentences (average ≤ 14 words). Reading level ≈ grade 6–8.
 - Structure (no headings):
   1) Warm opener + purpose
-  2) One clear positive (infer if none given)
-  3) One clear observation as facts + brief impact on learning
-  4) 1–2 collaborative next steps parents can do at home
+  2) One clear positive (infer one if none provided)
+  3) One clear observation (facts) + brief impact on learning
+  4) 1–2 collaborative next steps families can try at home
   5) Invite reply + supportive close
-- Use the student's first name if provided, else "your child".
-- Email length target 90–120 words; SMS 45–70 words.
-- Correct grammar and capitalization. Start sentences with capitals.
-- Avoid banned terms: lazy, disruptive, disorder, diagnose, blame, bad kid.
+- Use the student's first name if provided; else "your child".
+- Respect requested tone and language. Natural, plain words. No jargon.
+- Email target 90–120 words (≤ 4 short paragraphs). SMS 45–70 words (2–4 sentences).
+- Never include other students. Avoid: lazy, disruptive, disorder, diagnose, blame, bad kid.
+- Correct grammar and capitalization.
 `;
 
-export const rewriteSystem = `
-You are Promptly's Comment Agent. Improve this teacher's draft message for parent communication.
-
-Rules:
-- Keep all facts, names, dates, and specific details exactly as written
-- Remove any judgmental language (lazy, disruptive, bad behavior, etc.)
-- Replace negative labels with neutral, factual descriptions
-- Maintain warm, professional tone suitable for parents
-- Structure: opener, positive, factual observation, next steps, supportive close
-- Length target 90–120 words for email, 45–70 words for SMS
-- Use proper grammar and capitalize sentence starts
+export const REFINEMENT_PROMPT = `
+Revise the message to satisfy all rules: no judgments, sentence starts capitalized, 45–70 words for SMS or 90–120 words for email, ≤ 4 paragraphs, clear positive, clear observation, 1–2 concrete next steps, warm close. Return only the revised message.
 `;
 
-interface PromptOptions {
-  topic?: string;
+export function buildUserPrompt(input: {
+  topic: string;
   student?: string;
+  language: string;
+  tone: string;
+  format: "email" | "sms";
   positives?: string;
   focus?: string;
-  nextSteps?: string;
-  tone?: string;
-  format?: 'email' | 'sms';
-  isRewrite?: boolean;
-  originalText?: string;
-}
-
-export function buildUserPrompt(options: PromptOptions): string {
-  const {
-    topic = '',
-    student = '',
-    positives = '',
-    focus = '',
-    nextSteps = '',
-    tone = 'supportive',
-    format = 'email',
-    isRewrite = false,
-    originalText = ''
-  } = options;
-
-  const lengthTarget = format === 'sms' ? '45–70 words' : '90–120 words';
-  
-  if (isRewrite && originalText) {
-    return `
-Please improve this teacher's draft message:
-
-"${originalText}"
-
-Length target: ${lengthTarget}
-Tone: ${tone}
-Student name: ${student || 'not specified'}
-
-If the draft includes strong judgments or banned terms, rephrase to neutral, factual wording.
-Preserve all specific facts, names, and dates.
-Return only the improved message text – no headings, no labels.
-`.trim();
-  }
-
+  next?: string;
+  draft?: string;
+}) {
   return `
-Write a parent communication message with these details:
+Language: ${input.language}
+Tone: ${input.tone}
+Format: ${input.format}
+Topic: ${input.topic}
+Student: ${input.student || "not provided"}
 
-Topic: ${topic || 'general update'}
-Student: ${student || 'not specified'}
-Positives: ${positives || 'infer something positive'}
-Focus area: ${focus || 'general progress'}
-Next steps: ${nextSteps || 'suggest collaborative support'}
-Tone: ${tone}
-Length target: ${lengthTarget}
+If a draft is provided, improve it while preserving facts, names, and dates.
+Draft (may be empty):
+"""
+${(input.draft || "").trim()}
+"""
 
-Return only the message text – no headings, no labels.
-`.trim();
+Additional details (optional):
+- Positives: ${input.positives || "none"}
+- Focus: ${input.focus || "none"}
+- Next steps: ${input.next || "none"}
+
+Write one parent-ready message that strictly follows the system rules and structure.
+Return only the final message text. No headings, no labels.`;
 }
 
-// Few-shot examples for reference (not included in prompts)
-export const fewShotExamples = [
+export function buildRefinementPrompt(format: "email" | "sms") {
+  return `
+Revise the message to satisfy all rules: no judgments, sentence starts capitalized, ${format === "sms" ? "45–70" : "90–120"} words, ≤ 4 paragraphs, clear positive, clear observation, 1–2 concrete next steps, warm close. Return only the revised message.`;
+}
+
+// Few-shot anchors for consistent style (server-only)
+export const FEW_SHOT_EXAMPLES = [
   {
-    topic: "attendance and punctuality",
-    student: "Maya",
-    output: "Hi there – I wanted to share a quick update about Maya. She settles quickly and joins activities well once she arrives. We've noticed several late arrivals this week, which shortens her warm-up time and makes it harder to start tasks. Could we try a simple morning checklist and a 7:55 reminder? If mornings are challenging, please let me know so we can adjust supports at school. Thanks for partnering with me – your insights really help."
+    type: "behaviour",
+    example: `Hi there! I wanted to share a quick update about Max's day.
+
+Max is always kind to his classmates and brings such positive energy to our room. Today I noticed he had some trouble staying focused during writing time, which meant he didn't finish his story.
+
+At home, you might try a simple 2-step cue to help him refocus - maybe a gentle hand on his shoulder and a quiet "eyes on your work." This can really help build that focus muscle.
+
+Please let me know if you have any questions. Thanks for being such a supportive partner!`
   },
   {
-    topic: "homework completion",
-    student: "Luca", 
-    output: "Hi! I wanted to touch base about Luca's homework. He participates well in class and shares great ideas during discussions. A few assignments have been missing on the due day, which makes it harder for him to practice the skills we're learning. Could you help Luca choose a spot at home for his folder and set a simple after-dinner reminder? I'm happy to send a photo of the checklist we use in class. Thanks for your support!"
-  }
-];
+    type: "homework",
+    example: `Hello! I hope you're having a good week.
 
-export const quickStartPresets = [
-  { label: "Behavior update", topic: "classroom behavior and focus", tone: "supportive" },
-  { label: "Homework check-in", topic: "assignment completion", tone: "warm" },
-  { label: "Academic progress", topic: "learning progress and next steps", tone: "encouraging" },
-  { label: "Social skills", topic: "peer interactions and collaboration", tone: "positive" },
-  { label: "Attendance note", topic: "attendance and punctuality", tone: "understanding" },
-  { label: "Parent conference", topic: "upcoming conference planning", tone: "professional" }
+Max always participates so well in our class discussions and shows great thinking. I noticed his math homework wasn't turned in today, and I want to make sure he stays caught up with our learning.
+
+Could you help him set up a simple reminder after dinner to check his backpack? Sometimes that little routine makes all the difference.
+
+Feel free to reach out if there's anything I can do to support at home. Looking forward to hearing from you!`
+  },
+  {
+    type: "attendance",
+    example: `Hi! I wanted to touch base about Max's morning routine.
+
+When Max is here, he settles into our classroom so nicely and gets right to work. I've noticed he's been arriving a bit late recently, which means he misses our morning circle time.
+
+If there are any morning constraints I should know about, please share them with me. We can work together to find solutions that help him start each day strong.
+
+I'm here to support in any way I can. Thanks for your partnership!`
+  }
 ];

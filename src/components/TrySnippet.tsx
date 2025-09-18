@@ -7,54 +7,62 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2, Plus } from 'lucide-react';
+import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2, Plus, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import { quickStartPresets } from '@/lib/snippetPrompt';
-import { polish, fallbackMessage } from '@/lib/textPostProcess';
+import { STARTERS, type Starter } from '@/data/snippet-presets';
+import { polish } from '@/lib/snippetPolish';
 
-const HOTFIX_ENABLED = process.env.NEXT_PUBLIC_SNIPPET_HOTFIX === 'true';
-const FREE_DAILY_MESSAGES = Number(process.env.NEXT_PUBLIC_SNIPPET_FREE_CREDITS ?? 4);
-const FREE_DAILY_COPIES = 3;
+const MAX_FREE_PER_MONTH = 5;
 
-// Daily usage tracking
-function useDailyLimits() {
-  const [messages, setMessages] = useState(FREE_DAILY_MESSAGES);
-  const [copies, setCopies] = useState(FREE_DAILY_COPIES);
+// Monthly usage tracking
+function useMonthlyLimits() {
+  const [used, setUsed] = useState(0);
+  const [limit] = useState(MAX_FREE_PER_MONTH);
 
   useEffect(() => {
-    const today = new Date().toDateString();
-    const msgKey = `snippet_messages_${today}`;
-    const copyKey = `snippet_copies_${today}`;
+    const now = new Date();
+    const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const storageKey = `tryGenYm`;
     
-    const usedMessages = Number(localStorage.getItem(msgKey) || '0');
-    const usedCopies = Number(localStorage.getItem(copyKey) || '0');
-    
-    setMessages(Math.max(0, FREE_DAILY_MESSAGES - usedMessages));
-    setCopies(Math.max(0, FREE_DAILY_COPIES - usedCopies));
+    try {
+      const stored = localStorage.getItem(storageKey);
+      const data = stored ? JSON.parse(stored) : null;
+      
+      if (data?.ym === monthKey) {
+        setUsed(data.used || 0);
+      } else {
+        // New month, reset counter
+        localStorage.setItem(storageKey, JSON.stringify({ ym: monthKey, used: 0 }));
+        setUsed(0);
+      }
+    } catch (error) {
+      console.error('Error reading monthly usage:', error);
+      setUsed(0);
+    }
   }, []);
 
-  const useMessage = () => {
-    if (messages <= 0) return false;
-    const today = new Date().toDateString();
-    const msgKey = `snippet_messages_${today}`;
-    const used = Number(localStorage.getItem(msgKey) || '0') + 1;
-    localStorage.setItem(msgKey, String(used));
-    setMessages(Math.max(0, FREE_DAILY_MESSAGES - used));
-    return true;
+  const incrementUsage = () => {
+    const now = new Date();
+    const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const storageKey = `tryGenYm`;
+    const newUsed = used + 1;
+    
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({ ym: monthKey, used: newUsed }));
+      setUsed(newUsed);
+    } catch (error) {
+      console.error('Error updating monthly usage:', error);
+    }
   };
 
-  const useCopy = () => {
-    if (copies <= 0) return false;
-    const today = new Date().toDateString();
-    const copyKey = `snippet_copies_${today}`;
-    const used = Number(localStorage.getItem(copyKey) || '0') + 1;
-    localStorage.setItem(copyKey, String(used));
-    setCopies(Math.max(0, FREE_DAILY_COPIES - used));
-    return true;
+  return {
+    used,
+    limit,
+    remaining: Math.max(0, limit - used),
+    canUse: used < limit,
+    incrementUsage
   };
-
-  return { messages, copies, useMessage, useCopy };
 }
 
 interface TrySnippetProps {
@@ -63,619 +71,556 @@ interface TrySnippetProps {
 
 export default function TrySnippet({ className }: TrySnippetProps) {
   // State
-  const [topic, setTopic] = useState('classroom behavior and focus');
+  const [selectedStarter, setSelectedStarter] = useState<Starter['id']>('behaviour');
   const [student, setStudent] = useState('Max');
-  const [tone, setTone] = useState<string>('supportive');
+  const [tone, setTone] = useState('supportive');
   const [language, setLanguage] = useState('English');
-  const [format, _setFormat] = useState<'email' | 'sms'>('email');
+  const [format, setFormat] = useState<'email' | 'sms'>('email');
+  const [draft, setDraft] = useState('');
   
   // Advanced options (hidden by default)
   const [showMore, setShowMore] = useState(false);
-  const [yourNote, setYourNote] = useState('');
   const [positives, setPositives] = useState('');
   const [focus, setFocus] = useState('');
-  const [nextSteps, setNextSteps] = useState('');
+  const [next, setNext] = useState('');
   
-  // Output state
+  // Output and UI state
   const [output, setOutput] = useState('');
   const [variations, setVariations] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [viewMode, setViewMode] = useState<'doc' | 'plain'>('doc');
+  const [activeTab, setActiveTab] = useState('output');
+  const [docView, setDocView] = useState(true);
+  const [shareOpen, setShareOpen] = useState(false);
   
-  const { messages, copies, useMessage, useCopy } = useDailyLimits();
+  const usage = useMonthlyLimits();
   const previewRef = useRef<HTMLDivElement>(null);
 
-  // Auto-generate on first load
+  // Load starter preset
+  const currentStarter = STARTERS.find(s => s.id === selectedStarter) || STARTERS[0];
+
+  // Auto-generate on mount
   useEffect(() => {
-    if (!output && messages > 0) {
+    if (!output) {
       handleGenerate();
     }
-  }, [messages, output]); // Added missing dependency
+  }, []);
+
+  // Update presets when starter changes
+  useEffect(() => {
+    if (currentStarter.seed.positives && !positives) {
+      setPositives(currentStarter.seed.positives);
+    }
+    if (currentStarter.seed.focus && !focus) {
+      setFocus(currentStarter.seed.focus);
+    }
+    if (currentStarter.seed.next && !next) {
+      setNext(currentStarter.seed.next);
+    }
+  }, [selectedStarter, currentStarter]);
 
   const handleGenerate = async () => {
-    if (!useMessage()) return;
+    if (!usage.canUse) return;
     
     setIsLoading(true);
+    
     try {
       const response = await fetch('/api/snippet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          topic,
+          topic: currentStarter.topic,
           student,
-          positives,
-          focus,
-          nextSteps,
+          language,
           tone,
           format,
-          language
+          positives: positives || currentStarter.seed.positives,
+          focus: focus || currentStarter.seed.focus,
+          next: next || currentStarter.seed.next
         })
       });
       
       const data = await response.json();
       
-      if (data.success && data.message) {
+      if (data.success) {
         setOutput(data.message);
+        usage.incrementUsage();
+        setActiveTab('output');
       } else {
-        // Fallback on API failure
-        setOutput(polish(fallbackMessage(student || undefined)));
+        console.error('Generation failed:', data.error);
+        // Show fallback
+        setOutput(createFallback());
       }
-      
-      // Scroll to preview on mobile
-      setTimeout(() => {
-        previewRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
     } catch (error) {
-      console.error('Generation failed:', error);
-      setOutput(polish(fallbackMessage(student || undefined)));
+      console.error('Generation error:', error);
+      setOutput(createFallback());
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleImproveNote = async () => {
-    if (!yourNote.trim() || !useMessage()) return;
+  const handleImprove = async () => {
+    if (!draft.trim() || !usage.canUse) return;
     
     setIsLoading(true);
+    
     try {
       const response = await fetch('/api/snippet/rewrite', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          originalText: yourNote,
+          originalText: draft,
+          student,
+          language,
           tone,
-          format,
-          student
+          format
         })
       });
       
       const data = await response.json();
       
-      if (data.success && data.message) {
+      if (data.success) {
         setOutput(data.message);
-      } else {
-        // Fallback on API failure
-        const improved = polish(yourNote.replace(/\b(lazy|disruptive|bad)\b/gi, 'challenging'));
-        setOutput(improved);
+        usage.incrementUsage();
+        setActiveTab('output');
       }
     } catch (error) {
-      console.error('Improve failed:', error);
-      // Fallback on error
-      const improved = polish(yourNote.replace(/\b(lazy|disruptive|bad)\b/gi, 'challenging'));
-      setOutput(improved);
+      console.error('Improve error:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleVariation = async () => {
-    if (!output || !useMessage()) return;
+  const handleNewVariation = async () => {
+    if (!usage.canUse) return;
     
     setIsLoading(true);
+    
     try {
+      // Generate a new variation with slightly different prompt
       const response = await fetch('/api/snippet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          topic: topic + ' (variation)',
+          topic: currentStarter.topic + ' (variation)',
           student,
-          positives,
-          focus,
-          nextSteps,
+          language,
           tone,
           format,
-          language
+          positives: positives || currentStarter.seed.positives,
+          focus: focus || currentStarter.seed.focus,
+          next: next || currentStarter.seed.next
         })
       });
       
       const data = await response.json();
       
-      if (data.success && data.message) {
-        setVariations([data.message, ...variations.slice(0, 2)]);
-      } else {
-        // Fallback on API failure
-        const variation = polish(fallbackMessage(student || undefined));
-        setVariations([variation, ...variations.slice(0, 2)]);
+      if (data.success) {
+        setVariations(prev => [...prev, data.message]);
+        usage.incrementUsage();
+        setActiveTab('variations');
       }
     } catch (error) {
-      console.error('Variation failed:', error);
-      // Fallback on error
-      const variation = polish(fallbackMessage(student || undefined));
-      setVariations([variation, ...variations.slice(0, 2)]);
+      console.error('Variation error:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleCopy = async () => {
-    if (!output || !useCopy()) return;
+    if (!output) return;
     
     try {
       await navigator.clipboard.writeText(output);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      // Could show a toast notification here
     } catch (error) {
       console.error('Copy failed:', error);
     }
   };
 
-  const handleShare = (method: string) => {
+  const handleShare = (platform: string) => {
     const subject = `Quick note about ${student || 'your child'}`;
-    const teaser = output.slice(0, 160) + (output.length > 160 ? '…' : '');
-    const siteUrl = 'https://zazapromptly.com';
-    const utmParams = '?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
-    const fullBody = `${teaser}\n\nMade with Promptly – free demo\n${siteUrl}${utmParams}`;
+    const body = output.slice(0, 160) + '...\n\nMade with Promptly – free demo at https://promptly.so/?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
     
-    switch (method) {
+    switch (platform) {
       case 'email':
-        window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`);
+        window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
         break;
       case 'whatsapp':
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(fullBody)}`);
+        window.open(`https://wa.me/?text=${encodeURIComponent(body)}`);
         break;
       case 'copy':
-        navigator.clipboard.writeText(`${teaser}\n\n${siteUrl}${utmParams}`);
-        break;
-      case 'native':
-        if (navigator.share) {
-          navigator.share({ title: subject, text: fullBody });
-        }
+        navigator.clipboard.writeText(body);
         break;
     }
+    
+    setShareOpen(false);
   };
 
-  const handlePresetClick = (preset: typeof quickStartPresets[0]) => {
-    setTopic(preset.topic);
-    setTone(preset.tone);
+  const createFallback = () => {
+    const studentName = student || 'your child';
+    return `Hi there! I wanted to share a quick update about ${studentName}.
+
+${studentName} brings positive energy to our classroom and works well with classmates. Today I noticed some areas where we can work together to support ${studentName === 'your child' ? 'them' : 'him'} even more.
+
+At home, you might try checking in after school about the day's highlights. This can help reinforce the learning we're doing in class.
+
+Please feel free to reach out if you have any questions. Thanks for being such a supportive partner!`;
   };
 
-  if (!HOTFIX_ENABLED) {
-    return null; // Fall back to existing component
-  }
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        draft.trim() ? handleImprove() : handleGenerate();
+      } else if (e.key === 'v' && !e.metaKey && !e.ctrlKey && document.activeElement?.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        handleNewVariation();
+      } else if (e.key === 'c' && !e.metaKey && !e.ctrlKey && document.activeElement?.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        handleCopy();
+      }
+    };
 
-  const canGenerate = messages > 0 && !isLoading;
-  const canCopy = copies > 0 && output;
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [draft, output, usage.canUse]);
+
+  const isAtLimit = !usage.canUse;
 
   return (
-    <section id="snippet-tool" className={cn("py-8", className)}>
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-4 text-center">
-          <h3 className="text-2xl font-bold mb-2">Try Promptly's Smart Message Writer</h3>
-          <p className="text-slate-600 dark:text-slate-300">Generate parent-ready messages in seconds</p>
-        </div>
-
-        <Card className="p-4 md:p-5 rounded-2xl border bg-card overflow-visible">
-          <div className="grid md:grid-cols-[420px_1fr] gap-5 md:gap-6">
-            {/* Controls */}
-            <aside className="relative z-30 overflow-visible space-y-3 md:space-y-4">
-              {/* Quick Start Chips */}
-              <div>
-                <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-2 block">
-                  Quick Start
-                </label>
-                <div className="flex flex-wrap gap-1.5 max-h-[56px] overflow-y-auto">
-                  {quickStartPresets.map((preset, i) => (
-                    <Badge
-                      key={i}
-                      variant={topic === preset.topic ? "default" : "outline"}
-                      className="cursor-pointer hover:bg-primary/80 text-xs"
-                      onClick={() => handlePresetClick(preset)}
-                    >
-                      {preset.label}
-                    </Badge>
-                  ))}
-                </div>
+    <div className={cn("w-full max-w-6xl mx-auto", className)}>
+      <Card className="p-4 md:p-5">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-5">
+          {/* Controls Column */}
+          <div className="relative z-30 overflow-visible space-y-4 md:space-y-5 max-w-[420px]">
+            {/* Preset Chips */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Choose a starter</label>
+              <div className="flex flex-wrap gap-2 max-h-[56px] overflow-y-auto">
+                {STARTERS.map((starter) => (
+                  <button
+                    key={starter.id}
+                    onClick={() => setSelectedStarter(starter.id)}
+                    className={cn(
+                      "px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
+                      selectedStarter === starter.id
+                        ? "bg-purple-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    )}
+                  >
+                    {starter.label}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Essential Controls */}
-              <div className="grid grid-cols-1 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                    Student (optional)
-                  </label>
-                  <input
-                    value={student}
-                    onChange={(e) => setStudent(e.target.value)}
-                    placeholder="e.g., Maya"
-                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none placeholder:text-slate-400 focus:border-violet-500 focus:ring-1 focus:ring-violet-500 dark:border-slate-600 dark:bg-slate-900"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                      Tone
-                    </label>
-                    <Select value={tone} onValueChange={setTone}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="z-[100] bg-popover text-popover-foreground border shadow-2xl rounded-md max-h-72 overflow-auto">
-                        <SelectItem value="warm">Warm</SelectItem>
-                        <SelectItem value="supportive">Supportive</SelectItem>
-                        <SelectItem value="professional">Professional</SelectItem>
-                        <SelectItem value="encouraging">Encouraging</SelectItem>
-                        <SelectItem value="understanding">Understanding</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                      Language
-                    </label>
-                    <Select value={language} onValueChange={setLanguage}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="z-[100] bg-popover text-popover-foreground border shadow-2xl rounded-md max-h-72 overflow-auto">
-                        <SelectItem value="English">English</SelectItem>
-                        <SelectItem value="Spanish">Español</SelectItem>
-                        <SelectItem value="French">Français</SelectItem>
-                        <SelectItem value="German">Deutsch</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-
-              {/* More Options */}
-              <div>
+            {/* Draft Input */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Your draft (optional)</label>
+              <Textarea
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="Paste your note here to improve it..."
+                className="min-h-[80px] py-2.5"
+              />
+              {draft.trim() && (
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowMore(!showMore)}
-                  className="text-slate-600 hover:text-slate-900 p-0 h-auto font-normal"
+                  onClick={handleImprove}
+                  disabled={isLoading || isAtLimit}
+                  className="w-full"
                 >
-                  <ChevronDown className={cn("h-4 w-4 mr-1 transition-transform", showMore && "rotate-180")} />
-                  More options
+                  {isLoading ? <RefreshCw className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
+                  Improve my note
                 </Button>
+              )}
+            </div>
+
+            {/* Student Name */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Student</label>
+                <input
+                  type="text"
+                  value={student}
+                  onChange={(e) => setStudent(e.target.value)}
+                  placeholder="e.g., Max"
+                  className="w-full px-3 py-2.5 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+
+              {/* Tone */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Tone</label>
+                <Select value={tone} onValueChange={setTone}>
+                  <SelectTrigger className="py-2.5">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="supportive">Supportive</SelectItem>
+                    <SelectItem value="concise">Concise</SelectItem>
+                    <SelectItem value="friendly">Friendly</SelectItem>
+                    <SelectItem value="formal">Formal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Language */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Language</label>
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger className="py-2.5">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="English">English</SelectItem>
+                  <SelectItem value="German">German</SelectItem>
+                  <SelectItem value="Spanish">Spanish</SelectItem>
+                  <SelectItem value="French">French</SelectItem>
+                  <SelectItem value="Italian">Italian</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* More Options */}
+            <div className="space-y-3">
+              <button
+                onClick={() => setShowMore(!showMore)}
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800"
+              >
+                <ChevronDown className={cn("h-4 w-4 transition-transform", showMore && "rotate-180")} />
+                More options
+              </button>
+              
+              {showMore && (
+                <div className="space-y-3 pl-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Positives</label>
+                    <Textarea
+                      value={positives}
+                      onChange={(e) => setPositives(e.target.value)}
+                      placeholder={currentStarter.seed.positives}
+                      className="min-h-[60px]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Focus</label>
+                    <Textarea
+                      value={focus}
+                      onChange={(e) => setFocus(e.target.value)}
+                      placeholder={currentStarter.seed.focus}
+                      className="min-h-[60px]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Next steps</label>
+                    <Textarea
+                      value={next}
+                      onChange={(e) => setNext(e.target.value)}
+                      placeholder={currentStarter.seed.next}
+                      className="min-h-[60px]"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={handleGenerate}
+                disabled={isLoading || isAtLimit}
+                className="flex-1"
+              >
+                {isLoading ? <RefreshCw className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
+                Generate
+              </Button>
+              <Button
+                onClick={handleNewVariation}
+                disabled={isLoading || isAtLimit || !output}
+                variant="outline"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                New variation
+              </Button>
+              <Button
+                onClick={handleCopy}
+                disabled={!output}
+                variant="outline"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy
+              </Button>
+              <Button variant="outline">
+                Start Free Trial
+              </Button>
+            </div>
+
+            {/* Usage Counter */}
+            <div className="text-sm text-gray-600 text-center">
+              {usage.remaining} free messages/month – unlimited in Promptly
+            </div>
+          </div>
+
+          {/* Preview Column */}
+          <div className="relative z-10 space-y-4">
+            {/* Rate Limit Overlay */}
+            {isAtLimit && (
+              <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-20 flex items-center justify-center rounded-lg">
+                <div className="text-center space-y-4">
+                  <h3 className="text-lg font-semibold">You've used your 5 free messages for this month.</h3>
+                  <div className="space-x-3">
+                    <Button>Start Free Trial</Button>
+                    <Button variant="outline">See plans</Button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Preview Tabs */}
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="output">Output</TabsTrigger>
+                <TabsTrigger value="variations" disabled={variations.length === 0}>
+                  Variations {variations.length > 0 && `(${variations.length})`}
+                </TabsTrigger>
+                <TabsTrigger value="email">Email</TabsTrigger>
+                <TabsTrigger value="sms">SMS</TabsTrigger>
+              </TabsList>
+
+              {/* View Toggle */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setDocView(!docView)}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-1.5 rounded-md text-sm",
+                      docView ? "bg-purple-100 text-purple-700" : "bg-gray-100 text-gray-700"
+                    )}
+                  >
+                    <Eye className="h-4 w-4" />
+                    {docView ? 'Doc' : 'Plain'}
+                  </button>
+                </div>
                 
-                {showMore && (
-                  <div className="mt-3 space-y-3 pt-3 border-t border-slate-200 dark:border-slate-700">
-                    <div>
-                      <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                        Improve my note
-                      </label>
-                      <Textarea
-                        value={yourNote}
-                        onChange={(e) => setYourNote(e.target.value)}
-                        placeholder="Paste your draft to improve tone, clarity, and parent-readiness."
-                        rows={3}
-                        className="text-sm"
-                      />
-                      <Button
-                        onClick={handleImproveNote}
-                        disabled={!yourNote.trim() || !canGenerate}
-                        size="sm"
-                        className="mt-2"
-                      >
-                        <Sparkles className="h-4 w-4 mr-1" />
-                        Improve my note
-                      </Button>
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                        Positives (optional)
-                      </label>
-                      <Textarea
-                        value={positives}
-                        onChange={(e) => setPositives(e.target.value)}
-                        placeholder="Strengths noticed, wins, improvements..."
-                        rows={2}
-                        className="text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                        Focus area (optional)
-                      </label>
-                      <Textarea
-                        value={focus}
-                        onChange={(e) => setFocus(e.target.value)}
-                        placeholder="What we're working on; keep factual & neutral..."
-                        rows={2}
-                        className="text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1 block">
-                        Next steps (optional)
-                      </label>
-                      <Textarea
-                        value={nextSteps}
-                        onChange={(e) => setNextSteps(e.target.value)}
-                        placeholder="What we'll do in class; how families can help..."
-                        rows={2}
-                        className="text-sm"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  onClick={handleGenerate}
-                  disabled={!canGenerate}
-                  className="bg-violet-600 hover:bg-violet-700"
-                >
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  {isLoading ? 'Generating...' : 'Generate'}
-                </Button>
-
-                <Button
-                  onClick={handleVariation}
-                  disabled={!output || !canGenerate}
-                  variant="outline"
-                  size="sm"
-                >
-                  <RefreshCw className="h-4 w-4 mr-1" />
-                  New Variation
-                </Button>
-
-                <Button
-                  onClick={handleCopy}
-                  disabled={!canCopy}
-                  variant="outline"
-                  size="sm"
-                >
-                  <Copy className="h-4 w-4 mr-1" />
-                  {copied ? 'Copied!' : 'Copy'}
-                </Button>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                >
-                  <a href="/pricing">
-                    <Plus className="h-4 w-4 mr-1" />
-                    Start Free Trial
-                  </a>
-                </Button>
-              </div>
-
-              {/* Usage Info */}
-              <p className="text-xs text-slate-500">
-                <strong>{messages} free messages per day</strong> – full editing and history in Promptly.
-              </p>
-
-              {/* Share Menu */}
-              {output && (
-                <Popover>
+                <Popover open={shareOpen} onOpenChange={setShareOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="ghost" size="sm" className="self-start">
-                      <Share2 className="h-4 w-4 mr-1" />
+                    <Button variant="outline" size="sm">
+                      <Share2 className="h-4 w-4 mr-2" />
                       Share
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent 
-                    side="bottom" 
-                    align="start" 
-                    sideOffset={8}
-                    className="z-[100] w-56 bg-popover text-popover-foreground border shadow-2xl rounded-md p-3"
-                  >
+                  <PopoverContent className="w-48 z-[100] bg-white">
                     <div className="space-y-2">
-                      <Button
+                      <button
                         onClick={() => handleShare('email')}
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
                       >
-                        <Mail className="h-4 w-4 mr-2" />
+                        <Mail className="h-4 w-4" />
                         Email
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => handleShare('whatsapp')}
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
                       >
-                        <MessageCircle className="h-4 w-4 mr-2" />
+                        <MessageCircle className="h-4 w-4" />
                         WhatsApp
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => handleShare('copy')}
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-start"
+                        className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
                       >
-                        <Link2 className="h-4 w-4 mr-2" />
-                        Copy Link
-                      </Button>
-                      {navigator.share && (
-                        <Button
-                          onClick={() => handleShare('native')}
-                          variant="ghost"
-                          size="sm"
-                          className="w-full justify-start"
-                        >
-                          <Share2 className="h-4 w-4 mr-2" />
-                          Quick Share
-                        </Button>
-                      )}
+                        <Link2 className="h-4 w-4" />
+                        Copy link
+                      </button>
                     </div>
                   </PopoverContent>
                 </Popover>
-              )}
-            </aside>
+              </div>
 
-            {/* Preview */}
-            <section ref={previewRef} className="relative z-10">
-              {messages === 0 && (
-                <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-20 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <h4 className="font-semibold mb-2">Daily limit reached</h4>
-                    <p className="text-sm text-slate-600 mb-3">Try unlimited messages with Promptly</p>
-                    <Button asChild>
-                      <a href="/pricing">Start Free Trial</a>
-                    </Button>
-                  </div>
+              <TabsContent value="output" className="space-y-4">
+                <div
+                  ref={previewRef}
+                  className={cn(
+                    "rounded-lg border transition-all",
+                    docView
+                      ? "bg-white p-6 shadow-sm min-h-[560px] max-h-[640px] overflow-y-auto"
+                      : "bg-gray-50 p-4 min-h-[300px]"
+                  )}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center h-32">
+                      <RefreshCw className="h-6 w-6 animate-spin text-purple-600" />
+                    </div>
+                  ) : (
+                    <div className="whitespace-pre-wrap text-gray-900 leading-relaxed">
+                      {output || 'Generate your first message...'}
+                    </div>
+                  )}
                 </div>
-              )}
+              </TabsContent>
 
-              <Tabs defaultValue="output" className="w-full">
-                <div className="flex items-center justify-between mb-4">
-                  <TabsList className="grid w-auto grid-cols-4">
-                    <TabsTrigger value="output">Output</TabsTrigger>
-                    {variations.length > 0 && (
-                      <TabsTrigger value="variations">Variations</TabsTrigger>
-                    )}
-                    <TabsTrigger value="email">Email</TabsTrigger>
-                    <TabsTrigger value="sms">SMS</TabsTrigger>
-                  </TabsList>
-
-                  <div className="flex items-center gap-2">
-                    <Button
-                      onClick={() => setViewMode(viewMode === 'doc' ? 'plain' : 'doc')}
-                      variant="outline"
-                      size="sm"
+              <TabsContent value="variations">
+                <div className="space-y-4">
+                  {variations.map((variation, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "rounded-lg border p-4 cursor-pointer hover:bg-gray-50",
+                        docView && "bg-white shadow-sm"
+                      )}
+                      onClick={() => setOutput(variation)}
                     >
-                      {viewMode === 'doc' ? 'Plain' : 'Doc'} view
-                    </Button>
+                      <div className="text-sm text-gray-500 mb-2">Variation {index + 1}</div>
+                      <div className="whitespace-pre-wrap text-gray-900">{variation}</div>
+                    </div>
+                  ))}
+                  {variations.length === 0 && (
+                    <div className="text-center text-gray-500 py-8">
+                      No variations yet. Click "New variation" to generate one.
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="email">
+                <div className="space-y-4">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="text-sm text-gray-600 mb-2">Subject:</div>
+                    <div className="font-medium">Quick note about {student || 'your child'}</div>
+                  </div>
+                  <div
+                    className={cn(
+                      "rounded-lg border",
+                      docView
+                        ? "bg-white p-6 shadow-sm min-h-[400px]"
+                        : "bg-gray-50 p-4 min-h-[300px]"
+                    )}
+                  >
+                    <div className="whitespace-pre-wrap text-gray-900 leading-relaxed">
+                      {output || 'Generate a message to see email preview...'}
+                    </div>
                   </div>
                 </div>
+              </TabsContent>
 
-                <TabsContent value="output" className="mt-0">
-                  <PreviewContainer viewMode={viewMode} isLoading={isLoading}>
-                    {output || (
-                      <div className="text-slate-500 text-center py-16">
-                        <div className="text-4xl mb-4">📝</div>
-                        <p className="text-lg font-medium mb-2">Your message will appear here</p>
-                        <p className="text-sm">Click Generate to create a parent-ready message</p>
-                      </div>
-                    )}
-                  </PreviewContainer>
-                </TabsContent>
-
-                {variations.length > 0 && (
-                  <TabsContent value="variations" className="mt-0">
-                    <PreviewContainer viewMode={viewMode}>
-                      <div className="space-y-4">
-                        {variations.map((variation, index) => (
-                          <div key={index} className="p-3 bg-slate-50 rounded-lg">
-                            <div className="whitespace-pre-wrap text-sm leading-[1.55] mb-2">
-                              {variation}
-                            </div>
-                            <Button
-                              onClick={() => setOutput(variation)}
-                              size="sm"
-                              variant="outline"
-                            >
-                              Use this version
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    </PreviewContainer>
-                  </TabsContent>
-                )}
-
-                <TabsContent value="email" className="mt-0">
-                  <PreviewContainer viewMode={viewMode}>
-                    <div className="space-y-3">
-                      <div className="text-sm">
-                        <strong>To:</strong> parent@example.com
-                      </div>
-                      <div className="text-sm">
-                        <strong>Subject:</strong> Quick note about {student || 'your child'}
-                      </div>
-                      <hr />
-                      <div className="whitespace-pre-wrap text-sm leading-[1.55]">
-                        {output || 'Generate a message to see email preview'}
-                      </div>
+              <TabsContent value="sms">
+                <div className="max-w-sm mx-auto">
+                  <div className="bg-blue-500 rounded-t-lg p-3 text-white text-sm font-medium">
+                    SMS Preview
+                  </div>
+                  <div className="bg-white border border-t-0 rounded-b-lg p-4 min-h-[200px]">
+                    <div className="whitespace-pre-wrap text-gray-900 text-sm leading-relaxed">
+                      {output || 'Generate a message to see SMS preview...'}
                     </div>
-                  </PreviewContainer>
-                </TabsContent>
-
-                <TabsContent value="sms" className="mt-0">
-                  <PreviewContainer viewMode={viewMode}>
-                    <div className="bg-blue-500 text-white p-3 rounded-2xl rounded-bl-sm max-w-sm ml-auto">
-                      <div className="whitespace-pre-wrap text-sm leading-[1.55]">
-                        {output ? output.slice(0, 160) + (output.length > 160 ? '...' : '') : 'Generate a message to see SMS preview'}
-                      </div>
-                    </div>
-                  </PreviewContainer>
-                </TabsContent>
-              </Tabs>
-            </section>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
-        </Card>
-      </div>
-    </section>
-  );
-}
-
-interface PreviewContainerProps {
-  children: React.ReactNode;
-  viewMode: 'doc' | 'plain';
-  isLoading?: boolean;
-}
-
-function PreviewContainer({ children, viewMode, isLoading }: PreviewContainerProps) {
-  if (viewMode === 'doc') {
-    return (
-      <div className="mx-auto bg-white border border-slate-200 shadow-2xl rounded-[6px] p-8 md:p-10 max-w-[740px] min-h-[520px] max-h-[640px] overflow-auto">
-        <article className="prose prose-slate max-w-[68ch] leading-[1.55]">
-          {isLoading ? (
-            <div className="animate-pulse space-y-3">
-              <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-              <div className="h-4 bg-slate-200 rounded w-full"></div>
-              <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-            </div>
-          ) : (
-            <div className="whitespace-pre-wrap text-sm leading-[1.55]">
-              {children}
-            </div>
-          )}
-        </article>
-        
-        <div className="text-center mt-6 pt-4 border-t border-slate-200">
-          <p className="text-xs text-slate-400">Made with Promptly – free demo</p>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 min-h-[300px]">
-      {isLoading ? (
-        <div className="animate-pulse space-y-3">
-          <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-          <div className="h-4 bg-slate-200 rounded w-full"></div>
-          <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-        </div>
-      ) : (
-        <div className="whitespace-pre-wrap text-sm leading-[1.55]">
-          {children}
-        </div>
-      )}
+      </Card>
     </div>
   );
 }
