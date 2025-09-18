@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Check, MessageCircle, Clock, Shield, GraduationCap, Heart, Zap, Calculator } from 'lucide-react';
-import SmartSnippetWriterV3 from '@/components/site/snippet/SmartSnippetWriterV3';
+import TrySnippet from '@/components/TrySnippet';
 import { CrossAppCTA } from '@/components/site/cross-app-cta';
 import HeroCarousel from '@/components/site/HeroCarousel';
 // Removed ImageCarousel and heroImages imports
@@ -375,7 +375,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* 3.5. Interactive Demo - Snippet Tool */}
-      <SmartSnippetWriterV3 />
+      <TrySnippet />
 
       {/* 3.6. ROI Calculator */}
       <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-950/30 dark:via-emerald-950/30 dark:to-teal-950/30">

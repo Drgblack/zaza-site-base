@@ -36,7 +36,8 @@
       "Bash(powershell:*)",
       "Bash(set PUPPETEER_SKIP_DOWNLOAD=true)",
       "Bash(cp:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
