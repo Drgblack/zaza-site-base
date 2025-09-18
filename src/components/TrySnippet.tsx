@@ -10,7 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -26,8 +25,7 @@ import {
   Gift,
   FileText,
   Monitor,
-  HelpCircle,
-  Keyboard
+  HelpCircle
 } from 'lucide-react';
 import { PRESETS, type SnippetPreset } from '@/data/promptly-presets';
 import { siteUrl } from '@/lib/site';
@@ -574,8 +572,7 @@ export default function TrySnippet() {
   };
 
   return (
-    <TooltipProvider>
-      <section id="try-snippet" className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900/20">
+    <section id="try-snippet" className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900/20">
         <div className="container mx-auto max-w-6xl px-4">
           {/* Header */}
           <div className="text-center mb-8">
@@ -758,84 +755,51 @@ export default function TrySnippet() {
                   {/* Buttons */}
                   <div className="space-y-3">
                     <div className="grid grid-cols-2 gap-2">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button 
-                            onClick={() => handleGenerate('generate')}
-                            disabled={generation.loading || generation.remaining <= 0}
-                            className="relative"
-                          >
-                            {generation.loading ? (
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <Sparkles className="h-4 w-4 mr-2" />
-                            )}
-                            Generate
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <div className="flex items-center gap-2">
-                            <Keyboard className="h-3 w-3" />
-                            <span>Ctrl+Enter</span>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                      <Button 
+                        onClick={() => handleGenerate('generate')}
+                        disabled={generation.loading || generation.remaining <= 0}
+                        className="relative"
+                        title="Ctrl+Enter"
+                      >
+                        {generation.loading ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Sparkles className="h-4 w-4 mr-2" />
+                        )}
+                        Generate
+                      </Button>
                       
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button 
-                            variant="outline"
-                            onClick={yourNote.trim() ? handleImprove : () => handleGenerate('improve')}
-                            disabled={generation.loading || (!currentOutput && !yourNote.trim()) || generation.remaining <= 0}
-                          >
-                            <RefreshCw className="h-4 w-4 mr-2" />
-                            {yourNote.trim() ? 'Improve my note' : 'Improve'}
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          {!yourNote.trim() ? 'Paste a note to improve' : 'Improve your draft (Ctrl+Enter)'}
-                        </TooltipContent>
-                      </Tooltip>
+                      <Button 
+                        variant="outline"
+                        onClick={yourNote.trim() ? handleImprove : () => handleGenerate('improve')}
+                        disabled={generation.loading || (!currentOutput && !yourNote.trim()) || generation.remaining <= 0}
+                        title={!yourNote.trim() ? 'Paste a note to improve' : 'Improve your draft (Ctrl+Enter)'}
+                      >
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                        {yourNote.trim() ? 'Improve my note' : 'Improve'}
+                      </Button>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button 
-                            variant="outline"
-                            onClick={() => handleGenerate('variation')}
-                            disabled={generation.loading || !currentOutput || generation.remaining <= 0}
-                          >
-                            <Zap className="h-4 w-4 mr-2" />
-                            New Variation
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <div className="flex items-center gap-2">
-                            <Keyboard className="h-3 w-3" />
-                            <span>V</span>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                      <Button 
+                        variant="outline"
+                        onClick={() => handleGenerate('variation')}
+                        disabled={generation.loading || !currentOutput || generation.remaining <= 0}
+                        title="Press V"
+                      >
+                        <Zap className="h-4 w-4 mr-2" />
+                        New Variation
+                      </Button>
                       
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button 
-                            variant="outline"
-                            onClick={handleCopy}
-                            disabled={!currentOutput || copyState.success}
-                          >
-                            <Copy className="h-4 w-4 mr-2" />
-                            {copyState.success ? 'Copied!' : 'Copy'}
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <div className="flex items-center gap-2">
-                            <Keyboard className="h-3 w-3" />
-                            <span>C</span>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                      <Button 
+                        variant="outline"
+                        onClick={handleCopy}
+                        disabled={!currentOutput || copyState.success}
+                        title="Press C"
+                      >
+                        <Copy className="h-4 w-4 mr-2" />
+                        {copyState.success ? 'Copied!' : 'Copy'}
+                      </Button>
                     </div>
 
                     <Button 
@@ -912,18 +876,14 @@ export default function TrySnippet() {
                         {currentOutput && (
                           <div className="flex items-center gap-2">
                             {/* Coaching Toggle */}
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => setShowCoaching(!showCoaching)}
-                                >
-                                  <HelpCircle className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Explain the choices</TooltipContent>
-                            </Tooltip>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setShowCoaching(!showCoaching)}
+                              title="Explain the choices"
+                            >
+                              <HelpCircle className="h-4 w-4" />
+                            </Button>
 
                             {/* Share Dropdown */}
                             <DropdownMenu>
@@ -1175,6 +1135,5 @@ export default function TrySnippet() {
           )}
         </div>
       </section>
-    </TooltipProvider>
   );
 }
