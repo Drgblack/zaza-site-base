@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { snippetSystem, buildUserPrompt } from "@/lib/snippetPrompt";
 
-const DAILY_FREE_GEN = 3;
-const DAILY_FREE_COPIES = 2;
+const DAILY_FREE_GEN = 5;
+const DAILY_FREE_COPIES = 3;
 
-function getClientIP(req: NextRequest): string {
+export function getClientIP(req: NextRequest): string {
   return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
          req.headers.get("x-real-ip") || 
          "127.0.0.1";
@@ -13,7 +13,7 @@ function getClientIP(req: NextRequest): string {
 // Simple in-memory rate limiting (replace with Redis/KV in production)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
-function checkLimit(key: string, max: number): { count: number; remaining: number; limited: boolean } {
+export function checkLimit(key: string, max: number): { count: number; remaining: number; limited: boolean } {
   const now = Date.now();
   const today = new Date().toDateString();
   const fullKey = `${key}:${today}`;
