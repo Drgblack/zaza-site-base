@@ -25,7 +25,8 @@
       "Bash(vercel:*)",
       "Bash(pnpm install:*)",
       "Bash(git add:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
