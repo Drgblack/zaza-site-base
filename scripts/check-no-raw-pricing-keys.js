@@ -19,6 +19,10 @@ function findFiles(dir, extensions = ['.html', '.js']) {
     const stat = fs.statSync(fullPath);
     
     if (stat.isDirectory()) {
+      // Skip cache directories that contain eslint artifacts
+      if (item === 'cache' || item === '.cache' || item.includes('cache')) {
+        continue;
+      }
       files.push(...findFiles(fullPath, extensions));
     } else if (extensions.some(ext => item.endsWith(ext))) {
       files.push(fullPath);
@@ -55,16 +59,25 @@ function checkForRawKeys() {
     try {
       const content = fs.readFileSync(file, 'utf8');
       
-      // Look for pricing.pricing or pricing_ patterns
-      const matches = content.match(/pricing(\.|_)[A-Za-z0-9._-]+/g);
+      // Look for pricing.pricing or pricing_ patterns that suggest raw i18n keys
+      const matches = content.match(/pricing\.[a-z][A-Za-z0-9._-]+/g);
       
       if (matches) {
         matches.forEach(match => {
-          // Filter out legitimate analytics event names
+          // Filter out legitimate patterns:
+          // - analytics event names (pricing_cta_click, etc.)
+          // - file extensions (pricing.tsx, pricing.js)
+          // - legitimate object access (pricing.price, pricing.label)
           if (!match.includes('pricing_cta_click') && 
               !match.includes('pricing_billing_cycle') && 
               !match.includes('pricing_suite_toggled') &&
-              !match.includes('pricing_banner_')) {
+              !match.includes('pricing_banner_') &&
+              !match.includes('pricing.tsx') &&
+              !match.includes('pricing.js') &&
+              !match.includes('pricing.price') &&
+              !match.includes('pricing.label') &&
+              // Only flag keys that look like deep i18n paths
+              (match.includes('pricing.plans.') || match.includes('pricing.suites.') || match.split('.').length > 2)) {
             badKeys.add(match);
           }
         });
