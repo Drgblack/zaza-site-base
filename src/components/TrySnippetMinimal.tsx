@@ -335,19 +335,42 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
               <div className="space-y-2">
                 <label className="text-xs font-medium text-muted-foreground">Tone</label>
-                <Select value={tone} onValueChange={setTone} modal={false}>
-                  <SelectTrigger className="py-2.5">
-                    <SelectValue />
+                <Select value={tone} onValueChange={setTone}>
+                  <SelectTrigger 
+                    className="py-2.5 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
+                    aria-label="Select message tone"
+                  >
+                    <SelectValue placeholder="Choose tone" />
                   </SelectTrigger>
                   <SelectContent
                     position="popper"
                     sideOffset={8}
-                    className="z-[100] bg-popover text-popover-foreground border shadow-2xl rounded-md max-h-72 overflow-auto"
+                    className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[180px] max-h-72 overflow-auto"
                   >
-                    <SelectItem value="supportive">Supportive</SelectItem>
-                    <SelectItem value="concise">Concise</SelectItem>
-                    <SelectItem value="friendly">Friendly</SelectItem>
-                    <SelectItem value="formal">Formal</SelectItem>
+                    <SelectItem 
+                      value="supportive"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      Supportive
+                    </SelectItem>
+                    <SelectItem 
+                      value="concise"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      Concise
+                    </SelectItem>
+                    <SelectItem 
+                      value="friendly"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      Friendly
+                    </SelectItem>
+                    <SelectItem 
+                      value="formal"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      Formal
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -356,20 +379,48 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             {/* Language */}
             <div className="space-y-2">
               <label className="text-xs font-medium text-muted-foreground">Language</label>
-              <Select value={language} onValueChange={setLanguage} modal={false}>
-                <SelectTrigger className="py-2.5">
-                  <SelectValue />
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger 
+                  className="py-2.5 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
+                  aria-label="Select message language"
+                >
+                  <SelectValue placeholder="Choose language" />
                 </SelectTrigger>
                 <SelectContent
                   position="popper"
                   sideOffset={8}
-                  className="z-[100] bg-popover text-popover-foreground border shadow-2xl rounded-md max-h-72 overflow-auto"
+                  className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[200px] max-h-72 overflow-auto"
                 >
-                  <SelectItem value="English">English</SelectItem>
-                  <SelectItem value="German">German</SelectItem>
-                  <SelectItem value="Spanish">Spanish</SelectItem>
-                  <SelectItem value="French">French</SelectItem>
-                  <SelectItem value="Italian">Italian</SelectItem>
+                  <SelectItem 
+                    value="English"
+                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                  >
+                    English
+                  </SelectItem>
+                  <SelectItem 
+                    value="German"
+                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                  >
+                    German
+                  </SelectItem>
+                  <SelectItem 
+                    value="Spanish"
+                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                  >
+                    Spanish
+                  </SelectItem>
+                  <SelectItem 
+                    value="French"
+                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                  >
+                    French
+                  </SelectItem>
+                  <SelectItem 
+                    value="Italian"
+                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                  >
+                    Italian
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -487,22 +538,35 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             {/* Document Preview */}
             <div className="flex items-end justify-between mb-4">
               <div className="flex items-center gap-3">
-                <Select value={format} onValueChange={setFormat as (value: string) => void} modal={false}>
-                  <SelectTrigger className="w-24">
-                    <SelectValue />
+                <Select value={format} onValueChange={setFormat as (value: string) => void}>
+                  <SelectTrigger 
+                    className="w-32 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
+                    aria-label="Select message format"
+                  >
+                    <SelectValue placeholder="Format" />
                   </SelectTrigger>
                   <SelectContent
                     position="popper"
                     sideOffset={8}
-                    className="z-[100] bg-popover text-popover-foreground border shadow-2xl rounded-md"
+                    className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[120px]"
                   >
-                    <SelectItem value="email">Email</SelectItem>
-                    <SelectItem value="sms">SMS</SelectItem>
+                    <SelectItem 
+                      value="email"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      Email
+                    </SelectItem>
+                    <SelectItem 
+                      value="sms"
+                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                    >
+                      SMS
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
-              <Popover open={shareOpen} onOpenChange={setShareOpen} modal={false}>
+              <Popover open={shareOpen} onOpenChange={setShareOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" size="sm">
                     <Share2 className="h-4 w-4 mr-2" />
@@ -513,26 +577,26 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                   side="bottom"
                   align="end"
                   sideOffset={8}
-                  className="z-[100] w-56 bg-popover text-popover-foreground border shadow-2xl rounded-md"
+                  className="z-50 w-56 bg-popover text-popover-foreground border border-border shadow-xl rounded-md"
                 >
-                  <div className="space-y-2">
+                  <div className="space-y-1 p-1">
                     <button
                       onClick={() => handleShare('email')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
+                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
                     >
                       <Mail className="h-4 w-4" />
                       Email
                     </button>
                     <button
                       onClick={() => handleShare('whatsapp')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
+                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
                     >
                       <MessageCircle className="h-4 w-4" />
                       WhatsApp
                     </button>
                     <button
                       onClick={() => handleShare('copy')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-100 rounded-md"
+                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
                     >
                       <Link2 className="h-4 w-4" />
                       Copy link
