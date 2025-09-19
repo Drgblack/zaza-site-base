@@ -4,10 +4,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2 } from 'lucide-react';
+import { Copy, RefreshCw, Sparkles, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { FormSelect } from '@/components/ui/FormSelect';
+import { ShareMenu } from '@/components/ui/ShareMenu';
 import { STARTERS, type Starter } from '@/data/snippet-presets';
 import { FREE_MESSAGES } from '@/lib/config';
 
@@ -85,7 +85,6 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   // Output and UI state
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [shareOpen, setShareOpen] = useState(false);
   
   const usage = useMonthlyLimits();
   const previewRef = useRef<HTMLDivElement>(null);
@@ -227,23 +226,20 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
     }
   };
 
-  const handleShare = (platform: string) => {
+  const handleShareEmail = () => {
     const subject = `Quick note about ${student || 'your child'}`;
     const body = output.slice(0, 160) + '...\n\nMade with Promptly – free demo at https://promptly.so/?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
-    
-    switch (platform) {
-      case 'email':
-        window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-        break;
-      case 'whatsapp':
-        window.open(`https://wa.me/?text=${encodeURIComponent(body)}`);
-        break;
-      case 'copy':
-        navigator.clipboard.writeText(body);
-        break;
-    }
-    
-    setShareOpen(false);
+    window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+  };
+
+  const handleShareWhatsApp = () => {
+    const body = output.slice(0, 160) + '...\n\nMade with Promptly – free demo at https://promptly.so/?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
+    window.open(`https://wa.me/?text=${encodeURIComponent(body)}`);
+  };
+
+  const handleShareCopyLink = () => {
+    const body = output.slice(0, 160) + '...\n\nMade with Promptly – free demo at https://promptly.so/?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
+    navigator.clipboard.writeText(body);
   };
 
   const createFallback = () => {
@@ -486,48 +482,15 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                     {value:"email",label:"Email"},
                     {value:"sms",label:"SMS"},
                   ]}
-                  className="w-[180px]"
+                  className="min-w-[180px]"
                 />
               </div>
               
-              <Popover open={shareOpen} onOpenChange={setShareOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Share
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                  side="bottom"
-                  align="end"
-                  sideOffset={8}
-                  className="z-[9999] w-56 bg-popover text-popover-foreground border border-border shadow-xl rounded-md"
-                >
-                  <div className="space-y-1 p-1">
-                    <button
-                      onClick={() => handleShare('email')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
-                    >
-                      <Mail className="h-4 w-4" />
-                      Email
-                    </button>
-                    <button
-                      onClick={() => handleShare('whatsapp')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      WhatsApp
-                    </button>
-                    <button
-                      onClick={() => handleShare('copy')}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-md transition-colors"
-                    >
-                      <Link2 className="h-4 w-4" />
-                      Copy link
-                    </button>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <ShareMenu
+                onEmail={handleShareEmail}
+                onWhatsApp={handleShareWhatsApp}
+                onCopyLink={handleShareCopyLink}
+              />
             </div>
 
             <section
