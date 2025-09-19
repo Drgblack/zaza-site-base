@@ -503,3 +503,15 @@
   color: hsl(var(--popover-foreground)) !important;
   border-color: hsl(var(--border)) !important;
 }
+
+/* Fix snippet tool: prevent decorative preview cards from intercepting clicks */
+[data-noninteractive] {
+  pointer-events: none !important;
+}
+
+/* Additional safety for any preview-related elements that might block form interactions */
+.preview-corner-card,
+.preview-glow,
+.preview-hint {
+  pointer-events: none !important;
+}

@@ -7,9 +7,11 @@ import { Card } from '@/components/ui/card';
 import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { FormSelect } from '@/components/ui/FormSelect';
 import { STARTERS, type Starter } from '@/data/snippet-presets';
+import { FREE_MESSAGES } from '@/lib/config';
 
-const MAX_FREE_PER_MONTH = 5;
+const MAX_FREE_PER_MONTH = FREE_MESSAGES;
 
 // Monthly usage tracking
 function useMonthlyLimits() {
@@ -332,40 +334,34 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-muted-foreground" htmlFor="tone-select">Tone</label>
-                <select
-                  id="tone-select"
-                  value={tone}
-                  onChange={(e) => setTone(e.target.value)}
-                  className="w-full py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
-                  aria-label="Select message tone"
-                >
-                  <option value="supportive">Supportive</option>
-                  <option value="concise">Concise</option>
-                  <option value="friendly">Friendly</option>
-                  <option value="formal">Formal</option>
-                </select>
-              </div>
+              <FormSelect
+                label="Tone"
+                value={tone}
+                onChange={setTone}
+                options={[
+                  {value:"supportive",label:"Supportive"},
+                  {value:"concise",label:"Concise"},
+                  {value:"friendly",label:"Friendly"},
+                  {value:"formal",label:"Formal"},
+                ]}
+                minWidth={180}
+              />
             </div>
 
             {/* Language */}
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-muted-foreground" htmlFor="language-select">Language</label>
-              <select
-                id="language-select"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="w-full py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
-                aria-label="Select message language"
-              >
-                <option value="English">English</option>
-                <option value="German">German</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="Italian">Italian</option>
-              </select>
-            </div>
+            <FormSelect
+              label="Language"
+              value={language}
+              onChange={setLanguage}
+              options={[
+                {value:"English",label:"English"},
+                {value:"German",label:"German"},
+                {value:"Spanish",label:"Spanish"},
+                {value:"French",label:"French"},
+                {value:"Italian",label:"Italian"},
+              ]}
+              minWidth={200}
+            />
 
             {/* More Options */}
             <div className="space-y-3">
@@ -466,9 +462,13 @@ Please feel free to reach out if you have any questions. Thanks for being such a
           <div className="relative z-10">
             {/* Rate Limit Overlay */}
             {isAtLimit && (
-              <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex items-center justify-center rounded-lg">
-                <div className="text-center space-y-4">
-                  <h3 className="text-lg font-semibold">You've used your 5 free messages this month.</h3>
+              <div 
+                className="absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex items-center justify-center rounded-lg"
+                data-noninteractive
+                aria-hidden="true"
+              >
+                <div className="text-center space-y-4" style={{ pointerEvents: 'auto' }}>
+                  <h3 className="text-lg font-semibold">You've used your {FREE_MESSAGES} free messages this month.</h3>
                   <div className="space-x-3">
                     <Button>Start Free Trial</Button>
                     <Button variant="outline">See plans</Button>
@@ -480,19 +480,16 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             {/* Document Preview */}
             <div className="flex items-end justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground" htmlFor="format-select">Format</label>
-                  <select
-                    id="format-select"
-                    value={format}
-                    onChange={(e) => setFormat(e.target.value as 'email' | 'sms')}
-                    className="w-32 py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
-                    aria-label="Select message format"
-                  >
-                    <option value="email">Email</option>
-                    <option value="sms">SMS</option>
-                  </select>
-                </div>
+                <FormSelect
+                  label="Format"
+                  value={format}
+                  onChange={(value) => setFormat(value as 'email' | 'sms')}
+                  options={[
+                    {value:"email",label:"Email"},
+                    {value:"sms",label:"SMS"},
+                  ]}
+                  minWidth={140}
+                />
               </div>
               
               <Popover open={shareOpen} onOpenChange={setShareOpen}>
@@ -537,7 +534,9 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
             <div
               ref={previewRef}
+              data-noninteractive
               className="bg-white border border-slate-200 shadow-2xl rounded-[6px] p-8 md:p-10 max-w-[720px] min-h-[520px] max-h-[620px] overflow-auto leading-[1.55]"
+              aria-hidden="true"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center h-32">
