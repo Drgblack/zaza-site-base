@@ -33,7 +33,9 @@
       "Bash(TSC_COMPILE_ON_ERROR=true npm run build)",
       "Bash(pnpm run lint:*)",
       "Bash(npx eslint:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(gh run view:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

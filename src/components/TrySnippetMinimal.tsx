@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Copy, RefreshCw, Sparkles, ChevronDown, Share2, Mail, MessageCircle, Link2 } from 'lucide-react';
@@ -334,99 +333,38 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-medium text-muted-foreground">Tone</label>
-                <Select value={tone} onValueChange={setTone}>
-                  <SelectTrigger 
-                    className="py-2.5 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
-                    aria-label="Select message tone"
-                  >
-                    <SelectValue placeholder="Choose tone" />
-                  </SelectTrigger>
-                  <SelectContent
-                    position="popper"
-                    sideOffset={8}
-                    className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[180px] max-h-72 overflow-auto"
-                    side="bottom"
-                    align="start"
-                  >
-                    <SelectItem 
-                      value="supportive"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      Supportive
-                    </SelectItem>
-                    <SelectItem 
-                      value="concise"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      Concise
-                    </SelectItem>
-                    <SelectItem 
-                      value="friendly"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      Friendly
-                    </SelectItem>
-                    <SelectItem 
-                      value="formal"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      Formal
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                <label className="text-xs font-medium text-muted-foreground" htmlFor="tone-select">Tone</label>
+                <select
+                  id="tone-select"
+                  value={tone}
+                  onChange={(e) => setTone(e.target.value)}
+                  className="w-full py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
+                  aria-label="Select message tone"
+                >
+                  <option value="supportive">Supportive</option>
+                  <option value="concise">Concise</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="formal">Formal</option>
+                </select>
               </div>
             </div>
 
             {/* Language */}
             <div className="space-y-2">
-              <label className="text-xs font-medium text-muted-foreground">Language</label>
-              <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger 
-                  className="py-2.5 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
-                  aria-label="Select message language"
-                >
-                  <SelectValue placeholder="Choose language" />
-                </SelectTrigger>
-                <SelectContent
-                  position="popper"
-                  sideOffset={8}
-                  className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[200px] max-h-72 overflow-auto"
-                  side="bottom"
-                  align="start"
-                >
-                  <SelectItem 
-                    value="English"
-                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                  >
-                    English
-                  </SelectItem>
-                  <SelectItem 
-                    value="German"
-                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                  >
-                    German
-                  </SelectItem>
-                  <SelectItem 
-                    value="Spanish"
-                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                  >
-                    Spanish
-                  </SelectItem>
-                  <SelectItem 
-                    value="French"
-                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                  >
-                    French
-                  </SelectItem>
-                  <SelectItem 
-                    value="Italian"
-                    className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                  >
-                    Italian
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-xs font-medium text-muted-foreground" htmlFor="language-select">Language</label>
+              <select
+                id="language-select"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="w-full py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
+                aria-label="Select message language"
+              >
+                <option value="English">English</option>
+                <option value="German">German</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="Italian">Italian</option>
+              </select>
             </div>
 
             {/* More Options */}
@@ -542,34 +480,19 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             {/* Document Preview */}
             <div className="flex items-end justify-between mb-4">
               <div className="flex items-center gap-3">
-                <Select value={format} onValueChange={setFormat as (value: string) => void}>
-                  <SelectTrigger 
-                    className="w-32 bg-background border-input text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring"
+                <div className="space-y-2">
+                  <label className="text-xs font-medium text-muted-foreground" htmlFor="format-select">Format</label>
+                  <select
+                    id="format-select"
+                    value={format}
+                    onChange={(e) => setFormat(e.target.value as 'email' | 'sms')}
+                    className="w-32 py-2.5 px-3 rounded-md border border-input bg-background text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-ring text-sm"
                     aria-label="Select message format"
                   >
-                    <SelectValue placeholder="Format" />
-                  </SelectTrigger>
-                  <SelectContent
-                    position="popper"
-                    sideOffset={8}
-                    className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[120px]"
-                    side="bottom"
-                    align="start"
-                  >
-                    <SelectItem 
-                      value="email"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      Email
-                    </SelectItem>
-                    <SelectItem 
-                      value="sms"
-                      className="px-3 py-2 text-sm leading-6 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
-                    >
-                      SMS
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                    <option value="email">Email</option>
+                    <option value="sms">SMS</option>
+                  </select>
+                </div>
               </div>
               
               <Popover open={shareOpen} onOpenChange={setShareOpen}>
