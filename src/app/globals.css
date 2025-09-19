@@ -467,3 +467,39 @@
 }
 
 /* Force rebuild timestamp: 15 Sep 2025 07:07:13 */
+
+/* Dropdown Z-Index Fix - Force dropdowns above all content */
+[data-radix-select-content],
+[data-radix-popover-content] {
+  z-index: 9999 !important;
+  position: fixed !important;
+}
+
+/* Ensure dropdown content has proper background and text in dark mode */
+.dark [data-radix-select-content] {
+  background-color: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Ensure dropdown items have proper contrast */
+.dark [data-radix-select-item] {
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+.dark [data-radix-select-item][data-highlighted] {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Force dropdowns to be visible over any parent overflow hidden */
+[data-radix-select-viewport] {
+  overflow: visible !important;
+}
+
+/* Ensure popover content is also visible */
+.dark [data-radix-popover-content] {
+  background-color: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}

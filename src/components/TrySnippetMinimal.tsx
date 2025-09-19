@@ -345,7 +345,9 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                   <SelectContent
                     position="popper"
                     sideOffset={8}
-                    className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[180px] max-h-72 overflow-auto"
+                    className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[180px] max-h-72 overflow-auto"
+                    side="bottom"
+                    align="start"
                   >
                     <SelectItem 
                       value="supportive"
@@ -389,7 +391,9 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 <SelectContent
                   position="popper"
                   sideOffset={8}
-                  className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[200px] max-h-72 overflow-auto"
+                  className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[200px] max-h-72 overflow-auto"
+                  side="bottom"
+                  align="start"
                 >
                   <SelectItem 
                     value="English"
@@ -548,7 +552,9 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                   <SelectContent
                     position="popper"
                     sideOffset={8}
-                    className="z-50 bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[120px]"
+                    className="z-[9999] bg-popover text-popover-foreground border border-border shadow-xl rounded-md min-w-[120px]"
+                    side="bottom"
+                    align="start"
                   >
                     <SelectItem 
                       value="email"
@@ -577,7 +583,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                   side="bottom"
                   align="end"
                   sideOffset={8}
-                  className="z-50 w-56 bg-popover text-popover-foreground border border-border shadow-xl rounded-md"
+                  className="z-[9999] w-56 bg-popover text-popover-foreground border border-border shadow-xl rounded-md"
                 >
                   <div className="space-y-1 p-1">
                     <button
