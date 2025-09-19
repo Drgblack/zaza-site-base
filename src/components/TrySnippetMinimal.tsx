@@ -344,7 +344,6 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                   {value:"friendly",label:"Friendly"},
                   {value:"formal",label:"Formal"},
                 ]}
-                minWidth={180}
               />
             </div>
 
@@ -360,7 +359,6 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 {value:"French",label:"French"},
                 {value:"Italian",label:"Italian"},
               ]}
-              minWidth={200}
             />
 
             {/* More Options */}
@@ -488,7 +486,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                     {value:"email",label:"Email"},
                     {value:"sms",label:"SMS"},
                   ]}
-                  minWidth={140}
+                  className="w-32"
                 />
               </div>
               
