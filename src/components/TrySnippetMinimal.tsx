@@ -283,7 +283,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
   const isAtLimit = !usage.canUse;
 
   return (
-    <div className={cn("w-full max-w-6xl mx-auto", className)}>
+    <main className={cn("snippet-page w-full max-w-6xl mx-auto", className)}>
       <Card className="p-4 md:p-5 rounded-2xl border overflow-visible">
         <div className="grid md:grid-cols-[380px_1fr] gap-5 md:gap-6">
           {/* Controls Column */}
@@ -457,7 +457,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
           </div>
 
           {/* Preview Column */}
-          <div className="relative z-10">
+          <div className="relative z-20">
             {/* Rate Limit Overlay */}
             {isAtLimit && (
               <div 
@@ -476,7 +476,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             )}
 
             {/* Document Preview */}
-            <div className="flex items-end justify-between mb-4">
+            <div className="flex items-end justify-between mb-4 relative z-40">
               <div className="flex items-center gap-3">
                 <FormSelect
                   label="Format"
@@ -486,7 +486,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                     {value:"email",label:"Email"},
                     {value:"sms",label:"SMS"},
                   ]}
-                  className="w-32"
+                  className="w-[180px]"
                 />
               </div>
               
@@ -530,25 +530,24 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               </Popover>
             </div>
 
-            <div
+            <section
               ref={previewRef}
-              data-noninteractive
-              className="bg-white border border-slate-200 shadow-2xl rounded-[6px] p-8 md:p-10 max-w-[720px] min-h-[520px] max-h-[620px] overflow-auto leading-[1.55]"
-              aria-hidden="true"
+              data-snippet-editor
+              className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-xl p-6 md:p-8 max-w-[720px] min-h-[520px] max-h-[620px] overflow-auto leading-[1.55]"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center h-32">
                   <RefreshCw className="h-6 w-6 animate-spin text-purple-600" />
                 </div>
               ) : (
-                <div className="whitespace-pre-wrap text-gray-900">
+                <div className="whitespace-pre-wrap text-gray-900 dark:text-slate-100/90">
                   {output || 'Generate your first message...'}
                 </div>
               )}
-            </div>
+            </section>
           </div>
         </div>
       </Card>
-    </div>
+    </main>
   );
 }

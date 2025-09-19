@@ -515,3 +515,13 @@
 .preview-hint {
   pointer-events: none !important;
 }
+
+/* On the snippet tool, hide corner cards entirely */
+.snippet-page [data-preview-corner] {
+  display: none !important;
+}
+
+/* Ensure no floating elements can overlay the editor */
+.snippet-page [data-snippet-editor] {
+  isolation: isolate;
+}
