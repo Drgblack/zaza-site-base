@@ -247,6 +247,10 @@ export default function SmartSnippetWriterV3() {
   console.log('NEXT_PUBLIC_SNIPPET_MINIMAL:', process.env.NEXT_PUBLIC_SNIPPET_MINIMAL);
   console.log('MINIMAL_ENABLED:', MINIMAL_ENABLED);
   
+  // Force MINIMAL component for now (temporary override)
+  console.log('Forcing TrySnippetMinimal component');
+  return <TrySnippetMinimal />;
+  
   // Use MINIMAL component if feature flag is enabled
   if (MINIMAL_ENABLED) {
     console.log('Rendering TrySnippetMinimal');
