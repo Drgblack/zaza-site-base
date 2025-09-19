@@ -243,8 +243,13 @@ function composeSnippet(opts: {
 /* ---------- Component ---------- */
 
 export default function SmartSnippetWriterV3() {
+  // Debug logging
+  console.log('NEXT_PUBLIC_SNIPPET_MINIMAL:', process.env.NEXT_PUBLIC_SNIPPET_MINIMAL);
+  console.log('MINIMAL_ENABLED:', MINIMAL_ENABLED);
+  
   // Use MINIMAL component if feature flag is enabled
   if (MINIMAL_ENABLED) {
+    console.log('Rendering TrySnippetMinimal');
     return <TrySnippetMinimal />;
   }
   
