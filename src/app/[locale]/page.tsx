@@ -178,14 +178,7 @@ export default async function HomePage({ params }: Props) {
 
                   {/* Main image container */}
                   <div className="rounded-3xl overflow-hidden shadow-2xl">
-                    <Image
-                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop"
-                      alt="AI-powered teaching tools for modern educators"
-                      width={600}
-                      height={400}
-                      className="w-full h-auto object-cover"
-                      priority
-                    />
+                    <RotatingHeroImage />
                   </div>
 
                   {/* Floating stats cards */}
