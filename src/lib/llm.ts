@@ -51,7 +51,7 @@ Please produce ONLY the message body (no subject).
 /* ---------------- Anthropic ---------------- */
 
 export class AnthropicProvider implements LLMProvider {
-  name: "anthropic" = "anthropic";
+  name = "anthropic" as const;
   private client: Anthropic;
 
   constructor(apiKey?: string) {
@@ -76,7 +76,7 @@ export class AnthropicProvider implements LLMProvider {
 /* ---------------- OpenAI ---------------- */
 
 export class OpenAIProvider implements LLMProvider {
-  name: "openai" = "openai";
+  name = "openai" as const;
   private client: OpenAI;
 
   constructor(apiKey?: string) {

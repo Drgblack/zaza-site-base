@@ -8,55 +8,10 @@ import { Copy, RefreshCw, Sparkles, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FormSelect } from '@/components/ui/FormSelect';
 import { ShareMenu } from '@/components/ui/ShareMenu';
+import { QuotaBadge } from '@/components/QuotaBadge';
+import { useQuota } from '@/components/hooks/useQuota';
 import { STARTERS, type Starter } from '@/data/snippet-presets';
-import { FREE_MESSAGES } from '@/lib/config';
 
-const MAX_FREE_PER_MONTH = FREE_MESSAGES;
-
-// Monthly usage tracking with server-side quota
-function useMonthlyLimits() {
-  const [used, setUsed] = useState(0);
-  const [limit, setLimit] = useState(FREE_MESSAGES);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch quota from server
-    fetch('/api/snippet/quota')
-      .then(res => res.json())
-      .then(data => {
-        setLimit(data.limit || FREE_MESSAGES);
-        setUsed(Math.max(0, data.limit - data.remaining));
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching quota:', error);
-        setLoading(false);
-      });
-  }, []);
-
-  const incrementUsage = () => {
-    setUsed(prev => prev + 1);
-  };
-
-  const updateFromResponse = (responseData: any) => {
-    if (responseData.limit !== undefined) {
-      setLimit(responseData.limit);
-    }
-    if (responseData.remaining !== undefined) {
-      setUsed(responseData.limit - responseData.remaining);
-    }
-  };
-
-  return {
-    used,
-    limit,
-    remaining: Math.max(0, limit - used),
-    canUse: used < limit,
-    incrementUsage,
-    updateFromResponse,
-    loading
-  };
-}
 
 interface TrySnippetMinimalProps {
   className?: string;
@@ -81,7 +36,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const usage = useMonthlyLimits();
+  const quota = useQuota();
   const previewRef = useRef<HTMLDivElement>(null);
 
   // Load starter preset
@@ -108,7 +63,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   }, [selectedStarter, currentStarter]);
 
   const handleGenerate = async () => {
-    if (!usage.canUse) return;
+    if (!quota.data || quota.data.remaining <= 0) return;
     
     setIsLoading(true);
     
@@ -130,7 +85,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.updateFromResponse(data);
+        quota.bumpLocal();
       } else {
         console.error('Generation failed:', data.error);
         setOutput(createFallback());
@@ -144,7 +99,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   };
 
   const handleImprove = async () => {
-    if (!draft.trim() || !usage.canUse) return;
+    if (!draft.trim() || !quota.data || quota.data.remaining <= 0) return;
     
     setIsLoading(true);
     
@@ -166,7 +121,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.updateFromResponse(data);
+        quota.bumpLocal();
       } else {
         console.error('Improve failed:', data.error);
         setOutput(createFallback());
@@ -180,7 +135,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   };
 
   const handleNewVariation = async () => {
-    if (!usage.canUse) return;
+    if (!quota.data || quota.data.remaining <= 0) return;
     
     setIsLoading(true);
     
@@ -202,7 +157,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.updateFromResponse(data);
+        quota.bumpLocal();
       } else {
         console.error('Variation failed:', data.error);
         setOutput(createFallback());
@@ -216,7 +171,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   };
 
   const handleCopy = async () => {
-    if (!output || !usage.canUse) return;
+    if (!output) return;
     
     try {
       await navigator.clipboard.writeText(output);
@@ -274,9 +229,9 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [draft, output, usage.canUse]);
+  }, [draft, output, quota.data]);
 
-  const isAtLimit = !usage.canUse;
+  const isAtLimit = !quota.data || quota.data.remaining <= 0;
 
   return (
     <main className={cn("snippet-page w-full max-w-6xl mx-auto", className)}>
@@ -441,7 +396,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               
               <Button
                 onClick={handleCopy}
-                disabled={!output || isAtLimit}
+                disabled={!output}
                 variant="outline"
                 className="flex-none"
               >
@@ -455,11 +410,8 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             </div>
 
             {/* Usage Counter */}
-            <div className="text-xs text-slate-400 text-center">
-              {usage.loading ? 
-                'Loading...' : 
-                `${usage.remaining} free messages left this month (limit ${usage.limit}) – unlimited in Promptly`
-              }
+            <div className="flex justify-center">
+              <QuotaBadge />
             </div>
           </div>
 
@@ -473,7 +425,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 aria-hidden="true"
               >
                 <div className="text-center space-y-4" style={{ pointerEvents: 'auto' }}>
-                  <h3 className="text-lg font-semibold">You've used your {usage.limit} free messages this month.</h3>
+                  <h3 className="text-lg font-semibold">You've used your {quota.data?.limit || 5} free messages this month.</h3>
                   <div className="space-x-3">
                     <Button>Start Free Trial</Button>
                     <Button variant="outline">See plans</Button>
