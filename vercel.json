@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
   "redirects": [
     {
       "source": "/",
