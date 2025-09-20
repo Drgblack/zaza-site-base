@@ -22,7 +22,7 @@ export function FormSelect({
     <div className={cn("flex flex-col gap-1", className)}>
       <label 
         htmlFor={selectId}
-        className="text-xs font-medium text-muted-foreground"
+        className="text-xs font-medium text-slate-300"
       >
         {label}
       </label>

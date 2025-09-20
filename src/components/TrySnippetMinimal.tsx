@@ -118,25 +118,23 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/snippet', {
+      const response = await fetch('/api/snippet/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          topic: currentStarter.topic,
+          starter: selectedStarter,
+          format,
+          tone,
           student,
           language,
-          tone,
-          format,
-          positives: positives || currentStarter.seed.positives,
-          focus: focus || currentStarter.seed.focus,
-          next: next || currentStarter.seed.next
+          draft: draft.trim() || null
         })
       });
       
       const data = await response.json();
       
-      if (data.success) {
-        setOutput(data.message);
+      if (data.text) {
+        setOutput(data.text);
         usage.incrementUsage();
       } else {
         console.error('Generation failed:', data.error);
@@ -156,26 +154,31 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/snippet/rewrite', {
+      const response = await fetch('/api/snippet/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          originalText: draft,
+          starter: selectedStarter,
+          format,
+          tone,
           student,
           language,
-          tone,
-          format
+          draft: draft.trim()
         })
       });
       
       const data = await response.json();
       
-      if (data.success) {
-        setOutput(data.message);
+      if (data.text) {
+        setOutput(data.text);
         usage.incrementUsage();
+      } else {
+        console.error('Improve failed:', data.error);
+        setOutput(createFallback());
       }
     } catch (error) {
       console.error('Improve error:', error);
+      setOutput(createFallback());
     } finally {
       setIsLoading(false);
     }
@@ -187,29 +190,31 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/snippet', {
+      const response = await fetch('/api/snippet/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          topic: currentStarter.topic + ' (variation)',
+          starter: selectedStarter,
+          format,
+          tone,
           student,
           language,
-          tone,
-          format,
-          positives: positives || currentStarter.seed.positives,
-          focus: focus || currentStarter.seed.focus,
-          next: next || currentStarter.seed.next
+          draft: null // No draft for variations
         })
       });
       
       const data = await response.json();
       
-      if (data.success) {
-        setOutput(data.message);
+      if (data.text) {
+        setOutput(data.text);
         usage.incrementUsage();
+      } else {
+        console.error('Variation failed:', data.error);
+        setOutput(createFallback());
       }
     } catch (error) {
       console.error('Variation error:', error);
+      setOutput(createFallback());
     } finally {
       setIsLoading(false);
     }
@@ -280,13 +285,17 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
   return (
     <main className={cn("snippet-page w-full max-w-6xl mx-auto", className)}>
-      <Card className="p-4 md:p-5 rounded-2xl border overflow-visible">
+      <div className="rounded-xl border border-slate-700/60 bg-gradient-to-br from-fuchsia-700/10 via-slate-800/50 to-sky-700/10 p-5 shadow-xl">
+        <header className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-slate-100">Comment Coach</h2>
+          <p className="text-xs text-slate-400">Write polished parent messages in seconds.</p>
+        </header>
         <div className="grid md:grid-cols-[380px_1fr] gap-5 md:gap-6">
           {/* Controls Column */}
           <div className="relative z-30 overflow-visible space-y-4">
             {/* Preset Chips */}
             <div className="space-y-2">
-              <label className="text-xs font-medium text-muted-foreground">Choose a starter</label>
+              <label className="text-xs font-medium text-slate-300">Choose a starter</label>
               <div className="flex flex-wrap gap-2 max-h-[56px] overflow-y-auto">
                 {STARTERS.map((starter) => (
                   <button
@@ -307,20 +316,24 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
             {/* Draft Input */}
             <div className="space-y-2">
-              <label className="text-xs font-medium text-muted-foreground">Your draft (optional)</label>
-              <Textarea
+              <label className="text-xs font-medium text-slate-300">Your draft (optional)</label>
+              <textarea
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
+                rows={5}
                 placeholder="Paste your note here to improve it..."
-                className="min-h-[72px] py-2.5 resize-none"
-                rows={3}
+                className="w-full rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-slate-100
+                           placeholder:text-slate-400 outline-none
+                           focus-visible:ring-2 focus-visible:ring-fuchsia-500
+                           resize-vertical leading-relaxed tracking-normal
+                           whitespace-pre-wrap break-words text-wrap text-sm"
               />
             </div>
 
             {/* Student Name and Tone */}
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="text-xs font-medium text-muted-foreground">Student</label>
+                <label className="text-xs font-medium text-slate-300">Student</label>
                 <input
                   type="text"
                   value={student}
@@ -361,7 +374,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             <div className="space-y-3">
               <button
                 onClick={() => setShowMore(!showMore)}
-                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+                className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-200"
               >
                 <ChevronDown className={cn("h-3 w-3 transition-transform", showMore && "rotate-180")} />
                 More options
@@ -370,7 +383,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               {showMore && (
                 <div className="space-y-3 pl-5">
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-muted-foreground">Positives</label>
+                    <label className="text-xs font-medium text-slate-300">Positives</label>
                     <Textarea
                       value={positives}
                       onChange={(e) => setPositives(e.target.value)}
@@ -379,7 +392,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-muted-foreground">Focus</label>
+                    <label className="text-xs font-medium text-slate-300">Focus</label>
                     <Textarea
                       value={focus}
                       onChange={(e) => setFocus(e.target.value)}
@@ -388,7 +401,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-muted-foreground">Next steps</label>
+                    <label className="text-xs font-medium text-slate-300">Next steps</label>
                     <Textarea
                       value={next}
                       onChange={(e) => setNext(e.target.value)}
@@ -447,7 +460,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             </div>
 
             {/* Usage Counter */}
-            <div className="text-xs text-muted-foreground text-center">
+            <div className="text-xs text-slate-400 text-center">
               {usage.remaining} free messages/month – unlimited in Promptly
             </div>
           </div>
@@ -496,21 +509,27 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             <section
               ref={previewRef}
               data-snippet-editor
-              className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-xl p-6 md:p-8 max-w-[720px] min-h-[520px] max-h-[620px] overflow-auto leading-[1.55]"
+              aria-live="polite"
+              className="prose prose-invert prose-sm sm:prose-base
+                         max-h-[420px] overflow-y-auto overflow-x-hidden
+                         rounded-md border border-slate-700 bg-slate-900/70
+                         px-4 py-3 leading-relaxed tracking-normal
+                         whitespace-pre-wrap break-words text-wrap hyphens-auto
+                         max-w-none w-full"
             >
               {isLoading ? (
-                <div className="flex items-center justify-center h-32">
-                  <RefreshCw className="h-6 w-6 animate-spin text-purple-600" />
+                <div className="flex items-center justify-center h-32 not-prose">
+                  <RefreshCw className="h-6 w-6 animate-spin text-fuchsia-500" />
                 </div>
               ) : (
-                <div className="whitespace-pre-wrap text-gray-900 dark:text-slate-100/90">
+                <div className="text-slate-100/90 not-prose">
                   {output || 'Generate your first message...'}
                 </div>
               )}
             </section>
           </div>
         </div>
-      </Card>
+      </div>
     </main>
   );
 }
