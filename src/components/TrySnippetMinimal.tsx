@@ -13,44 +13,37 @@ import { FREE_MESSAGES } from '@/lib/config';
 
 const MAX_FREE_PER_MONTH = FREE_MESSAGES;
 
-// Monthly usage tracking
+// Monthly usage tracking with server-side quota
 function useMonthlyLimits() {
   const [used, setUsed] = useState(0);
-  const [limit] = useState(MAX_FREE_PER_MONTH);
+  const [limit, setLimit] = useState(FREE_MESSAGES);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const now = new Date();
-    const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    const storageKey = `tryGenYm`;
-    
-    try {
-      const stored = localStorage.getItem(storageKey);
-      const data = stored ? JSON.parse(stored) : null;
-      
-      if (data?.ym === monthKey) {
-        setUsed(data.used || 0);
-      } else {
-        // New month, reset counter
-        localStorage.setItem(storageKey, JSON.stringify({ ym: monthKey, used: 0 }));
-        setUsed(0);
-      }
-    } catch (error) {
-      console.error('Error reading monthly usage:', error);
-      setUsed(0);
-    }
+    // Fetch quota from server
+    fetch('/api/snippet/quota')
+      .then(res => res.json())
+      .then(data => {
+        setLimit(data.limit || FREE_MESSAGES);
+        setUsed(Math.max(0, data.limit - data.remaining));
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching quota:', error);
+        setLoading(false);
+      });
   }, []);
 
   const incrementUsage = () => {
-    const now = new Date();
-    const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    const storageKey = `tryGenYm`;
-    const newUsed = used + 1;
-    
-    try {
-      localStorage.setItem(storageKey, JSON.stringify({ ym: monthKey, used: newUsed }));
-      setUsed(newUsed);
-    } catch (error) {
-      console.error('Error updating monthly usage:', error);
+    setUsed(prev => prev + 1);
+  };
+
+  const updateFromResponse = (responseData: any) => {
+    if (responseData.limit !== undefined) {
+      setLimit(responseData.limit);
+    }
+    if (responseData.remaining !== undefined) {
+      setUsed(responseData.limit - responseData.remaining);
     }
   };
 
@@ -59,7 +52,9 @@ function useMonthlyLimits() {
     limit,
     remaining: Math.max(0, limit - used),
     canUse: used < limit,
-    incrementUsage
+    incrementUsage,
+    updateFromResponse,
+    loading
   };
 }
 
@@ -135,7 +130,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.incrementUsage();
+        usage.updateFromResponse(data);
       } else {
         console.error('Generation failed:', data.error);
         setOutput(createFallback());
@@ -171,7 +166,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.incrementUsage();
+        usage.updateFromResponse(data);
       } else {
         console.error('Improve failed:', data.error);
         setOutput(createFallback());
@@ -207,7 +202,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
       
       if (data.text) {
         setOutput(data.text);
-        usage.incrementUsage();
+        usage.updateFromResponse(data);
       } else {
         console.error('Variation failed:', data.error);
         setOutput(createFallback());
@@ -225,7 +220,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
     
     try {
       await navigator.clipboard.writeText(output);
-      usage.incrementUsage();
+      // Copy doesn't count against quota
     } catch (error) {
       console.error('Copy failed:', error);
     }
@@ -461,7 +456,10 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
             {/* Usage Counter */}
             <div className="text-xs text-slate-400 text-center">
-              {usage.remaining} free messages/month – unlimited in Promptly
+              {usage.loading ? 
+                'Loading...' : 
+                `${usage.remaining} free messages left this month (limit ${usage.limit}) – unlimited in Promptly`
+              }
             </div>
           </div>
 
@@ -475,7 +473,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 aria-hidden="true"
               >
                 <div className="text-center space-y-4" style={{ pointerEvents: 'auto' }}>
-                  <h3 className="text-lg font-semibold">You've used your {FREE_MESSAGES} free messages this month.</h3>
+                  <h3 className="text-lg font-semibold">You've used your {usage.limit} free messages this month.</h3>
                   <div className="space-x-3">
                     <Button>Start Free Trial</Button>
                     <Button variant="outline">See plans</Button>

@@ -1,11 +1,78 @@
 import { NextResponse } from "next/server";
+import { buildProviderChain, type GenInput } from "@/lib/llm";
+import { getClientKey, getQuotaKV, incrementQuotaKV, parseCookieQuota, bumpCookieQuota } from "@/lib/quota";
 
 export async function POST(req: Request) {
   try {
-    const { starter, format, tone, student, language, draft } = await req.json();
+    const body = await req.json();
+    const { starter, format, tone, student, language, draft } = body as {
+      starter: any; format: any; tone: string; student: string; language?: string; draft?: string;
+    };
 
-    // For now, create a mock response that demonstrates proper formatting
-    // In production, this would use Anthropic API
+    // Determine provider order: env preferred, dev override via query (?provider=openai)
+    const url = new URL(req.url);
+    const override = url.searchParams.get("provider") as "anthropic" | "openai" | null;
+    const preferred = override || (process.env.LLM_PROVIDER === "openai" ? "openai" : "anthropic");
+    const chain = buildProviderChain(preferred);
+
+    /* ---------- Monthly quota for anonymous users ---------- */
+    const clientKey = await getClientKey(req);
+    const hasKV = !!process.env.KV_REST_API_URL && !!process.env.KV_REST_API_TOKEN;
+
+    let limit = Number(process.env.FREE_TRIAL_LIMIT ?? 5);
+    let remaining = limit;
+
+    if (hasKV) {
+      const q = await getQuotaKV(clientKey);
+      limit = q.limit;
+      remaining = q.remaining;
+      if (remaining <= 0) {
+        return NextResponse.json(
+          { error: "Monthly free limit reached. Create an account to continue." },
+          { status: 429 }
+        );
+      }
+    } else {
+      // cookie fallback
+      const cookie = req.headers.get("cookie");
+      const used = parseCookieQuota(cookie);
+      remaining = Math.max(0, limit - used);
+      if (remaining <= 0) {
+        return NextResponse.json(
+          { error: "Monthly free limit reached. Create an account to continue." },
+          { status: 429 }
+        );
+      }
+    }
+
+    const input: GenInput = { starter, format, tone, student, language, draft };
+
+    let lastErr: any;
+    for (const provider of chain) {
+      try {
+        console.log(`Trying provider: ${provider.name}`);
+        const text = (await provider.generate(input)).trim();
+        if (text) {
+          // success: bump quota
+          if (hasKV) {
+            await incrementQuotaKV(clientKey);
+            return NextResponse.json({ text, limit, remaining: remaining - 1 });
+          } else {
+            const used = (limit - remaining); // current usage
+            const res = NextResponse.json({ text, limit, remaining: remaining - 1 });
+            res.headers.append("Set-Cookie", bumpCookieQuota(used));
+            return res;
+          }
+        }
+      } catch (e) {
+        console.error(`Provider ${provider.name} failed:`, e);
+        lastErr = e;
+        // try next provider
+      }
+    }
+
+    // Fallback to mock if all providers fail
+    console.log('All providers failed, using fallback');
     const mockResponse = await generateMockResponse({
       starter,
       format,
@@ -15,7 +82,17 @@ export async function POST(req: Request) {
       draft
     });
 
-    return NextResponse.json({ text: mockResponse });
+    // Still increment quota for mock response
+    if (hasKV) {
+      await incrementQuotaKV(clientKey);
+      return NextResponse.json({ text: mockResponse, limit, remaining: remaining - 1 });
+    } else {
+      const used = (limit - remaining);
+      const res = NextResponse.json({ text: mockResponse, limit, remaining: remaining - 1 });
+      res.headers.append("Set-Cookie", bumpCookieQuota(used));
+      return res;
+    }
+
   } catch (error) {
     console.error('Generation error:', error);
     return NextResponse.json(
