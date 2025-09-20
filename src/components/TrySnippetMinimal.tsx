@@ -20,7 +20,7 @@ interface TrySnippetMinimalProps {
 export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps) {
   // State
   const [selectedStarter, setSelectedStarter] = useState<Starter['id']>('behaviour');
-  const [student, setStudent] = useState('Max');
+  const [studentField, setStudentField] = useState('');
   const [tone, setTone] = useState('supportive');
   const [language, setLanguage] = useState('English');
   const [format, setFormat] = useState<'email' | 'sms'>('email');
@@ -38,6 +38,19 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   
   const quota = useQuota();
   const previewRef = useRef<HTMLDivElement>(null);
+
+  // Smart student name detection
+  function detectStudentFromDraft(draft: string): string | null {
+    // naive first-name detector: first capitalized word at the start,
+    // or after "about", "re", etc. Improve if needed.
+    const m =
+      draft.match(/^\s*([A-Z][a-z]+)\b/) ||
+      draft.match(/\b(?:about|re|re:)\s+([A-Z][a-z]+)\b/i);
+    return m ? m[1] : null;
+  }
+
+  const detected = detectStudentFromDraft(draft);
+  const student = (studentField || detected || '').trim() || 'the student';
 
   // Load starter preset
   const currentStarter = STARTERS.find(s => s.id === selectedStarter) || STARTERS[0];
@@ -77,7 +90,8 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
           tone,
           student,
           language,
-          draft: draft.trim() || null
+          draft: draft || null,
+          mode: 'generate'
         })
       });
       
@@ -99,7 +113,7 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   };
 
   const handleImprove = async () => {
-    if (!draft.trim() || !quota.data || quota.data.remaining <= 0) return;
+    if (!draft || !quota.data || quota.data.remaining <= 0) return;
     
     setIsLoading(true);
     
@@ -113,7 +127,8 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
           tone,
           student,
           language,
-          draft: draft.trim()
+          draft: draft,
+          mode: 'improve'
         })
       });
       
@@ -149,7 +164,8 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
           tone,
           student,
           language,
-          draft: null // No draft for variations
+          draft: null,
+          mode: 'generate' // No draft for variations
         })
       });
       
@@ -213,7 +229,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         e.preventDefault();
-        if (draft.trim()) {
+        if (draft) {
           handleImprove();
         } else {
           handleGenerate();
@@ -235,7 +251,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
 
   return (
     <main className={cn("snippet-page w-full max-w-6xl mx-auto", className)}>
-      <div className="rounded-xl border border-slate-700/60 bg-gradient-to-br from-fuchsia-700/10 via-slate-800/50 to-sky-700/10 p-5 shadow-xl">
+      <section className="rounded-2xl border border-white/10 bg-[#0a0f1d]/70 p-5 shadow-xl backdrop-blur">
         <header className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-slate-100">Comment Coach</h2>
           <p className="text-xs text-slate-400">Write polished parent messages in seconds.</p>
@@ -270,13 +286,10 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               <textarea
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
-                rows={5}
+                spellCheck
+                rows={6}
                 placeholder="Paste your note here to improve it..."
-                className="w-full rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-slate-100
-                           placeholder:text-slate-400 outline-none
-                           focus-visible:ring-2 focus-visible:ring-fuchsia-500
-                           resize-vertical leading-relaxed tracking-normal
-                           whitespace-pre-wrap break-words text-wrap text-sm"
+                className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm leading-6 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 [font-variant-ligatures:normal] resize-vertical"
               />
             </div>
 
@@ -286,11 +299,21 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 <label className="text-xs font-medium text-slate-300">Student</label>
                 <input
                   type="text"
-                  value={student}
-                  onChange={(e) => setStudent(e.target.value)}
-                  placeholder="e.g., Max"
-                  className="w-full px-3 py-2.5 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  value={studentField}
+                  onChange={(e) => setStudentField(e.target.value)}
+                  placeholder="e.g., Alex"
+                  className="w-full px-3 py-2.5 rounded-md border border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20"
                 />
+                {detected && detected !== studentField && (
+                  <button
+                    type="button"
+                    onClick={() => setStudentField(detected)}
+                    className="mt-1 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-xs text-white hover:bg-white/15"
+                    title="Use name detected from your draft"
+                  >
+                    Use "{detected}"
+                  </button>
+                )}
               </div>
 
               <FormSelect
@@ -376,7 +399,7 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               
               <Button
                 onClick={handleImprove}
-                disabled={isLoading || isAtLimit || !draft.trim()}
+                disabled={isLoading || isAtLimit || !draft}
                 variant="outline"
                 className="flex-none"
               >
@@ -460,26 +483,21 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               ref={previewRef}
               data-snippet-editor
               aria-live="polite"
-              className="prose prose-invert prose-sm sm:prose-base
-                         max-h-[420px] overflow-y-auto overflow-x-hidden
-                         rounded-md border border-slate-700 bg-slate-900/70
-                         px-4 py-3 leading-relaxed tracking-normal
-                         whitespace-pre-wrap break-words text-wrap hyphens-auto
-                         max-w-none w-full"
+              className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed rounded-lg border border-white/10 bg-[#0f1322] p-4 max-h-[560px] overflow-auto"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center h-32 not-prose">
                   <RefreshCw className="h-6 w-6 animate-spin text-fuchsia-500" />
                 </div>
               ) : (
-                <div className="text-slate-100/90 not-prose">
+                <div className="text-white not-prose">
                   {output || 'Generate your first message...'}
                 </div>
               )}
             </section>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

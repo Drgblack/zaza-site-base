@@ -5,8 +5,8 @@ import { getClientKey, getQuotaKV, incrementQuotaKV, parseCookieQuota, bumpCooki
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { starter, format, tone, student, language, draft } = body as {
-      starter: any; format: any; tone: string; student: string; language?: string; draft?: string;
+    const { starter, format, tone, student, language, draft, mode } = body as {
+      starter: any; format: any; tone: string; student: string; language?: string; draft?: string; mode?: 'generate' | 'improve';
     };
 
     // Determine provider order: env preferred, dev override via query (?provider=openai)
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const input: GenInput = { starter, format, tone, student, language, draft };
+    const input: GenInput = { starter, format, tone, student, language, draft, mode: mode || 'generate' };
 
     let lastErr: any;
     for (const provider of chain) {
@@ -79,7 +79,8 @@ export async function POST(req: Request) {
       tone,
       student: student || "your child",
       language: language || "English",
-      draft
+      draft,
+      mode: mode || 'generate'
     });
 
     // Still increment quota for mock response
@@ -108,7 +109,8 @@ async function generateMockResponse({
   tone,
   student,
   language,
-  draft
+  draft,
+  mode
 }: {
   starter: string;
   format: string;
@@ -116,61 +118,130 @@ async function generateMockResponse({
   student: string;
   language: string;
   draft?: string;
+  mode?: 'generate' | 'improve';
 }) {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1500));
 
-  // Clean up draft if provided (fix spacing and punctuation)
-  const cleanDraft = draft ? cleanupText(draft) : null;
-
-  // Generate based on starter type and format
-  if (format === 'sms') {
-    return generateSMS(starter, tone, student, cleanDraft);
+  // For improve mode, require draft
+  if (mode === 'improve') {
+    if (!draft?.trim()) {
+      throw new Error("No draft provided for improvement.");
+    }
+    // Improve the draft while preserving its content
+    if (format === 'sms') {
+      return improveSMS(draft, tone, student);
+    } else {
+      return improveEmail(draft, tone, student);
+    }
   } else {
-    return generateEmail(starter, tone, student, cleanDraft);
+    // Generate mode - optionally use draft as context
+    if (format === 'sms') {
+      return generateSMS(starter, tone, student, draft);
+    } else {
+      return generateEmail(starter, tone, student, draft);
+    }
   }
 }
 
-function cleanupText(text: string): string {
-  // Fix common issues: missing spaces, punctuation
-  return text
-    .replace(/([a-z])([A-Z])/g, '$1 $2') // Add spaces between lowercase and uppercase
-    .replace(/([.!?])([A-Za-z])/g, '$1 $2') // Add spaces after punctuation
-    .replace(/\s+/g, ' ') // Normalize multiple spaces
-    .replace(/([a-z])([.!?])/g, '$1$2') // Ensure punctuation stays attached
-    .trim();
+function improveSMS(draft: string, tone: string, student: string): string {
+  // Rewrite draft as SMS - keep it short and clear
+  const essence = draft.toLowerCase().includes('positive') || draft.toLowerCase().includes('good') || draft.toLowerCase().includes('great')
+    ? 'positive'
+    : draft.toLowerCase().includes('concern') || draft.toLowerCase().includes('issue')
+    ? 'concern'
+    : 'update';
+    
+  switch (essence) {
+    case 'positive':
+      return `Hi! ${student} had a wonderful day today. Their effort and positive attitude really stood out. Thanks for your support!`;
+    case 'concern':
+      return `Hi! I wanted to check in about ${student}. Let's work together to support them. Happy to discuss strategies.`;
+    default:
+      return `Hi! Quick update about ${student}. They're doing well and I appreciate your partnership in their learning.`;
+  }
 }
 
-function generateSMS(starter: string, tone: string, student: string, draft?: string | null): string {
+function improveEmail(draft: string, tone: string, student: string): string {
+  // Rewrite draft as a polished email while preserving the core message
+  const greeting = 'Hi there!';
+  const closing = getToneClosing(tone);
+  
+  // Detect the sentiment and main message
+  const isPositive = draft.toLowerCase().includes('positive') || draft.toLowerCase().includes('good') || draft.toLowerCase().includes('great') || draft.toLowerCase().includes('excellent');
+  const isConcern = draft.toLowerCase().includes('concern') || draft.toLowerCase().includes('issue') || draft.toLowerCase().includes('difficult') || draft.toLowerCase().includes('challenge');
+  
+  if (isPositive) {
+    return `${greeting}
+
+I wanted to reach out and share some positive news about ${student}. They've been making excellent progress and showing wonderful effort in class.
+
+Their positive attitude and dedication have been noticed by both myself and their classmates. It's clear that the support you provide at home is making a real difference.
+
+Please let ${student} know how proud I am of their continued growth and achievements.
+
+${closing}`;
+  } else if (isConcern) {
+    return `${greeting}
+
+I wanted to reach out regarding ${student} and some observations I've made in class recently. I believe it would be helpful for us to work together to support them.
+
+I've noticed some areas where ${student} might benefit from additional support, and I'd love to discuss strategies that could help both at school and at home.
+
+Would you be available for a brief conversation about how we can best support ${student}'s continued success?
+
+${closing}`;
+  } else {
+    return `${greeting}
+
+I wanted to share a quick update about ${student}. They continue to be an important part of our classroom community.
+
+I appreciate the support you provide at home, which helps create consistency between school and home. This partnership makes such a difference in ${student}'s learning experience.
+
+Please feel free to reach out if you have any questions or if there's anything specific you'd like to discuss about ${student}'s progress.
+
+${closing}`;
+  }
+}
+
+function generateSMS(starter: string, tone: string, student: string, draft?: string): string {
   const toneAdjective = getToneAdjective(tone);
   
   switch (starter) {
     case 'behaviour':
-      return draft 
-        ? `Hi! I wanted to share that ${student} has been showing ${toneAdjective} progress with classroom behavior. Let's continue supporting this positive growth together.`
-        : `Hi! ${student} had a great day with positive classroom behavior. Thanks for your support at home!`;
+      if (draft) {
+        return `Hi! I wanted to share that ${student} has been showing ${toneAdjective} progress with classroom behavior. Let's continue supporting this positive growth together.`;
+      } else {
+        return `Hi! ${student} had a great day with positive classroom behavior. Thanks for your support at home!`;
+      }
         
     case 'praise':
-      return draft
-        ? `Hi! ${student} really stood out today with excellent work and positive attitude. So proud of their efforts!`
-        : `Hi! ${student} did amazing work today and showed great effort. Well done!`;
+      if (draft) {
+        return `Hi! ${student} really stood out today with excellent work and positive attitude. So proud of their efforts!`;
+      } else {
+        return `Hi! ${student} did amazing work today and showed great effort. Well done!`;
+      }
         
     case 'homework':
-      return draft
-        ? `Hi! Just a quick note about ${student}'s homework completion. Let's work together to establish a consistent routine.`
-        : `Hi! ${student}'s homework needs attention. Happy to discuss strategies that might help at home.`;
+      if (draft) {
+        return `Hi! Just a quick note about ${student}'s homework completion. Let's work together to establish a consistent routine.`;
+      } else {
+        return `Hi! ${student}'s homework needs attention. Happy to discuss strategies that might help at home.`;
+      }
         
     case 'attendance':
-      return draft
-        ? `Hi! I wanted to touch base about ${student}'s recent attendance. Regular attendance really helps with learning continuity.`
-        : `Hi! ${student} has been missing some school days. Let me know if there's anything I can help with.`;
+      if (draft) {
+        return `Hi! I wanted to touch base about ${student}'s recent attendance. Regular attendance really helps with learning continuity.`;
+      } else {
+        return `Hi! ${student} has been missing some school days. Let me know if there's anything I can help with.`;
+      }
         
     default:
       return `Hi! ${student} is doing well in class. Thanks for your continued support!`;
   }
 }
 
-function generateEmail(starter: string, tone: string, student: string, draft?: string | null): string {
+function generateEmail(starter: string, tone: string, student: string, draft?: string): string {
   const greeting = `Hi there!`;
   const closing = getToneClosing(tone);
   

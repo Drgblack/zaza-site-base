@@ -9,6 +9,7 @@ export type GenInput = {
   student: string;
   language?: string;
   draft?: string;
+  mode?: 'generate' | 'improve';
 };
 
 export interface LLMProvider {
@@ -16,36 +17,51 @@ export interface LLMProvider {
   generate(input: GenInput): Promise<string>;
 }
 
-const SYSTEM_PROMPT = `
-You are a helpful assistant for teachers writing short, professional parent messages.
-- Always fix missing spaces and punctuation in the teacher's draft, if any.
-- Keep it warm, respectful, and professional.
-- Use the selected TONE.
-- Use FORMAT: Email or SMS. Write SMS ~1–2 short sentences. Email can be 3–6 sentences.
-- Starter types guide the focus:
-  • Behaviour: observation + impact + collaborative next step.
-  • Praise: specific positive behavior + impact + encouragement.
-  • Homework: status + expectation + support options.
-  • Attendance: status + impact + next step.
-- Personalize with the STUDENT name where appropriate.
-- Write in the selected LANGUAGE if provided.
-- NEVER just repeat the draft. Always rewrite for clarity and kindness.
-- Avoid sensitive data; keep it parent-friendly.
-`;
-
-function buildUserPrompt(inp: GenInput) {
-  return `
-STARTER: ${inp.starter}
-FORMAT: ${inp.format}
-TONE: ${inp.tone}
-STUDENT: ${inp.student || "the student"}
-LANGUAGE: ${inp.language || "English"}
-
-TEACHER_DRAFT (may have no spaces/punctuation):
-${inp.draft || "(none)"}
-
-Please produce ONLY the message body (no subject).
+const baseSystem = `
+You are an assistant that writes concise, professional, parent-ready messages for K-12 teachers.
+You ALWAYS:
+- keep a supportive, empathetic tone
+- keep messages skimmable (short paragraphs, bullets when helpful)
+- never disclose sensitive info
+- avoid jargon and absolutes
 `.trim();
+
+function buildPrompt(inp: GenInput): { system: string; user: string } {
+  const isImprove = inp.mode === 'improve';
+  
+  if (isImprove) {
+    if (!inp.draft?.trim()) {
+      throw new Error("No draft provided for improvement.");
+    }
+    
+    const improveUser = `
+Rewrite the teacher's draft into a polished ${inp.format} in a ${inp.tone} tone about ${inp.student}.
+Keep meaning intact but improve clarity, grammar, and warmth.
+Return only the final ${inp.format}:
+
+Teacher's draft:
+"""${inp.draft.trim()}"""
+`.trim();
+    
+    return { system: baseSystem, user: improveUser };
+  } else {
+    // Generate mode
+    const genUser = `
+Context:
+- Student: ${inp.student}
+- Tone: ${inp.tone}
+- Format: ${inp.format} (e.g., email/SMS), include an appropriate greeting and sign-off for ${inp.format}.
+- Scenario starter: ${inp.starter}
+
+${inp.draft?.trim() ? `Teacher notes (optional, summarize and integrate):\n"""${inp.draft.trim()}"""` : ""}
+
+Task:
+Write a polished ${inp.format} to the parent/guardian about ${inp.student}, aligned to the tone and scenario.
+Keep it clear, kind, and specific. Prefer short paragraphs and minimal fluff.
+`.trim();
+    
+    return { system: baseSystem, user: genUser };
+  }
 }
 
 /* ---------------- Anthropic ---------------- */
@@ -59,12 +75,13 @@ export class AnthropicProvider implements LLMProvider {
   }
 
   async generate(inp: GenInput): Promise<string> {
+    const { system, user } = buildPrompt(inp);
     const res = await this.client.messages.create({
       model: "claude-3-5-sonnet-20240620",
       max_tokens: 350,
       temperature: 0.4,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: buildUserPrompt(inp) }],
+      system,
+      messages: [{ role: "user", content: user }],
     });
 
     // @anthropic returns content blocks
@@ -84,13 +101,14 @@ export class OpenAIProvider implements LLMProvider {
   }
 
   async generate(inp: GenInput): Promise<string> {
+    const { system, user } = buildPrompt(inp);
     // gpt-4o-mini is fast/cheap; use gpt-4o if you prefer
     const res = await this.client.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0.4,
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: buildUserPrompt(inp) },
+        { role: "system", content: system },
+        { role: "user", content: user },
       ],
     });
 
