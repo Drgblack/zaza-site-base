@@ -37,7 +37,10 @@
       "Bash(gh run view:*)",
       "Bash(grep:*)",
       "Bash(npm run lint)",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(rm:*)",
+      "Bash(node:*)",
+      "Bash(npx pnpm:*)"
     ],
     "deny": []
   }
