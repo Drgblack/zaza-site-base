@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "installCommand": "npm cache clean --force && npm install --no-package-lock --no-shrinkwrap",
+  "buildCommand": "npm run build",
   "redirects": [
     {
       "source": "/",

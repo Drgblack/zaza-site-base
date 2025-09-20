@@ -44,6 +44,20 @@ export default [
         setInterval: "readonly",
         clearInterval: "readonly",
         URLSearchParams: "readonly",
+        // Form and Event APIs
+        FormData: "readonly",
+        CustomEvent: "readonly",
+        Event: "readonly",
+        KeyboardEvent: "readonly",
+        MouseEvent: "readonly",
+        File: "readonly",
+        HTMLImageElement: "readonly",
+        // Animation APIs
+        requestAnimationFrame: "readonly",
+        cancelAnimationFrame: "readonly",
+        // Other APIs
+        NodeJS: "readonly",
+        EventListener: "readonly",
         // React globals
         React: "readonly",
         JSX: "readonly"
