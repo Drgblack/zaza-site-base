@@ -4,13 +4,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Copy, RefreshCw, Sparkles, ChevronDown } from 'lucide-react';
+import { Copy, RefreshCw, Sparkles, ChevronDown, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FormSelect } from '@/components/ui/FormSelect';
 import { ShareMenu } from '@/components/ui/ShareMenu';
 import { QuotaBadge } from '@/components/QuotaBadge';
 import { useQuota } from '@/components/hooks/useQuota';
 import { STARTERS, type Starter } from '@/data/snippet-presets';
+import { TemplateLibrary } from '@/components/TemplateLibrary';
+import { MessageTemplate, applyTemplate } from '@/lib/templates';
 
 
 interface TrySnippetMinimalProps {
@@ -35,9 +37,14 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   // Output and UI state
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [previewMode, setPreviewMode] = useState<'static' | 'realtime'>('static');
+  const [realtimePreview, setRealtimePreview] = useState('');
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+  const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
   
   const quota = useQuota();
   const previewRef = useRef<HTMLDivElement>(null);
+  const realtimeTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Smart student name detection
   function detectStudentFromDraft(draft: string): string | null {
@@ -51,6 +58,56 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
 
   const detected = detectStudentFromDraft(draft);
   const student = (studentField || detected || '').trim() || 'the student';
+
+  // Real-time preview generation
+  const generateRealtimePreview = async () => {
+    if (!draft || draft.length < 10) {
+      setRealtimePreview('');
+      return;
+    }
+
+    setIsPreviewLoading(true);
+    try {
+      const response = await fetch('/api/snippet/preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          draft,
+          student,
+          tone,
+          format
+        })
+      });
+      
+      const data = await response.json();
+      if (data.preview) {
+        setRealtimePreview(data.preview);
+      }
+    } catch (error) {
+      console.error('Preview generation failed:', error);
+    } finally {
+      setIsPreviewLoading(false);
+    }
+  };
+
+  // Debounced real-time preview
+  useEffect(() => {
+    if (previewMode === 'realtime' && draft) {
+      if (realtimeTimeoutRef.current) {
+        clearTimeout(realtimeTimeoutRef.current);
+      }
+      
+      realtimeTimeoutRef.current = setTimeout(() => {
+        generateRealtimePreview();
+      }, 1000); // 1 second debounce
+    }
+    
+    return () => {
+      if (realtimeTimeoutRef.current) {
+        clearTimeout(realtimeTimeoutRef.current);
+      }
+    };
+  }, [draft, student, tone, format, previewMode]);
 
   // Load starter preset
   const currentStarter = STARTERS.find(s => s.id === selectedStarter) || STARTERS[0];
@@ -211,6 +268,32 @@ export default function TrySnippetMinimal({ className }: TrySnippetMinimalProps)
   const handleShareCopyLink = () => {
     const body = output.slice(0, 160) + '...\n\nMade with Promptly – free demo at https://promptly.so/?utm_source=try_snippet&utm_medium=share&utm_campaign=demo';
     navigator.clipboard.writeText(body);
+  };
+
+  const handleSelectTemplate = (template: MessageTemplate) => {
+    // Apply template and fill form fields
+    const appliedContent = applyTemplate(template, student);
+    setOutput(appliedContent);
+    
+    // Update form fields to match template
+    setSelectedStarter(template.starter as Starter['id']);
+    setTone(template.tone);
+    setFormat(template.format);
+    
+    // Close template library
+    setShowTemplateLibrary(false);
+  };
+
+  const getCurrentMessage = () => {
+    if (!output) return undefined;
+    
+    return {
+      content: output,
+      starter: selectedStarter,
+      format,
+      tone,
+      student
+    };
   };
 
   const createFallback = () => {
@@ -427,6 +510,15 @@ Please feel free to reach out if you have any questions. Thanks for being such a
                 Copy
               </Button>
               
+              <Button
+                onClick={() => setShowTemplateLibrary(true)}
+                variant="outline"
+                className="flex-none"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                Templates
+              </Button>
+              
               <Button variant="outline" className="flex-none">
                 Start Free Trial
               </Button>
@@ -458,25 +550,54 @@ Please feel free to reach out if you have any questions. Thanks for being such a
             )}
 
             {/* Document Preview */}
-            <div className="flex items-end justify-between mb-4 relative z-40">
-              <div className="flex items-center gap-3">
-                <FormSelect
-                  label="Format"
-                  value={format}
-                  onChange={(value) => setFormat(value as 'email' | 'sms')}
-                  options={[
-                    {value:"email",label:"Email"},
-                    {value:"sms",label:"SMS"},
-                  ]}
-                  className="min-w-[180px]"
+            <div className="space-y-3 mb-4 relative z-40">
+              <div className="flex items-end justify-between">
+                <div className="flex items-center gap-3">
+                  <FormSelect
+                    label="Format"
+                    value={format}
+                    onChange={(value) => setFormat(value as 'email' | 'sms')}
+                    options={[
+                      {value:"email",label:"Email"},
+                      {value:"sms",label:"SMS"},
+                    ]}
+                    className="min-w-[180px]"
+                  />
+                </div>
+                
+                <ShareMenu
+                  onEmail={handleShareEmail}
+                  onWhatsApp={handleShareWhatsApp}
+                  onCopyLink={handleShareCopyLink}
                 />
               </div>
               
-              <ShareMenu
-                onEmail={handleShareEmail}
-                onWhatsApp={handleShareWhatsApp}
-                onCopyLink={handleShareCopyLink}
-              />
+              {/* Preview Mode Toggle */}
+              <div className="flex items-center gap-2">
+                <label className="text-xs font-medium text-slate-300">Preview Mode:</label>
+                <div className="flex items-center gap-1 bg-white/5 rounded-md p-1">
+                  <button
+                    onClick={() => setPreviewMode('static')}
+                    className={`px-2 py-1 text-xs rounded transition-colors ${
+                      previewMode === 'static'
+                        ? 'bg-white/20 text-white'
+                        : 'text-white/60 hover:text-white/80'
+                    }`}
+                  >
+                    Static
+                  </button>
+                  <button
+                    onClick={() => setPreviewMode('realtime')}
+                    className={`px-2 py-1 text-xs rounded transition-colors ${
+                      previewMode === 'realtime'
+                        ? 'bg-white/20 text-white'
+                        : 'text-white/60 hover:text-white/80'
+                    }`}
+                  >
+                    Live Preview
+                  </button>
+                </div>
+              </div>
             </div>
 
             <section
@@ -485,19 +606,32 @@ Please feel free to reach out if you have any questions. Thanks for being such a
               aria-live="polite"
               className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed rounded-lg border border-white/10 bg-[#0f1322] p-4 max-h-[560px] overflow-auto"
             >
-              {isLoading ? (
+              {(isLoading || isPreviewLoading) ? (
                 <div className="flex items-center justify-center h-32 not-prose">
                   <RefreshCw className="h-6 w-6 animate-spin text-fuchsia-500" />
+                  <span className="ml-2 text-sm text-white/60">
+                    {isLoading ? 'Generating...' : 'Live preview...'}
+                  </span>
                 </div>
               ) : (
                 <div className="text-white not-prose">
-                  {output || 'Generate your first message...'}
+                  {previewMode === 'realtime' && draft && realtimePreview
+                    ? realtimePreview
+                    : output || (previewMode === 'realtime' && draft ? 'Type more to see live preview...' : 'Generate your first message...')}
                 </div>
               )}
             </section>
           </div>
         </div>
       </section>
+      
+      {/* Template Library Modal */}
+      <TemplateLibrary
+        isOpen={showTemplateLibrary}
+        onClose={() => setShowTemplateLibrary(false)}
+        onSelectTemplate={handleSelectTemplate}
+        currentMessage={getCurrentMessage()}
+      />
     </main>
   );
 }
